@@ -82,9 +82,9 @@ sup { font-size: .62em; }
 .nav.scrolled { box-shadow: 0 1px 16px rgba(0,0,0,.07); border-bottom-color: transparent; }
 
 .brand { margin-right: auto; display: flex; align-items: baseline; gap: 8px; }
-.brand-en { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); }
+.brand-en { font-family: var(--serif); font-size: .92rem; color: var(--ink); }
 .brand-sep { color: var(--border2); font-weight: 300; }
-.brand-zh { font-size: .75rem; color: var(--ink3); }
+.brand-zh { font-size: .9rem; color: var(--ink); font-weight: 700; letter-spacing: .04em; }
 
 .nav-links { display: flex; }
 .nav-links a {
@@ -174,7 +174,7 @@ sup { font-size: .62em; }
 
 .hero-name {
   font-family: var(--serif);
-  font-size: clamp(2.2rem, 3.8vw, 3.1rem);
+  font-size: clamp(1.85rem, 3.1vw, 2.55rem);
   font-weight: 400; letter-spacing: -.01em; line-height: 1.05;
   color: var(--ink); margin-bottom: 4px;
 }
@@ -212,6 +212,7 @@ sup { font-size: .62em; }
 /* Bio paragraph inside hero */
 .hero-bio {
   font-size: .86rem; line-height: 1.78; color: var(--ink2);
+  text-align: justify; text-justify: inter-word;
 }
 .hero-bio strong { color: var(--ink); font-weight: 600; }
 .hero-bio a { color: var(--blue2); }
@@ -222,6 +223,7 @@ sup { font-size: .62em; }
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
   padding: 14px 16px;
   font-size: .8rem; color: var(--ink3); line-height: 1.85;
+  text-align: justify; text-justify: inter-character;
 }
 .hero-bio-zh-lbl {
   font-size: .6rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
@@ -246,14 +248,17 @@ sup { font-size: .62em; }
 
 .hcard {
   padding: 16px 18px;
-  background: #fcfcfd; border: 1px solid var(--border); border-radius: var(--r2);
+  background: linear-gradient(180deg, #eef5ff 0%, #fcfdff 120px);
+  border: 1px solid var(--blue-bd); border-radius: var(--r2);
   will-change: transform;
   transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+  text-align: justify;
+  text-justify: inter-character;
 }
 .hcard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 18px rgba(0,0,0,.055);
-  border-color: var(--border2);
+  box-shadow: 0 4px 18px rgba(30,58,95,.09);
+  border-color: var(--blue3);
 }
 .hcard-label {
   font-size: .65rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
@@ -286,6 +291,7 @@ sup { font-size: .62em; }
 }
 /* Machine Learning Resources card — 2/3 width, multi-column list */
 .res-list { list-style: none; columns: 2; column-gap: 18px; }
+@media (max-width: 760px) { .res-list { columns: 1; } }
 .res-list li { line-height: 1.3; break-inside: avoid; }
 .res-list a {
   display: block; position: relative;
@@ -341,6 +347,7 @@ sup { font-size: .62em; }
   background: var(--bg); border: 1px solid var(--border); border-radius: var(--r2);
   cursor: default;
   will-change: transform;
+  text-align: justify; text-justify: inter-character;
   transition: transform .2s var(--ease), box-shadow .2s var(--ease);
 }
 .rcard:hover { transform: translateY(-2px); box-shadow: 0 4px 18px rgba(0,0,0,.06); }
@@ -385,15 +392,10 @@ sup { font-size: .62em; }
 /* ──────────────────────────────────────────────────────
    Publications
 ────────────────────────────────────────────────────── */
-/* Publication stats — compact inline below title */
+/* Publication stats — hidden, accessible only via keyboard */
 .pub-stats-line {
-  display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
-  margin: -16px 0 18px;
-  font-size: .74rem; color: var(--ink4); font-family: var(--mono);
-  line-height: 1;
+  display: none;
 }
-.pub-stats-line .n { color: var(--ink2); font-weight: 600; }
-.pub-stats-line .sep { color: var(--border2); margin: 0 2px; user-select: none; }
 
 .pub {
   display: grid; grid-template-columns: 132px 1fr;
@@ -469,8 +471,23 @@ sup { font-size: .62em; }
   font-family: var(--mono); font-size: .6rem; font-weight: 500;
 }
 .deg-phd    { background: var(--blue2); color: #fff; }
-.deg-master { background: var(--surface2); color: var(--ink2); border: 1px solid var(--border2); }
+.deg-master { background: #e8edf5; color: #4a5e7a; border: 1px solid #b0bece; }
 .st-table td.dest { color: var(--ink4); font-size: .82rem; }
+
+/* Alumni divider row inside the student table */
+.st-alumni-divider td {
+  background: var(--blue-bg);
+  border-bottom: 1px solid var(--blue-bd) !important;
+  border-top: 2px solid var(--blue-bd);
+  padding: 6px 16px !important;
+  font-family: var(--mono); font-size: .62rem; font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: var(--blue2);
+}
+.st-alumni-divider td .zh { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--blue3); margin-left: 6px; }
+.st-alumni-divider:hover { background: transparent !important; }
+.st-alumni-row { background: #f5f9ff; }
+.st-alumni-row:hover { background: var(--blue-bg) !important; }
 
 /* Icon arrow for student table links */
 .icon-arrow-sm {
@@ -721,7 +738,6 @@ sup { font-size: .62em; }
     <a href="#news">News</a>
     <a href="#publications">Publications</a>
     <a href="#students">Group</a>
-    <a href="#education">Education</a>
     <a href="#teaching">Teaching</a>
     <a href="#service">Service</a>
   </div>
@@ -836,26 +852,19 @@ sup { font-size: .62em; }
      CARDS (below the Join card)
 ════════════════════════════════ -->
 <div class="cards-section">
-  <div class="info-row">
-    <!-- Latest Publication (1/3) + ML Resources (2/3) -->
-    <div class="hcard" data-v>
-      <p class="hcard-label">Latest Publication</p>
-      <a class="card-link" href="publications.html" target="_blank" rel="noopener">
-        Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition<span class="arr">↗</span>
-      </a>
-      <p class="hcard-venue">CVPR 2026</p>
-    </div>
-
+  <div class="info-row" style="grid-template-columns: 1fr;">
     <div class="hcard hcard-res" data-v>
-      <p class="hcard-label">Machine Learning Resources</p>
-      <ul class="res-list">
+      <p class="hcard-label">Research &amp; Writing Resources</p>
+      <ul class="res-list" style="columns: 3; column-gap: 22px;">
+        <li><a href="https://simon.peytonjones.org/great-research-paper/" target="_blank" rel="noopener">How to Write a Great Research Paper <span class="res-by">· Simon Peyton Jones (Microsoft Research)</span></a></li>
+        <li><a href="https://zhuanlan.zhihu.com/p/82823086" target="_blank" rel="noopener">如何做研究与写论文 · PPT <span class="res-by">· 周志华（南大）</span></a></li>
+        <li><a href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes" target="_blank" rel="noopener">Learn LaTeX in 30 minutes <span class="res-by">· Overleaf</span></a></li>
+        <li><a href="https://www.overleaf.com/learn/latex/Tutorials" target="_blank" rel="noopener">LaTeX Tutorials (16 lessons) <span class="res-by">· Overleaf</span></a></li>
         <li><a href="https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf" target="_blank" rel="noopener">Practical tips for ML practitioners <span class="res-by">· P. Domingos</span></a></li>
-        <li><a href="http://www.basicbooks.com/full-details?isbn=9780465065707" target="_blank" rel="noopener">The Master Algorithm <span class="res-by">· P. Domingos</span></a></li>
-        <li><a href="https://tyleransom.github.io/research/IntroMachineLearning.pdf" target="_blank" rel="noopener">Intro to ML for social scientists</a></li>
-        <li><a href="https://ccfddl.com/" target="_blank" rel="noopener">CCF conference deadlines</a></li>
-        <li><a href="https://ccf.atom.im/" target="_blank" rel="noopener">CCF conference &amp; journal list</a></li>
-        <li><a href="https://paperswithcode.com/datasets" target="_blank" rel="noopener">Papers with Code</a></li>
+        <li><a href="https://www.cs.columbia.edu/~hgs/etc/writing-style.html" target="_blank" rel="noopener">Writing Technical Articles <span class="res-by">· H. Schulzrinne (Columbia)</span></a></li>
         <li><a href="https://ece.uwaterloo.ca/~ece602/MISC/matrixcookbook.pdf" target="_blank" rel="noopener">The Matrix Cookbook</a></li>
+        <li><a href="https://ccfddl.com/" target="_blank" rel="noopener">CCF Conference Deadlines</a></li>
+        <li><a href="https://paperswithcode.com/datasets" target="_blank" rel="noopener">Papers with Code</a></li>
       </ul>
     </div>
   </div>
@@ -877,15 +886,14 @@ sup { font-size: .62em; }
   <div class="sec-head"><h2 class="sec-title">Latest News</h2></div>
 
   <div id="newsWrap" class="news-list">
-    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">03 / 2026</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Two papers accepted to <strong>CVPR 2026</strong>.</span></div>
-    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">03 / 2026</span><span class="news-body"><span class="nbadge nb-p">arXiv</span>New preprint on continual test-time adaptation — <a href="#" target="_blank" rel="noopener">read paper</a>.</span></div>
-    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">03 / 2026</span><span class="news-body"><span class="nbadge nb-p">arXiv</span>Two papers on generalist performance evaluators: <a href="#" target="_blank" rel="noopener">LLM routing</a> and <a href="#" target="_blank" rel="noopener">improved GRPO training</a>.</span></div>
-    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">02 / 2026</span><span class="news-body"><span class="nbadge nb-t">Talk</span>Invited talk at the <a href="#" target="_blank" rel="noopener">General-Purpose AI Systems Winter School</a>.</span></div>
-    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">02 / 2026</span><span class="news-body"><span class="nbadge nb-p">arXiv</span>Paper analyzing the "collapse" phenomenon in LLM routing.</span></div>
-    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">01 / 2026</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Two papers accepted to <strong>ICLR 2026</strong>.</span></div>
-    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">01 / 2026</span><span class="news-body"><span class="nbadge nb-p">arXiv</span>Comprehensive benchmark for <a href="#" target="_blank" rel="noopener">multimodal LLM routing</a> released.</span></div>
-    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">11 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Two papers accepted to <strong>NeurIPS 2025</strong>.</span></div>
-    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">07 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Paper on incomplete multi-view learning accepted to <strong>ACM MM 2025</strong>.</span></div>
+    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">06 / 2026</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Two papers accepted to <strong>ICML 2026</strong>. Congratulations to all coauthors.</span></div>
+    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">02 / 2026</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>One paper <em>"Non-convex Transfer Subspace Learning via Embedded Distribution Alignment"</em> accepted by <strong>IEEE Transactions on Image Processing</strong>. Congratulations to Yueyin Liu and all coauthors.</span></div>
+    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">02 / 2026</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>One paper <em>"Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition"</em> accepted by <strong>CVPR 2026</strong>. Congratulations to Hao Zhou and all coauthors.</span></div>
+    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">11 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Two papers <em>"Deep Partial Label Feature Selection with Cluster-Guided Disambiguation"</em> and <em>"ESTIM: Efficient and Scalable Tensorial Incomplete Multi-view Semi-supervised Classification"</em> accepted by <strong>ACM SIGKDD 2026</strong>. Congratulations to Mengyuan Tong, Xiangyao Li and all coauthors.</span></div>
+    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">11 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Two papers <em>"Multi-Label Classification with Incremental and Decremental Features"</em> and <em>"DPRM: A Dual Implicit Process Reward Model for Automatic Labeling and Collaborative Reasoning in Multi-Hop Question Answering"</em> accepted by <strong>AAAI 2026</strong>. Congratulations to Mingdie Jiang, Xinyi Wang and all coauthors.</span></div>
+    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">10 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>One paper <em>"Nonconvex and Adaptive Multi-Label Learning for Highly Incomplete Labels"</em> accepted by <strong>Knowledge-Based Systems</strong>. Congratulations to Quanjiang Li and all coauthors.</span></div>
+    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">09 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Three papers accepted by <strong>NeurIPS 2025</strong>. Congratulations to Quanjiang Li, Zhangqi Jiang and all coauthors.</span></div>
+    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">08 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>One paper <em>"Noise-Free Prototype Guided Representation Calibration under Label Noise"</em> accepted by <strong>Knowledge-Based Systems</strong>. Congratulations to Huiting Yuan and all coauthors.</span></div>
   </div>
   <div class="expand-wrap">
     <button class="pill" id="newsBtn">Show more <span class="chv"></span></button>
@@ -902,29 +910,20 @@ sup { font-size: .62em; }
     <div class="sec-actions">
       <a class="pill" href="https://scholar.google.com/citations?user=w0YDfhcAAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a>
       <a class="pill" href="https://dblp.org/pid/171/4035.html" target="_blank" rel="noopener">DBLP ↗</a>
-      <a class="pill" href="publications.html" target="_blank" rel="noopener">All Publications ↗</a>
     </div>
   </div>
 
-  <!-- Publication stats — compact inline line -->
-  <div class="pub-stats-line">
-    <span><span class="n">27</span> CCF-A</span><span class="sep">·</span>
-    <span><span class="n">16</span> CCF-B</span><span class="sep">·</span>
-    <span><span class="n">13</span> IEEE/ACM Trans</span><span class="sep">·</span>
-    <span><span class="n">23</span> 中科院1区/Q1</span><span class="sep">·</span>
-    <span><span class="n">41</span> 一作/通讯</span>
-  </div>
 
   <div id="pubList">
     <div class="pub" data-v>
       <div class="pub-thumb"><img src="./images/pub_figs/CVPR2026Trust.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">CVPR 2026</span></div>
       <div class="pub-body">
-        <p class="pub-title"><a href="publications.html" target="_blank" rel="noopener">Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition</a></p>
+        <p class="pub-title">Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition</p>
         <p class="pub-authors">Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup></p>
         <p class="pub-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2026</p>
         <div class="pub-foot">
           <p class="pub-abstract">Calibrates per-expert trust to balance head and tail classes, improving long-tailed visual recognition through collaborative learning.</p>
-          <div class="pub-links"><a href="publications.html" target="_blank" rel="noopener">[Details]</a></div>
+          <div class="pub-links"></div>
         </div>
       </div>
     </div>
@@ -932,12 +931,12 @@ sup { font-size: .62em; }
     <div class="pub" data-v>
       <div class="pub-thumb"><img src="./images/pub_figs/KDD2026DPLFS.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">KDD 2026</span></div>
       <div class="pub-body">
-        <p class="pub-title"><a href="publications.html" target="_blank" rel="noopener">Deep Partial Label Feature Selection with Cluster-Guided Disambiguation</a></p>
+        <p class="pub-title">Deep Partial Label Feature Selection with Cluster-Guided Disambiguation</p>
         <p class="pub-authors"><strong>Tingjin Luo</strong>, Mengyuan Tong, Qingchang Shu, Yueyin Liu, Hao Zhou, Zheng Wang</p>
         <p class="pub-venue">ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining, 2026</p>
         <div class="pub-foot">
           <p class="pub-abstract">Couples cluster-guided disambiguation with deep feature selection to learn discriminative features directly from partial-label data.</p>
-          <div class="pub-links"><a href="publications.html" target="_blank" rel="noopener">[Details]</a></div>
+          <div class="pub-links"></div>
         </div>
       </div>
     </div>
@@ -1061,49 +1060,21 @@ sup { font-size: .62em; }
         <tr><td>Hao Zhou</td><td><span class="deg deg-phd">PhD</span></td><td>2019–2021</td><td>TPAMI 2023, TPAMI 2025, Information Fusion 2025, AAAI 2025, CVPR 2026, TGRS 2026</td><td class="dest">Co-supervised with Prof. Jun Zhang</td></tr>
         <tr><td>Yueying Liu</td><td><span class="deg deg-phd">PhD</span></td><td>2021–</td><td>AAAI 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
         <tr><td>Xinyue Zhang</td><td><span class="deg deg-phd">PhD</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
-        <tr><td>Quanjiang Li <a href="https://quanjiang-li.github.io" target="_blank" rel="noopener" class="icon-arrow-sm" title="Personal page">↗</a></td><td><span class="deg deg-phd">PhD</span></td><td>2022 –</td><td>ICML 2026, AAAI 2026, NeurIPS2025, CVPR 2025, AAAI 2025, ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
-        <tr><td>Zhangqi Jiang</td><td><span class="deg deg-master">Master-Alumni</span></td><td>2021 –</td><td>NeurIPS2025, CVPR 2025, AAAI 2024</td><td class="dest"></td></tr>
-        <tr><td>Huiting Yuan</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
-        <tr><td>Yuchen Zhang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
-        <tr><td>Mingdie Jiang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
-        <tr><td>Mengtao Yang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
+        <tr><td>Quanjiang Li <a href="https://quanjiang-li.github.io" target="_blank" rel="noopener" class="icon-arrow-sm" title="Personal page">↗</a></td><td><span class="deg deg-phd">PhD</span></td><td>2022 –</td><td>CVPR 2025, ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
+        <tr><td>Zhangqi Jiang</td><td><span class="deg deg-master">Master-Alumni</span></td><td>2021 –</td><td>CVPR 2025, AAAI 2024</td><td class="dest">—</td></tr>
+        <tr><td>Huiting Yuan</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr><td>Yuchen Zhang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr><td>Mingdie Jiang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr><td>Mengtao Yang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
         <tr><td>Xiangyao Li</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
         <tr><td>Yang Li</td><td><span class="deg deg-master">Master</span></td><td>2023 –</td><td>CVPR 2025</td><td class="dest">—</td></tr>
         <tr><td>Mengyuan Tong</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
         <tr><td>Ziao Huang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
         <tr><td>Xinjun Hu</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr class="st-alumni-divider"><td colspan="5">Alumni <span class="zh">· 已毕业</span></td></tr>
+        <tr class="st-alumni-row"><td>Zhangqi Jiang</td><td><span class="deg deg-master">Master</span></td><td>2021 –</td><td>CVPR 2025, AAAI 2024</td><td class="dest">—</td></tr>
       </tbody>
     </table>
-  </div>
-</div>
-
-<!-- ════════════════════════════════
-     EDUCATION & EXPERIENCE
-════════════════════════════════ -->
-<a id="education" class="anchor"></a>
-<div class="sec">
-  <div class="sec-head"><h2 class="sec-title">Education &amp; Experience</h2></div>
-  <div class="edu-list">
-    <div class="edu-row" data-v>
-      <span class="edu-bullet">•</span><span class="edu-period">2020 – Present</span>
-      <div class="edu-main"><span class="edu-role-txt">Associate Professor</span><span class="edu-org-txt">&ensp;College of Sciences, National University of Defense Technology</span></div>
-    </div>
-    <div class="edu-row" data-v>
-      <span class="edu-bullet">•</span><span class="edu-period">2018 – 2020</span>
-      <div class="edu-main"><span class="edu-role-txt">Assistant Professor</span><span class="edu-org-txt">&ensp;College of Sciences, National University of Defense Technology</span></div>
-    </div>
-    <div class="edu-row" data-v>
-      <span class="edu-bullet">•</span><span class="edu-period">2015 – 2017</span>
-      <div class="edu-main"><span class="edu-role-txt blue">Visiting Ph.D. Student</span><span class="edu-org-txt">&ensp;University of Michigan, Ann Arbor</span></div>
-    </div>
-    <div class="edu-row" data-v>
-      <span class="edu-bullet">•</span><span class="edu-period">2011 – 2018</span>
-      <div class="edu-main"><span class="edu-role-txt">Ph.D.</span><span class="edu-org-txt">&ensp;National University of Defense Technology (NUDT)</span></div>
-    </div>
-    <div class="edu-row" data-v>
-      <span class="edu-bullet">•</span><span class="edu-period">2007 – 2011</span>
-      <div class="edu-main"><span class="edu-role-txt">B.Eng.</span><span class="edu-org-txt">&ensp;National University of Defense Technology (NUDT)</span></div>
-    </div>
   </div>
 </div>
 
@@ -1215,7 +1186,7 @@ sup { font-size: .62em; }
 <footer class="footer">
   <span class="footer-name">Tingjin Luo &middot; 罗廷金</span>
   <div class="footer-meta">
-    Last updated April 2026 &ensp;&middot;&ensp;
+    Last updated June 2026 &ensp;&middot;&ensp;
     <a href="https://github.com/HorizonAILab" target="_blank" rel="noopener">HorizonAILab</a>
     &ensp;&middot;&ensp; NUDT, Changsha
   </div>
@@ -1307,6 +1278,14 @@ function copyEmail() {
     t._timer = setTimeout(() => t.classList.remove('show'), 1800);
   });
 }
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'p' || e.key === 'P') {
+    if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+      window.open('publications.html', '_blank');
+    }
+  }
+});
 </script>
 </body>
 </html>
