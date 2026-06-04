@@ -449,19 +449,20 @@ sup { font-size: .62em; }
    Students — redesigned table
 ────────────────────────────────────────────────────── */
 .st-wrap { overflow-x: auto; border-radius: var(--r2); box-shadow: 0 0 0 1px var(--border); }
-.st-table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: .86rem; }
+.st-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: .8rem; }
 .st-table thead tr {
   background: var(--blue2);
 }
 .st-table th {
-  padding: 12px 16px; text-align: left;
-  font-family: var(--sans); font-size: .72rem; font-weight: 600;
+  padding: 9px 12px; text-align: left;
+  font-family: var(--sans); font-size: .68rem; font-weight: 600;
   letter-spacing: .04em; text-transform: uppercase;
-  color: #fff;
+  color: #fff; white-space: nowrap;
 }
 .st-table th:first-child { border-radius: var(--r2) 0 0 0; }
 .st-table th:last-child  { border-radius: 0 var(--r2) 0 0; }
-.st-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--ink2); vertical-align: middle; }
+.st-table td { padding: 7px 12px; border-bottom: 1px solid var(--border); color: var(--ink2); vertical-align: middle; white-space: nowrap; }
+.st-table td:nth-child(4) { white-space: normal; font-size: .76rem; color: var(--ink3); }
 .st-table tbody tr:last-child td { border-bottom: none; }
 .st-table tbody tr { transition: background .12s; }
 .st-table tbody tr:hover { background: var(--blue-bg); }
@@ -760,7 +761,7 @@ sup { font-size: .62em; }
         <span class="badge">GS</span>
         <span class="plink-main"><span class="plink-name">Google Scholar</span><span class="plink-sub">Citations &amp; publications</span></span>
       </a>
-      <a href="https://dblp.org/pid/171/4035.html" target="_blank" rel="noopener" class="plink">
+      <a href="https://dblp.org/pid/175/8608.html" target="_blank" rel="noopener" class="plink">
         <span class="badge">DB</span>
         <span class="plink-main"><span class="plink-name">DBLP</span><span class="plink-sub">Computer science bibliography</span></span>
       </a>
@@ -909,7 +910,7 @@ sup { font-size: .62em; }
     <h2 class="sec-title">Representative Publications</h2>
     <div class="sec-actions">
       <a class="pill" href="https://scholar.google.com/citations?user=w0YDfhcAAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a>
-      <a class="pill" href="https://dblp.org/pid/171/4035.html" target="_blank" rel="noopener">DBLP ↗</a>
+      <a class="pill" href="https://dblp.org/pid/175/8608.html" target="_blank" rel="noopener">DBLP ↗</a>
     </div>
   </div>
 
@@ -1060,17 +1061,17 @@ sup { font-size: .62em; }
         <tr><td>Hao Zhou</td><td><span class="deg deg-phd">PhD</span></td><td>2019–2021</td><td>TPAMI 2023, TPAMI 2025, Information Fusion 2025, AAAI 2025, CVPR 2026, TGRS 2026</td><td class="dest">Co-supervised with Prof. Jun Zhang</td></tr>
         <tr><td>Yueying Liu</td><td><span class="deg deg-phd">PhD</span></td><td>2021–</td><td>AAAI 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
         <tr><td>Xinyue Zhang</td><td><span class="deg deg-phd">PhD</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
-        <tr><td>Quanjiang Li <a href="https://quanjiang-li.github.io" target="_blank" rel="noopener" class="icon-arrow-sm" title="Personal page">↗</a></td><td><span class="deg deg-phd">PhD</span></td><td>2023–</td><td>ICML 2026, AAAI 2026, NeurIPS2025, CVPR 2025, AAAI 2025, ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
-        <tr><td>Zhangqi Jiang</td><td><span class="deg deg-master">Master-Alumni</span></td><td>2023-2025 –</td><td>NeurIPS2025, CVPR 2025, AAAI 2024</td><td class="dest"></td></tr>
-        <tr><td>Huiting Yuan</td><td><span class="deg deg-master">Master-Alumni</span></td><td>2023-2026 –</td><td>KBS 2025</td><td class="dest">—</td></tr>
-        <tr><td>Yuchen Zhang</td><td><span class="deg deg-master">Master</span></td><td>2024–</td><td>ACM TOIS 2026</td><td class="dest">—</td></tr>
-        <tr><td>Mingdie Jiang</td><td><span class="deg deg-master">Master</span></td><td>2024–</td><td>AAAI 2026</td><td class="dest">—</td></tr>
-        <tr><td>Mengtao Yang</td><td><span class="deg deg-master">Master</span></td><td>2024–</td><td>FCS 2026</td><td class="dest">—</td></tr>
-        <tr><td>Xiangyao Li</td><td><span class="deg deg-master">Master</span></td><td>2025–</td><td>ACM KDD 2026</td><td class="dest">—</td></tr>
-        <tr><td>Yang Li</td><td><span class="deg deg-master">Master</span></td><td>2025–</td><td>ICML 2026</td><td class="dest">—</td></tr>
-        <tr><td>Mengyuan Tong</td><td><span class="deg deg-master">Master</span></td><td>2025–</td><td>ACM KDD 2026</td><td class="dest">—</td></tr>
-        <tr><td>Ziao Huang</td><td><span class="deg deg-master">Master</span></td><td>2026–</td><td></td><td class="dest">—</td></tr>
-        <tr><td>Xinjun Hu</td><td><span class="deg deg-master">Master</span></td><td>2026–</td><td></td><td class="dest">—</td></tr>
+        <tr><td>Quanjiang Li <a href="https://quanjiang-li.github.io" target="_blank" rel="noopener" class="icon-arrow-sm" title="Personal page">↗</a></td><td><span class="deg deg-phd">PhD</span></td><td>2022 –</td><td>CVPR 2025, ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
+        <tr><td>Zhangqi Jiang</td><td><span class="deg deg-master">Master-Alumni</span></td><td>2021 –</td><td>CVPR 2025, AAAI 2024</td><td class="dest">—</td></tr>
+        <tr><td>Huiting Yuan</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr><td>Yuchen Zhang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr><td>Mingdie Jiang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr><td>Mengtao Yang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr><td>Xiangyao Li</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr><td>Yang Li</td><td><span class="deg deg-master">Master</span></td><td>2023 –</td><td>CVPR 2025</td><td class="dest">—</td></tr>
+        <tr><td>Mengyuan Tong</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr><td>Ziao Huang</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
+        <tr><td>Xinjun Hu</td><td><span class="deg deg-master">Master</span></td><td>2022 –</td><td>ACM MM 2024</td><td class="dest">—</td></tr>
         <tr class="st-alumni-divider"><td colspan="5">Alumni <span class="zh">· 已毕业</span></td></tr>
         <tr class="st-alumni-row"><td>Zhangqi Jiang</td><td><span class="deg deg-master">Master</span></td><td>2021 –</td><td>CVPR 2025, AAAI 2024</td><td class="dest">—</td></tr>
       </tbody>
