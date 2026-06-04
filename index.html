@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tingjin Luo — NUDT</title>
+<meta name="description" content="Tingjin Luo, Associate Professor, College of Sciences, NUDT.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'KaiTiLocal';
+  src: local('KaiTi'), local('STKaiti'), local('FZKai-Z03S'), local('AR PL UKai CN'), local('TW-Kai'), local('Kai');
+  unicode-range: U+4E00-9FFF, U+3400-4DBF;
+}
+:root {
+  --bg:        #ffffff;
+  --surface:   #f7f8fa;
+  --surface2:  #f0f2f5;
+  --border:    #e8eaed;
+  --border2:   #d1d5db;
+
+  --ink:       #111318;
+  --ink2:      #374151;
+  --ink3:      #6b7280;
+  --ink4:      #9ca3af;
+
+  /* Deep navy blue replacing the bright blue */
+  --blue:      #1e3a5f;
+  --blue2:     #1d4480;
+  --blue3:     #2c5f9e;
+  --blue-bg:   #eef3fa;
+  --blue-bd:   #b8cfe8;
+
+  --green:     #059669;
+  --green-bg:  #ecfdf5;
+  --green-bd:  #a7f3d0;
+
+  --amber:     #d97706;
+  --amber-bg:  #fffbeb;
+  --amber-bd:  #fde68a;
+
+  --serif:     'DM Serif Display', Georgia, serif;
+  --sans:      'Inter', -apple-system, system-ui, sans-serif;
+  --mono:      'JetBrains Mono', monospace;
+
+  --nav-h:     56px;
+  --r:         8px;
+  --r2:        12px;
+  --ease:      cubic-bezier(.4,0,.2,1);
+  --ease-out:  cubic-bezier(.2,0,0,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+img  { display: block; max-width: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  padding-top: var(--nav-h);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+sup { font-size: .62em; }
+
+/* Navigation */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 200;
+  height: var(--nav-h);
+  display: flex; align-items: center;
+  padding: 0 clamp(20px,5vw,60px);
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow .2s var(--ease), border-color .2s var(--ease);
+}
+.nav.scrolled { box-shadow: 0 1px 16px rgba(0,0,0,.07); border-bottom-color: transparent; }
+
+.brand { margin-right: auto; display: flex; align-items: baseline; gap: 8px; }
+.brand-en { font-family: var(--serif); font-size: .92rem; color: var(--ink); }
+.brand-sep { color: var(--border2); font-weight: 300; }
+.brand-zh { font-size: .9rem; color: var(--ink); font-weight: 700; letter-spacing: .04em; }
+
+.nav-links { display: flex; }
+.nav-links a {
+  padding: 5px 11px;
+  font-size: .77rem; font-weight: 500; color: var(--ink3);
+  border-radius: 6px;
+  transition: color .13s, background .13s;
+}
+.nav-links a:hover { color: var(--ink); background: var(--surface); }
+.nav-links a.on { color: var(--blue2); }
+
+.nav-toggle { display: none; }
+.hamburger  { display: none; }
+
+/* Page wrapper */
+.page {
+  width: min(1080px, calc(100% - clamp(24px,5vw,80px)));
+  margin: 0 auto; padding-bottom: 80px;
+  animation: rise .5s var(--ease) both;
+}
+@keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+
+/* ──────────────────────────────────────────────────────
+   Hero — redesigned with bio integrated
+────────────────────────────────────────────────────── */
+.hero {
+  display: grid; grid-template-columns: 216px 1fr;
+  padding: 52px 0 36px;
+}
+
+.hero-left { padding-right: 36px; display: flex; flex-direction: column; gap: 18px; }
+
+.photo {
+  width: 188px; height: 235px;
+  border-radius: var(--r2); overflow: hidden;
+  background: var(--surface2);
+}
+.photo img { width:100%; height:100%; object-fit:cover; object-position:top; transition: transform .5s var(--ease); }
+.photo:hover img { transform: scale(1.03); }
+
+.profile-links { display: flex; flex-direction: column; gap: 1px; }
+.plink {
+  display: flex; align-items: center; gap: 9px;
+  padding: 6px 8px 6px 6px; border-radius: 7px;
+  font-size: .84rem; color: var(--ink2);
+  overflow: hidden;
+  transition: color .18s var(--ease), background .18s var(--ease), transform .2s var(--ease-out);
+}
+.plink:hover { color: var(--blue2); background: var(--blue-bg); transform: translateX(4px); }
+.plink:hover .badge { background: var(--blue2); }
+.plink-main { display: flex; flex-direction: column; min-width: 0; }
+.plink-name { line-height: 1.2; white-space: nowrap; }
+.plink-sub {
+  font-size: .65rem; color: var(--blue3); font-weight: 400;
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height .2s var(--ease), opacity .2s var(--ease);
+  white-space: nowrap;
+}
+.plink:hover .plink-sub { max-height: 20px; opacity: 1; }
+.badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 18px; flex-shrink: 0;
+  background: var(--ink); color: #fff;
+  font-family: var(--mono); font-size: .54rem; font-weight: 500;
+  border-radius: 4px; transition: background .13s;
+}
+
+/* Right column */
+.hero-right {
+  padding-left: 44px;
+  display: flex; flex-direction: column; gap: 18px;
+}
+
+/* Bio row: EN text + ZH box side by side */
+.hero-bio-row {
+  display: grid; grid-template-columns: 1fr 296px; gap: 16px; align-items: start;
+}
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px; border-radius: 99px;
+  background: var(--blue-bg); border: 1px solid var(--blue-bd);
+  font-size: .7rem; font-weight: 500; color: var(--blue2);
+  margin-bottom: 14px;
+}
+.eyebrow-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue3); flex-shrink: 0; }
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(1.65rem, 2.7vw, 2.2rem);
+  font-weight: 400; letter-spacing: -.01em; line-height: 1.05;
+  color: var(--ink); margin-bottom: 4px;
+}
+.hero-name .zh {
+  font-family: 'KaiTiLocal', 'KaiTi', 'STKaiti', 'FZKai-Z03S', 'Noto Serif SC', serif;
+  font-style: normal; font-weight: 400;
+  font-size: .62em; color: var(--ink3); letter-spacing: .06em;
+  vertical-align: .18em; margin-left: .55em;
+}
+
+.affil { font-size: .9rem; color: var(--ink2); line-height: 1.6; margin-bottom: 10px; }
+.affil a { color: var(--ink2); transition: color .13s; }
+.affil a:hover { color: var(--blue2); }
+
+.email-row {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 8px 5px 6px; border-radius: 7px;
+  cursor: default;
+  transition: transform .2s var(--ease-out);
+}
+.email-row:hover { transform: translateX(4px); }
+.email-row:hover .email-label { color: var(--blue2); border-color: var(--blue-bd); }
+.email-row:hover .email-addr { color: var(--blue2); }
+.email-label {
+  font-family: var(--sans); font-size: .63rem; font-weight: 500;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--ink3);
+  padding: 2px 7px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  transition: color .18s, border-color .18s;
+}
+.email-addr {
+  font-family: var(--mono); font-size: .8rem; color: var(--ink2);
+  transition: color .18s;
+}
+
+/* Bio paragraph inside hero */
+.hero-bio {
+  font-size: .86rem; line-height: 1.78; color: var(--ink2);
+  text-align: justify; text-justify: inter-word;
+}
+.hero-bio strong { color: var(--ink); font-weight: 600; }
+.hero-bio a { color: var(--blue2); }
+.hero-bio a:hover { text-decoration: underline; text-decoration-color: var(--blue-bd); }
+
+/* Bio Chinese box */
+.hero-bio-zh {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 14px 16px;
+  font-size: .8rem; color: var(--ink3); line-height: 1.85;
+  text-align: justify; text-justify: inter-character;
+}
+.hero-bio-zh-lbl {
+  font-size: .6rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink4); display: block; margin-bottom: 6px;
+}
+
+/* ──────────────────────────────────────────────────────
+   Cards section (below hero) — unified 4-col grid
+────────────────────────────────────────────────────── */
+.cards-section {
+  padding-top: 28px;
+}
+
+/* Card rows below the Join card */
+.info-row {
+  display: grid; grid-template-columns: 1fr 2fr; gap: 10px;
+  margin-bottom: 10px;
+}
+.research-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+}
+
+.hcard {
+  padding: 16px 18px;
+  background: linear-gradient(180deg, #eef5ff 0%, #fcfdff 120px);
+  border: 1px solid var(--blue-bd); border-radius: var(--r2);
+  will-change: transform;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+  text-align: justify;
+  text-justify: inter-character;
+}
+.hcard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(30,58,95,.09);
+  border-color: var(--blue3);
+}
+.hcard-label {
+  font-size: .65rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink4); margin-bottom: 9px;
+  display: flex; align-items: center; gap: 6px;
+}
+.live {
+  width: 5px; height: 5px; border-radius: 50%; background: var(--green); position: relative; flex-shrink: 0;
+}
+.live::after {
+  content: ""; position: absolute; inset: -3px; border-radius: 50%;
+  background: var(--green); opacity: 0;
+  animation: ping 2.4s ease-in-out infinite;
+}
+@keyframes ping { 0%,100%{transform:scale(.7);opacity:0;} 50%{transform:scale(1.4);opacity:.22;} }
+
+.card-link {
+  display: block;
+  font-size: .9rem; font-weight: 500; color: var(--ink); line-height: 1.45;
+  transition: color .13s;
+}
+.card-link:hover { color: var(--blue2); }
+.card-link:hover .arr { transform: translate(2px,-2px); }
+.arr {
+  display: inline-block; font-size: .78em; color: var(--ink3);
+  margin-left: 2px; transition: transform .18s var(--ease-out);
+}
+.hcard-venue {
+  font-family: var(--mono); font-size: .65rem; color: var(--blue2); letter-spacing: .03em; margin-top: 6px;
+}
+/* Machine Learning Resources card — 2/3 width, multi-column list */
+.res-list { list-style: none; columns: 2; column-gap: 18px; }
+@media (max-width: 760px) { .res-list { columns: 1; } }
+.res-list li { line-height: 1.3; break-inside: avoid; }
+.res-list a {
+  display: block; position: relative;
+  padding: 4px 8px 4px 16px; border-radius: 6px;
+  font-size: .78rem; color: var(--ink2);
+  transition: color .13s, background .13s, transform .18s var(--ease-out);
+}
+.res-list a::before {
+  content: "›"; position: absolute; left: 5px; top: 3px;
+  color: var(--blue3); font-weight: 600;
+  transition: transform .18s var(--ease-out);
+}
+.res-list a:hover { color: var(--blue2); background: var(--blue-bg); }
+.res-list a:hover::before { transform: translateX(2px); }
+.res-by { color: var(--ink4); font-size: .92em; }
+
+/* ──────────────────────────────────────────────────────
+   Section scaffolding
+────────────────────────────────────────────────────── */
+.anchor {
+  display: block; position: relative;
+  top: calc(-1 * var(--nav-h) - 18px);
+  visibility: hidden; pointer-events: none;
+}
+.sec { padding-top: 56px; }
+
+.sec-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  margin-bottom: 24px;
+}
+.sec-title { font-size: 1.3rem; font-weight: 600; letter-spacing: -.02em; color: var(--ink); }
+.sec-actions { display: flex; align-items: center; gap: 8px; }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 12px; border-radius: 99px;
+  font-size: .74rem; font-weight: 500; color: var(--ink3);
+  background: var(--surface); border: 1px solid var(--border); cursor: pointer;
+  transition: color .13s, border-color .13s, background .13s;
+}
+.pill:hover { color: var(--blue2); border-color: var(--blue-bd); background: var(--blue-bg); }
+.pill .chv {
+  width: 8px; height: 8px; flex-shrink: 0;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translate(-1px,-1px);
+  transition: transform .15s var(--ease);
+}
+.pill.open .chv { transform: rotate(-135deg) translate(-1px,-1px); }
+
+/* Research area cards */
+.rcard {
+  padding: 18px 16px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r2);
+  cursor: default;
+  will-change: transform;
+  text-align: justify; text-justify: inter-character;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.rcard:hover { transform: translateY(-2px); box-shadow: 0 4px 18px rgba(0,0,0,.06); }
+.rcard-n { font-family: var(--mono); font-size: .6rem; color: var(--ink4); letter-spacing: .06em; margin-bottom: 10px; display: block; }
+.rcard h3 { font-size: .88rem; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 6px; letter-spacing: -.01em; }
+.rcard p  { font-size: .76rem; color: var(--ink3); line-height: 1.6; }
+
+/* ──────────────────────────────────────────────────────
+   News — no dividers, bullet list style
+────────────────────────────────────────────────────── */
+.news-list { list-style: none; }
+.news-row {
+  display: grid; grid-template-columns: 8px 80px 1fr;
+  gap: 0 10px; align-items: baseline;
+  padding: 7px 0;
+}
+.news-bullet { color: var(--blue3); font-size: .9em; line-height: 1.65; }
+.news-dt { font-family: var(--mono); font-size: .7rem; color: var(--ink2); white-space: nowrap; }
+.news-body {
+  font-size: .88rem; color: var(--ink2); line-height: 1.6;
+}
+.news-body a { color: var(--blue2); }
+.news-body a:hover { text-decoration: underline; text-decoration-color: var(--blue-bd); }
+
+.nbadge {
+  display: inline-flex; align-items: center;
+  font-family: var(--mono); font-size: .57rem; font-weight: 500;
+  letter-spacing: .03em; padding: 1px 6px;
+  border: 1px solid; border-radius: 3px;
+  margin-right: 6px; vertical-align: .1em;
+}
+.nb-a { color: var(--green); border-color: var(--green-bd); background: var(--green-bg); }
+.nb-p { color: var(--blue2); border-color: var(--blue-bd); background: var(--blue-bg); }
+.nb-t { color: var(--amber); border-color: var(--amber-bd); background: var(--amber-bg); }
+
+.news-extra { display: none; }
+.news-extra.show { display: grid; animation: fadeUp .2s var(--ease) both; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+
+.expand-wrap { margin-top: 14px; }
+
+/* ──────────────────────────────────────────────────────
+   Publications
+────────────────────────────────────────────────────── */
+/* Publication stats — hidden, accessible only via keyboard */
+.pub-stats-line {
+  display: none;
+}
+
+.pub {
+  display: grid; grid-template-columns: 132px 1fr;
+  border: 1px solid var(--border); border-radius: var(--r2);
+  overflow: hidden; margin-bottom: 20px;
+  transition: box-shadow .2s var(--ease), border-color .2s var(--ease);
+}
+.pub:hover { box-shadow: 0 3px 14px rgba(0,0,0,.06); border-color: var(--border2); }
+.pub.hidden { display: none; }
+.pub.shown { display: grid; animation: fadeUp .3s var(--ease) both; }
+
+.pub-thumb {
+  position: relative; min-height: 96px;
+  background: var(--surface2); overflow: hidden;
+}
+.pub-thumb img { width:100%; height:100%; object-fit:cover; object-position:top; transition: transform .5s var(--ease); }
+.pub:hover .pub-thumb img { transform: scale(1.04); }
+.pub-thumb.no-img { background: linear-gradient(135deg, var(--blue-bg) 0%, var(--surface2) 100%); }
+.venue-chip {
+  position: absolute; top: 10px; left: 10px;
+  padding: 2px 8px; border-radius: 4px;
+  font-family: var(--mono); font-size: .57rem; font-weight: 500;
+  padding: 3px 8px;
+  background: rgba(17,19,24,.82); color: #fff;
+  letter-spacing: .04em; backdrop-filter: blur(4px);
+}
+
+.pub-body { padding: 13px 18px; display: flex; flex-direction: column; gap: 3px; }
+.pub-title { font-size: .91rem; font-weight: 600; line-height: 1.35; color: var(--ink); margin-bottom: 2px; }
+.pub-title a { transition: color .13s; }
+.pub-title a:hover { color: var(--blue2); }
+.pub-authors { font-size: .76rem; color: var(--ink3); line-height: 1.45; }
+.pub-authors strong { color: var(--ink2); font-weight: 600; }
+.pub-venue { font-family: var(--mono); font-size: .65rem; color: var(--ink4); }
+.pub-foot {
+  display: flex; align-items: baseline; gap: 10px;
+  flex-wrap: wrap; margin-top: 5px;
+}
+.pub-abstract { font-size: .77rem; color: var(--ink3); line-height: 1.6; flex: 1; min-width: 0; }
+.pub-links { display: flex; gap: 4px; flex-wrap: nowrap; flex-shrink: 0; }
+.pub-links a {
+  font-family: var(--mono); font-size: .62rem; font-weight: 500;
+  padding: 2px 8px; border: 1px solid var(--border); border-radius: 99px;
+  background: var(--surface); color: var(--ink2);
+  white-space: nowrap;
+  transition: color .13s, border-color .13s, background .13s;
+}
+.pub-links a:hover { color: var(--blue2); border-color: var(--blue-bd); background: var(--blue-bg); }
+
+/* ──────────────────────────────────────────────────────
+   Students — redesigned table
+────────────────────────────────────────────────────── */
+.st-wrap { overflow-x: auto; border-radius: var(--r2); box-shadow: 0 0 0 1px var(--border); }
+.st-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: .8rem; }
+.st-table thead tr {
+  background: var(--blue2);
+}
+.st-table th {
+  padding: 9px 12px; text-align: left;
+  font-family: var(--sans); font-size: .68rem; font-weight: 600;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: #fff; white-space: nowrap;
+}
+.st-table th:first-child { border-radius: var(--r2) 0 0 0; }
+.st-table th:last-child  { border-radius: 0 var(--r2) 0 0; }
+.st-table td { padding: 7px 12px; border-bottom: 1px solid var(--border); color: var(--ink2); vertical-align: middle; white-space: nowrap; }
+.st-table td:nth-child(4) { white-space: normal; font-size: .76rem; color: var(--ink3); }
+.st-table tbody tr:last-child td { border-bottom: none; }
+.st-table tbody tr { transition: background .12s; }
+.st-table tbody tr:hover { background: var(--blue-bg); }
+.deg {
+  display: inline-flex; align-items: center;
+  padding: 2px 10px; border-radius: 4px;
+  font-family: var(--mono); font-size: .6rem; font-weight: 500;
+}
+.deg-phd    { background: var(--blue2); color: #fff; }
+.deg-master { background: #e8edf5; color: #4a5e7a; border: 1px solid #b0bece; }
+.st-table td.dest { color: var(--ink4); font-size: .82rem; }
+
+/* Alumni divider row inside the student table */
+.st-alumni-divider td {
+  background: var(--blue-bg);
+  border-bottom: 1px solid var(--blue-bd) !important;
+  border-top: 2px solid var(--blue-bd);
+  padding: 6px 16px !important;
+  font-family: var(--mono); font-size: .62rem; font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: var(--blue2);
+}
+.st-alumni-divider td .zh { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--blue3); margin-left: 6px; }
+.st-alumni-divider:hover { background: transparent !important; }
+.st-alumni-row { background: #f5f9ff; }
+.st-alumni-row:hover { background: var(--blue-bg) !important; }
+
+/* Icon arrow for student table links */
+.icon-arrow-sm {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 16px; flex-shrink: 0;
+  border-radius: 4px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--ink3);
+  font-size: .72rem; line-height: 1; margin-left: 5px;
+  vertical-align: middle;
+  transition: color .13s, border-color .13s, background .13s, transform .18s var(--ease-out);
+}
+.icon-arrow-sm:hover { color: var(--blue2); border-color: var(--blue-bd); background: var(--blue-bg); transform: translate(1px,-1px); }
+
+/* ──────────────────────────────────────────────────────
+   Education — no dividers, bullet list style
+────────────────────────────────────────────────────── */
+.edu-list { list-style: none; }
+.edu-row {
+  display: grid; grid-template-columns: 8px 120px 1fr;
+  gap: 0 10px; align-items: baseline;
+  padding: 7px 0;
+}
+.edu-bullet { color: var(--blue3); font-size: .9em; line-height: 1.65; }
+.edu-period {
+  font-family: var(--mono); font-size: .69rem; color: var(--ink2);
+  white-space: nowrap; padding-top: .08em;
+}
+.edu-main {
+  font-size: .9rem; color: var(--ink2); line-height: 1.5;
+}
+.edu-role-txt { font-weight: 600; color: var(--ink); }
+.edu-role-txt.blue { color: var(--blue2); }
+.edu-org-txt { font-size: .82rem; color: var(--ink3); margin-left: .4em; }
+
+/* ──────────────────────────────────────────────────────
+   Teaching — no dividers, bullet list style
+────────────────────────────────────────────────────── */
+.tch-list { list-style: none; }
+.tch-row {
+  display: flex; align-items: baseline; gap: 0;
+  padding: 6px 0;
+  font-size: .9rem; color: var(--ink2); line-height: 1.55;
+}
+.tch-row::before {
+  content: "•"; color: var(--blue3); font-size: .9em; margin-right: 8px; flex-shrink: 0;
+}
+.tch-name-link { font-weight: 600; color: var(--blue2); cursor: default; }
+.tch-desc { color: var(--ink3); }
+
+/* ──────────────────────────────────────────────────────
+   Service (academic service) — compact, minimal effects
+────────────────────────────────────────────────────── */
+.svc-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+}
+.svc-card {
+  padding: 14px 16px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r);
+}
+.svc-card.wide { grid-column: 1 / -1; }
+.svc-card-title {
+  font-size: .72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 11px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.svc-card-title .zh { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--ink4); }
+
+/* Editor / org list rows */
+.svc-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.svc-list li { font-size: .82rem; color: var(--ink2); line-height: 1.45; }
+.svc-jname { font-weight: 600; color: var(--ink); }
+.svc-year { font-family: var(--mono); font-size: .66rem; color: var(--ink4); }
+.svc-if {
+  font-family: var(--mono); font-size: .62rem; color: var(--amber); margin-left: 2px;
+}
+
+/* chips for reviewers / conferences */
+.svc-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.svc-chip {
+  display: inline-flex; align-items: baseline; gap: 5px;
+  padding: 2px 9px; border-radius: 99px;
+  font-size: .72rem; color: var(--ink2);
+  background: var(--surface); border: 1px solid var(--border);
+}
+.svc-chip .yr { font-family: var(--mono); font-size: .6rem; color: var(--ink4); }
+.svc-sub { font-size: .68rem; color: var(--ink4); font-weight: 600; margin: 12px 0 7px; letter-spacing: .03em; }
+
+/* ──────────────────────────────────────────────────────
+   Join the group (recruitment) — big gradient card under bio
+────────────────────────────────────────────────────── */
+.join-section { margin-top: 30px; }
+.join-card {
+  border: 1px solid var(--blue-bd); border-radius: var(--r2);
+  background: linear-gradient(180deg, var(--blue-bg) 0%, #fcfdff 150px);
+  padding: 22px clamp(20px, 3vw, 30px);
+}
+.join-card-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 1.05rem; font-weight: 600; color: var(--ink);
+  letter-spacing: -.01em; margin-bottom: 14px;
+}
+.join-card-title .live { width: 6px; height: 6px; }
+.join-card-title .zh { font-size: .75rem; font-weight: 400; color: var(--ink3); }
+.join-intro { font-size: .9rem; color: var(--ink2); line-height: 1.7; }
+.join-intro + .join-intro { margin-top: 10px; }
+.join-intro strong { color: var(--ink); font-weight: 600; }
+.join-intro a { color: var(--blue2); font-weight: 500; }
+.join-intro a:hover { text-decoration: underline; }
+.join-zh-note { display: block; margin-top: 4px; font-size: .8rem; color: var(--ink3); line-height: 1.7; }
+
+.join-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+.join-point {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 15px 18px;
+}
+.join-point-h {
+  display: flex; align-items: center; gap: 9px;
+  font-size: .82rem; font-weight: 600; color: var(--ink); margin-bottom: 8px;
+}
+.join-point-h .num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 6px;
+  background: var(--blue2); color: #fff;
+  font-family: var(--mono); font-size: .62rem; flex-shrink: 0;
+}
+.join-point-h .zh { font-size: .72rem; font-weight: 400; color: var(--ink4); }
+.join-point p { font-size: .82rem; color: var(--ink2); line-height: 1.65; text-align: justify; text-justify: inter-character; }
+.join-point a { color: var(--blue2); }
+.join-point a:hover { text-decoration: underline; }
+
+/* ──────────────────────────────────────────────────────
+   Footer
+────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 56px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.footer-name { font-size: .84rem; font-weight: 600; color: var(--ink); letter-spacing: -.01em; }
+.footer-meta { font-family: var(--mono); font-size: .68rem; color: var(--ink4); text-align: right; line-height: 1.65; }
+.footer-meta a { color: var(--ink3); transition: color .13s; }
+.footer-meta a:hover { color: var(--blue2); }
+
+/* Copy toast */
+.copy-toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(8px);
+  padding: 8px 18px; border-radius: 8px;
+  background: var(--ink); color: #fff;
+  font-size: .78rem; font-weight: 500; letter-spacing: .01em;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s var(--ease), transform .2s var(--ease);
+  z-index: 999;
+}
+.copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Scroll reveal */
+[data-v] {
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .36s var(--ease), transform .36s var(--ease);
+}
+[data-v].vis { opacity: 1; transform: translateY(0); }
+
+.bio-email-mobile { display: none; margin-top: 16px; }
+
+/* Responsive */
+@media (max-width: 980px) {
+  .research-row { grid-template-columns: repeat(2, 1fr); }
+  .join-points { grid-template-columns: 1fr; }
+  .hero-bio-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .hero-left { flex-direction: row; gap: 18px; padding-right: 0; }
+  .photo { width: 100px; height: 126px; }
+  .hero-right { padding-left: 0; }
+  .pub { grid-template-columns: 104px 1fr; }
+  .info-row { grid-template-columns: 1fr; }
+  .edu-row { grid-template-columns: 8px 90px 1fr; }
+}
+@media (max-width: 560px) {
+  .hero { display: none; }
+  .bio-email-mobile { display: inline-flex; }
+  .pub { grid-template-columns: 1fr; }
+  .pub-thumb { min-height: 130px; border-bottom: 1px solid var(--border); }
+  .sec-title { font-size: 1.15rem; }
+  .footer { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .footer-meta { text-align: left; }
+  .hamburger {
+    display: inline-flex; flex-direction: column;
+    justify-content: center; gap: 5px;
+    width: 38px; height: 38px; cursor: pointer; margin-left: 8px;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 1.5px;
+    background: var(--ink); border-radius: 1px;
+    transition: transform .2s, opacity .2s;
+  }
+  .nav-links {
+    position: absolute; top: var(--nav-h); left: 0; right: 0;
+    display: grid; gap: 0; max-height: 0; overflow: hidden;
+    background: rgba(255,255,255,.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: max-height .24s var(--ease), padding .24s var(--ease);
+    padding: 0 20px;
+  }
+  .nav-links a { padding: 13px 4px; border-bottom: 1px solid var(--border); font-size: .88rem; border-radius: 0; }
+  .nav-links a:last-child { border-bottom: none; }
+  .nav-toggle:checked ~ .nav-links { max-height: 75vh; padding: 6px 20px; }
+  .nav-toggle:checked + .hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-toggle:checked + .hamburger span:nth-child(2) { opacity: 0; }
+  .nav-toggle:checked + .hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .research-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .info-row { grid-template-columns: 1fr; gap: 8px; }
+  .res-list { columns: 1; }
+  .rcard { padding: 14px 12px; }
+  .rcard h3 { font-size: .82rem; }
+  .rcard p  { font-size: .72rem; }
+  .news-row { grid-template-columns: 8px 56px 1fr; gap: 0 8px; }
+  .news-dt   { font-size: .65rem; }
+  .news-body { font-size: .83rem; }
+  .st-table { font-size: .8rem; }
+  .st-table th, .st-table td { padding: 8px 10px; }
+  .pub-abstract { display: none; }
+  .pub-foot { margin-top: 6px; }
+  .edu-row { grid-template-columns: 8px 82px 1fr; gap: 0 8px; }
+  .edu-main { font-size: .84rem; }
+  .tch-row { flex-wrap: wrap; font-size: .84rem; }
+  .tch-desc { font-size: .78rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="brand">
+    <span class="brand-en">Tingjin Luo</span>
+    <span class="brand-sep">/</span>
+    <span class="brand-zh">罗廷金</span>
+  </div>
+  <input type="checkbox" id="ntoggle" class="nav-toggle" aria-hidden="true">
+  <label for="ntoggle" class="hamburger"><span></span><span></span><span></span></label>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#join">Join</a>
+    <a href="#news">News</a>
+    <a href="#publications">Publications</a>
+    <a href="#students">Group</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#service">Service</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ════════════════════════════════
+     HERO (with integrated bio)
+════════════════════════════════ -->
+<a id="home" class="anchor"></a>
+<div class="hero">
+
+  <div class="hero-left">
+    <div class="photo">
+      <img src="./images/profile.jpg" alt="Tingjin Luo">
+    </div>
+    <nav class="profile-links">
+      <a href="https://scholar.google.com/citations?user=w0YDfhcAAAAJ" target="_blank" rel="noopener" class="plink">
+        <span class="badge">GS</span>
+        <span class="plink-main"><span class="plink-name">Google Scholar</span><span class="plink-sub">Citations &amp; publications</span></span>
+      </a>
+      <a href="https://dblp.org/pid/175/8608.html" target="_blank" rel="noopener" class="plink">
+        <span class="badge">DB</span>
+        <span class="plink-main"><span class="plink-name">DBLP</span><span class="plink-sub">Computer science bibliography</span></span>
+      </a>
+      <a href="https://www.researchgate.net/profile/Tingjin-Luo" target="_blank" rel="noopener" class="plink">
+        <span class="badge">RG</span>
+        <span class="plink-main"><span class="plink-name">ResearchGate</span><span class="plink-sub">Profile &amp; preprints</span></span>
+      </a>
+      <a href="https://github.com/HorizonAILab" target="_blank" rel="noopener" class="plink">
+        <span class="badge">GH</span>
+        <span class="plink-main"><span class="plink-name">HorizonAILab</span><span class="plink-sub">Code &amp; projects</span></span>
+      </a>
+      <a href="https://orcid.org/0000-0002-8171-3971" target="_blank" rel="noopener" class="plink">
+        <span class="badge">ID</span>
+        <span class="plink-main"><span class="plink-name">ORCID</span><span class="plink-sub">0000-0002-8171-3971</span></span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="hero-right">
+    <div>
+      <div class="eyebrow"><span class="eyebrow-dot"></span>Associate Professor &middot; 副教授</div>
+      <h1 class="hero-name">Tingjin Luo<span class="zh">罗廷金</span></h1>
+      <p class="affil">
+        <a href="https://www.nudt.edu.cn/xysz/wlxy/index.htm" target="_blank" rel="noopener">College of Sciences</a>
+        &thinsp;·&thinsp;
+        <a href="https://www.nudt.edu.cn/" target="_blank" rel="noopener">National University of Defense Technology (NUDT)</a>
+        &thinsp;·&thinsp;Changsha, Hunan, China
+      </p>
+      <p class="email-row" id="emailRow" onclick="copyEmail(this)" style="cursor:pointer" title="Copy email"><span class="email-label">Email</span><span class="email-addr">tingjinluo@hotmail.com, luotingjin03@nudt.edu.cn</span></p>
+    </div>
+
+    <!-- Short Bio: EN left, ZH right -->
+    <div class="hero-bio-row" data-v>
+      <div class="hero-bio">
+        Tingjin Luo is an Associate Professor with the <a href="https://www.nudt.edu.cn/xysz/wlxy/index.htm" target="_blank" rel="noopener">College of Sciences</a>, <a href="https://www.nudt.edu.cn/" target="_blank" rel="noopener">National University of Defense Technology (NUDT)</a>, Changsha, China. He received both his B.Eng. and Ph.D. degrees from NUDT, and was a visiting Ph.D. student at the <strong>University of Michigan, Ann Arbor</strong>. He has published more than <strong>60 papers</strong> in top-tier AI venues including IEEE TPAMI, TKDE, TCYB, ACM KDD, ICML, AAAI, NeurIPS, and ACM MM, with research spanning <strong>machine learning, weakly-supervised learning, multi-media analysis</strong>, and scene understanding. He serves as AC / SPC / PC for NeurIPS, ICLR, ICML, AAAI, IJCAI and CVPR.
+      </div>
+      <div class="hero-bio-zh">
+        <span class="hero-bio-zh-lbl">简介</span>
+        现任国防科技大学理学院副教授，主要从事弱监督学习、大模型安全可信研究。在 IEEE TPAMI、IEEE TKDE、IEEE TIP、ACM KDD、NeurIPS、ICML等顶级期刊或会议发表 60 余篇学术论文。主持国家自然科学基金、湖南省青年A类等项目 10 余项，获学会优秀博士学位论文奖及省优秀博士学位论文奖，入选湖南省湖湘青年英才计划。
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════
+     JOIN THE GROUP (big card, directly under bio)
+════════════════════════════════ -->
+<a id="join" class="anchor"></a>
+<div class="join-section">
+  <div class="join-card" data-v>
+    <p class="join-card-title"><span class="live"></span>Join the Group <span class="zh">· 招生信息</span></p>
+    <p class="join-intro">
+      There are open research positions in my group at <strong>all levels</strong> — Postdoc, research assistant, Ph.D. student, and master student. If you are interested, please send me an <a href="mailto:tingjinluo@hotmail.com">e-mail</a> containing your CV, score sheet, certificates, and representative publications.
+    </p>
+    <p class="join-intro">
+      I am also recruiting self-motivated <strong>undergraduate students</strong> (mainly @NUDT) for research training. Please read the points below carefully before sending me an e-mail.
+    </p>
+
+    <div class="join-points">
+      <div class="join-point">
+        <p class="join-point-h"><span class="num">1</span>Research Interests <span class="zh">· 研究兴趣</span></p>
+        <p>
+          I mainly study how to design advanced machine learning algorithms using mathematical tools, applied to computer vision, data mining, and other fields. Recent interests include weakly-supervised learning (semi-supervised learning, label-noise robust learning, partial-label learning, etc.), interactive machine learning (curriculum learning, machine teaching), and large-model safety.
+          <span class="join-zh-note">主要研究如何使用数学工具设计先进机器学习算法，并广泛应用于计算机视觉、数据挖掘等领域。近期研究兴趣包括弱监督学习（如半监督学习、标签噪声鲁棒学习、偏标记学习、多标签学习等）、长尾数据计算、大模型安全可信等。</span>
+        </p>
+      </div>
+
+      <div class="join-point">
+        <p class="join-point-h"><span class="num">2</span>Admission Expectations <span class="zh">· 招生期望</span></p>
+        <p>
+          I prefer students with solid mathematical foundations, strong programming skills, and good English abilities (listening / speaking / reading / writing). Prior research experience (academic competitions, publications, extracurricular academic activities, etc.) is a plus. I also recommend taking the <a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html" target="_blank" rel="noopener">Machine Learning course by Hung-yi Lee</a> (or at least one pattern recognition / computer vision class) before starting machine learning research.
+          <span class="join-zh-note">希望招收数学基础好、编程能力强、英语功底扎实、擅于沟通表达的理工科类学生。有前期科研经历者加分（学术竞赛、论文发表、课外学术活动、企业工作实习经历等）。</span>
+        </p>
+      </div>
+
+      <div class="join-point">
+        <p class="join-point-h"><span class="num">3</span>Training Objectives <span class="zh">· 培养目标</span></p>
+        <p>
+          (1) Through carefully organized research training, students are expected to gain solid professional knowledge, rigorous scientific thinking, strong hands-on ability, a broad academic vision, and the scientific literacy to independently discover, think about, and solve problems. (2) Publish high-level, impactful papers in top journals or conferences, and be motivated to continue academic research after graduation.
+          <span class="join-zh-note">经过精心组织的科研训练，使学生具备扎实的专业知识、缜密的科研思维、较强的动手能力、广阔的学术视野，及独立发现问题、思考问题、解决问题的重要科学素养；在校期间在世界顶级期刊或会议上发表高水平、有影响力的论文，并有志于毕业后继续从事学术研究工作。</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     CARDS (below the Join card)
+════════════════════════════════ -->
+<div class="cards-section">
+  <div class="info-row" style="grid-template-columns: 1fr;">
+    <div class="hcard hcard-res" data-v>
+      <p class="hcard-label">Research &amp; Writing Resources</p>
+      <ul class="res-list" style="columns: 3; column-gap: 22px;">
+        <li><a href="https://simon.peytonjones.org/great-research-paper/" target="_blank" rel="noopener">How to Write a Great Research Paper <span class="res-by">· Simon Peyton Jones (Microsoft Research)</span></a></li>
+        <li><a href="https://zhuanlan.zhihu.com/p/82823086" target="_blank" rel="noopener">如何做研究与写论文 · PPT <span class="res-by">· 周志华（南大）</span></a></li>
+        <li><a href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes" target="_blank" rel="noopener">Learn LaTeX in 30 minutes <span class="res-by">· Overleaf</span></a></li>
+        <li><a href="https://www.overleaf.com/learn/latex/Tutorials" target="_blank" rel="noopener">LaTeX Tutorials (16 lessons) <span class="res-by">· Overleaf</span></a></li>
+        <li><a href="https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf" target="_blank" rel="noopener">Practical tips for ML practitioners <span class="res-by">· P. Domingos</span></a></li>
+        <li><a href="https://www.cs.columbia.edu/~hgs/etc/writing-style.html" target="_blank" rel="noopener">Writing Technical Articles <span class="res-by">· H. Schulzrinne (Columbia)</span></a></li>
+        <li><a href="https://ece.uwaterloo.ca/~ece602/MISC/matrixcookbook.pdf" target="_blank" rel="noopener">The Matrix Cookbook</a></li>
+        <li><a href="https://ccfddl.com/" target="_blank" rel="noopener">CCF Conference Deadlines</a></li>
+        <li><a href="https://paperswithcode.com/datasets" target="_blank" rel="noopener">Papers with Code</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="research-row">
+    <!-- 4 Research cards -->
+    <div class="rcard" data-v><span class="rcard-n">01</span><h3>Weakly-Supervised Learning</h3><p>Semi-supervised, partial label, label-noise robust, and multi-label learning with theoretical guarantees.</p></div>
+    <div class="rcard" data-v><span class="rcard-n">02</span><h3>Multi-View Learning</h3><p>Incomplete multi-view representation learning with graph neural networks and contrastive objectives.</p></div>
+    <div class="rcard" data-v><span class="rcard-n">03</span><h3>Scene Understanding</h3><p>Debiased scene graph generation via causal intervention and counterfactual training.</p></div>
+    <div class="rcard" data-v><span class="rcard-n">04</span><h3>LLM Safety &amp; Hallucination</h3><p>Interpreting and mitigating object hallucinations in large vision-language models via attention lens.</p></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     NEWS
+════════════════════════════════ -->
+<a id="news" class="anchor"></a>
+<div class="sec">
+  <div class="sec-head"><h2 class="sec-title">Latest News</h2></div>
+
+  <div id="newsWrap" class="news-list">
+    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">06 / 2026</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Two papers accepted to <strong>ICML 2026</strong>. Congratulations to all coauthors.</span></div>
+    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">02 / 2026</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>One paper <em>"Non-convex Transfer Subspace Learning via Embedded Distribution Alignment"</em> accepted by <strong>IEEE Transactions on Image Processing</strong>. Congratulations to Yueyin Liu and all coauthors.</span></div>
+    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">02 / 2026</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>One paper <em>"Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition"</em> accepted by <strong>CVPR 2026</strong>. Congratulations to Hao Zhou and all coauthors.</span></div>
+    <div class="news-row" data-v><span class="news-bullet">•</span><span class="news-dt">11 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Two papers <em>"Deep Partial Label Feature Selection with Cluster-Guided Disambiguation"</em> and <em>"ESTIM: Efficient and Scalable Tensorial Incomplete Multi-view Semi-supervised Classification"</em> accepted by <strong>ACM SIGKDD 2026</strong>. Congratulations to Mengyuan Tong, Xiangyao Li and all coauthors.</span></div>
+    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">11 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Two papers <em>"Multi-Label Classification with Incremental and Decremental Features"</em> and <em>"DPRM: A Dual Implicit Process Reward Model for Automatic Labeling and Collaborative Reasoning in Multi-Hop Question Answering"</em> accepted by <strong>AAAI 2026</strong>. Congratulations to Mingdie Jiang, Xinyi Wang and all coauthors.</span></div>
+    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">10 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>One paper <em>"Nonconvex and Adaptive Multi-Label Learning for Highly Incomplete Labels"</em> accepted by <strong>Knowledge-Based Systems</strong>. Congratulations to Quanjiang Li and all coauthors.</span></div>
+    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">09 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>Three papers accepted by <strong>NeurIPS 2025</strong>. Congratulations to Quanjiang Li, Zhangqi Jiang and all coauthors.</span></div>
+    <div class="news-row news-extra" data-v><span class="news-bullet">•</span><span class="news-dt">08 / 2025</span><span class="news-body"><span class="nbadge nb-a">Accepted</span>One paper <em>"Noise-Free Prototype Guided Representation Calibration under Label Noise"</em> accepted by <strong>Knowledge-Based Systems</strong>. Congratulations to Huiting Yuan and all coauthors.</span></div>
+  </div>
+  <div class="expand-wrap">
+    <button class="pill" id="newsBtn">Show more <span class="chv"></span></button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     PUBLICATIONS
+════════════════════════════════ -->
+<a id="publications" class="anchor"></a>
+<div class="sec">
+  <div class="sec-head">
+    <h2 class="sec-title">Representative Publications</h2>
+    <div class="sec-actions">
+      <a class="pill" href="https://scholar.google.com/citations?user=w0YDfhcAAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a>
+      <a class="pill" href="https://dblp.org/pid/175/8608.html" target="_blank" rel="noopener">DBLP ↗</a>
+    </div>
+  </div>
+
+
+  <div id="pubList">
+    <div class="pub" data-v>
+      <div class="pub-thumb"><img src="./images/pub_figs/CVPR2026Trust.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">CVPR 2026</span></div>
+      <div class="pub-body">
+        <p class="pub-title">Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition</p>
+        <p class="pub-authors">Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup></p>
+        <p class="pub-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2026</p>
+        <div class="pub-foot">
+          <p class="pub-abstract">Calibrates per-expert trust to balance head and tail classes, improving long-tailed visual recognition through collaborative learning.</p>
+          <div class="pub-links"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub" data-v>
+      <div class="pub-thumb"><img src="./images/pub_figs/KDD2026DPLFS.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">KDD 2026</span></div>
+      <div class="pub-body">
+        <p class="pub-title">Deep Partial Label Feature Selection with Cluster-Guided Disambiguation</p>
+        <p class="pub-authors"><strong>Tingjin Luo</strong>, Mengyuan Tong, Qingchang Shu, Yueyin Liu, Hao Zhou, Zheng Wang</p>
+        <p class="pub-venue">ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining, 2026</p>
+        <div class="pub-foot">
+          <p class="pub-abstract">Couples cluster-guided disambiguation with deep feature selection to learn discriminative features directly from partial-label data.</p>
+          <div class="pub-links"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub" data-v>
+      <div class="pub-thumb"><img src="./images/pub_figs/CVPR2025thumbnail.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">CVPR 2025</span></div>
+      <div class="pub-body">
+        <p class="pub-title"><a href="http://arxiv.org/abs/2411.16724" target="_blank" rel="noopener">Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens</a></p>
+        <p class="pub-authors">Zhangqi Jiang, Junkai Chen, Beier Zhu, <strong>Tingjin Luo</strong><sup>#</sup>, Yankun Shen, Xu Yang<sup>#</sup></p>
+        <p class="pub-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2025</p>
+        <div class="pub-foot">
+          <p class="pub-abstract">Middle layers are pivotal for visual processing in LVLMs. Real tokens receive higher attention than hallucinated ones—enabling training-free detection and mitigation of object hallucinations.</p>
+          <div class="pub-links"><a href="http://arxiv.org/abs/2411.16724" target="_blank" rel="noopener">[arXiv]</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub hidden" data-v>
+      <div class="pub-thumb"><img src="./images/pub_figs/CVPR2025DMMIvNL.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">CVPR 2025</span></div>
+      <div class="pub-body">
+        <p class="pub-title"><a href="http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf" target="_blank" rel="noopener">Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels</a></p>
+        <p class="pub-authors">Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Jiahui Liao</p>
+        <p class="pub-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2025</p>
+        <div class="pub-foot">
+          <p class="pub-abstract">Grounds multi-view multi-label learning in information-bottleneck theory; cycle-consistent estimation and label-correlation regularization jointly handle incomplete views and noisy supervision.</p>
+          <div class="pub-links"><a href="http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf" target="_blank" rel="noopener">[PDF]</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub hidden" data-v>
+      <div class="pub-thumb"><img src="./images/pub_figs/TPAMI2025CFEN.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">TPAMI 2025</span></div>
+      <div class="pub-body">
+        <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener">Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network</a></p>
+        <p class="pub-authors">Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang, Guoli Li</p>
+        <p class="pub-venue">IEEE Transactions on Pattern Analysis and Machine Intelligence, 2025</p>
+        <div class="pub-foot">
+          <p class="pub-abstract">CFEN uses causal feature enhancement to isolate and subtract object-specific biases, yielding debiased scene graph predictions with improved relational accuracy.</p>
+          <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener">[IEEE]</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub hidden" data-v>
+      <div class="pub-thumb"><img src="./images/pub_figs/AAAI2024DIMvLN.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">AAAI 2024</span></div>
+      <div class="pub-body">
+        <p class="pub-title"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/29189" target="_blank" rel="noopener">Deep Incomplete Multi-View Learning Network with Insufficient Label Information</a></p>
+        <p class="pub-authors">Zhangqi Jiang, <strong>Tingjin Luo</strong><sup>#</sup>, Xinyan Liang</p>
+        <p class="pub-venue">AAAI Conference on Artificial Intelligence, 2024</p>
+        <div class="pub-foot">
+          <p class="pub-abstract">DIMvLN unifies GNNs and semi-supervised learning to jointly handle incomplete multi-view data and insufficient label information.</p>
+          <div class="pub-links"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/29189" target="_blank" rel="noopener">[AAAI]</a><a href="https://github.com/ZhangqiJiang07/code_DIMvLN" target="_blank" rel="noopener">[Code]</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub hidden" data-v>
+      <div class="pub-thumb"><img src="./images/pub_figs/ACMMM2024IMIMLC.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">ACM MM 2024</span></div>
+      <div class="pub-body">
+        <p class="pub-title"><a href="https://dl.acm.org/doi/10.1145/3664647.3680911" target="_blank" rel="noopener">Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds</a></p>
+        <p class="pub-authors">Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Yueying Liu, Chenping Hou</p>
+        <p class="pub-venue">ACM International Conference on Multimedia, 2024</p>
+        <div class="pub-foot">
+          <p class="pub-abstract">IMIMLC uses error-correcting coding ensemble and margin-maximization adaptive thresholds to tackle severe label imbalance in MIML settings.</p>
+          <div class="pub-links"><a href="https://dl.acm.org/doi/10.1145/3664647.3680911" target="_blank" rel="noopener">[ACM DL]</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub hidden" data-v>
+      <div class="pub-thumb"><img src="./images/pub_figs/TPAMI2023DSDI.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">TPAMI 2023</span></div>
+      <div class="pub-body">
+        <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener">Debiased Scene Graph Generation for Dual Imbalance Learning</a></p>
+        <p class="pub-authors">Hao Zhou, Jun Zhang<sup>#</sup>, <strong>Tingjin Luo</strong><sup>#</sup>, Yazhou Yang, Jun Lei</p>
+        <p class="pub-venue">IEEE Transactions on Pattern Analysis and Machine Intelligence, 2023</p>
+        <div class="pub-foot">
+          <p class="pub-abstract">DSDI introduces biased-resistance loss and a causal intervention tree to combat predicate-level and background-foreground imbalance in scene graph generation.</p>
+          <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener">[IEEE]</a><a href="https://github.com/zhouhao0515/unbiasedSGG-DSDI" target="_blank" rel="noopener">[Code]</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub hidden" data-v>
+      <div class="pub-thumb"><img src="./images/pub_figs/ACMKDD2017WLRM.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">KDD 2017</span></div>
+      <div class="pub-body">
+        <p class="pub-title"><a href="https://dl.acm.org/doi/10.1145/3097983.3097984" target="_blank" rel="noopener">Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning</a></p>
+        <p class="pub-authors"><strong>Tingjin Luo</strong>, Weizhong Zhang, Shuang Qiu, Yang Yang, Dongyun Yi, Guangtao Wang, Jieping Ye<sup>#</sup>, Jie Wang<sup>#</sup></p>
+        <p class="pub-venue">ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining, 2017</p>
+        <div class="pub-foot">
+          <p class="pub-abstract">Integrates sparse simplex projection with multi-instance learning to differentiate protein coding isoform functions; efficient block coordinate descent outperforms prior art on human genome benchmarks.</p>
+          <div class="pub-links"><a href="https://dl.acm.org/doi/10.1145/3097983.3097984" target="_blank" rel="noopener">[ACM DL]</a><a href="https://github.com/HorizonAILab/Paper_Code" target="_blank" rel="noopener">[Code]</a><a href="https://videolectures.net/videos/kdd2017_luo_human_protein_coding" target="_blank" rel="noopener">[Video]</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="expand-wrap">
+    <button class="pill" id="pubBtn">Show more <span class="chv"></span></button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     STUDENTS
+════════════════════════════════ -->
+<a id="students" class="anchor"></a>
+<div class="sec">
+  <div class="sec-head"><h2 class="sec-title">Group Members</h2></div>
+  <div class="st-wrap" data-v>
+    <table class="st-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Degree</th>
+          <th>Period</th>
+          <th>Representative Publications</th>
+          <th>Destination</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Wenzhang Zhuge</td><td><span class="deg deg-phd">PhD</span></td><td>2018-2020</td><td>TCYB 2023, TKDE 2020, ML 2020, 中国科学：信息科学</td><td class="dest">Co-supervised with Prof. Dongyun Yi</td></tr>
+        <tr><td>Hao Zhou</td><td><span class="deg deg-phd">PhD</span></td><td>2019–2021</td><td>TPAMI 2023, TPAMI 2025, AAAI 2025, CVPR 2026, TGRS 2026</td><td class="dest">Co-supervised with Prof. Jun Zhang</td></tr>
+        <tr><td>Yueying Liu</td><td><span class="deg deg-phd">PhD</span></td><td>2021–</td><td>IEEE TIP 2026, FCS 2025</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
+        <tr><td>Xinyue Zhang</td><td><span class="deg deg-phd">PhD</span></td><td>2022–</td><td>IEEE TKDE 2026,FCS 2025, ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
+        <tr><td>Quanjiang Li <a href="https://quanjiang-li.github.io" target="_blank" rel="noopener" class="icon-arrow-sm" title="Personal page">↗</a></td><td><span class="deg deg-phd">PhD</span></td><td>2023–</td><td>ICML 2026, AAAI 2026, NeurIPS2025, CVPR 2025, AAAI 2025, ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
+        <tr><td>Yuchen Zhang</td><td><span class="deg deg-master">Master</span></td><td>2024–</td><td>ACM TOIS 2026</td><td class="dest">—</td></tr>
+        <tr><td>Mingdie Jiang</td><td><span class="deg deg-master">Master</span></td><td>2024–</td><td>AAAI 2026</td><td class="dest">—</td></tr>
+        <tr><td>Mengtao Yang</td><td><span class="deg deg-master">Master</span></td><td>2024–</td><td>FCS 2026</td><td class="dest">—</td></tr>
+        <tr><td>Xiangyao Li</td><td><span class="deg deg-master">Master</span></td><td>2025–</td><td>ACM KDD 2026</td><td class="dest">—</td></tr>
+        <tr><td>Yang Li</td><td><span class="deg deg-master">Master</span></td><td>2025–</td><td>ICML 2026</td><td class="dest">—</td></tr>
+        <tr><td>Mengyuan Tong</td><td><span class="deg deg-master">Master</span></td><td>2025–</td><td>ACM KDD 2026</td><td class="dest">—</td></tr>
+        <tr><td>Ziao Huang</td><td><span class="deg deg-master">Master</span></td><td>2026–</td><td></td><td class="dest">—</td></tr>
+        <tr><td>Xinjun Hu</td><td><span class="deg deg-master">Master</span></td><td>2026–</td><td></td><td class="dest">—</td></tr>
+        <tr class="st-alumni-divider"><td colspan="5">Alumni <span class="zh">· 已毕业</span></td></tr>
+        <tr class="st-alumni-row"><td>Zhangqi Jiang</td><td><span class="deg deg-master">Master</span></td><td>2023-2025</td><td>NeurIPS2025, CVPR 2025, AAAI 2024</td><td class="dest">—</td></tr>
+        <tr class="st-alumni-row"><td>Huiting Yuan</td><td><span class="deg deg-master">Master</span></td><td>2023-2026</td><td>KBS 2025</td><td class="dest">Honor</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     TEACHING
+════════════════════════════════ -->
+<a id="teaching" class="anchor"></a>
+<div class="sec">
+  <div class="sec-head"><h2 class="sec-title">Teaching</h2></div>
+  <div class="tch-list">
+    <div class="tch-row" data-v>
+      <span class="tch-name-link">Mathematical Modeling</span><span class="tch-desc">&ensp;(For engineering students, Spring, 2023–present, NUDT)</span>
+    </div>
+    <div class="tch-row" data-v>
+      <span class="tch-name-link">Statistical Forecasting and Decision Making</span><span class="tch-desc">&ensp;(For applied statistics students, Autumn, 2019–present, NUDT)</span>
+    </div>
+    <div class="tch-row" data-v>
+      <span class="tch-name-link">Multivariate Statistical Analysis</span><span class="tch-desc">&ensp;(For applied statistics students, Autumn, 2020, NUDT)</span>
+    </div>
+    <div class="tch-row" data-v>
+      <span class="tch-name-link">Probability and Mathematical Statistics</span><span class="tch-desc">&ensp;(For engineering students, Spring, 2020–2022, NUDT)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     SERVICE
+════════════════════════════════ -->
+<a id="service" class="anchor"></a>
+<div class="sec">
+  <div class="sec-head"><h2 class="sec-title">Academic Service</h2></div>
+  <div class="svc-grid">
+
+    <!-- Membership -->
+    <div class="svc-card" data-v>
+      <p class="svc-card-title">Membership <span class="zh">· 学术组织</span></p>
+      <ul class="svc-list">
+        <li><span class="svc-jname">IEEE</span> Member <span class="svc-year">2024 –</span></li>
+        <li>CAAI Committee on AI &amp; Pattern Recognition <span class="svc-year">2018 –</span></li>
+      </ul>
+    </div>
+
+    <!-- Associate Editor -->
+    <div class="svc-card" data-v>
+      <p class="svc-card-title">Associate Editor <span class="zh">· 期刊编委</span></p>
+      <ul class="svc-list">
+        <li><span class="svc-jname">Pattern Recognition</span> <span class="svc-if">IF 11.7</span> <span class="svc-year">2024 –</span></li>
+        <li><span class="svc-jname">Information Fusion</span> <span class="svc-if">IF 7.5 · CAAI A</span> <span class="svc-year">2024 –</span></li>
+        <li><span class="svc-jname">Frontiers of Computer Science</span> <span class="svc-if">CCF B</span> <span class="svc-year">2022 –</span></li>
+        <li><span class="svc-jname">国防科技大学学报</span> 青年编委 <span class="svc-year">2025 –</span></li>
+      </ul>
+    </div>
+
+    <!-- Conference service (AC + PC merged) -->
+    <div class="svc-card wide" data-v>
+      <p class="svc-card-title">Conference Service <span class="zh">· 会议服务</span></p>
+      <p class="svc-sub">Area Chair / Senior PC</p>
+      <div class="svc-chips">
+        <span class="svc-chip">ICLR <span class="yr">2026</span></span>
+        <span class="svc-chip">NeurIPS <span class="yr">2026</span></span>
+        <span class="svc-chip">IJCAI <span class="yr">2025, 2026</span></span>
+        <span class="svc-chip">AAAI <span class="yr">2025</span></span>
+      </div>
+      <p class="svc-sub">Program Committee / Reviewer</p>
+      <div class="svc-chips">
+        <span class="svc-chip">IJCAI <span class="yr">2019–25</span></span>
+        <span class="svc-chip">AAAI <span class="yr">2018–25</span></span>
+        <span class="svc-chip">ICML <span class="yr">2023–25</span></span>
+        <span class="svc-chip">NeurIPS <span class="yr">2024–25</span></span>
+        <span class="svc-chip">ICLR <span class="yr">2025</span></span>
+        <span class="svc-chip">KDD <span class="yr">2026-</span></span>
+        <span class="svc-chip">AISTATS <span class="yr">2025</span></span>
+        <span class="svc-chip">CVPR <span class="yr">2024–25</span></span>
+        <span class="svc-chip">CCDM</span>
+        <span class="svc-chip">CCFAI</span>
+      </div>
+    </div>
+
+    <!-- Journal Reviewer (wide) -->
+    <div class="svc-card wide" data-v>
+      <p class="svc-card-title">Journal Reviewer <span class="zh">· 期刊审稿人</span></p>
+      <div class="svc-chips">
+        <span class="svc-chip">IEEE TPAMI</span>
+        <span class="svc-chip">IEEE TFS</span>
+        <span class="svc-chip">IEEE TETCI</span>
+        <span class="svc-chip">IEEE TNNLS</span>
+        <span class="svc-chip">IEEE TKDE</span>
+        <span class="svc-chip">IEEE TCYB</span>
+        <span class="svc-chip">IEEE TMM</span>
+        <span class="svc-chip">ACM TIST</span>
+        <span class="svc-chip">Pattern Recognition</span>
+        <span class="svc-chip">Information Fusion</span>
+        <span class="svc-chip">Neurocomputing</span>
+        <span class="svc-chip">Multimedia Tools &amp; Appl.</span>
+        <span class="svc-chip">Cognitive Computation</span>
+        <span class="svc-chip">Frontiers of Computer Science</span>
+        <span class="svc-chip">Eng. Appl. of AI</span>
+        <span class="svc-chip">IEEE Access</span>
+        <span class="svc-chip">自动化学报</span>
+        <span class="svc-chip">中国科学：信息科学</span>
+        <span class="svc-chip">计算机学报</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer-name">Tingjin Luo &middot; 罗廷金</span>
+  <div class="footer-meta">
+    Last updated June 2026 &ensp;&middot;&ensp;
+    <a href="https://github.com/HorizonAILab" target="_blank" rel="noopener">HorizonAILab</a>
+    &ensp;&middot;&ensp; NUDT, Changsha
+  </div>
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+'use strict';
+
+const nav  = document.getElementById('nav');
+const nls  = document.querySelectorAll('.nav-links a');
+const ancs = document.querySelectorAll('.anchor[id]');
+
+function tick(){
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+  const y = window.scrollY + 80;
+  let cur = '';
+  ancs.forEach(a => { if(y >= a.getBoundingClientRect().top + window.scrollY) cur = a.id; });
+  nls.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur));
+}
+window.addEventListener('scroll', tick, {passive:true});
+tick();
+nls.forEach(a => a.addEventListener('click', () => {
+  const t = document.getElementById('ntoggle');
+  if (t) t.checked = false;
+}));
+
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } });
+  }, {threshold: .07, rootMargin: '0px 0px -16px 0px'});
+  document.querySelectorAll('[data-v]').forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('[data-v]').forEach(el => el.classList.add('vis'));
+}
+
+const newsBtn = document.getElementById('newsBtn');
+const newsX   = document.querySelectorAll('.news-extra');
+let newsOpen  = false;
+newsBtn.addEventListener('click', () => {
+  newsOpen = !newsOpen;
+  newsBtn.classList.toggle('open', newsOpen);
+  newsBtn.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = newsOpen ? 'Show less ' : 'Show more '; });
+  newsX.forEach((el, i) => {
+    if (newsOpen) { el.classList.add('show'); el.style.animationDelay = (i * 28) + 'ms'; }
+    else { el.classList.remove('show'); el.style.animationDelay = '0ms'; }
+  });
+});
+
+const pubBtn = document.getElementById('pubBtn');
+const pubH   = document.querySelectorAll('.pub.hidden');
+let pubOpen  = false;
+pubBtn.addEventListener('click', () => {
+  pubOpen = !pubOpen;
+  pubBtn.classList.toggle('open', pubOpen);
+  pubBtn.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = pubOpen ? 'Show less ' : 'Show more '; });
+  pubH.forEach((el, i) => {
+    if (pubOpen) {
+      el.classList.remove('hidden'); el.classList.add('shown');
+      el.style.animationDelay = (i * 45) + 'ms';
+      if ('IntersectionObserver' in window) {
+        const o = new IntersectionObserver(es => {
+          es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); o.unobserve(e.target); }});
+        }, {threshold: .04});
+        o.observe(el);
+      } else { el.classList.add('vis'); }
+    } else {
+      el.classList.remove('shown'); el.classList.add('hidden');
+      el.style.animationDelay = '0ms';
+    }
+  });
+});
+
+})();
+
+function copyEmail() {
+  navigator.clipboard.writeText('tingjinluo@hotmail.com').then(() => {
+    let t = document.getElementById('copyToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'copyToast'; t.className = 'copy-toast';
+      t.textContent = 'Copied!';
+      document.body.appendChild(t);
+    }
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 1800);
+  });
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'p' || e.key === 'P') {
+    if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+      window.open('publications.html', '_blank');
+    }
+  }
+});
+</script>
+</body>
+</html>
