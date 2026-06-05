@@ -503,6 +503,27 @@ sup { font-size: .62em; }
 }
 .icon-arrow-sm:hover { color: var(--blue2); border-color: var(--blue-bd); background: var(--blue-bg); transform: translate(1px,-1px); }
 
+/* Unified SVG icon buttons for member links (bio / home / github) */
+.icon-btn-svg {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 18px; flex-shrink: 0;
+  border-radius: 6px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--ink3);
+  margin-left: 4px; vertical-align: middle;
+  transition: color .15s var(--ease), border-color .15s var(--ease),
+              background .15s var(--ease), transform .2s var(--ease-out),
+              box-shadow .2s var(--ease);
+  text-decoration: none;
+}
+.icon-btn-svg svg { width: 11px; height: 11px; display: block; fill: currentColor; }
+.icon-btn-svg:hover {
+  color: var(--blue2); border-color: var(--blue-bd);
+  background: var(--blue-bg); transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(30,58,95,.13);
+}
+/* GitHub icon gets a slightly darker hover */
+.icon-btn-github:hover { color: var(--ink); border-color: var(--border2); background: var(--surface2); }
+
 /* ──────────────────────────────────────────────────────
    Education — no dividers, bullet list style
 ────────────────────────────────────────────────────── */
@@ -1067,7 +1088,7 @@ sup { font-size: .62em; }
         <tr><td>Mingdie Jiang</td><td><span class="deg deg-master">Master</span></td><td>2024–</td><td>AAAI 2026</td><td class="dest">—</td></tr>
         <tr><td>Mengtao Yang</td><td><span class="deg deg-master">Master</span></td><td>2024–</td><td>FCS 2026</td><td class="dest">—</td></tr>
         <tr><td>Xiangyao Li</td><td><span class="deg deg-master">Master</span></td><td>2025–</td><td>ACM KDD 2026</td><td class="dest">—</td></tr>
-        <tr><td>Yang Li<a href="https://yangli.netlify.app/" target="_blank" rel="noopener" class="icon-arrow-sm" title="Bio">↗</a><a href="https://albertlee.netlify.app/" target="_blank" rel="noopener" class="icon-arrow-sm" title="Homepage">↗</a></td><td><span class="deg deg-master">Master</span></td><td>2025–</td><td>ICML 2026</td><td class="dest">—</td></tr>
+        <tr><td>Yang Li<a href="https://yangli.netlify.app/" target="_blank" rel="noopener" class="icon-btn-svg icon-btn-bio" title="Bio" aria-label="Bio"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></a><a href="https://albertlee.netlify.app/" target="_blank" rel="noopener" class="icon-btn-svg icon-btn-home" title="Homepage" aria-label="Homepage"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2.5L2 9h2v8.5h5v-5h2v5h5V9h2L10 2.5z"/></svg></a><a href="https://github.com/LiyangAlbert" target="_blank" rel="noopener" class="icon-btn-svg icon-btn-github" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23A11.51 11.51 0 0 1 12 6.803c1.02.005 2.047.138 3.006.404 2.29-1.552 3.295-1.23 3.295-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22v3.293c0 .319.21.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></td><td><span class="deg deg-master">Master</span></td><td>2025–</td><td>ICML 2026</td><td class="dest">—</td></tr>
         <tr><td>Mengyuan Tong</td><td><span class="deg deg-master">Master</span></td><td>2025–</td><td>ACM KDD 2026</td><td class="dest">—</td></tr>
         <tr><td>Ziao Huang</td><td><span class="deg deg-master">Master</span></td><td>2026–</td><td></td><td class="dest">—</td></tr>
         <tr><td>Xinjun Hu</td><td><span class="deg deg-master">Master</span></td><td>2026–</td><td></td><td class="dest">—</td></tr>
