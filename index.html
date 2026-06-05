@@ -414,13 +414,13 @@ sup { font-size: .62em; }
 }
 .pub-thumb img { width:100%; height:100%; object-fit:cover; object-position:top; transition: transform .5s var(--ease); }
 .pub:hover .pub-thumb img { transform: scale(1.04); }
-.pub-thumb.no-img { background: linear-gradient(135deg, var(--blue-bg) 0%, var(--surface2) 100%); }
+.pub-thumb.no-img { background: linear-gradient(135deg, #ddeaf8 0%, #eef4fb 100%); }
 .venue-chip {
   position: absolute; top: 10px; left: 10px;
-  padding: 2px 8px; border-radius: 4px;
+  z-index: 1;
+  padding: 3px 8px; border-radius: 4px;
   font-family: var(--mono); font-size: .57rem; font-weight: 500;
-  padding: 3px 8px;
-  background: rgba(17,19,24,.82); color: #fff;
+  background: rgba(20,46,82,.82); color: #fff;
   letter-spacing: .04em; backdrop-filter: blur(4px);
 }
 
@@ -595,6 +595,11 @@ sup { font-size: .62em; }
   padding: 2px 9px; border-radius: 99px;
   font-size: .72rem; color: var(--ink2);
   background: var(--surface); border: 1px solid var(--border);
+  transition: color .13s, border-color .13s, background .13s, transform .15s var(--ease-out);
+}
+.svc-chip:hover {
+  color: var(--blue2); border-color: var(--blue-bd);
+  background: var(--blue-bg); transform: translateY(-1px);
 }
 .svc-chip .yr { font-family: var(--mono); font-size: .6rem; color: var(--ink4); }
 .svc-sub { font-size: .68rem; color: var(--ink4); font-weight: 600; margin: 12px 0 7px; letter-spacing: .03em; }
@@ -937,8 +942,7 @@ sup { font-size: .62em; }
   </div>
 
 
-  <div id="pubList">
-    <div class="pub" data-v>
+  <div id="pubList">    <div class="pub" data-v>
       <div class="pub-thumb"><img src="./images/pub_figs/CVPR2026Trust.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">CVPR 2026</span></div>
       <div class="pub-body">
         <p class="pub-title">Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition</p>
