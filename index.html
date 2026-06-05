@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.0/swiper-bundle.min.css">
 <style>
 @font-face {
   font-family: 'KaiTiLocal';
@@ -747,6 +748,148 @@ sup { font-size: .62em; }
   .tch-row { flex-wrap: wrap; font-size: .84rem; }
   .tch-desc { font-size: .78rem; }
 }
+
+/* ──────────────────────────────────────────────────────
+   Representative Publications — stacked paper-card swiper
+────────────────────────────────────────────────────── */
+.papers{ --card-w:180px; --card-h:241px; }
+.papers-box{
+  display:flex; align-items:center; gap:clamp(34px,4vw,58px);
+  width:100%;
+}
+
+/* left: stacked poker-style cards */
+.cards-swiper{ width:var(--card-w); height:var(--card-h); flex:none; overflow:visible; }
+.cards-swiper .swiper-slide{
+  border-radius:14px; overflow:hidden; background:var(--surface2);
+  box-shadow:0 4px 13px -9px rgba(17,19,24,.34);
+}
+.cover{ position:absolute; inset:0; background:var(--accent); color:#fff; overflow:hidden; }
+.cover-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; }
+/* corresponding-color gradient tint over the figure */
+.cover-grade{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:var(--accent); mix-blend-mode:multiply; opacity:.30;
+}
+.cover-idx{
+  position:absolute; top:-6px; right:6px; z-index:1; display:none;
+  font-family:var(--mono); font-weight:500; font-size:64px; line-height:1;
+  color:rgba(255,255,255,.16); user-select:none;
+}
+.cover.nofig .cover-img{ display:none; }
+.cover.nofig .cover-grade{ opacity:1; mix-blend-mode:normal; }
+.cover.nofig .cover-idx{ display:block; }
+.cover-venue{
+  position:absolute; top:9px; left:9px; z-index:3;
+  font-family:var(--mono); font-size:9px; letter-spacing:.02em; color:#fff;
+  background:color-mix(in srgb, var(--accent) 46%, rgba(0,0,0,.46));
+  border:1px solid rgba(255,255,255,.28);
+  padding:3px 7px; border-radius:6px; backdrop-filter:blur(2px);
+}
+.cover-scrim{
+  position:absolute; left:0; right:0; bottom:0; z-index:3; padding:11px 10px 10px;
+  background:linear-gradient(to top,
+    color-mix(in srgb, var(--accent) 50%, #000) 0%,
+    color-mix(in srgb, var(--accent) 70%, transparent) 46%,
+    transparent 92%);
+}
+.cover-title{
+  font-family:var(--sans); font-weight:600; font-size:.72rem; line-height:1.22; color:#fff;
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  text-shadow:0 1px 5px rgba(0,0,0,.42);
+}
+
+/* right: synced detail panel */
+.detail-swiper{ flex:1; min-width:0; height:var(--card-h); }
+.detail-swiper .swiper-slide{ overflow:visible; }
+.detail-inner{
+  min-height:100%;
+  display:flex; flex-direction:column; justify-content:center;
+  overflow:visible;
+}
+.detail-head{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.d-venue-chip{
+  display:inline-flex; align-items:center;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.02em; color:#fff;
+  background:var(--accent); padding:4px 10px; border-radius:7px;
+}
+.d-badge{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--accent); border:1px solid var(--accent); padding:3px 9px; border-radius:99px;
+}
+.d-title{
+  font-family:var(--sans); font-weight:600;
+  font-size:clamp(1rem,1.4vw,1.2rem); line-height:1.24; letter-spacing:-.01em;
+  color:var(--ink); margin:0 0 11px;
+}
+.d-meta{ display:flex; flex-direction:column; gap:7px; margin-bottom:10px; }
+.d-row{ display:flex; gap:12px; }
+.d-label{
+  flex:none; width:54px; padding-top:2px;
+  font-size:11px; font-weight:600; letter-spacing:.02em; color:var(--ink4);
+}
+.d-value{ font-size:.84rem; line-height:1.55; color:var(--ink2); }
+.d-value .me{ color:var(--accent); font-weight:600; }
+.d-value sup{ color:var(--accent); font-size:.7em; font-weight:600; }
+.d-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+.d-tag{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.01em; color:var(--ink3);
+  border:1px solid var(--border); background:var(--surface); padding:3px 9px; border-radius:6px;
+}
+.d-abstract{
+  font-size:.84rem; line-height:1.55; color:var(--ink2); margin-bottom:0;
+  text-align:justify; text-justify:inter-word;
+}
+.d-links{ display:flex; flex-wrap:wrap; gap:8px; margin:2px 0 14px; }
+.d-link{
+  display:inline-flex; align-items:center; gap:.4em;
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.01em; color:var(--ink2);
+  border:1px solid var(--border); background:var(--surface);
+  padding:5px 11px; border-radius:8px;
+  transition:color .15s var(--ease), border-color .15s var(--ease), background .15s var(--ease), transform .18s var(--ease-out);
+}
+.d-link svg{ width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+.d-link:hover{
+  color:var(--accent);
+  border-color:color-mix(in srgb, var(--accent) 45%, var(--border));
+  background:color-mix(in srgb, var(--accent) 8%, var(--surface));
+  transform:translateY(-1px);
+}
+
+/* controls */
+.papers-controls{ display:flex; align-items:center; justify-content:center; gap:14px; margin-top:16px; }
+.ps-nav{
+  width:38px; height:38px; border-radius:50%;
+  border:1px solid var(--border2); background:var(--bg); color:var(--ink);
+  font-size:1.2rem; line-height:1; cursor:pointer;
+  display:grid; place-items:center; padding-bottom:2px;
+  box-shadow:0 3px 10px -7px rgba(17,19,24,.40);
+  transition:color .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease), transform .15s var(--ease-out);
+}
+.ps-nav:hover{ background:var(--ps-accent,var(--blue2)); border-color:var(--ps-accent,var(--blue2)); color:#fff; }
+.ps-nav:active{ transform:scale(.92); }
+.ps-center{ display:flex; flex-direction:column; align-items:center; gap:8px; }
+.ps-pagination{ display:flex; gap:6px; align-items:center; }
+.ps-pagination .swiper-pagination-bullet{
+  width:7px; height:7px; border-radius:50%; margin:0 !important;
+  background:var(--border2); opacity:1; cursor:pointer;
+  transition:width .3s var(--ease), background .3s var(--ease);
+}
+.ps-pagination .swiper-pagination-bullet-active{ width:22px; border-radius:4px; background:var(--ps-accent,var(--blue2)); }
+.ps-counter{ font-family:var(--mono); font-size:.74rem; color:var(--ink4); }
+.ps-counter b{ color:var(--ps-accent,var(--blue2)); font-weight:600; }
+
+@media (max-width:760px){
+  .papers{ --card-w:188px; --card-h:252px; }
+  .papers-box{ flex-direction:column; align-items:flex-start; gap:18px; }
+  .detail-swiper{ width:100%; height:340px; }
+  .detail-inner{ justify-content:flex-start; }
+}
+@media (max-width:560px){
+  .papers{ --card-w:166px; --card-h:223px; }
+  .detail-swiper{ height:380px; }
+}
+
 </style>
 </head>
 <body>
@@ -942,126 +1085,19 @@ sup { font-size: .62em; }
   </div>
 
 
-  <div id="pubList">    <div class="pub" data-v>
-      <div class="pub-thumb"><img src="./images/pub_figs/CVPR2026Trust.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">CVPR 2026</span></div>
-      <div class="pub-body">
-        <p class="pub-title">Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition</p>
-        <p class="pub-authors">Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup></p>
-        <p class="pub-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2026</p>
-        <div class="pub-foot">
-          <p class="pub-abstract">Calibrates per-expert trust to balance head and tail classes, improving long-tailed visual recognition through collaborative learning.</p>
-          <div class="pub-links"></div>
-        </div>
-      </div>
+  <div class="papers" data-v>
+    <div class="papers-box">
+      <div class="swiper cards-swiper"><div class="swiper-wrapper"></div></div>
+      <div class="swiper detail-swiper"><div class="swiper-wrapper"></div></div>
     </div>
-
-    <div class="pub" data-v>
-      <div class="pub-thumb"><img src="./images/pub_figs/KDD2026DPLFS.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">KDD 2026</span></div>
-      <div class="pub-body">
-        <p class="pub-title">Deep Partial Label Feature Selection with Cluster-Guided Disambiguation</p>
-        <p class="pub-authors"><strong>Tingjin Luo</strong>, Mengyuan Tong, Qingchang Shu, Yueyin Liu, Hao Zhou, Zheng Wang</p>
-        <p class="pub-venue">ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining, 2026</p>
-        <div class="pub-foot">
-          <p class="pub-abstract">Couples cluster-guided disambiguation with deep feature selection to learn discriminative features directly from partial-label data.</p>
-          <div class="pub-links"></div>
-        </div>
+    <nav class="papers-controls">
+      <button class="ps-nav" id="psPrev" aria-label="Previous paper">&lsaquo;</button>
+      <div class="ps-center">
+        <div class="ps-pagination"></div>
+        <span class="ps-counter"><b id="psCur">01</b> / <span id="psCnt">09</span></span>
       </div>
-    </div>
-
-    <div class="pub" data-v>
-      <div class="pub-thumb"><img src="./images/pub_figs/CVPR2025thumbnail.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">CVPR 2025</span></div>
-      <div class="pub-body">
-        <p class="pub-title"><a href="http://arxiv.org/abs/2411.16724" target="_blank" rel="noopener">Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens</a></p>
-        <p class="pub-authors">Zhangqi Jiang, Junkai Chen, Beier Zhu, <strong>Tingjin Luo</strong><sup>#</sup>, Yankun Shen, Xu Yang<sup>#</sup></p>
-        <p class="pub-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2025</p>
-        <div class="pub-foot">
-          <p class="pub-abstract">Middle layers are pivotal for visual processing in LVLMs. Real tokens receive higher attention than hallucinated ones—enabling training-free detection and mitigation of object hallucinations.</p>
-          <div class="pub-links"><a href="http://arxiv.org/abs/2411.16724" target="_blank" rel="noopener">[arXiv]</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub hidden" data-v>
-      <div class="pub-thumb"><img src="./images/pub_figs/CVPR2025DMMIvNL.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">CVPR 2025</span></div>
-      <div class="pub-body">
-        <p class="pub-title"><a href="http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf" target="_blank" rel="noopener">Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels</a></p>
-        <p class="pub-authors">Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Jiahui Liao</p>
-        <p class="pub-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2025</p>
-        <div class="pub-foot">
-          <p class="pub-abstract">Grounds multi-view multi-label learning in information-bottleneck theory; cycle-consistent estimation and label-correlation regularization jointly handle incomplete views and noisy supervision.</p>
-          <div class="pub-links"><a href="http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf" target="_blank" rel="noopener">[PDF]</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub hidden" data-v>
-      <div class="pub-thumb"><img src="./images/pub_figs/TPAMI2025CFEN.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">TPAMI 2025</span></div>
-      <div class="pub-body">
-        <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener">Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network</a></p>
-        <p class="pub-authors">Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang, Guoli Li</p>
-        <p class="pub-venue">IEEE Transactions on Pattern Analysis and Machine Intelligence, 2025</p>
-        <div class="pub-foot">
-          <p class="pub-abstract">CFEN uses causal feature enhancement to isolate and subtract object-specific biases, yielding debiased scene graph predictions with improved relational accuracy.</p>
-          <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener">[IEEE]</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub hidden" data-v>
-      <div class="pub-thumb"><img src="./images/pub_figs/AAAI2024DIMvLN.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">AAAI 2024</span></div>
-      <div class="pub-body">
-        <p class="pub-title"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/29189" target="_blank" rel="noopener">Deep Incomplete Multi-View Learning Network with Insufficient Label Information</a></p>
-        <p class="pub-authors">Zhangqi Jiang, <strong>Tingjin Luo</strong><sup>#</sup>, Xinyan Liang</p>
-        <p class="pub-venue">AAAI Conference on Artificial Intelligence, 2024</p>
-        <div class="pub-foot">
-          <p class="pub-abstract">DIMvLN unifies GNNs and semi-supervised learning to jointly handle incomplete multi-view data and insufficient label information.</p>
-          <div class="pub-links"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/29189" target="_blank" rel="noopener">[AAAI]</a><a href="https://github.com/ZhangqiJiang07/code_DIMvLN" target="_blank" rel="noopener">[Code]</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub hidden" data-v>
-      <div class="pub-thumb"><img src="./images/pub_figs/ACMMM2024IMIMLC.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">ACM MM 2024</span></div>
-      <div class="pub-body">
-        <p class="pub-title"><a href="https://dl.acm.org/doi/10.1145/3664647.3680911" target="_blank" rel="noopener">Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds</a></p>
-        <p class="pub-authors">Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Yueying Liu, Chenping Hou</p>
-        <p class="pub-venue">ACM International Conference on Multimedia, 2024</p>
-        <div class="pub-foot">
-          <p class="pub-abstract">IMIMLC uses error-correcting coding ensemble and margin-maximization adaptive thresholds to tackle severe label imbalance in MIML settings.</p>
-          <div class="pub-links"><a href="https://dl.acm.org/doi/10.1145/3664647.3680911" target="_blank" rel="noopener">[ACM DL]</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub hidden" data-v>
-      <div class="pub-thumb"><img src="./images/pub_figs/TPAMI2023DSDI.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">TPAMI 2023</span></div>
-      <div class="pub-body">
-        <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener">Debiased Scene Graph Generation for Dual Imbalance Learning</a></p>
-        <p class="pub-authors">Hao Zhou, Jun Zhang<sup>#</sup>, <strong>Tingjin Luo</strong><sup>#</sup>, Yazhou Yang, Jun Lei</p>
-        <p class="pub-venue">IEEE Transactions on Pattern Analysis and Machine Intelligence, 2023</p>
-        <div class="pub-foot">
-          <p class="pub-abstract">DSDI introduces biased-resistance loss and a causal intervention tree to combat predicate-level and background-foreground imbalance in scene graph generation.</p>
-          <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener">[IEEE]</a><a href="https://github.com/zhouhao0515/unbiasedSGG-DSDI" target="_blank" rel="noopener">[Code]</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub hidden" data-v>
-      <div class="pub-thumb"><img src="./images/pub_figs/ACMKDD2017WLRM.png" alt="" onerror="this.parentElement.classList.add('no-img')"><span class="venue-chip">KDD 2017</span></div>
-      <div class="pub-body">
-        <p class="pub-title"><a href="https://dl.acm.org/doi/10.1145/3097983.3097984" target="_blank" rel="noopener">Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning</a></p>
-        <p class="pub-authors"><strong>Tingjin Luo</strong>, Weizhong Zhang, Shuang Qiu, Yang Yang, Dongyun Yi, Guangtao Wang, Jieping Ye<sup>#</sup>, Jie Wang<sup>#</sup></p>
-        <p class="pub-venue">ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining, 2017</p>
-        <div class="pub-foot">
-          <p class="pub-abstract">Integrates sparse simplex projection with multi-instance learning to differentiate protein coding isoform functions; efficient block coordinate descent outperforms prior art on human genome benchmarks.</p>
-          <div class="pub-links"><a href="https://dl.acm.org/doi/10.1145/3097983.3097984" target="_blank" rel="noopener">[ACM DL]</a><a href="https://github.com/HorizonAILab/Paper_Code" target="_blank" rel="noopener">[Code]</a><a href="https://videolectures.net/videos/kdd2017_luo_human_protein_coding" target="_blank" rel="noopener">[Video]</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="expand-wrap">
-    <button class="pill" id="pubBtn">Show more <span class="chv"></span></button>
+      <button class="ps-nav" id="psNext" aria-label="Next paper">&rsaquo;</button>
+    </nav>
   </div>
 </div>
 
@@ -1264,30 +1300,7 @@ newsBtn.addEventListener('click', () => {
   });
 });
 
-const pubBtn = document.getElementById('pubBtn');
-const pubH   = document.querySelectorAll('.pub.hidden');
-let pubOpen  = false;
-pubBtn.addEventListener('click', () => {
-  pubOpen = !pubOpen;
-  pubBtn.classList.toggle('open', pubOpen);
-  pubBtn.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = pubOpen ? 'Show less ' : 'Show more '; });
-  pubH.forEach((el, i) => {
-    if (pubOpen) {
-      el.classList.remove('hidden'); el.classList.add('shown');
-      el.style.animationDelay = (i * 45) + 'ms';
-      if ('IntersectionObserver' in window) {
-        const o = new IntersectionObserver(es => {
-          es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); o.unobserve(e.target); }});
-        }, {threshold: .04});
-        o.observe(el);
-      } else { el.classList.add('vis'); }
-    } else {
-      el.classList.remove('shown'); el.classList.add('hidden');
-      el.style.animationDelay = '0ms';
-    }
-  });
-});
-
+/* Representative publications are now rendered as an interactive card swiper (init below). */
 })();
 
 function copyEmail() {
@@ -1313,5 +1326,172 @@ document.addEventListener('keydown', function(e) {
   }
 });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.0/swiper-bundle.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var papers = [
+    { title:"Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition",
+      venue:"CVPR", venueFull:"IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)", year:2026, badge:"",
+      authors:[{name:"Hao Zhou"},{name:"Tingjin Luo",me:true,corr:true}],
+      tags:["Long-Tailed","Collaborative Learning","Trust Calibration"],
+      abstract:"Calibrates per-expert trust to balance head and tail classes, improving long-tailed visual recognition through collaborative learning across multiple experts. By dynamically reweighting reliable experts during inference, the framework suppresses the bias toward majority classes and delivers consistent gains on rare tail categories across standard long-tailed recognition benchmarks.",
+      links:{}, accent:"#1d4480", figure:"./images/pub_figs/CVPR2026Trust.png" },
+
+    { title:"Deep Partial Label Feature Selection with Cluster-Guided Disambiguation",
+      venue:"KDD", venueFull:"ACM SIGKDD Conference on Knowledge Discovery & Data Mining (KDD)", year:2026, badge:"",
+      authors:[{name:"Tingjin Luo",me:true},{name:"Mengyuan Tong"},{name:"Qingchang Shu"},{name:"Yueyin Liu"},{name:"Hao Zhou"},{name:"Zheng Wang"}],
+      tags:["Partial Label","Feature Selection","Disambiguation"],
+      abstract:"Couples cluster-guided disambiguation with deep feature selection to learn discriminative features directly from partial-label data. The model jointly resolves candidate-label ambiguity and selects informative features end-to-end, yielding compact and interpretable representations that outperform conventional two-stage pipelines on partial-label benchmarks.",
+      links:{}, accent:"#117a65", figure:"./images/pub_figs/KDD2026DPLFS.png" },
+
+    { title:"Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens",
+      venue:"CVPR", venueFull:"IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)", year:2025, badge:"",
+      authors:[{name:"Zhangqi Jiang"},{name:"Junkai Chen"},{name:"Beier Zhu"},{name:"Tingjin Luo",me:true,corr:true},{name:"Yankun Shen"},{name:"Xu Yang",corr:true}],
+      tags:["Vision-Language","Hallucination","Attention","Training-Free"],
+      abstract:"Middle layers are pivotal for visual processing in LVLMs: real tokens receive higher attention than hallucinated ones, enabling training-free detection and mitigation of object hallucinations.",
+      links:{ arxiv:"http://arxiv.org/abs/2411.16724" }, accent:"#c0563f", figure:"./images/pub_figs/CVPR2025thumbnail.png" },
+
+    { title:"Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels",
+      venue:"CVPR", venueFull:"IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)", year:2025, badge:"",
+      authors:[{name:"Quanjiang Li"},{name:"Tingjin Luo",me:true,corr:true},{name:"Jiahui Liao"}],
+      tags:["Multi-View","Multi-Label","Information Bottleneck"],
+      abstract:"Grounds multi-view multi-label learning in information-bottleneck theory; cycle-consistent estimation and label-correlation regularization jointly handle incomplete views and noisy supervision. The framework distills view-shared predictive information while filtering view-specific noise, staying robust as missing-view and label-noise rates increase.",
+      links:{ pdf:"http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf" },
+      accent:"#4451b8", figure:"./images/pub_figs/CVPR2025DMMIvNL.png" },
+
+    { title:"Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network",
+      venue:"TPAMI", venueFull:"IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)", year:2025, badge:"",
+      authors:[{name:"Hao Zhou"},{name:"Tingjin Luo",me:true,corr:true},{name:"Jun Zhang"},{name:"Guoli Li"}],
+      tags:["Scene Graph","Causal Inference","Debiasing"],
+      abstract:"CFEN uses causal feature enhancement to isolate and subtract object-specific biases, yielding debiased scene graph predictions with improved relational accuracy. By modeling the causal effect of object context on predicate prediction, it suppresses spurious correlations and produces more balanced, semantically faithful scene graphs on tail relationships.",
+      links:{ ieee:"https://ieeexplore.ieee.org/document/9858006" }, accent:"#1f6a86", figure:"./images/pub_figs/TPAMI2025CFEN.png" },
+
+    { title:"Deep Incomplete Multi-View Learning Network with Insufficient Label Information",
+      venue:"AAAI", venueFull:"AAAI Conference on Artificial Intelligence (AAAI)", year:2024, badge:"",
+      authors:[{name:"Zhangqi Jiang"},{name:"Tingjin Luo",me:true,corr:true},{name:"Xinyan Liang"}],
+      tags:["Multi-View","Semi-Supervised","GNN"],
+      abstract:"DIMvLN unifies graph neural networks and semi-supervised learning to jointly handle incomplete multi-view data and insufficient label information. It propagates evidence across views and unlabeled samples through a shared graph, recovering missing modalities while exploiting scarce labels to learn robust cross-view representations.",
+      links:{ aaai:"https://ojs.aaai.org/index.php/AAAI/article/view/29189", code:"https://github.com/ZhangqiJiang07/code_DIMvLN" },
+      accent:"#7b54a8", figure:"./images/pub_figs/AAAI2024DIMvLN.png" },
+
+    { title:"Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds",
+      venue:"ACM MM", venueFull:"ACM International Conference on Multimedia (ACM MM)", year:2024, badge:"",
+      authors:[{name:"Xinyue Zhang"},{name:"Tingjin Luo",me:true,corr:true},{name:"Yueying Liu"},{name:"Chenping Hou"}],
+      tags:["Multi-Instance","Multi-Label","Imbalance"],
+      abstract:"IMIMLC uses an error-correcting coding ensemble and margin-maximization adaptive thresholds to tackle severe label imbalance in MIML settings. The coding ensemble decomposes the imbalanced task into balanced binary subproblems, while adaptive per-label thresholds calibrate predictions, markedly improving recognition of rare labels.",
+      links:{ acm:"https://dl.acm.org/doi/10.1145/3664647.3680911" }, accent:"#b06a28", figure:"./images/pub_figs/ACMMM2024IMIMLC.png" },
+
+    { title:"Debiased Scene Graph Generation for Dual Imbalance Learning",
+      venue:"TPAMI", venueFull:"IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)", year:2023, badge:"",
+      authors:[{name:"Hao Zhou"},{name:"Jun Zhang",corr:true},{name:"Tingjin Luo",me:true,corr:true},{name:"Yazhou Yang"},{name:"Jun Lei"}],
+      tags:["Scene Graph","Dual Imbalance","Causal Intervention"],
+      abstract:"DSDI introduces a bias-resistance loss and a causal intervention tree to combat predicate-level and foreground-background imbalance in scene graph generation. Together they reshape the biased training distribution and intervene on confounded predictions, yielding more discriminative tail predicates without sacrificing head performance.",
+      links:{ ieee:"https://ieeexplore.ieee.org/document/9858006", code:"https://github.com/zhouhao0515/unbiasedSGG-DSDI" },
+      accent:"#2f7164", figure:"./images/pub_figs/TPAMI2023DSDI.png" },
+
+    { title:"Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning",
+      venue:"KDD", venueFull:"ACM SIGKDD Conference on Knowledge Discovery & Data Mining (KDD)", year:2017, badge:"",
+      authors:[{name:"Tingjin Luo",me:true},{name:"Weizhong Zhang"},{name:"Shuang Qiu"},{name:"Yang Yang"},{name:"Dongyun Yi"},{name:"Guangtao Wang"},{name:"Jieping Ye",corr:true},{name:"Jie Wang",corr:true}],
+      tags:["Multi-Instance","Bioinformatics","Non-convex"],
+      abstract:"Integrates sparse simplex projection with multi-instance learning to differentiate protein coding isoform functions; an efficient block-coordinate-descent solver outperforms prior art on human-genome benchmarks.",
+      links:{ acm:"https://dl.acm.org/doi/10.1145/3097983.3097984", code:"https://github.com/HorizonAILab/Paper_Code", video:"https://videolectures.net/videos/kdd2017_luo_human_protein_coding" },
+      accent:"#3c5a8a", figure:"./images/pub_figs/ACMKDD2017WLRM.png" }
+  ];
+
+  var EXT='<svg viewBox="0 0 24 24"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 13v6H5V5h6"/></svg>';
+  var ICONS={
+    pdf:'<svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>',
+    code:'<svg viewBox="0 0 24 24"><path d="M9 8l-5 4 5 4"/><path d="M15 8l5 4-5 4"/></svg>',
+    video:'<svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg>',
+    arxiv:EXT, ieee:EXT, acm:EXT, aaai:EXT, paper:EXT };
+  var LABELS={ pdf:"PDF", code:"Code", arxiv:"arXiv", ieee:"IEEE", acm:"ACM DL", aaai:"AAAI", paper:"Paper", video:"Video" };
+
+  function pad(n){ return String(n).padStart(2,"0"); }
+  function authorsHTML(arr){
+    return arr.map(function(a){
+      var c = a.corr ? '<sup>#</sup>' : '';
+      return a.me ? ('<span class="me">'+a.name+c+'</span>') : (a.name+c);
+    }).join(", ");
+  }
+
+  var wrapCards  = document.querySelector(".cards-swiper .swiper-wrapper");
+  var wrapDetail = document.querySelector(".detail-swiper .swiper-wrapper");
+  if(!wrapCards || !wrapDetail || typeof Swiper === "undefined") return;
+
+  papers.forEach(function(p,i){
+    var img = p.figure ? ('<img class="cover-img" src="'+p.figure+'" alt="" loading="lazy">') : '';
+    var card = document.createElement("div");
+    card.className = "swiper-slide";
+    card.innerHTML =
+      '<div class="cover'+(p.figure?'':' nofig')+'" style="--accent:'+p.accent+'">'+
+        img+
+        '<div class="cover-grade"></div>'+
+        '<span class="cover-idx">'+pad(i+1)+'</span>'+
+        '<span class="cover-venue">'+p.venue+' \u00B7 '+p.year+'</span>'+
+        '<div class="cover-scrim"><h3 class="cover-title">'+p.title+'</h3></div>'+
+      '</div>';
+    wrapCards.appendChild(card);
+
+    var links = Object.keys(p.links||{}).map(function(k){
+      var u = p.links[k];
+      return '<a class="d-link" href="'+u+'" target="_blank" rel="noopener">'+(ICONS[k]||EXT)+(LABELS[k]||k)+'</a>';
+    }).join("");
+
+    var d = document.createElement("div");
+    d.className = "swiper-slide";
+    d.innerHTML =
+      '<div class="detail-inner" style="--accent:'+p.accent+'">'+
+        '<h3 class="d-title">'+p.title+'</h3>'+
+        '<div class="d-meta">'+
+          '<div class="d-row"><span class="d-label">Venue</span><span class="d-value">'+p.venueFull+'</span></div>'+
+          '<div class="d-row"><span class="d-label">Authors</span><span class="d-value">'+authorsHTML(p.authors)+'</span></div>'+
+        '</div>'+
+        (links ? ('<div class="d-links">'+links+'</div>') : '')+
+        '<p class="d-abstract">'+p.abstract+'</p>'+
+      '</div>';
+    wrapDetail.appendChild(d);
+  });
+
+  // graceful fallback: if a figure fails to load, show solid accent + index
+  wrapCards.querySelectorAll(".cover-img").forEach(function(im){
+    im.addEventListener("error", function(){ var c=this.closest(".cover"); if(c) c.classList.add("nofig"); });
+    if(im.complete && im.naturalWidth === 0){ var c=im.closest(".cover"); if(c) c.classList.add("nofig"); }
+  });
+
+  var cntEl = document.getElementById("psCnt"); if(cntEl) cntEl.textContent = pad(papers.length);
+  var curEl = document.getElementById("psCur");
+
+  // right detail panel: cross-fade, driven by the left card stack
+  var detailSwiper = new Swiper(".detail-swiper", {
+    allowTouchMove:false, loop:true, effect:"fade", fadeEffect:{ crossFade:true }
+  });
+  // left cards: stacked "cards" effect + drag + keyboard + pagination dots
+  var mainSwiper = new Swiper(".cards-swiper", {
+    effect:"cards", grabCursor:true, loop:true, initialSlide:0,
+    keyboard:{ enabled:true },
+    pagination:{ el:".ps-pagination", clickable:true },
+    thumbs:{ swiper:detailSwiper }
+  });
+
+  var root = document.querySelector(".papers");
+  function sync(){
+    var idx = mainSwiper.realIndex;
+    if(curEl) curEl.textContent = pad(idx+1);
+    if(root) root.style.setProperty("--ps-accent", papers[idx].accent);
+  }
+  mainSwiper.on("slideChange", sync);
+  sync();
+
+  var prev = document.getElementById("psPrev"), next = document.getElementById("psNext");
+  if(prev) prev.addEventListener("click", function(){ mainSwiper.slidePrev(); });
+  if(next) next.addEventListener("click", function(){ mainSwiper.slideNext(); });
+
+  document.querySelectorAll(".papers .d-link").forEach(function(a){
+    a.addEventListener("click", function(e){ if(a.getAttribute("href")==="#") e.preventDefault(); });
+  });
+})();
+</script>
+
 </body>
 </html>
