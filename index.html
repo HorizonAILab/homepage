@@ -28,7 +28,6 @@
   --ink3:      #6b7280;
   --ink4:      #9ca3af;
 
-  /* Deep navy blue replacing the bright blue */
   --blue:      #1e3a5f;
   --blue2:     #1d4480;
   --blue3:     #2c5f9e;
@@ -55,7 +54,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-y: scroll; }
 img  { display: block; max-width: 100%; }
 body {
   background: var(--bg);
@@ -110,7 +109,7 @@ sup { font-size: .62em; }
 @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
 
 /* ──────────────────────────────────────────────────────
-   Hero — redesigned with bio integrated
+   Hero
 ────────────────────────────────────────────────────── */
 .hero {
   display: grid; grid-template-columns: 216px 1fr;
@@ -154,13 +153,11 @@ sup { font-size: .62em; }
   border-radius: 4px; transition: background .13s;
 }
 
-/* Right column */
 .hero-right {
   padding-left: 44px;
   display: flex; flex-direction: column; gap: 18px;
 }
 
-/* Bio row: EN text + ZH box side by side */
 .hero-bio-row {
   display: grid; grid-template-columns: 1fr 296px; gap: 16px; align-items: start;
 }
@@ -211,7 +208,6 @@ sup { font-size: .62em; }
   transition: color .18s;
 }
 
-/* Bio paragraph inside hero */
 .hero-bio {
   font-size: .86rem; line-height: 1.78; color: var(--ink2);
   text-align: justify; text-justify: inter-word;
@@ -220,7 +216,6 @@ sup { font-size: .62em; }
 .hero-bio a { color: var(--blue2); }
 .hero-bio a:hover { text-decoration: underline; text-decoration-color: var(--blue-bd); }
 
-/* Bio Chinese box */
 .hero-bio-zh {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
   padding: 14px 16px;
@@ -233,13 +228,10 @@ sup { font-size: .62em; }
 }
 
 /* ──────────────────────────────────────────────────────
-   Cards section (below hero) — unified 4-col grid
+   Cards section
 ────────────────────────────────────────────────────── */
-.cards-section {
-  padding-top: 28px;
-}
+.cards-section { padding-top: 28px; }
 
-/* Card rows below the Join card */
 .info-row {
   display: grid; grid-template-columns: 1fr 2fr; gap: 10px;
   margin-bottom: 10px;
@@ -291,7 +283,6 @@ sup { font-size: .62em; }
 .hcard-venue {
   font-family: var(--mono); font-size: .65rem; color: var(--blue2); letter-spacing: .03em; margin-top: 6px;
 }
-/* Machine Learning Resources card — 2/3 width, multi-column list */
 .res-list { list-style: none; columns: 2; column-gap: 18px; }
 @media (max-width: 760px) { .res-list { columns: 1; } }
 .res-list li { line-height: 1.3; break-inside: avoid; }
@@ -343,7 +334,6 @@ sup { font-size: .62em; }
 }
 .pill.open .chv { transform: rotate(-135deg) translate(-1px,-1px); }
 
-/* Research area cards */
 .rcard {
   padding: 18px 16px;
   background: var(--bg); border: 1px solid var(--border); border-radius: var(--r2);
@@ -358,7 +348,7 @@ sup { font-size: .62em; }
 .rcard p  { font-size: .76rem; color: var(--ink3); line-height: 1.6; }
 
 /* ──────────────────────────────────────────────────────
-   News — no dividers, bullet list style
+   News
 ────────────────────────────────────────────────────── */
 .news-list { list-style: none; }
 .news-row {
@@ -394,10 +384,7 @@ sup { font-size: .62em; }
 /* ──────────────────────────────────────────────────────
    Publications
 ────────────────────────────────────────────────────── */
-/* Publication stats — hidden, accessible only via keyboard */
-.pub-stats-line {
-  display: none;
-}
+.pub-stats-line { display: none; }
 
 .pub {
   display: grid; grid-template-columns: 132px 1fr;
@@ -448,13 +435,11 @@ sup { font-size: .62em; }
 .pub-links a:hover { color: var(--blue2); border-color: var(--blue-bd); background: var(--blue-bg); }
 
 /* ──────────────────────────────────────────────────────
-   Students — redesigned table
+   Students
 ────────────────────────────────────────────────────── */
-.st-wrap { overflow-x: auto; border-radius: var(--r2); box-shadow: 0 0 0 1px var(--border); }
+.st-wrap { overflow-x: auto; overflow-y: hidden; border-radius: var(--r2); box-shadow: 0 0 0 1px var(--border); }
 .st-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: .8rem; }
-.st-table thead tr {
-  background: var(--blue2);
-}
+.st-table thead tr { background: var(--blue2); }
 .st-table th {
   padding: 9px 12px; text-align: left;
   font-family: var(--sans); font-size: .68rem; font-weight: 600;
@@ -477,7 +462,6 @@ sup { font-size: .62em; }
 .deg-master { background: #e8edf5; color: #4a5e7a; border: 1px solid #b0bece; }
 .st-table td.dest { color: var(--ink4); font-size: .82rem; }
 
-/* Alumni divider row inside the student table */
 .st-alumni-divider td {
   background: var(--blue-bg);
   border-bottom: 1px solid var(--blue-bd) !important;
@@ -492,7 +476,25 @@ sup { font-size: .62em; }
 .st-alumni-row { background: #f5f9ff; }
 .st-alumni-row:hover { background: var(--blue-bg) !important; }
 
-/* Icon arrow for student table links */
+/* Group members show-more */
+.st-hidden { display: none; }
+.st-hidden.st-shown { display: table-row; animation: fadeUp .22s var(--ease) both; }
+.st-alumni-divider.st-hidden { display: none; }
+.st-alumni-divider.st-shown { display: table-row; animation: fadeUp .22s var(--ease) both; }
+.st-alumni-row.st-hidden { display: none; }
+.st-alumni-row.st-shown { display: table-row; animation: fadeUp .22s var(--ease) both; }
+
+/* Fade-out mask on the table when collapsed */
+.st-wrap { position: relative; }
+.st-fade {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 56px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  border-radius: 0 0 var(--r2) var(--r2);
+  transition: opacity .22s var(--ease);
+}
+.st-fade.hidden { opacity: 0; }
+
 .icon-arrow-sm {
   display: inline-flex; align-items: center; justify-content: center;
   width: 18px; height: 16px; flex-shrink: 0;
@@ -504,7 +506,6 @@ sup { font-size: .62em; }
 }
 .icon-arrow-sm:hover { color: var(--blue2); border-color: var(--blue-bd); background: var(--blue-bg); transform: translate(1px,-1px); }
 
-/* Unified SVG icon buttons for member links (bio / home / github) */
 .icon-btn-svg {
   display: inline-flex; align-items: center; justify-content: center;
   width: 20px; height: 18px; flex-shrink: 0;
@@ -522,11 +523,10 @@ sup { font-size: .62em; }
   background: var(--blue-bg); transform: translateY(-2px);
   box-shadow: 0 3px 8px rgba(30,58,95,.13);
 }
-/* GitHub icon gets a slightly darker hover */
 .icon-btn-github:hover { color: var(--ink); border-color: var(--border2); background: var(--surface2); }
 
 /* ──────────────────────────────────────────────────────
-   Education — no dividers, bullet list style
+   Education
 ────────────────────────────────────────────────────── */
 .edu-list { list-style: none; }
 .edu-row {
@@ -539,15 +539,13 @@ sup { font-size: .62em; }
   font-family: var(--mono); font-size: .69rem; color: var(--ink2);
   white-space: nowrap; padding-top: .08em;
 }
-.edu-main {
-  font-size: .9rem; color: var(--ink2); line-height: 1.5;
-}
+.edu-main { font-size: .9rem; color: var(--ink2); line-height: 1.5; }
 .edu-role-txt { font-weight: 600; color: var(--ink); }
 .edu-role-txt.blue { color: var(--blue2); }
 .edu-org-txt { font-size: .82rem; color: var(--ink3); margin-left: .4em; }
 
 /* ──────────────────────────────────────────────────────
-   Teaching — no dividers, bullet list style
+   Teaching
 ────────────────────────────────────────────────────── */
 .tch-list { list-style: none; }
 .tch-row {
@@ -562,7 +560,7 @@ sup { font-size: .62em; }
 .tch-desc { color: var(--ink3); }
 
 /* ──────────────────────────────────────────────────────
-   Service (academic service) — compact, minimal effects
+   Service
 ────────────────────────────────────────────────────── */
 .svc-grid {
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
@@ -580,7 +578,6 @@ sup { font-size: .62em; }
 }
 .svc-card-title .zh { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--ink4); }
 
-/* Editor / org list rows */
 .svc-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
 .svc-list li { font-size: .82rem; color: var(--ink2); line-height: 1.45; }
 .svc-jname { font-weight: 600; color: var(--ink); }
@@ -589,7 +586,6 @@ sup { font-size: .62em; }
   font-family: var(--mono); font-size: .62rem; color: var(--amber); margin-left: 2px;
 }
 
-/* chips for reviewers / conferences */
 .svc-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .svc-chip {
   display: inline-flex; align-items: baseline; gap: 5px;
@@ -606,7 +602,7 @@ sup { font-size: .62em; }
 .svc-sub { font-size: .68rem; color: var(--ink4); font-weight: 600; margin: 12px 0 7px; letter-spacing: .03em; }
 
 /* ──────────────────────────────────────────────────────
-   Join the group (recruitment) — big gradient card under bio
+   Join
 ────────────────────────────────────────────────────── */
 .join-section { margin-top: 30px; }
 .join-card {
@@ -661,7 +657,6 @@ sup { font-size: .62em; }
 .footer-meta a { color: var(--ink3); transition: color .13s; }
 .footer-meta a:hover { color: var(--blue2); }
 
-/* Copy toast */
 .copy-toast {
   position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(8px);
   padding: 8px 18px; border-radius: 8px;
@@ -673,7 +668,6 @@ sup { font-size: .62em; }
 }
 .copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* Scroll reveal */
 [data-v] {
   opacity: 0; transform: translateY(8px);
   transition: opacity .36s var(--ease), transform .36s var(--ease);
@@ -750,7 +744,7 @@ sup { font-size: .62em; }
 }
 
 /* ──────────────────────────────────────────────────────
-   Representative Publications — stacked paper-card swiper
+   Representative Publications — swiper
 ────────────────────────────────────────────────────── */
 .papers{ --card-w:180px; --card-h:241px; }
 .papers-box{
@@ -758,7 +752,6 @@ sup { font-size: .62em; }
   width:100%;
 }
 
-/* left: stacked poker-style cards */
 .cards-swiper{ width:var(--card-w); height:var(--card-h); flex:none; overflow:visible; }
 .cards-swiper .swiper-slide{
   border-radius:14px; overflow:hidden; background:var(--surface2);
@@ -766,7 +759,6 @@ sup { font-size: .62em; }
 }
 .cover{ position:absolute; inset:0; background:var(--accent); color:#fff; overflow:hidden; }
 .cover-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; }
-/* corresponding-color gradient tint over the figure */
 .cover-grade{
   position:absolute; inset:0; z-index:1; pointer-events:none;
   background:var(--accent); mix-blend-mode:multiply; opacity:.30;
@@ -799,7 +791,6 @@ sup { font-size: .62em; }
   text-shadow:0 1px 5px rgba(0,0,0,.42);
 }
 
-/* right: synced detail panel */
 .detail-swiper{ flex:1; min-width:0; height:var(--card-h); }
 .detail-swiper .swiper-slide{ overflow:visible; }
 .detail-inner{
@@ -856,28 +847,74 @@ sup { font-size: .62em; }
   transform:translateY(-1px);
 }
 
-/* controls */
-.papers-controls{ display:flex; align-items:center; justify-content:center; gap:14px; margin-top:16px; }
+/* ── Redesigned controls ── */
+.papers-controls{
+  display:flex; align-items:center; justify-content:center;
+  gap:10px; margin-top:18px;
+}
+
+/* Flat rounded-rect buttons — no shadow */
 .ps-nav{
-  width:38px; height:38px; border-radius:50%;
-  border:1px solid var(--border2); background:var(--bg); color:var(--ink);
-  font-size:1.2rem; line-height:1; cursor:pointer;
-  display:grid; place-items:center; padding-bottom:2px;
-  box-shadow:0 3px 10px -7px rgba(17,19,24,.40);
-  transition:color .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease), transform .15s var(--ease-out);
+  width:30px; height:30px;
+  border-radius:var(--r);
+  border:1px solid var(--border2);
+  background:var(--bg);
+  color:var(--ink3);
+  cursor:pointer;
+  display:grid; place-items:center;
+  flex-shrink:0;
+  transition:
+    background .15s var(--ease),
+    border-color .15s var(--ease),
+    color .15s var(--ease),
+    transform .12s var(--ease);
 }
-.ps-nav:hover{ background:var(--ps-accent,var(--blue2)); border-color:var(--ps-accent,var(--blue2)); color:#fff; }
-.ps-nav:active{ transform:scale(.92); }
-.ps-center{ display:flex; flex-direction:column; align-items:center; gap:8px; }
-.ps-pagination{ display:flex; gap:6px; align-items:center; }
+.ps-nav:hover{
+  background:var(--surface2);
+  border-color:var(--ink4);
+  color:var(--ink);
+}
+.ps-nav:active{ transform:scale(.91); }
+/* SVG chevron icon inside the button */
+.ps-nav svg{
+  width:13px; height:13px;
+  stroke:currentColor; fill:none;
+  stroke-width:1.9;
+  stroke-linecap:round; stroke-linejoin:round;
+  display:block;
+}
+
+.ps-center{ display:flex; align-items:center; gap:10px; }
+
+/* Dot track */
+.ps-pagination{ display:flex; gap:5px; align-items:center; }
 .ps-pagination .swiper-pagination-bullet{
-  width:7px; height:7px; border-radius:50%; margin:0 !important;
+  width:5px; height:5px; border-radius:50%; margin:0 !important;
   background:var(--border2); opacity:1; cursor:pointer;
-  transition:width .3s var(--ease), background .3s var(--ease);
+  transition:width .28s var(--ease), background .28s var(--ease), border-radius .28s var(--ease);
 }
-.ps-pagination .swiper-pagination-bullet-active{ width:22px; border-radius:4px; background:var(--ps-accent,var(--blue2)); }
-.ps-counter{ font-family:var(--mono); font-size:.74rem; color:var(--ink4); }
-.ps-counter b{ color:var(--ps-accent,var(--blue2)); font-weight:600; }
+.ps-pagination .swiper-pagination-bullet-active{
+  width:18px; border-radius:3px;
+  /* neutral ink instead of accent color */
+  background:var(--ink);
+}
+
+/* Thin separator */
+.ps-sep{
+  width:1px; height:14px;
+  background:var(--border2);
+  flex-shrink:0;
+}
+
+/* Counter */
+.ps-counter{
+  font-family:var(--mono); font-size:.72rem;
+  color:var(--ink3); letter-spacing:.02em;
+  white-space:nowrap;
+}
+.ps-counter b{
+  color:var(--ink); font-weight:500;
+}
 
 @media (max-width:760px){
   .papers{ --card-w:188px; --card-h:252px; }
@@ -889,7 +926,6 @@ sup { font-size: .62em; }
   .papers{ --card-w:166px; --card-h:223px; }
   .detail-swiper{ height:380px; }
 }
-
 </style>
 </head>
 <body>
@@ -916,9 +952,7 @@ sup { font-size: .62em; }
 
 <div class="page">
 
-<!-- ════════════════════════════════
-     HERO (with integrated bio)
-════════════════════════════════ -->
+<!-- HERO -->
 <a id="home" class="anchor"></a>
 <div class="hero">
 
@@ -963,23 +997,20 @@ sup { font-size: .62em; }
       <p class="email-row" id="emailRow" onclick="copyEmail(this)" style="cursor:pointer" title="Copy email"><span class="email-label">Email</span><span class="email-addr">tingjinluo@hotmail.com, luotingjin03@nudt.edu.cn</span></p>
     </div>
 
-    <!-- Short Bio: EN left, ZH right -->
     <div class="hero-bio-row" data-v>
       <div class="hero-bio">
-        Tingjin Luo is an Associate Professor with the <a href="https://www.nudt.edu.cn/yssz/lxy/index.htm" target="_blank" rel="noopener">College of Sciences</a>, <a href="https://www.nudt.edu.cn/" target="_blank" rel="noopener">National University of Defense Technology (NUDT)</a>, Changsha, China. He received both his B.Eng. and Ph.D. degrees from NUDT, and was a visiting Ph.D. student at the <strong>University of Michigan, Ann Arbor</strong>. He has published more than <strong>60 papers</strong> in top-tier AI venues including IEEE TPAMI, TKDE, TIP, ACM TOIS, ACM KDD, ICML, NeurIPS, CVPR, AAAI, and ACM MM, with research spanning <strong>machine learning, weakly-supervised learning, multi-media analysis</strong>, and scene understanding. He serves as AC / SPC / PC for NeurIPS, ICLR, ICML, AAAI, IJCAI and CVPR.
+        Tingjin Luo is an Associate Professor with the <a href="https://www.nudt.edu.cn/yssz/lxy/index.htm" target="_blank" rel="noopener">College of Sciences</a>, <a href="https://www.nudt.edu.cn/" target="_blank" rel="noopener">National University of Defense Technology (NUDT)</a>, Changsha, China. He received both his B.Eng. and Ph.D. degrees from NUDT, and was a visiting Ph.D. student at the <strong>University of Michigan, Ann Arbor</strong>. He has published more than <strong>60 papers</strong> in top-tier AI venues including IEEE TPAMI, TKDE, TCYB, ACM KDD, ICML, AAAI, NeurIPS, and ACM MM, with research spanning <strong>machine learning, weakly-supervised learning, multi-media analysis</strong>, and scene understanding. He serves as AC / SPC / PC for NeurIPS, ICLR, ICML, AAAI, IJCAI and CVPR.
       </div>
       <div class="hero-bio-zh">
         <span class="hero-bio-zh-lbl">简介</span>
-        现任国防科技大学理学院副教授，主要从事弱监督学习、大模型安全可信及其应用研究。在IEEE TPAMI、IEEE TKDE、IEEE TIP、ACM KDD、NeurIPS、ICML等顶级期刊或会议发表60余篇学术论文。主持国家自然科学基金、湖南省青年A类等项目10余项，获学会优秀博士学位论文奖及省优秀博士学位论文奖，入选湖南省湖湘青年英才计划等。
+        现任国防科技大学理学院副教授，主要从事弱监督学习、大模型安全可信研究。在 IEEE TPAMI、IEEE TKDE、IEEE TIP、ACM KDD、NeurIPS、ICML等顶级期刊或会议发表 60 余篇学术论文。主持国家自然科学基金、湖南省青年A类等项目 10 余项，获学会优秀博士学位论文奖及省优秀博士学位论文奖，入选湖南省湖湘青年英才计划。
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ════════════════════════════════
-     JOIN THE GROUP (big card, directly under bio)
-════════════════════════════════ -->
+<!-- JOIN -->
 <a id="join" class="anchor"></a>
 <div class="join-section">
   <div class="join-card" data-v>
@@ -1019,9 +1050,7 @@ sup { font-size: .62em; }
   </div>
 </div>
 
-<!-- ════════════════════════════════
-     CARDS (below the Join card)
-════════════════════════════════ -->
+<!-- CARDS -->
 <div class="cards-section">
   <div class="info-row" style="grid-template-columns: 1fr;">
     <div class="hcard hcard-res" data-v>
@@ -1041,7 +1070,6 @@ sup { font-size: .62em; }
   </div>
 
   <div class="research-row">
-    <!-- 4 Research cards -->
     <div class="rcard" data-v><span class="rcard-n">01</span><h3>Weakly-Supervised Learning</h3><p>Semi-supervised, partial label, label-noise robust, and multi-label learning with theoretical guarantees.</p></div>
     <div class="rcard" data-v><span class="rcard-n">02</span><h3>Multi-View Learning</h3><p>Incomplete multi-view representation learning with graph neural networks and contrastive objectives.</p></div>
     <div class="rcard" data-v><span class="rcard-n">03</span><h3>Scene Understanding</h3><p>Debiased scene graph generation via causal intervention and counterfactual training.</p></div>
@@ -1049,9 +1077,7 @@ sup { font-size: .62em; }
   </div>
 </div>
 
-<!-- ════════════════════════════════
-     NEWS
-════════════════════════════════ -->
+<!-- NEWS -->
 <a id="news" class="anchor"></a>
 <div class="sec">
   <div class="sec-head"><h2 class="sec-title">Latest News</h2></div>
@@ -1075,9 +1101,7 @@ sup { font-size: .62em; }
   </div>
 </div>
 
-<!-- ════════════════════════════════
-     PUBLICATIONS
-════════════════════════════════ -->
+<!-- PUBLICATIONS -->
 <a id="publications" class="anchor"></a>
 <div class="sec">
   <div class="sec-head">
@@ -1088,26 +1112,32 @@ sup { font-size: .62em; }
     </div>
   </div>
 
-
   <div class="papers" data-v>
     <div class="papers-box">
       <div class="swiper cards-swiper"><div class="swiper-wrapper"></div></div>
       <div class="swiper detail-swiper"><div class="swiper-wrapper"></div></div>
     </div>
     <nav class="papers-controls">
-      <button class="ps-nav" id="psPrev" aria-label="Previous paper">&lsaquo;</button>
+      <!-- Chevron-left button -->
+      <button class="ps-nav" id="psPrev" aria-label="Previous paper">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
       <div class="ps-center">
         <div class="ps-pagination"></div>
-        <span class="ps-counter"><b id="psCur">01</b> / <span id="psCnt">09</span></span>
       </div>
-      <button class="ps-nav" id="psNext" aria-label="Next paper">&rsaquo;</button>
+      <!-- Thin separator -->
+      <div class="ps-sep"></div>
+      <!-- Counter -->
+      <span class="ps-counter"><b id="psCur">01</b> / <span id="psCnt">09</span></span>
+      <!-- Chevron-right button -->
+      <button class="ps-nav" id="psNext" aria-label="Next paper">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </nav>
   </div>
 </div>
 
-<!-- ════════════════════════════════
-     STUDENTS
-════════════════════════════════ -->
+<!-- STUDENTS -->
 <a id="students" class="anchor"></a>
 <div class="sec">
   <div class="sec-head"><h2 class="sec-title">Group Members</h2></div>
@@ -1124,29 +1154,31 @@ sup { font-size: .62em; }
       </thead>
       <tbody>
         <tr><td>Yueying Liu</td><td><span class="deg deg-phd">PhD</span></td><td>2021–</td><td>IEEE TIP 2026, FCS 2026, FCS 2025</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
-        <tr><td>Xinyue Zhang</td><td><span class="deg deg-phd">PhD</span></td><td>2022–</td><td>IEEE TKDE 2026,FCS 2025, ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
-        <tr><td>Quanjiang Li </td><td><span class="deg deg-phd">PhD</span></td><td>2023–</td><td>ICML 2026, AAAI 2026, NeurIPS2025, CVPR 2025, AAAI 2025, ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
+        <tr><td>Xinyue Zhang</td><td><span class="deg deg-phd">PhD</span></td><td>2022–</td><td>IEEE TKDE 2026, FCS 2025, ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
+        <tr><td>Quanjiang Li</td><td><span class="deg deg-phd">PhD</span></td><td>2023–</td><td>ICML 2026, AAAI 2026, NeurIPS2025, CVPR 2025, AAAI 2025, ACM MM 2024</td><td class="dest">Co-supervised with Prof. Chenping Hou</td></tr>
         <tr><td>Yuchen Zhang</td><td><span class="deg deg-phd">PhD</span></td><td>2024–</td><td>ACM TOIS 2026</td><td class="dest">Co-supervised with Prof. Jiyin Liu</td></tr>
         <tr><td>Mingdie Jiang</td><td><span class="deg deg-master">MSc</span></td><td>2024–</td><td>AAAI 2026</td><td class="dest">—</td></tr>
-        <tr><td>Mengtao Yang</td><td><span class="deg deg-master">MSc</span></td><td>2024–</td><td>FCS 2026</td><td class="dest">—</td></tr>
-        <tr><td>Xiangyao Li</td><td><span class="deg deg-master">MSc</span></td><td>2025–</td><td>ACM KDD 2026</td><td class="dest">—</td></tr>
-        <tr><td>Yang Li<a href="https://yangli.netlify.app/" target="_blank" rel="noopener" class="icon-btn-svg icon-btn-bio" title="Bio" aria-label="Bio"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></a><a href="https://albertlee.netlify.app/" target="_blank" rel="noopener" class="icon-btn-svg icon-btn-home" title="Homepage" aria-label="Homepage"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2.5L2 9h2v8.5h5v-5h2v5h5V9h2L10 2.5z"/></svg></a><a href="https://github.com/LiyangAlbert" target="_blank" rel="noopener" class="icon-btn-svg icon-btn-github" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23A11.51 11.51 0 0 1 12 6.803c1.02.005 2.047.138 3.006.404 2.29-1.552 3.295-1.23 3.295-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22v3.293c0 .319.21.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></td><td><span class="deg deg-master">MSc</span></td><td>2025–</td><td>ICML 2026</td><td class="dest">—</td></tr>
-        <tr><td>Mengyuan Tong</td><td><span class="deg deg-master">MSc</span></td><td>2025–</td><td>ACM KDD 2026</td><td class="dest">—</td></tr>
-        <tr><td>Ziao Huang</td><td><span class="deg deg-master">MSc</span></td><td>2026–</td><td></td><td class="dest">—</td></tr>
-        <tr><td>Xinjun Hu</td><td><span class="deg deg-master">MSc</span></td><td>2026–</td><td></td><td class="dest">—</td></tr>
-        <tr class="st-alumni-divider"><td colspan="5">Alumni <span class="zh">· 已毕业</span></td></tr>
-        <tr class="st-alumni-row"><td>Wenzhang Zhuge</td><td><span class="deg deg-phd">PhD</span></td><td>2018-2020</td><td>TCYB 2023, TKDE 2020, ML 2020, 中国科学：信息科学</td><td class="dest">Co-supervised with Prof. Dongyun Yi</td></tr>
-        <tr class="st-alumni-row"><td>Hao Zhou</td><td><span class="deg deg-phd">PhD</span></td><td>2019–2021</td><td>TPAMI 2023, TPAMI 2025, AAAI 2025, CVPR 2026, TGRS 2026</td><td class="dest">Co-supervised with Prof. Jun Zhang</td></tr>
-        <tr class="st-alumni-row"><td>Zhangqi Jiang</td><td><span class="deg deg-master">MSc</span></td><td>2023-2025</td><td>NeurIPS2025, CVPR 2025, AAAI 2024</td><td class="dest">—</td></tr>
-        <tr class="st-alumni-row"><td>Huiting Yuan</td><td><span class="deg deg-master">MSc</span></td><td>2023-2026</td><td>KBS 2025</td><td class="dest">Honor</td></tr>
+        <tr class="st-hidden"><td>Mengtao Yang</td><td><span class="deg deg-master">MSc</span></td><td>2024–</td><td>FCS 2026</td><td class="dest">—</td></tr>
+        <tr class="st-hidden"><td>Xiangyao Li</td><td><span class="deg deg-master">MSc</span></td><td>2025–</td><td>ACM KDD 2026</td><td class="dest">—</td></tr>
+        <tr class="st-hidden"><td>Yang Li<a href="https://yangli.netlify.app/" target="_blank" rel="noopener" class="icon-btn-svg icon-btn-bio" title="Bio" aria-label="Bio"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></a><a href="https://albertlee.netlify.app/" target="_blank" rel="noopener" class="icon-btn-svg icon-btn-home" title="Homepage" aria-label="Homepage"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2.5L2 9h2v8.5h5v-5h2v5h5V9h2L10 2.5z"/></svg></a><a href="https://github.com/LiyangAlbert" target="_blank" rel="noopener" class="icon-btn-svg icon-btn-github" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23A11.51 11.51 0 0 1 12 6.803c1.02.005 2.047.138 3.006.404 2.29-1.552 3.295-1.23 3.295-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22v3.293c0 .319.21.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></td><td><span class="deg deg-master">MSc</span></td><td>2025–</td><td>ICML 2026</td><td class="dest">—</td></tr>
+        <tr class="st-hidden"><td>Mengyuan Tong</td><td><span class="deg deg-master">MSc</span></td><td>2025–</td><td>ACM KDD 2026</td><td class="dest">—</td></tr>
+        <tr class="st-hidden"><td>Ziao Huang</td><td><span class="deg deg-master">MSc</span></td><td>2026–</td><td></td><td class="dest">—</td></tr>
+        <tr class="st-hidden"><td>Xinjun Hu</td><td><span class="deg deg-master">MSc</span></td><td>2026–</td><td></td><td class="dest">—</td></tr>
+        <tr class="st-alumni-divider st-hidden"><td colspan="5">Alumni <span class="zh">· 已毕业</span></td></tr>
+        <tr class="st-alumni-row st-hidden"><td>Wenzhang Zhuge</td><td><span class="deg deg-phd">PhD</span></td><td>2018-2020</td><td>TCYB 2023, TKDE 2020, ML 2020, 中国科学：信息科学</td><td class="dest">Co-supervised with Prof. Dongyun Yi</td></tr>
+        <tr class="st-alumni-row st-hidden"><td>Hao Zhou</td><td><span class="deg deg-phd">PhD</span></td><td>2019–2021</td><td>TPAMI 2023, TPAMI 2025, AAAI 2025, CVPR 2026, TGRS 2026</td><td class="dest">Co-supervised with Prof. Jun Zhang</td></tr>
+        <tr class="st-alumni-row st-hidden"><td>Zhangqi Jiang</td><td><span class="deg deg-master">MSc</span></td><td>2023-2025</td><td>NeurIPS2025, CVPR 2025, AAAI 2024</td><td class="dest">—</td></tr>
+        <tr class="st-alumni-row st-hidden"><td>Huiting Yuan</td><td><span class="deg deg-master">MSc</span></td><td>2023-2026</td><td>KBS 2025</td><td class="dest">Honor</td></tr>
       </tbody>
     </table>
+    <div class="st-fade" id="stFade"></div>
+  </div>
+  <div class="expand-wrap">
+    <button class="pill" id="stBtn">Show all members <span class="chv"></span></button>
   </div>
 </div>
 
-<!-- ════════════════════════════════
-     TEACHING
-════════════════════════════════ -->
+<!-- TEACHING -->
 <a id="teaching" class="anchor"></a>
 <div class="sec">
   <div class="sec-head"><h2 class="sec-title">Teaching</h2></div>
@@ -1166,15 +1198,12 @@ sup { font-size: .62em; }
   </div>
 </div>
 
-<!-- ════════════════════════════════
-     SERVICE
-════════════════════════════════ -->
+<!-- SERVICE -->
 <a id="service" class="anchor"></a>
 <div class="sec">
   <div class="sec-head"><h2 class="sec-title">Academic Service</h2></div>
   <div class="svc-grid">
 
-    <!-- Membership -->
     <div class="svc-card" data-v>
       <p class="svc-card-title">Membership <span class="zh">· 学术组织</span></p>
       <ul class="svc-list">
@@ -1183,7 +1212,6 @@ sup { font-size: .62em; }
       </ul>
     </div>
 
-    <!-- Associate Editor -->
     <div class="svc-card" data-v>
       <p class="svc-card-title">Associate Editor <span class="zh">· 期刊编委</span></p>
       <ul class="svc-list">
@@ -1194,7 +1222,6 @@ sup { font-size: .62em; }
       </ul>
     </div>
 
-    <!-- Conference service (AC + PC merged) -->
     <div class="svc-card wide" data-v>
       <p class="svc-card-title">Conference Service <span class="zh">· 会议服务</span></p>
       <p class="svc-sub">Area Chair / Senior PC</p>
@@ -1219,7 +1246,6 @@ sup { font-size: .62em; }
       </div>
     </div>
 
-    <!-- Journal Reviewer (wide) -->
     <div class="svc-card wide" data-v>
       <p class="svc-card-title">Journal Reviewer <span class="zh">· 期刊审稿人</span></p>
       <div class="svc-chips">
@@ -1264,53 +1290,68 @@ sup { font-size: .62em; }
 (function(){
 'use strict';
 
-const nav  = document.getElementById('nav');
-const nls  = document.querySelectorAll('.nav-links a');
-const ancs = document.querySelectorAll('.anchor[id]');
+var nav  = document.getElementById('nav');
+var nls  = document.querySelectorAll('.nav-links a');
+var ancs = document.querySelectorAll('.anchor[id]');
 
 function tick(){
   nav.classList.toggle('scrolled', window.scrollY > 10);
-  const y = window.scrollY + 80;
-  let cur = '';
-  ancs.forEach(a => { if(y >= a.getBoundingClientRect().top + window.scrollY) cur = a.id; });
-  nls.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur));
+  var y = window.scrollY + 80;
+  var cur = '';
+  ancs.forEach(function(a){ if(y >= a.getBoundingClientRect().top + window.scrollY) cur = a.id; });
+  nls.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#' + cur); });
 }
 window.addEventListener('scroll', tick, {passive:true});
 tick();
-nls.forEach(a => a.addEventListener('click', () => {
-  const t = document.getElementById('ntoggle');
+nls.forEach(function(a){ a.addEventListener('click', function(){
+  var t = document.getElementById('ntoggle');
   if (t) t.checked = false;
-}));
+}); });
 
 if ('IntersectionObserver' in window) {
-  const io = new IntersectionObserver(es => {
-    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); } });
   }, {threshold: .07, rootMargin: '0px 0px -16px 0px'});
-  document.querySelectorAll('[data-v]').forEach(el => io.observe(el));
+  document.querySelectorAll('[data-v]').forEach(function(el){ io.observe(el); });
 } else {
-  document.querySelectorAll('[data-v]').forEach(el => el.classList.add('vis'));
+  document.querySelectorAll('[data-v]').forEach(function(el){ el.classList.add('vis'); });
 }
 
-const newsBtn = document.getElementById('newsBtn');
-const newsX   = document.querySelectorAll('.news-extra');
-let newsOpen  = false;
-newsBtn.addEventListener('click', () => {
+var newsBtn = document.getElementById('newsBtn');
+var newsX   = document.querySelectorAll('.news-extra');
+var newsOpen = false;
+newsBtn.addEventListener('click', function(){
   newsOpen = !newsOpen;
   newsBtn.classList.toggle('open', newsOpen);
-  newsBtn.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = newsOpen ? 'Show less ' : 'Show more '; });
-  newsX.forEach((el, i) => {
-    if (newsOpen) { el.classList.add('show'); el.style.animationDelay = (i * 28) + 'ms'; }
+  newsBtn.childNodes.forEach(function(n){ if (n.nodeType === 3) n.textContent = newsOpen ? 'Show less ' : 'Show more '; });
+  newsX.forEach(function(el, i){
+    if (newsOpen){ el.classList.add('show'); el.style.animationDelay = (i * 28) + 'ms'; }
     else { el.classList.remove('show'); el.style.animationDelay = '0ms'; }
   });
 });
 
-/* Representative publications are now rendered as an interactive card swiper (init below). */
+var stBtn  = document.getElementById('stBtn');
+var stFade = document.getElementById('stFade');
+var stRows = document.querySelectorAll('.st-hidden');
+var stOpen = false;
+stBtn.addEventListener('click', function(){
+  stOpen = !stOpen;
+  stBtn.classList.toggle('open', stOpen);
+  stBtn.childNodes.forEach(function(n){
+    if (n.nodeType === 3) n.textContent = stOpen ? 'Show less ' : 'Show all members ';
+  });
+  stRows.forEach(function(el, i){
+    if (stOpen){ el.classList.add('st-shown'); el.style.animationDelay = (i * 24) + 'ms'; }
+    else { el.classList.remove('st-shown'); el.style.animationDelay = '0ms'; }
+  });
+  if (stFade) stFade.classList.toggle('hidden', stOpen);
+});
 })();
 
-function copyEmail() {
-  navigator.clipboard.writeText('tingjinluo@hotmail.com').then(() => {
-    let t = document.getElementById('copyToast');
-    if (!t) {
+function copyEmail(){
+  navigator.clipboard.writeText('tingjinluo@hotmail.com').then(function(){
+    var t = document.getElementById('copyToast');
+    if (!t){
       t = document.createElement('div');
       t.id = 'copyToast'; t.className = 'copy-toast';
       t.textContent = 'Copied!';
@@ -1318,18 +1359,19 @@ function copyEmail() {
     }
     t.classList.add('show');
     clearTimeout(t._timer);
-    t._timer = setTimeout(() => t.classList.remove('show'), 1800);
+    t._timer = setTimeout(function(){ t.classList.remove('show'); }, 1800);
   });
 }
 
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'p' || e.key === 'P') {
-    if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+document.addEventListener('keydown', function(e){
+  if (e.key === 'p' || e.key === 'P'){
+    if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA'){
       window.open('publications.html', '_blank');
     }
   }
 });
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.0/swiper-bundle.min.js"></script>
 <script>
 (function(){
@@ -1457,7 +1499,6 @@ document.addEventListener('keydown', function(e) {
     wrapDetail.appendChild(d);
   });
 
-  // graceful fallback: if a figure fails to load, show solid accent + index
   wrapCards.querySelectorAll(".cover-img").forEach(function(im){
     im.addEventListener("error", function(){ var c=this.closest(".cover"); if(c) c.classList.add("nofig"); });
     if(im.complete && im.naturalWidth === 0){ var c=im.closest(".cover"); if(c) c.classList.add("nofig"); }
@@ -1466,11 +1507,9 @@ document.addEventListener('keydown', function(e) {
   var cntEl = document.getElementById("psCnt"); if(cntEl) cntEl.textContent = pad(papers.length);
   var curEl = document.getElementById("psCur");
 
-  // right detail panel: cross-fade, driven by the left card stack
   var detailSwiper = new Swiper(".detail-swiper", {
     allowTouchMove:false, loop:true, effect:"fade", fadeEffect:{ crossFade:true }
   });
-  // left cards: stacked "cards" effect + drag + keyboard + pagination dots
   var mainSwiper = new Swiper(".cards-swiper", {
     effect:"cards", grabCursor:true, loop:true, initialSlide:0,
     keyboard:{ enabled:true },
@@ -1478,11 +1517,9 @@ document.addEventListener('keydown', function(e) {
     thumbs:{ swiper:detailSwiper }
   });
 
-  var root = document.querySelector(".papers");
   function sync(){
     var idx = mainSwiper.realIndex;
     if(curEl) curEl.textContent = pad(idx+1);
-    if(root) root.style.setProperty("--ps-accent", papers[idx].accent);
   }
   mainSwiper.on("slideChange", sync);
   sync();
