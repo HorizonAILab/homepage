@@ -171,19 +171,27 @@ sup { font-size: .62em; }
 .hero-name .zh {
   display: inline-flex; align-items: baseline;
   font-family: 'KaiTiLocal', 'KaiTi', 'STKaiti', 'FZKai-Z03S', 'Noto Serif SC', serif;
-  font-style: normal; font-weight: 400;
-  font-size: .62em; color: var(--ink3);
+  font-style: normal; font-weight: 500;
+  font-size: .62em; color: #596170;
   vertical-align: .18em; margin-left: .5em;
   white-space: nowrap;
 }
+.hero-name .zh-name,
+.hero-name .zh-title {
+  font-weight: 500;
+}
 .hero-name .zh-name  { letter-spacing: .055em; }
 .hero-name .zh-sep {
+  display: inline-block;
   margin: 0 .24em 0 .2em;
-  color: var(--ink4);
+  color: var(--ink3);
   font-family: var(--sans);
-  font-size: .82em;
-  font-weight: 300;
-  transform: translateY(-.02em);
+  font-size: .9em;
+  font-weight: 900;
+  line-height: 1;
+  transform: translateY(-.015em) scale(1.08);
+  -webkit-text-stroke: .22px currentColor;
+  text-shadow: 0 0 .01px currentColor;
 }
 .hero-name .zh-title { letter-spacing: .025em; }
 
@@ -1021,11 +1029,11 @@ sup { font-size: .62em; }
       </p>
       <div class="email-group" aria-label="Email addresses">
         <span class="email-label">Email</span>
-        <button type="button" class="email-chip" data-email="tingjinluo@hotmail.com" onclick="copyEmail(this)" title="Copy tingjinluo@hotmail.com">
-          <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b0f12151c111215170e143b13140f161a121755181416">[email&#160;protected]</a></span>
+        <button type="button" class="email-chip" data-user="tingjinluo" data-domain="hotmail.com" onclick="copyEmail(this)" title="Copy email address">
+          <span class="email-addr"></span>
         </button>
-        <button type="button" class="email-chip" data-email="luotingjin03@nudt.edu.cn" onclick="copyEmail(this)" title="Copy luotingjin03@nudt.edu.cn">
-          <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aac6dfc5dec3c4cdc0c3c49a99eac4dfcede84cfcedf84c9c4">[email&#160;protected]</a></span>
+        <button type="button" class="email-chip" data-user="luotingjin03" data-domain="nudt.edu.cn" onclick="copyEmail(this)" title="Copy email address">
+          <span class="email-addr"></span>
         </button>
       </div>
     </div>
@@ -1050,7 +1058,7 @@ sup { font-size: .62em; }
     <p class="join-card-title"><span class="live"></span>Join the Group <span class="zh">· 招生信息(Open Positions)</span></p>
     There are open research positions in my group at <strong>all levels</strong> — Postdoc, research assistant, Ph.D., Master and Undergraduate. Undergraduates are welcome for research internships; prospective Master’s and PhD students are encouraged to apply for full-time research positions. I am looking for highly motivated and talented individuals to join my research group. If you are passionate about machine learning, computer vision, or data mining, and want to work on cutting-edge research projects, please consider joining us!
     <p class="join-intro">
-      If you are interested, please send me an <a href="/cdn-cgi/l/email-protection#1165787f767b787f7d647e51797e657c70787d3f727e7c">e-mail</a> containing your CV, score sheet, certificates, and representative publications. <strong>Make sure you read this document before sending emails.</strong>
+      If you are interested, please send me an <a href="#" class="js-email-link" data-user="tingjinluo" data-domain="hotmail.com">e-mail</a> containing your CV, score sheet, certificates, and representative publications. <strong>Make sure you read this document before sending emails.</strong>
     </p>
 
     <div class="join-points">
@@ -1322,7 +1330,7 @@ sup { font-size: .62em; }
 
 </div><!-- /page -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){
 'use strict';
 
@@ -1384,11 +1392,34 @@ stBtn.addEventListener('click', function(){
 });
 })();
 
+function getEmailAddress(el){
+  if (!el || !el.dataset) return '';
+  if (el.dataset.email) return el.dataset.email;
+  if (!el.dataset.user || !el.dataset.domain) return '';
+  return el.dataset.user + String.fromCharCode(64) + el.dataset.domain;
+}
+
+function hydrateEmailAddresses(){
+  document.querySelectorAll('.email-chip[data-user][data-domain]').forEach(function(el){
+    var email = getEmailAddress(el);
+    var addr = el.querySelector('.email-addr');
+    if (addr) addr.textContent = email;
+    el.dataset.email = email;
+    el.title = 'Copy ' + email;
+    el.setAttribute('aria-label', 'Copy ' + email);
+  });
+
+  document.querySelectorAll('.js-email-link[data-user][data-domain]').forEach(function(el){
+    var email = getEmailAddress(el);
+    el.href = 'mail' + 'to:' + email;
+  });
+}
+
 function copyEmail(el){
-  var email = el && el.dataset ? el.dataset.email : '';
+  var email = getEmailAddress(el);
   if (!email) return;
 
-  navigator.clipboard.writeText(email).then(function(){
+  function showCopied(){
     var t = document.getElementById('copyToast');
     if (!t){
       t = document.createElement('div');
@@ -1399,7 +1430,28 @@ function copyEmail(el){
     t.classList.add('show');
     clearTimeout(t._timer);
     t._timer = setTimeout(function(){ t.classList.remove('show'); }, 1800);
-  });
+  }
+
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(email).then(showCopied);
+  } else {
+    var input = document.createElement('textarea');
+    input.value = email;
+    input.setAttribute('readonly', '');
+    input.style.position = 'fixed';
+    input.style.opacity = '0';
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    input.remove();
+    showCopied();
+  }
+}
+
+if (document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', hydrateEmailAddresses);
+} else {
+  hydrateEmailAddresses();
 }
 
 document.addEventListener('keydown', function(e){
