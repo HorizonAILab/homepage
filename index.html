@@ -162,15 +162,6 @@ sup { font-size: .62em; }
   display: grid; grid-template-columns: 1fr 296px; gap: 16px; align-items: start;
 }
 
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 3px 10px; border-radius: 99px;
-  background: var(--blue-bg); border: 1px solid var(--blue-bd);
-  font-size: .7rem; font-weight: 500; color: var(--blue2);
-  margin-bottom: 14px;
-}
-.eyebrow-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue3); flex-shrink: 0; }
-
 .hero-name {
   font-family: var(--serif);
   font-size: clamp(1.65rem, 2.7vw, 2.2rem);
@@ -178,34 +169,68 @@ sup { font-size: .62em; }
   color: var(--ink); margin-bottom: 4px;
 }
 .hero-name .zh {
+  display: inline-flex; align-items: baseline;
   font-family: 'KaiTiLocal', 'KaiTi', 'STKaiti', 'FZKai-Z03S', 'Noto Serif SC', serif;
   font-style: normal; font-weight: 400;
-  font-size: .62em; color: var(--ink3); letter-spacing: .06em;
-  vertical-align: .18em; margin-left: .55em;
+  font-size: .62em; color: var(--ink3);
+  vertical-align: .18em; margin-left: .5em;
+  white-space: nowrap;
 }
+.hero-name .zh-name  { letter-spacing: .055em; }
+.hero-name .zh-sep {
+  margin: 0 .24em 0 .2em;
+  color: var(--ink4);
+  font-family: var(--sans);
+  font-size: .82em;
+  font-weight: 300;
+  transform: translateY(-.02em);
+}
+.hero-name .zh-title { letter-spacing: .025em; }
 
 .affil { font-size: .9rem; color: var(--ink2); line-height: 1.6; margin-bottom: 10px; }
 .affil a { color: var(--ink2); transition: color .13s; }
 .affil a:hover { color: var(--blue2); }
 
-.email-row {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 5px 8px 5px 6px; border-radius: 7px;
-  cursor: default;
-  transition: transform .2s var(--ease-out);
+.email-group {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 7px; margin-top: 3px;
 }
-.email-row:hover { transform: translateX(4px); }
-.email-row:hover .email-label { color: var(--blue2); border-color: var(--blue-bd); }
-.email-row:hover .email-addr { color: var(--blue2); }
 .email-label {
-  font-family: var(--sans); font-size: .63rem; font-weight: 500;
-  letter-spacing: .06em; text-transform: uppercase; color: var(--ink3);
-  padding: 2px 7px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
-  transition: color .18s, border-color .18s;
+  display: inline-flex; align-items: center; align-self: stretch;
+  font-family: var(--sans); font-size: .62rem; font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink3);
+  padding: 0 8px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 7px;
+}
+.email-chip {
+  appearance: none; -webkit-appearance: none;
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 30px; padding: 5px 10px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--ink2);
+  font: inherit; cursor: pointer;
+  transition: color .16s var(--ease), border-color .16s var(--ease),
+              background .16s var(--ease), transform .18s var(--ease-out),
+              box-shadow .18s var(--ease);
+}
+.email-chip::before {
+  content: ""; width: 5px; height: 5px; flex: 0 0 auto;
+  border-radius: 50%; background: var(--blue3); opacity: .72;
+  transition: transform .18s var(--ease-out), opacity .16s var(--ease);
+}
+.email-chip:hover {
+  color: var(--blue2); border-color: var(--blue-bd);
+  background: var(--blue-bg); transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(30,58,95,.08);
+}
+.email-chip:hover::before { transform: scale(1.25); opacity: 1; }
+.email-chip:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--blue3) 42%, transparent);
+  outline-offset: 2px;
 }
 .email-addr {
-  font-family: var(--mono); font-size: .8rem; color: var(--ink2);
-  transition: color .18s;
+  font-family: var(--mono); font-size: .76rem; color: inherit;
+  letter-spacing: -.015em; white-space: nowrap;
 }
 
 .hero-bio {
@@ -684,6 +709,8 @@ sup { font-size: .62em; }
 }
 @media (max-width: 760px) {
   .hero { grid-template-columns: 1fr; }
+  .email-group { align-items: stretch; }
+  .email-label { min-height: 30px; }
   .svc-grid { grid-template-columns: 1fr; }
   .hero-left { flex-direction: row; gap: 18px; padding-right: 0; }
   .photo { width: 100px; height: 126px; }
@@ -986,14 +1013,21 @@ sup { font-size: .62em; }
 
   <div class="hero-right">
     <div>
-      <!-- <div class="eyebrow"><span class="eyebrow-dot"></span>Associate Professor &middot; 副教授、博导</div> -->
-      <h1 class="hero-name">Tingjin Luo<span class="zh">罗廷金&middot; 副教授、博导</span></h1>
+      <h1 class="hero-name">Tingjin Luo<span class="zh"><span class="zh-name">罗廷金</span><span class="zh-sep" aria-hidden="true">·</span><span class="zh-title">副教授、博导</span></span></h1>
       <p class="affil">
         <a href="https://www.nudt.edu.cn/yssz/lxy/index.htm" target="_blank" rel="noopener">College of Sciences</a>
         &thinsp;·&thinsp;
         <a href="https://www.nudt.edu.cn/" target="_blank" rel="noopener">National University of Defense Technology (NUDT)</a>
       </p>
-      <p class="email-row" id="emailRow" onclick="copyEmail(this)" style="cursor:pointer" title="Copy email"><span class="email-label">Email</span><span class="email-addr">tingjinluo@hotmail.com, luotingjin03@nudt.edu.cn</span></p>
+      <div class="email-group" aria-label="Email addresses">
+        <span class="email-label">Email</span>
+        <button type="button" class="email-chip" data-email="tingjinluo@hotmail.com" onclick="copyEmail(this)" title="Copy tingjinluo@hotmail.com">
+          <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b0f12151c111215170e143b13140f161a121755181416">[email&#160;protected]</a></span>
+        </button>
+        <button type="button" class="email-chip" data-email="luotingjin03@nudt.edu.cn" onclick="copyEmail(this)" title="Copy luotingjin03@nudt.edu.cn">
+          <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aac6dfc5dec3c4cdc0c3c49a99eac4dfcede84cfcedf84c9c4">[email&#160;protected]</a></span>
+        </button>
+      </div>
     </div>
 
     <div class="hero-bio-row" data-v>
@@ -1016,7 +1050,7 @@ sup { font-size: .62em; }
     <p class="join-card-title"><span class="live"></span>Join the Group <span class="zh">· 招生信息(Open Positions)</span></p>
     There are open research positions in my group at <strong>all levels</strong> — Postdoc, research assistant, Ph.D., Master and Undergraduate. Undergraduates are welcome for research internships; prospective Master’s and PhD students are encouraged to apply for full-time research positions. I am looking for highly motivated and talented individuals to join my research group. If you are passionate about machine learning, computer vision, or data mining, and want to work on cutting-edge research projects, please consider joining us!
     <p class="join-intro">
-      If you are interested, please send me an <a href="mailto:tingjinluo@hotmail.com">e-mail</a> containing your CV, score sheet, certificates, and representative publications. <strong>Make sure you read this document before sending emails.</strong>
+      If you are interested, please send me an <a href="/cdn-cgi/l/email-protection#1165787f767b787f7d647e51797e657c70787d3f727e7c">e-mail</a> containing your CV, score sheet, certificates, and representative publications. <strong>Make sure you read this document before sending emails.</strong>
     </p>
 
     <div class="join-points">
@@ -1288,7 +1322,7 @@ sup { font-size: .62em; }
 
 </div><!-- /page -->
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
 'use strict';
 
@@ -1350,15 +1384,18 @@ stBtn.addEventListener('click', function(){
 });
 })();
 
-function copyEmail(){
-  navigator.clipboard.writeText('tingjinluo@hotmail.com').then(function(){
+function copyEmail(el){
+  var email = el && el.dataset ? el.dataset.email : '';
+  if (!email) return;
+
+  navigator.clipboard.writeText(email).then(function(){
     var t = document.getElementById('copyToast');
     if (!t){
       t = document.createElement('div');
       t.id = 'copyToast'; t.className = 'copy-toast';
-      t.textContent = 'Copied!';
       document.body.appendChild(t);
     }
+    t.textContent = email + ' copied';
     t.classList.add('show');
     clearTimeout(t._timer);
     t._timer = setTimeout(function(){ t.classList.remove('show'); }, 1800);
@@ -1536,5 +1573,6 @@ document.addEventListener('keydown', function(e){
 })();
 </script>
 
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
