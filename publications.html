@@ -116,6 +116,15 @@ sup { font-size: .62em; }
 }
 .stat-label { font-size: .78rem; color: var(--ink3); line-height: 1.4; }
 .stat-sub { font-size: .7rem; color: var(--ink4); margin-top: 2px; font-family: var(--mono); }
+.stats-note {
+  margin: 12px 2px 0;
+  font-size: .7rem; color: var(--ink4); line-height: 1.55;
+  font-family: var(--mono);
+}
+.stats-note a { color: var(--blue2); }
+.stats-note a:hover { text-decoration: underline; }
+.scholar-card { background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%); }
+.scholar-card .stat-label { color: var(--ink2); }
 
 /* Chart section */
 .charts-row {
@@ -288,6 +297,31 @@ sup { font-size: .62em; }
   .footer { flex-direction: column; align-items: flex-start; gap: 6px; }
   .footer-meta { text-align: left; }
 }
+
+
+/* Tag system */
+.tag-guide {
+  margin: 28px 0 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--blue-bd); border-radius: var(--r2);
+  background: linear-gradient(180deg, var(--blue-bg), #fff);
+}
+.tag-guide-title { font-size: .82rem; font-weight: 600; color: var(--ink); margin-bottom: 9px; }
+.tag-guide-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.tag-guide-item { font-size: .75rem; color: var(--ink3); line-height: 1.6; }
+.tag-guide-item strong { color: var(--ink2); font-weight: 600; }
+.filter-panel {
+  margin: 28px 0 18px;
+  padding: 14px 16px 12px;
+  border: 1px solid var(--border); border-radius: var(--r2);
+  background: var(--surface);
+}
+.filter-panel .filter-bar { margin: 0; }
+.filter-summary { margin-top: 11px; font-family: var(--mono); font-size: .68rem; color: var(--ink4); }
+.ftag { font-family: var(--sans); }
+@media (max-width: 760px) { .tag-guide-grid { grid-template-columns: 1fr; gap: 8px; } }
+.charts-row.single-chart { grid-template-columns: 1fr; }
+
 </style>
 </head>
 <body>
@@ -317,38 +351,50 @@ sup { font-size: .62em; }
 ────────────────────────────────────────────────────── -->
 <div class="stats-grid" id="statsGrid">
   <div class="stat-card" data-v>
-    <div class="stat-num">65</div>
+    <div class="stat-num" id="stat-total">67</div>
     <div class="stat-label">Total Publications</div>
     <div class="stat-sub">journals + conferences</div>
   </div>
   <div class="stat-card" data-v>
-    <div class="stat-num" style="color:var(--green)">30</div>
+    <div class="stat-num" id="stat-ccf-a" style="color:var(--green)">33</div>
     <div class="stat-label">CCF-A Venues</div>
     <div class="stat-sub">CVPR, KDD, AAAI, NeurIPS, ACM MM, TPAMI…</div>
   </div>
   <div class="stat-card" data-v>
-    <div class="stat-num" style="color:#7c3aed">13</div>
+    <div class="stat-num" id="stat-trans" style="color:#7c3aed">17</div>
     <div class="stat-label">IEEE/ACM Transactions</div>
-    <div class="stat-sub">TPAMI, TKDE, TIP, TCYB…</div>
+    <div class="stat-sub">TPAMI, TKDE, TIP, TCYB, TGRS, TOIS…</div>
   </div>
   <div class="stat-card" data-v>
-    <div class="stat-num" style="color:var(--amber)">23</div>
+    <div class="stat-num" id="stat-q1" style="color:var(--amber)">28</div>
     <div class="stat-label">中科院 / JCR Q1</div>
     <div class="stat-sub">top-tier journal papers</div>
   </div>
-</div>
-
-<!-- Charts Row 1 — the two bar charts (matched height) -->
-<div class="charts-row">
-  <!-- Venue breakdown bar chart -->
-  <div class="chart-box" data-v>
-    <div class="chart-title">Venue Breakdown</div>
-    <div class="bar-chart" id="venueChart"></div>
+  <div class="stat-card scholar-card" data-v>
+    <div class="stat-num">578</div>
+    <div class="stat-label">Google Scholar Citations</div>
+    <div class="stat-sub">all-time citations</div>
   </div>
+  <div class="stat-card scholar-card" data-v>
+    <div class="stat-num" style="color:var(--green)">15</div>
+    <div class="stat-label">Google Scholar h-index</div>
+    <div class="stat-sub">all-time impact index</div>
+  </div>
+  <div class="stat-card scholar-card" data-v>
+    <div class="stat-num" style="color:var(--amber)">20</div>
+    <div class="stat-label">Google Scholar i10-index</div>
+    <div class="stat-sub">papers cited at least 10 times</div>
+  </div>
+</div>
+<p class="stats-note">
+  Publication counts are calculated automatically from the list below. Google Scholar metrics were checked on 19 July 2026 from
+  <a href="https://scholar.google.com/citations?user=w0YDfhcAAAAJ" target="_blank" rel="noopener">profile w0YDfhcAAAAJ ↗</a>.
+</p>
 
-  <!-- CCF / Rank distribution bar chart -->
+<!-- Rank / role statistics -->
+<div class="charts-row single-chart">
   <div class="chart-box" data-v>
-    <div class="chart-title">CCF / Rank Distribution</div>
+    <div class="chart-title">Rank / Role Distribution</div>
     <div class="bar-chart" id="rankChart"></div>
   </div>
 </div>
@@ -375,16 +421,19 @@ sup { font-size: .62em; }
 </div>
 
 <!-- ──────────────────────────────────────────────────────
-     Filter Bar
+     Rank / Role Tag Guide and Filter
 ────────────────────────────────────────────────────── -->
-<div class="filter-bar">
-  <span class="filter-label">Filter:</span>
-  <span class="ftag active" data-filter="all">All <span class="ftag-count" id="fc-all"></span></span>
-  <span class="ftag" data-filter="ccf-a">CCF-A <span class="ftag-count" id="fc-ccf-a"></span></span>
-  <span class="ftag" data-filter="ccf-b">CCF-B <span class="ftag-count" id="fc-ccf-b"></span></span>
-  <span class="ftag" data-filter="trans">IEEE/ACM Trans <span class="ftag-count" id="fc-trans"></span></span>
-  <span class="ftag" data-filter="q1">中科院1区 <span class="ftag-count" id="fc-q1"></span></span>
-  <span class="ftag" data-filter="cor">一作/通讯 <span class="ftag-count" id="fc-cor"></span></span>
+<div class="tag-guide" data-v>
+  <div class="tag-guide-title">Tag system</div>
+  <div class="tag-guide-grid">
+    <div class="tag-guide-item"><strong>Rank tags</strong><br>CCF-A, CCF-B, IEEE/ACM Transactions, and 中科院/JCR Q1 are stored in each publication's <code>tags</code> array.</div>
+    <div class="tag-guide-item"><strong>Author-role tag</strong><br>一作/通讯 is generated automatically from <code>role: "first"</code> or <code>role: "corr"</code>; all counts and filters update from the publication array.</div>
+  </div>
+</div>
+
+<div class="filter-panel">
+  <div class="filter-bar" id="metricFilters"><span class="filter-label">Rank / role:</span></div>
+  <div class="filter-summary" id="filterSummary"></div>
 </div>
 
 <!-- ──────────────────────────────────────────────────────
@@ -396,7 +445,7 @@ sup { font-size: .62em; }
 <footer class="footer">
   <span class="footer-name">Tingjin Luo &middot; 罗廷金</span>
   <div class="footer-meta">
-    Last updated April 2026 &ensp;&middot;&ensp;
+    Last updated July 2026 &ensp;&middot;&ensp;
     <a href="https://github.com/HorizonAILab" target="_blank" rel="noopener">HorizonAILab</a>
     &ensp;&middot;&ensp; NUDT, Changsha
   </div>
@@ -406,305 +455,1096 @@ sup { font-size: .62em; }
 
 <script>
 /* ════════════════════════════════════════════════════
-   Publication Data
-   tags: 'ccf-a' | 'ccf-b' | 'trans' | 'q1' | 'cor' (1st/corresponding)
+   Rank and authorship tag dictionary
+   - Explicit tags: ccf-a, ccf-b, trans, q1
+   - Derived tag: cor, generated from role="first" or role="corr"
 ════════════════════════════════════════════════════ */
-const PUBS = [
-  // 2027
-  // 2026
-   { year:2026, role:"corr", title:"Unsupervised Distribution Alignment via Subspace Progressive Adaptation", authors:"Mengtao Yang<sup>*</sup>, Yueying Liu<sup>*</sup>, Gaohao Yi, Hao Zhou, Yazhou Yang, <strong>Tingjin Luo</strong><sup>#</sup>", venue:"Frontiers of Computer Science, Accepted", tags:["ccf-b","q1"], links:[] },
-  { year:2026, role:"", title:" How Relation Enrichment Improves Clustering Ensemble Performance: A Second Order Induced Relation View", authors:"Feijiang Li, Jieting Wang, Yuhua Qian<sup>#</sup>, Hongren Yan, <strong>Tingjin Luo</strong>", venue:"IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), Accepted", tags:["ccf-a","trans","q1"], links:[] },
-  { year:2026, role:"corr", title:" Dual-granularity Labeling for Multi-instance Multi-label Data with Skewed Annotation", authors:"Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Chenping Hou", venue:"IEEE Transactions on Knowledge and Data Engineering (TKDE), Accepted", tags:["ccf-a","trans","q1","cor"], links:[] },
-  { year:2026, role:"corr", title:" Correcting Visual Blur Induced by Attention Distraction to Reduce Hallucinations: Algorithm and Theory", authors:"Quanjiang Li, Zhiming Liu, Wei Luo, <strong>Tingjin Luo</strong><sup>#</sup>, Chenping Hou", venue:"Forty-third International Conference on Machine Learning (ICML), Accepted", tags:["ccf-a","cor"], links:[] },
-  { year:2026, role:"corr", title:" Label-Guided Representation Learning for Incomplete Multi-View Multi-Label Classification", authors:"Yang Li, Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>", venue:"Forty-third International Conference on Machine Learning (ICML), Accepted", tags:["ccf-a","cor"], links:[] },
-  { year:2026, role:"corr", title:" Imbalanced Multi-Domain Multi-Modal Learning with Expert Collaboration and Dynamic Fusion Mechanism for Fake News Detection", authors:"Yuchen Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Hongbing Wu, Xinwang Liu, Chenping Hou", venue:"ACM Transactions on Information Systems (TOIS), Accepted", tags:["ccf-a","trans","q1","cor"], links:[] },
-  { year:2026, role:"corr", title:"Self-Heterogeneous Knowledge Fusion with Personalized Guidance for Target Fine-grained Classification in Remote Sensing Images", authors:"Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Yongming He, Wenxia Guo", venue:"IEEE Transactions on Geoscience and Remote Sensing (TGRS), Accepted", tags:["ccf-b","trans","q1","cor"], links:[] },
-  { year:2026, role:"first", title:"Non-convex Transfer Subspace Learning via Embedded Distribution Alignment", authors:"<strong>Tingjin Luo</strong>, Yueyin Liu, Xinyue Zhang, Chenping Hou", venue:"IEEE Transactions on Image Processing (TIP), Accepted", tags:["ccf-a","trans","q1","cor"], links:[] },
-  { year:2026, role:"corr", title:"Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition", authors:"Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>", venue:"IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)", tags:["ccf-a","cor"], links:[] },
-  { year:2026, role:"first", title:"Deep Partial Label Feature Selection with Cluster-Guided Disambiguation", authors:"<strong>Tingjin Luo</strong>, Mengyuan Tong, Qingchang Shu, Yueyin Liu, Hao Zhou, Zheng Wang", venue:"ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD)", tags:["ccf-a","cor"], links:[] },
-  { year:2026, role:"first", title:"ESTIM: Efficient and Scalable Tensorial Incomplete Multi-view Semi-supervised Classification", authors:"<strong>Tingjin Luo</strong>, Xiangyao Li, Zhangqi Jiang, Shuanghui Zhang, Dewen Hu", venue:"ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD)", tags:["ccf-a","cor"], links:[] },
-  { year:2026, role:"corr", title:"Multi-Label Classification with Incremental and Decremental Features", authors:"Mingdie Jiang, Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Yiping Song, Chenping Hou", venue:"AAAI Conference on Artificial Intelligence (AAAI)", tags:["ccf-a","cor"], links:[] },
-  { year:2026, role:"co", title:"DPRM: A Dual Implicit Process Reward Model for Automatic Labeling and Collaborative Reasoning in Multi-Hop Question Answering", authors:"Xinyi Wang, Yiping Song<sup>#</sup>, Zhiliang Tian, Bo Liu, <strong>Tingjin Luo</strong>, Minlie Huang", venue:"AAAI Conference on Artificial Intelligence (AAAI)", tags:["ccf-a"], links:[] },
-  { year:2026, role:"first", title:"Nonconvex and Adaptive Multi-label Learning for Missing Labels", authors:"<strong>Tingjin Luo</strong><sup>#</sup>, Quanjiang Li, Mingdie Jiang, Chenping Hou", venue:"Knowledge-Based Systems (KBS), IF 7.6", tags:["ccf-b","q1","cor"], links:[] },
-  { year:2026, role:"corr", title:"A reliable framework for brain tumor segmentation via multi-modal fusion and uncertainty modeling", authors:"Tongxue Zhou, Mingyang Li, Su Ruan, <strong>Tingjin Luo</strong><sup>#</sup>, Bingbing Jiang, Junan Zhu, Ping Ma, Defu Yang, Guang Yang", venue:"Information Fusion. Volume 129, May 2026, 104085", tags:["ccf-b","q1","cor"], links:[] },
-
-  // 2025
-  { year:2025, role:"corr", title:"Tackling Noisy Labels with Noise-Free Prototype Guided Representation Calibration", authors:"Huiting Yuan, <strong>Tingjin Luo</strong><sup>#</sup>, Xinghao Wu, Jie Jiang", venue:"Knowledge-Based Systems (KBS), IF 7.6", tags:["ccf-b","q1","cor"], links:[] },
-  { year:2025, role:"corr", title:"Theory-Driven Label-Specific Representation for Incomplete Multi-View Multi-Label Learning", authors:"Quanjiang Li, Tianxiang Xu, <strong>Tingjin Luo</strong><sup>#</sup>, Yan Zhong, Yang Li, Yiyun Zhou, Chenping Hou", venue:"Conference on Neural Information Processing Systems (NeurIPS)", tags:["ccf-a","cor"], links:[] },
-  { year:2025, role:"corr", title:"Adversarial Graph Fusion for Incomplete Multi-view Semi-supervised Learning with Tensorial Imputation", authors:"Zhangqi Jiang, <strong>Tingjin Luo</strong><sup>#</sup>, Xu Yang, Xinyan Liang", venue:"Conference on Neural Information Processing Systems (NeurIPS)", tags:["ccf-a","cor"], links:[] },
-  { year:2025, role:"", title:"Evolutionary Multi-View Classification via Eliminating Individual Fitness Bias", authors:"64.	Xinyan Liang, Shuai Li, Qian Guo, Yuhua Qian, Bingbing Jiang, <strong>Tingjin Luo</strong>, Liang Du", venue:"Conference on Neural Information Processing Systems (NeurIPS), 2026", tags:["ccf-a",""], links:[] },
-  { year:2025, role:"corr", title:"Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network", authors:"Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang, Guoli Li", venue:"IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), IF 20.8", tags:["ccf-a","trans","q1","cor"], links:[{t:"PDF",u:"https://ieeexplore.ieee.org/document/9858006"}] },
-  { year:2025, role:"corr", title:"Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels", authors:"Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Jiahui Liao", venue:"IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)", tags:["ccf-a","cor"], links:[{t:"PDF",u:"http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf"}] },
-  { year:2025, role:"corr", title:"Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens", authors:"Zhangqi Jiang, Junkai Chen, Beier Zhu, <strong>Tingjin Luo</strong><sup>#</sup>, Yankun Shen, Xu Yang<sup>#</sup>", venue:"IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)", tags:["ccf-a","cor"], links:[{t:"arXiv",u:"http://arxiv.org/abs/2411.16724"}] },
-  { year:2025, role:"corr", title:"Dynamic Multi-experts Collaboration Learning for Long-tailed Visual Recognition", authors:"Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Yongming He, Jun Zhang", venue:"Information Fusion, 115:102734 (CAAI A, IF 14.7)", tags:["q1","cor"], links:[{t:"DOI",u:"https://doi.org/10.1016/j.inffus.2024.102734"}] },
-  { year:2025, role:"corr", title:"Nonconvex and Discriminative Transfer Subspace Learning for Unsupervised Domain Adaptation", authors:"Yueying Liu, <strong>Tingjin Luo</strong><sup>#</sup>", venue:"Frontiers of Computer Science, 19(2):192307", tags:["ccf-b","cor"], links:[] },
-  { year:2025, role:"corr", title:"Imbalanced Multi-instance Multi-label Learning via Tensor Product-based Semantic Fusion", authors:"Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>", venue:"Frontiers of Computer Science", tags:["ccf-b","cor"], links:[] },
-  { year:2025, role:"corr", title:"Semi-Supervised Multi-View Multi-Label Learning with View-Specific Transformer and Enhanced Pseudo-Label", authors:"Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Mingdie Jiang, Zhangqi Jiang, Chenping Hou, Feijiang Li", venue:"AAAI Conference on Artificial Intelligence (AAAI)", tags:["ccf-a","cor"], links:[] },
-  { year:2025, role:"corr", title:"Core-to-Global Reasoning for Compositional Visual Question Answering", authors:"Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Zhangqi Jiang", venue:"AAAI Conference on Artificial Intelligence (AAAI)", tags:["ccf-a","cor"], links:[] },
-  { year:2025, role:"corr", title:"One-step Label Shift Adaptation via Robust Weight Estimation", authors:"Ruidong Fan, Xiao Ouyang, <strong>Tingjin Luo</strong><sup>#</sup>, Lijun Zhang, Chenping Hou", venue:"Proceedings of the Thirty-Fourth International Joint Conference on Artificial Intelligence (IJCAI-25)", tags:["ccf-b","cor"], links:[] },
-  { year:2025, role:"", title:"Trusted Multi-View Classification with Expert Knowledge Constraints", authors:"Xinyan Liang, Shijie Wang, Yuhua Qian<sup>#</sup>, Qian Guo, Liang Du, Bingbing Jiang, <strong>Tingjin Luo</strong>, Feijiang Li", venue:"Forty-second International Conference on Machine Learning (ICML), 13--19 July 2025, Vol. 267: 37409--37426", tags:["ccf-a",""], links:[] },
-  { year:2025, role:"", title:"A forward k-means algorithm for regression clustering", authors:"Jun Lu, <strong>Tingjin Luo</strong>, Kai Li", venue:"Information Sciences, Volume 711, 2025, 122105", tags:["ccf-b","q1"], links:[] },
-  { year:2025, role:"", title:"NLSC: A Noise-Robust Label Shift Correction Framework via Three-Head Training and Class-Adaptive Cleaning", authors:"Xiaowen Wu, Ruidong Fan, <strong>Tingjin Luo</strong>, Chenping Hou", venue:"Information Sciences, Volume 725, 2026, 122706", tags:["ccf-b","q1"], links:[] },
-  { year:2025, role:"", title:"DCMKC: A Dual Consistency Matching Approach for Multi-hop Question Answering in LLMs", authors:"Xinyi Wang, Yiping Song, Chang Liu, <strong>Tingjin Luo</strong>, Bo Liu, Zheng Xie, Minlie Huang", venue:"Findings of Empirical Methods in Natural Language Processing (EMNLP), 2025, pp. 259--273", tags:["ccf-b"], links:[] },
-
-  // 2024
-  { year:2024, role:"first", title:"Robust Discriminative Feature Learning with Calibrated Data Reconstruction and Sparse Low-Rank Model", authors:"<strong>Tingjin Luo</strong>, Yang Yang<sup>#</sup>, Dongyun Yi, Jieping Ye", venue:"Applied Intelligence, 54:2867–2880", tags:["cor"], links:[] },
-  { year:2024, role:"corr", title:"Absent Multi-view Semi-supervised Classification", authors:"Wenzhang Zhuge, <strong>Tingjin Luo</strong><sup>#</sup>, Hong Tao, Chenping Hou<sup>#</sup>, Dongyun Yi", venue:"IEEE Transactions on Cybernetics (TCYB), 54(3):1708–1721", tags:["ccf-b","trans","q1","cor"], links:[] },
-  { year:2024, role:"co", title:"Core-Structures-Guided Multi-Modal Classification Neural Architecture Search", authors:"Pinhan Fu, Xinyan Liang, <strong>Tingjin Luo</strong>, Qian Guo, Yayu Zhang, Yuhua Qian<sup>#</sup>", venue:"International Joint Conference on Artificial Intelligence (IJCAI), 3980–3988", tags:["ccf-a"], links:[] },
-  { year:2024, role:"corr", title:"Deep Incomplete Multi-View Learning Network with Insufficient Label Information", authors:"Zhangqi Jiang, <strong>Tingjin Luo</strong><sup>#</sup>, Xinyan Liang", venue:"AAAI Conference on Artificial Intelligence (AAAI)", tags:["ccf-a","cor"], links:[{t:"PDF",u:"https://ojs.aaai.org/index.php/AAAI/article/view/29189"},{t:"Code",u:"https://github.com/ZhangqiJiang07/code_DIMvLN"}] },
-  { year:2024, role:"co", title:"Compound Weakly Supervised Clustering", authors:"Hong Tao, Jiacheng Jiang, Chenping Hou<sup>#</sup>, <strong>Tingjin Luo</strong>, Ruidong Fan, Jing Zhang", venue:"IEEE Transactions on Image Processing (TIP), 33:957–971", tags:["ccf-a","trans","q1"], links:[] },
-  { year:2024, role:"corr", title:"结合对象属性识别的图像场景图生成方法研究", authors:"周浩, <strong>罗廷金</strong><sup>#</sup>, 崔国恒", venue:"计算机科学 (Computer Science), 51(11):205–212 (CCF 中文 T2)", tags:["cor"], links:[] },
-  { year:2024, role:"corr", title:"基于多语义关联与融合的视觉问答模型", authors:"周浩, 王超, 崔国恒, <strong>罗廷金</strong><sup>#</sup>", venue:"计算机应用 (Journal of Computer Applications) (CCF 中文 T2)", tags:["cor"], links:[] },
-  { year:2024, role:"corr", title:"Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds", authors:"Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Yueying Liu, Chenping Hou", venue:"ACM International Conference on Multimedia (ACM MM), 5413–5422", tags:["ccf-a","cor"], links:[{t:"PDF",u:"https://dl.acm.org/doi/10.1145/3664647.3680911"}] },
-  { year:2024, role:"corr", title:"Deep Incomplete Multi-View Network Semi-Supervised Multi-Label Learning with Unbiased Loss", authors:"Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Mingdie Jiang, Jiahui Liao, Zhangqi Jiang", venue:"ACM International Conference on Multimedia (ACM MM), 9048–9056", tags:["ccf-a","cor"], links:[] },
-
-  // 2023
-  { year:2023, role:"corr", title:"Debiased Scene Graph Generation for Dual Imbalance Learning", authors:"Hao Zhou, Jun Zhang<sup>#</sup>, <strong>Tingjin Luo</strong><sup>#</sup>, Yazhou Yang, Jun Lei", venue:"IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 45(4):4274–4288", tags:["ccf-a","trans","q1","cor"], links:[{t:"PDF",u:"https://ieeexplore.ieee.org/document/9858006"},{t:"Code",u:"https://github.com/zhouhao0515/unbiasedSGG-DSDI"}] },
-  { year:2023, role:"corr", title:"Active Label Distribution Learning via Kernel Maximum Mean Discrepancy", authors:"Xinyue Dong, <strong>Tingjin Luo</strong><sup>#</sup>, Ruidong Fan, Wenzhang Zhuge, Chenping Hou<sup>#</sup>", venue:"Frontiers of Computer Science, 17(4):174327", tags:["ccf-b","cor"], links:[] },
-  { year:2023, role:"first", title:"Semi-supervised Learning with Label Proportion", authors:"Ningzhao Sun<sup>*</sup>, <strong>Tingjin Luo</strong><sup>*</sup>, Hong Tao, Chenping Hou<sup>#</sup>, Dewen Hu<sup>#</sup>", venue:"IEEE Transactions on Knowledge and Data Engineering (TKDE), 35(1):877–890", tags:["ccf-a","trans","q1","cor"], links:[] },
-  { year:2023, role:"corr", title:"Joint Distribution Alignment and Transfer Subspace Learning for Unsupervised Domain Adaptation", authors:"Yueying Liu, <strong>Tingjin Luo</strong><sup>#</sup>", venue:"IEEE Int. Conf. on Cloud Computing and Intelligence Systems (CCIS), 53–58", tags:["cor"], links:[] },
-  { year:2023, role:"co", title:"Online Learning with Incremental Feature Space and Bandit Feedback", authors:"Shilin Gu, <strong>Tingjin Luo</strong>, Ming He, Chenping Hou", venue:"IEEE Transactions on Knowledge and Data Engineering (TKDE)", tags:["ccf-a","trans","q1"], links:[] },
-  { year:2023, role:"co", title:"Incomplete Multi-view Learning under Label Shift", authors:"Ruidong Fan, Xiao Ouyang, <strong>Tingjin Luo</strong>, Dewen Hu, Chenping Hou", venue:"IEEE Transactions on Image Processing (TIP)", tags:["ccf-a","trans","q1"], links:[] },
-  { year:2023, role:"co", title:"Decorrelated Spectral Regression: An Unsupervised Dimension Reduction Method under Data Selection Bias", authors:"Xiuqi Huang, Haotian Ni, <strong>Tingjin Luo</strong>, Hong Tao, Chenping Hou<sup>#</sup>", venue:"Neurocomputing, 549:126406", tags:[], links:[] },
-
-  // 2022
-  { year:2022, role:"co", title:"Safe Incomplete Label Distribution Learning", authors:"Jing Zhang, Hong Tao<sup>#</sup>, <strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>", venue:"Pattern Recognition, 125:108518", tags:["ccf-b","q1"], links:[] },
-  { year:2022, role:"corr", title:"Joint Representation Learning and Clustering: A Framework for Grouping Partial Multiview Data", authors:"Wenzhang Zhuge, Hong Tao, <strong>Tingjin Luo</strong><sup>#</sup>, Linli Zeng, Chenping Hou<sup>#</sup>, Dongyun Yi", venue:"IEEE Transactions on Knowledge and Data Engineering (TKDE), 34(8):3826–3840", tags:["ccf-a","trans","q1","cor"], links:[] },
-  { year:2022, role:"co", title:"Multi-instance Positive and Unlabeled Learning with Bi-level Embedding", authors:"Xijia Tang, Chao Xu, <strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>", venue:"Intelligent Data Analysis, 26(3):659–678", tags:[], links:[] },
-  { year:2022, role:"co", title:"基于独立自表达学习的不完全多视图聚类方法", authors:"诸葛文章, 范瑞东, <strong>罗廷金</strong>, 陶红, 侯臣平<sup>#</sup>", venue:"中国科学：信息科学， 52(7): 1186-1203", tags:["ccf-a","q1"], links:[] },
-
-  // 2021
-  { year:2021, role:"corr", title:"A Unified Deep Sparse Graph Attention Network for Scene Graph Generation", authors:"Hao Zhou, Yazhou Yang, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang<sup>#</sup>, Jun Lei, Shuohao Li", venue:"Pattern Recognition", tags:["ccf-b","q1","cor"], links:[] },
-  { year:2021, role:"corr", title:"Relationship-aware Primal-Dual Graph Attention Network for Scene Graph Generation", authors:"Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang, Jun Lei, Shuohao Li", venue:"IEEE International Conference on Multimedia and Expo (ICME)", tags:["ccf-b","cor"], links:[] },
-  { year:2021, role:"corr", title:"Multiple Instance Learning for Unilateral Data", authors:"Xijia Tang, <strong>Tingjin Luo</strong><sup>#</sup>, Tianxiang Luan, Chenping Hou", venue:"Pacific-Asia Conf. on Knowledge Discovery and Data Mining (PAKDD)", tags:["cor"], links:[] },
-  { year:2021, role:"co", title:"Active Label Distribution Learning", authors:"Xinyue Dong, Shilin Gu, Wenzhang Zhuge, <strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>", venue:"Neurocomputing, 436:12–21", tags:["ccf-b","q1"], links:[] },
-
-  // 2020
-  { year:2020, role:"co", title:"Multi-view Subspace Learning via Bidirectional Sparsity", authors:"Ruidong Fan, <strong>Tingjin Luo</strong>, Wenzhang Zhuge, Sheng Qiang, Chenping Hou<sup>#</sup>", venue:"Pattern Recognition, 108:107524", tags:["ccf-b","q1"], links:[] },
-  { year:2020, role:"co", title:"Optimal Representative Distribution Margin Machine for Multi-Instance Learning", authors:"Tianxiang Luan, <strong>Tingjin Luo</strong>, Wenzhang Zhuge, Chenping Hou<sup>#</sup>", venue:"IEEE Access, 8:74864–74874", tags:[], links:[] },
-  { year:2020, role:"co", title:"Multi-View Spectral Clustering with Incomplete Graphs", authors:"Wenzhang Zhuge, <strong>Tingjin Luo</strong>, Hong Tao, Chenping Hou<sup>#</sup>, Dongyun Yi", venue:"IEEE Access, 8:99820–99831", tags:[], links:[] },
-
-  // 2019
-  { year:2019, role:"first", title:"Dimension Reduction for Non-Gaussian Data by Adaptive Discriminative Analysis", authors:"<strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>, Feiping Nie, Dongyun Yi", venue:"IEEE Transactions on Cybernetics (TCYB), 49(3):933–946", tags:["ccf-b","trans","q1","cor"], links:[] },
-  { year:2019, role:"corr", title:"Non-Convex Transfer Subspace Learning for Unsupervised Domain Adaptation", authors:"Zhipeng Lin, Zhenyu Zhao, <strong>Tingjin Luo</strong><sup>#</sup>, Wenjing Yang, Yongjun Zhang, Yuhua Tang", venue:"IEEE International Conference on Multimedia and Expo (ICME), 1468–1473", tags:["ccf-b","cor"], links:[] },
-  { year:2019, role:"co", title:"Rademacher Dropout: An Adaptive Dropout for Deep Neural Network via Optimizing Generalization Gap", authors:"Haotian Wang, Wenjing Yang<sup>#</sup>, Zhenyu Zhao, <strong>Tingjin Luo</strong>, Ji Wang, Yuhua Tang", venue:"Neurocomputing, 357:177–187", tags:["ccf-b","q1"], links:[] },
-  { year:2019, role:"co", title:"Bi-direction Hierarchical LSTM with Spatial-Temporal Attention for Action Recognition", authors:"Haodong Yang, Jun Zhang<sup>#</sup>, Shuohao Li<sup>#</sup>, <strong>Tingjin Luo</strong>", venue:"Journal of Intelligent & Fuzzy Systems, 36(1):775–786", tags:[], links:[] },
-
-  // 2018
-  { year:2018, role:"first", title:"Semi-Supervised Feature Selection via Insensitive Sparse Regression with Application to Video Semantic Recognition", authors:"<strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>, Feiping Nie, Hong Tao, Dongyun Yi", venue:"IEEE Transactions on Knowledge and Data Engineering (TKDE), 30(10):1943–1956", tags:["ccf-a","trans","q1","cor"], links:[] },
-  { year:2018, role:"first", title:"Identifying Genetic Risk Factors for Alzheimer's Disease via Shared Tree-Guided Feature Learning Across Multiple Tasks", authors:"Weizhong Zhang<sup>*</sup>, <strong>Tingjin Luo</strong><sup>*</sup>, Shuang Qiu, Jieping Ye, Deng Cai, Xiaofei He, Jie Wang<sup>#</sup>", venue:"IEEE Transactions on Knowledge and Data Engineering (TKDE), 30(11):2145–2156", tags:["ccf-a","trans","q1","cor"], links:[] },
-  { year:2018, role:"co", title:"Robust Feature Selection via Simultaneous Capped Norm and Sparse Regularizer Minimization", authors:"Gongmin Lan, Chenping Hou<sup>#</sup>, Feiping Nie, <strong>Tingjin Luo</strong>, Dongyun Yi", venue:"Neurocomputing, 283:228–240", tags:["ccf-b","q1"], links:[] },
-
-  // 2017
-  { year:2017, role:"first", title:"Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning", authors:"<strong>Tingjin Luo</strong>, Weizhong Zhang, Shuang Qiu, Yang Yang, Dongyun Yi, Guangtao Wang, Jieping Ye<sup>#</sup>, Jie Wang<sup>#</sup>", venue:"ACM SIGKDD International Conference on Knowledge Discovery & Data Mining (KDD), 345–354", tags:["ccf-a","cor"], links:[{t:"PDF",u:"https://dl.acm.org/doi/10.1145/3097983.3097984"},{t:"Code",u:"https://github.com/HorizonAILab/Paper_Code"},{t:"Video",u:"https://videolectures.net/videos/kdd2017_luo_human_protein_coding"}] },
-  { year:2017, role:"first", title:"A Robust Method for Inferring Network Structures", authors:"Yang Yang<sup>*</sup>, <strong>Tingjin Luo</strong><sup>*</sup>, Zhoujun Li, Xiaoming Zhang, Philip S. Yu", venue:"Scientific Reports, 7:5221", tags:["cor"], links:[] },
-  { year:2017, role:"co", title:"2D Feature Selection by Sparse Matrix Regression", authors:"Chenping Hou, Yuanyuan Jiao, Feiping Nie, <strong>Tingjin Luo</strong>, Zhi-Hua Zhou<sup>#</sup>", venue:"IEEE Transactions on Image Processing (TIP), 26(9):4255–4268", tags:["ccf-a","trans","q1"], links:[] },
-  { year:2017, role:"co", title:"Robust Self-Tuning Sparse Subspace Clustering", authors:"Guangtao Wang, Jiayu Zhou, Jingjie Ni, <strong>Tingjin Luo</strong>, Wei Long, Hai Zhen, Gao Cong, Jieping Ye<sup>#</sup>", venue:"IEEE International Conference on Data Mining Workshops (ICDMW), 858–865", tags:[], links:[] },
-
-  // Before 2017
-  { year:2016, role:"first", title:"Discriminative Orthogonal Elastic Preserving Projections for Classification", authors:"<strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>, Dongyun Yi, Jun Zhang", venue:"Neurocomputing, 179:54–68", tags:["ccf-b","q1","cor"], links:[] },
-  { year:2014, role:"first", title:"Speed up Junction Detector based on Azimuth Consensus by Harris Corner", authors:"<strong>Tingjin Luo</strong>, Jun Zhang, Lin Lian", venue:"Optical Review, 21(2):135–142", tags:["cor"], links:[] },
-  { year:2013, role:"corr", title:"Junction Point Detection Algorithm for SAR Image", authors:"Jun Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Gui Gao, Lin Lian", venue:"International Journal of Antennas and Propagation, 2013:1–9", tags:["cor"], links:[] },
-  { year:2013, role:"co", title:"3D Reconstruction of Periodic Human Walking Trajectories Based on Single View", authors:"Jun Zhang, Weiqiang Huang, <strong>Tingjin Luo</strong>", venue:"Chinese Journal of Electronics, 22(3):455–460", tags:[], links:[] },
-  { year:2012, role:"co", title:"Accurate Moving Target Detection Based on Background Subtraction and SUSAN", authors:"Jun Zhang, Shukui Xu, Kuihua Huang, <strong>Tingjin Luo</strong>", venue:"International Journal of Computer and Electrical Engineering, 4(4):436–439", tags:[], links:[] },
-];
+const TAG_META = {
+  "ccf-a": { label:"CCF-A", group:"metric", className:"ptag-a", order:1, description:"CCF-A venue" },
+  "ccf-b": { label:"CCF-B", group:"metric", className:"ptag-b", order:2, description:"CCF-B venue" },
+  "trans": { label:"Trans", group:"metric", className:"ptag-t", order:3, description:"IEEE/ACM Transactions" },
+  "q1": { label:"中科院/JCR Q1", group:"metric", className:"ptag-q1", order:4, description:"Top-quartile journal" },
+  "cor": { label:"一作/通讯", group:"metric", className:"ptag-cor", order:5, description:"First, co-first, or corresponding authorship; derived from role" }
+};
 
 /* ════════════════════════════════════════════════════
-   Count tag occurrences
+   New-publication template
+
+   Copy one object into PUBS, usually at the top of the matching year.
+   role values:
+     "first" = first/co-first author
+     "corr"  = corresponding author
+     "co"    = co-author
+
+   The "cor" tag is added automatically when role is "first" or "corr".
+   The tags array only accepts: "ccf-a", "ccf-b", "trans", and "q1".
+   Leave tags as [] when none of these classifications applies.
+
+   {
+     year: 2026,
+     role: "corr",
+     title: "Paper title",
+     authors: "First Author, <strong>Tingjin Luo</strong><sup>#</sup>",
+     venue: "Conference or Journal, Accepted",
+     tags: ["ccf-a", "trans", "q1"],
+     links: [{ t:"PDF", u:"https://example.com/paper.pdf" }]
+   }
 ════════════════════════════════════════════════════ */
-const counts = { all: PUBS.length, 'ccf-a':0, 'ccf-b':0, trans:0, q1:0, cor:0 };
-PUBS.forEach(p => p.tags.forEach(t => { if(counts[t]!==undefined) counts[t]++; }));
-Object.keys(counts).forEach(k => {
-  const el = document.getElementById('fc-' + k);
-  if (el) el.textContent = counts[k];
+const PUBS = [
+  {
+    "year": 2026,
+    "role": "corr",
+    "title": " How Relation Enrichment Improves Clustering Ensemble Performance: A Second Order Induced Relation View",
+    "authors": "Feijiang Li, Jieting Wang, Yuhua Qian<sup>#</sup>, Hongren Yan, <strong>Tingjin Luo</strong>",
+    "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), Accepted",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "corr",
+    "title": " Dual-granularity Labeling for Multi-instance Multi-label Data with Skewed Annotation",
+    "authors": "Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Chenping Hou",
+    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE), Accepted",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "corr",
+    "title": " Correcting Visual Blur Induced by Attention Distraction to Reduce Hallucinations: Algorithm and Theory",
+    "authors": "Quanjiang Li, Zhiming Liu, Wei Luo, <strong>Tingjin Luo</strong><sup>#</sup>, Chenping Hou",
+    "venue": "Forty-third International Conference on Machine Learning (ICML), Accepted",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "corr",
+    "title": " Label-Guided Representation Learning for Incomplete Multi-View Multi-Label Classification",
+    "authors": "Yang Li, Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>",
+    "venue": "Forty-third International Conference on Machine Learning (ICML), Accepted",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "corr",
+    "title": " Imbalanced Multi-Domain Multi-Modal Learning with Expert Collaboration and Dynamic Fusion Mechanism for Fake News Detection",
+    "authors": "Yuchen Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Hongbing Wu, Xinwang Liu, Chenping Hou",
+    "venue": "ACM Transactions on Information Systems (TOIS), Accepted",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "corr",
+    "title": "Self-Heterogeneous Knowledge Fusion with Personalized Guidance for Target Fine-grained Classification in Remote Sensing Images",
+    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Yongming He, Wenxia Guo",
+    "venue": "IEEE Transactions on Geoscience and Remote Sensing (TGRS), Accepted",
+    "tags": [
+      "ccf-b",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "first",
+    "title": "Non-convex Transfer Subspace Learning via Embedded Distribution Alignment",
+    "authors": "<strong>Tingjin Luo</strong>, Yueyin Liu, Xinyue Zhang, Chenping Hou",
+    "venue": "IEEE Transactions on Image Processing (TIP), Accepted",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "corr",
+    "title": "Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition",
+    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>",
+    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "first",
+    "title": "Deep Partial Label Feature Selection with Cluster-Guided Disambiguation",
+    "authors": "<strong>Tingjin Luo</strong>, Mengyuan Tong, Qingchang Shu, Yueyin Liu, Hao Zhou, Zheng Wang",
+    "venue": "ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "first",
+    "title": "ESTIM: Efficient and Scalable Tensorial Incomplete Multi-view Semi-supervised Classification",
+    "authors": "<strong>Tingjin Luo</strong>, Xiangyao Li, Zhangqi Jiang, Shuanghui Zhang, Dewen Hu",
+    "venue": "ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "corr",
+    "title": "Multi-Label Classification with Incremental and Decremental Features",
+    "authors": "Mingdie Jiang, Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Yiping Song, Chenping Hou",
+    "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "co",
+    "title": "DPRM: A Dual Implicit Process Reward Model for Automatic Labeling and Collaborative Reasoning in Multi-Hop Question Answering",
+    "authors": "Xinyi Wang, Yiping Song<sup>#</sup>, Zhiliang Tian, Bo Liu, <strong>Tingjin Luo</strong>, Minlie Huang",
+    "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2026,
+    "role": "first",
+    "title": "Nonconvex and Adaptive Multi-label Learning for Missing Labels",
+    "authors": "<strong>Tingjin Luo</strong><sup>#</sup>, Quanjiang Li, Mingdie Jiang, Chenping Hou",
+    "venue": "Knowledge-Based Systems (KBS), IF 7.6",
+    "tags": [
+      "ccf-b",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Tackling Noisy Labels with Noise-Free Prototype Guided Representation Calibration",
+    "authors": "Huiting Yuan, <strong>Tingjin Luo</strong><sup>#</sup>, Xinghao Wu, Jie Jiang",
+    "venue": "Knowledge-Based Systems (KBS), IF 7.6",
+    "tags": [
+      "ccf-b",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Theory-Driven Label-Specific Representation for Incomplete Multi-View Multi-Label Learning",
+    "authors": "Quanjiang Li, Tianxiang Xu, <strong>Tingjin Luo</strong><sup>#</sup>, Yan Zhong, Yang Li, Yiyun Zhou, Chenping Hou",
+    "venue": "Conference on Neural Information Processing Systems (NeurIPS)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Adversarial Graph Fusion for Incomplete Multi-view Semi-supervised Learning with Tensorial Imputation",
+    "authors": "Zhangqi Jiang, <strong>Tingjin Luo</strong><sup>#</sup>, Xu Yang, Xinyan Liang",
+    "venue": "Conference on Neural Information Processing Systems (NeurIPS)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network",
+    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang, Guoli Li",
+    "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), IF 20.8",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": [
+      {
+        "t": "PDF",
+        "u": "https://ieeexplore.ieee.org/document/9858006"
+      }
+    ]
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels",
+    "authors": "Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Jiahui Liao",
+    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": [
+      {
+        "t": "PDF",
+        "u": "http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf"
+      }
+    ]
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens",
+    "authors": "Zhangqi Jiang, Junkai Chen, Beier Zhu, <strong>Tingjin Luo</strong><sup>#</sup>, Yankun Shen, Xu Yang<sup>#</sup>",
+    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": [
+      {
+        "t": "arXiv",
+        "u": "http://arxiv.org/abs/2411.16724"
+      }
+    ]
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Dynamic Multi-experts Collaboration Learning for Long-tailed Visual Recognition",
+    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Yongming He, Jun Zhang",
+    "venue": "Information Fusion, 115:102734 (CAAI A, IF 14.7)",
+    "tags": [
+      "q1"
+    ],
+    "links": [
+      {
+        "t": "DOI",
+        "u": "https://doi.org/10.1016/j.inffus.2024.102734"
+      }
+    ]
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Nonconvex and Discriminative Transfer Subspace Learning for Unsupervised Domain Adaptation",
+    "authors": "Yueying Liu, <strong>Tingjin Luo</strong><sup>#</sup>",
+    "venue": "Frontiers of Computer Science, 19(2):192307",
+    "tags": [
+      "ccf-b"
+    ],
+    "links": []
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Imbalanced Multi-instance Multi-label Learning via Tensor Product-based Semantic Fusion",
+    "authors": "Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>",
+    "venue": "Frontiers of Computer Science",
+    "tags": [
+      "ccf-b"
+    ],
+    "links": []
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Semi-Supervised Multi-View Multi-Label Learning with View-Specific Transformer and Enhanced Pseudo-Label",
+    "authors": "Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Mingdie Jiang, Zhangqi Jiang, Chenping Hou, Feijiang Li",
+    "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2025,
+    "role": "corr",
+    "title": "Core-to-Global Reasoning for Compositional Visual Question Answering",
+    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Zhangqi Jiang",
+    "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2024,
+    "role": "first",
+    "title": "Robust Discriminative Feature Learning with Calibrated Data Reconstruction and Sparse Low-Rank Model",
+    "authors": "<strong>Tingjin Luo</strong>, Yang Yang<sup>#</sup>, Dongyun Yi, Jieping Ye",
+    "venue": "Applied Intelligence, 54:2867–2880",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2024,
+    "role": "corr",
+    "title": "Absent Multi-view Semi-supervised Classification",
+    "authors": "Wenzhang Zhuge, <strong>Tingjin Luo</strong><sup>#</sup>, Hong Tao, Chenping Hou<sup>#</sup>, Dongyun Yi",
+    "venue": "IEEE Transactions on Cybernetics (TCYB), 54(3):1708–1721",
+    "tags": [
+      "ccf-b",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2024,
+    "role": "co",
+    "title": "Core-Structures-Guided Multi-Modal Classification Neural Architecture Search",
+    "authors": "Pinhan Fu, Xinyan Liang, <strong>Tingjin Luo</strong>, Qian Guo, Yayu Zhang, Yuhua Qian<sup>#</sup>",
+    "venue": "International Joint Conference on Artificial Intelligence (IJCAI), 3980–3988",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2024,
+    "role": "corr",
+    "title": "Deep Incomplete Multi-View Learning Network with Insufficient Label Information",
+    "authors": "Zhangqi Jiang, <strong>Tingjin Luo</strong><sup>#</sup>, Xinyan Liang",
+    "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": [
+      {
+        "t": "PDF",
+        "u": "https://ojs.aaai.org/index.php/AAAI/article/view/29189"
+      },
+      {
+        "t": "Code",
+        "u": "https://github.com/ZhangqiJiang07/code_DIMvLN"
+      }
+    ]
+  },
+  {
+    "year": 2024,
+    "role": "co",
+    "title": "Compound Weakly Supervised Clustering",
+    "authors": "Hong Tao, Jiacheng Jiang, Chenping Hou<sup>#</sup>, <strong>Tingjin Luo</strong>, Ruidong Fan, Jing Zhang",
+    "venue": "IEEE Transactions on Image Processing (TIP), 33:957–971",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2024,
+    "role": "corr",
+    "title": "结合对象属性识别的图像场景图生成方法研究",
+    "authors": "周浩, <strong>罗廷金</strong><sup>#</sup>, 崔国恒",
+    "venue": "计算机科学 (Computer Science), 51(11):205–212 (CCF 中文 T2)",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2024,
+    "role": "corr",
+    "title": "基于多语义关联与融合的视觉问答模型",
+    "authors": "周浩, 王超, 崔国恒, <strong>罗廷金</strong><sup>#</sup>",
+    "venue": "计算机应用 (Journal of Computer Applications) (CCF 中文 T2)",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2024,
+    "role": "corr",
+    "title": "Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds",
+    "authors": "Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Yueying Liu, Chenping Hou",
+    "venue": "ACM International Conference on Multimedia (ACM MM), 5413–5422",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": [
+      {
+        "t": "PDF",
+        "u": "https://dl.acm.org/doi/10.1145/3664647.3680911"
+      }
+    ]
+  },
+  {
+    "year": 2024,
+    "role": "corr",
+    "title": "Deep Incomplete Multi-View Network Semi-Supervised Multi-Label Learning with Unbiased Loss",
+    "authors": "Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Mingdie Jiang, Jiahui Liao, Zhangqi Jiang",
+    "venue": "ACM International Conference on Multimedia (ACM MM), 9048–9056",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": []
+  },
+  {
+    "year": 2023,
+    "role": "corr",
+    "title": "Debiased Scene Graph Generation for Dual Imbalance Learning",
+    "authors": "Hao Zhou, Jun Zhang<sup>#</sup>, <strong>Tingjin Luo</strong><sup>#</sup>, Yazhou Yang, Jun Lei",
+    "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 45(4):4274–4288",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": [
+      {
+        "t": "PDF",
+        "u": "https://ieeexplore.ieee.org/document/9858006"
+      },
+      {
+        "t": "Code",
+        "u": "https://github.com/zhouhao0515/unbiasedSGG-DSDI"
+      }
+    ]
+  },
+  {
+    "year": 2023,
+    "role": "corr",
+    "title": "Active Label Distribution Learning via Kernel Maximum Mean Discrepancy",
+    "authors": "Xinyue Dong, <strong>Tingjin Luo</strong><sup>#</sup>, Ruidong Fan, Wenzhang Zhuge, Chenping Hou<sup>#</sup>",
+    "venue": "Frontiers of Computer Science, 17(4):174327",
+    "tags": [
+      "ccf-b"
+    ],
+    "links": []
+  },
+  {
+    "year": 2023,
+    "role": "first",
+    "title": "Semi-supervised Learning with Label Proportion",
+    "authors": "Ningzhao Sun<sup>*</sup>, <strong>Tingjin Luo</strong><sup>*</sup>, Hong Tao, Chenping Hou<sup>#</sup>, Dewen Hu<sup>#</sup>",
+    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE), 35(1):877–890",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2023,
+    "role": "corr",
+    "title": "Joint Distribution Alignment and Transfer Subspace Learning for Unsupervised Domain Adaptation",
+    "authors": "Yueying Liu, <strong>Tingjin Luo</strong><sup>#</sup>",
+    "venue": "IEEE Int. Conf. on Cloud Computing and Intelligence Systems (CCIS), 53–58",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2023,
+    "role": "co",
+    "title": "Online Learning with Incremental Feature Space and Bandit Feedback",
+    "authors": "Shilin Gu, <strong>Tingjin Luo</strong>, Ming He, Chenping Hou",
+    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE)",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2023,
+    "role": "co",
+    "title": "Incomplete Multi-view Learning under Label Shift",
+    "authors": "Ruidong Fan, Xiao Ouyang, <strong>Tingjin Luo</strong>, Dewen Hu, Chenping Hou",
+    "venue": "IEEE Transactions on Image Processing (TIP)",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2023,
+    "role": "co",
+    "title": "Decorrelated Spectral Regression: An Unsupervised Dimension Reduction Method under Data Selection Bias",
+    "authors": "Xiuqi Huang, Haotian Ni, <strong>Tingjin Luo</strong>, Hong Tao, Chenping Hou<sup>#</sup>",
+    "venue": "Neurocomputing, 549:126406",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2022,
+    "role": "co",
+    "title": "Safe Incomplete Label Distribution Learning",
+    "authors": "Jing Zhang, Hong Tao<sup>#</sup>, <strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>",
+    "venue": "Pattern Recognition, 125:108518",
+    "tags": [
+      "ccf-b",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2022,
+    "role": "corr",
+    "title": "Joint Representation Learning and Clustering: A Framework for Grouping Partial Multiview Data",
+    "authors": "Wenzhang Zhuge, Hong Tao, <strong>Tingjin Luo</strong><sup>#</sup>, Linli Zeng, Chenping Hou<sup>#</sup>, Dongyun Yi",
+    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE), 34(8):3826–3840",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2022,
+    "role": "co",
+    "title": "Multi-instance Positive and Unlabeled Learning with Bi-level Embedding",
+    "authors": "Xijia Tang, Chao Xu, <strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>",
+    "venue": "Intelligent Data Analysis, 26(3):659–678",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2022,
+    "role": "co",
+    "title": "基于独立自表达学习的不完全多视图聚类方法",
+    "authors": "诸葛文章, 范瑞东, <strong>罗廷金</strong>, 陶红, 侯臣平<sup>#</sup>",
+    "venue": "中国科学：信息科学， 52(7): 1186-1203",
+    "tags": [
+      "ccf-a",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2021,
+    "role": "corr",
+    "title": "A Unified Deep Sparse Graph Attention Network for Scene Graph Generation",
+    "authors": "Hao Zhou, Yazhou Yang, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang<sup>#</sup>, Jun Lei, Shuohao Li",
+    "venue": "Pattern Recognition",
+    "tags": [
+      "ccf-b",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2021,
+    "role": "corr",
+    "title": "Relationship-aware Primal-Dual Graph Attention Network for Scene Graph Generation",
+    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang, Jun Lei, Shuohao Li",
+    "venue": "IEEE International Conference on Multimedia and Expo (ICME)",
+    "tags": [
+      "ccf-b"
+    ],
+    "links": []
+  },
+  {
+    "year": 2021,
+    "role": "corr",
+    "title": "Multiple Instance Learning for Unilateral Data",
+    "authors": "Xijia Tang, <strong>Tingjin Luo</strong><sup>#</sup>, Tianxiang Luan, Chenping Hou",
+    "venue": "Pacific-Asia Conf. on Knowledge Discovery and Data Mining (PAKDD)",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2021,
+    "role": "co",
+    "title": "Active Label Distribution Learning",
+    "authors": "Xinyue Dong, Shilin Gu, Wenzhang Zhuge, <strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>",
+    "venue": "Neurocomputing, 436:12–21",
+    "tags": [
+      "ccf-b",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2020,
+    "role": "co",
+    "title": "Multi-view Subspace Learning via Bidirectional Sparsity",
+    "authors": "Ruidong Fan, <strong>Tingjin Luo</strong>, Wenzhang Zhuge, Sheng Qiang, Chenping Hou<sup>#</sup>",
+    "venue": "Pattern Recognition, 108:107524",
+    "tags": [
+      "ccf-b",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2020,
+    "role": "co",
+    "title": "Optimal Representative Distribution Margin Machine for Multi-Instance Learning",
+    "authors": "Tianxiang Luan, <strong>Tingjin Luo</strong>, Wenzhang Zhuge, Chenping Hou<sup>#</sup>",
+    "venue": "IEEE Access, 8:74864–74874",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2020,
+    "role": "co",
+    "title": "Multi-View Spectral Clustering with Incomplete Graphs",
+    "authors": "Wenzhang Zhuge, <strong>Tingjin Luo</strong>, Hong Tao, Chenping Hou<sup>#</sup>, Dongyun Yi",
+    "venue": "IEEE Access, 8:99820–99831",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2019,
+    "role": "first",
+    "title": "Dimension Reduction for Non-Gaussian Data by Adaptive Discriminative Analysis",
+    "authors": "<strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>, Feiping Nie, Dongyun Yi",
+    "venue": "IEEE Transactions on Cybernetics (TCYB), 49(3):933–946",
+    "tags": [
+      "ccf-b",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2019,
+    "role": "corr",
+    "title": "Non-Convex Transfer Subspace Learning for Unsupervised Domain Adaptation",
+    "authors": "Zhipeng Lin, Zhenyu Zhao, <strong>Tingjin Luo</strong><sup>#</sup>, Wenjing Yang, Yongjun Zhang, Yuhua Tang",
+    "venue": "IEEE International Conference on Multimedia and Expo (ICME), 1468–1473",
+    "tags": [
+      "ccf-b"
+    ],
+    "links": []
+  },
+  {
+    "year": 2019,
+    "role": "co",
+    "title": "Rademacher Dropout: An Adaptive Dropout for Deep Neural Network via Optimizing Generalization Gap",
+    "authors": "Haotian Wang, Wenjing Yang<sup>#</sup>, Zhenyu Zhao, <strong>Tingjin Luo</strong>, Ji Wang, Yuhua Tang",
+    "venue": "Neurocomputing, 357:177–187",
+    "tags": [
+      "ccf-b",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2019,
+    "role": "co",
+    "title": "Bi-direction Hierarchical LSTM with Spatial-Temporal Attention for Action Recognition",
+    "authors": "Haodong Yang, Jun Zhang<sup>#</sup>, Shuohao Li<sup>#</sup>, <strong>Tingjin Luo</strong>",
+    "venue": "Journal of Intelligent & Fuzzy Systems, 36(1):775–786",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2018,
+    "role": "first",
+    "title": "Semi-Supervised Feature Selection via Insensitive Sparse Regression with Application to Video Semantic Recognition",
+    "authors": "<strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>, Feiping Nie, Hong Tao, Dongyun Yi",
+    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE), 30(10):1943–1956",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2018,
+    "role": "first",
+    "title": "Identifying Genetic Risk Factors for Alzheimer's Disease via Shared Tree-Guided Feature Learning Across Multiple Tasks",
+    "authors": "Weizhong Zhang<sup>*</sup>, <strong>Tingjin Luo</strong><sup>*</sup>, Shuang Qiu, Jieping Ye, Deng Cai, Xiaofei He, Jie Wang<sup>#</sup>",
+    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE), 30(11):2145–2156",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2018,
+    "role": "co",
+    "title": "Robust Feature Selection via Simultaneous Capped Norm and Sparse Regularizer Minimization",
+    "authors": "Gongmin Lan, Chenping Hou<sup>#</sup>, Feiping Nie, <strong>Tingjin Luo</strong>, Dongyun Yi",
+    "venue": "Neurocomputing, 283:228–240",
+    "tags": [
+      "ccf-b",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2017,
+    "role": "first",
+    "title": "Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning",
+    "authors": "<strong>Tingjin Luo</strong>, Weizhong Zhang, Shuang Qiu, Yang Yang, Dongyun Yi, Guangtao Wang, Jieping Ye<sup>#</sup>, Jie Wang<sup>#</sup>",
+    "venue": "ACM SIGKDD International Conference on Knowledge Discovery & Data Mining (KDD), 345–354",
+    "tags": [
+      "ccf-a"
+    ],
+    "links": [
+      {
+        "t": "PDF",
+        "u": "https://dl.acm.org/doi/10.1145/3097983.3097984"
+      },
+      {
+        "t": "Code",
+        "u": "https://github.com/HorizonAILab/Paper_Code"
+      },
+      {
+        "t": "Video",
+        "u": "https://videolectures.net/videos/kdd2017_luo_human_protein_coding"
+      }
+    ]
+  },
+  {
+    "year": 2017,
+    "role": "first",
+    "title": "A Robust Method for Inferring Network Structures",
+    "authors": "Yang Yang<sup>*</sup>, <strong>Tingjin Luo</strong><sup>*</sup>, Zhoujun Li, Xiaoming Zhang, Philip S. Yu",
+    "venue": "Scientific Reports, 7:5221",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2017,
+    "role": "co",
+    "title": "2D Feature Selection by Sparse Matrix Regression",
+    "authors": "Chenping Hou, Yuanyuan Jiao, Feiping Nie, <strong>Tingjin Luo</strong>, Zhi-Hua Zhou<sup>#</sup>",
+    "venue": "IEEE Transactions on Image Processing (TIP), 26(9):4255–4268",
+    "tags": [
+      "ccf-a",
+      "trans",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2017,
+    "role": "co",
+    "title": "Robust Self-Tuning Sparse Subspace Clustering",
+    "authors": "Guangtao Wang, Jiayu Zhou, Jingjie Ni, <strong>Tingjin Luo</strong>, Wei Long, Hai Zhen, Gao Cong, Jieping Ye<sup>#</sup>",
+    "venue": "IEEE International Conference on Data Mining Workshops (ICDMW), 858–865",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2016,
+    "role": "first",
+    "title": "Discriminative Orthogonal Elastic Preserving Projections for Classification",
+    "authors": "<strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>, Dongyun Yi, Jun Zhang",
+    "venue": "Neurocomputing, 179:54–68",
+    "tags": [
+      "ccf-b",
+      "q1"
+    ],
+    "links": []
+  },
+  {
+    "year": 2014,
+    "role": "first",
+    "title": "Speed up Junction Detector based on Azimuth Consensus by Harris Corner",
+    "authors": "<strong>Tingjin Luo</strong>, Jun Zhang, Lin Lian",
+    "venue": "Optical Review, 21(2):135–142",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2013,
+    "role": "corr",
+    "title": "Junction Point Detection Algorithm for SAR Image",
+    "authors": "Jun Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Gui Gao, Lin Lian",
+    "venue": "International Journal of Antennas and Propagation, 2013:1–9",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2013,
+    "role": "co",
+    "title": "3D Reconstruction of Periodic Human Walking Trajectories Based on Single View",
+    "authors": "Jun Zhang, Weiqiang Huang, <strong>Tingjin Luo</strong>",
+    "venue": "Chinese Journal of Electronics, 22(3):455–460",
+    "tags": [],
+    "links": []
+  },
+  {
+    "year": 2012,
+    "role": "co",
+    "title": "Accurate Moving Target Detection Based on Background Subtraction and SUSAN",
+    "authors": "Jun Zhang, Shukui Xu, Kuihua Huang, <strong>Tingjin Luo</strong>",
+    "venue": "International Journal of Computer and Electrical Engineering, 4(4):436–439",
+    "tags": [],
+    "links": []
+  }
+];
+
+function getPublicationTags(pub) {
+  const tags = new Set(pub.tags || []);
+  if (pub.role === "first" || pub.role === "corr") tags.add("cor");
+  return [...tags].sort((a,b) => (TAG_META[a]?.order ?? 9999) - (TAG_META[b]?.order ?? 9999));
+}
+
+function validatePublications() {
+  const knownTags = new Set(Object.keys(TAG_META));
+  const knownRoles = new Set(["first", "corr", "co"]);
+  const seen = new Set();
+  PUBS.forEach((p, i) => {
+    const pos = `PUBS[${i}]`;
+    ["year","role","title","authors","venue","tags","links"].forEach(k => {
+      if (!(k in p)) console.warn(`${pos}: missing field "${k}"`);
+    });
+    if (!knownRoles.has(p.role)) console.warn(`${pos}: unknown role "${p.role}"`);
+    (p.tags || []).forEach(t => {
+      if (!knownTags.has(t)) console.warn(`${pos}: unknown tag "${t}"`);
+    });
+    const key = `${p.year}::${p.title.trim().toLowerCase()}`;
+    if (seen.has(key)) console.warn(`${pos}: possible duplicate publication`, p.title);
+    seen.add(key);
+  });
+}
+validatePublications();
+
+/* ════════════════════════════════════════════════════
+   Tag counts and headline statistics
+════════════════════════════════════════════════════ */
+const counts = { all: PUBS.length };
+Object.keys(TAG_META).forEach(tag => counts[tag] = 0);
+PUBS.forEach(p => getPublicationTags(p).forEach(tag => { counts[tag] = (counts[tag] || 0) + 1; }));
+
+const headlineStats = {
+  "stat-total": counts.all,
+  "stat-ccf-a": counts["ccf-a"],
+  "stat-trans": counts.trans,
+  "stat-q1": counts.q1
+};
+Object.entries(headlineStats).forEach(([id, value]) => {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
 });
 
 /* ════════════════════════════════════════════════════
-   Build year histogram
+   Year histogram
 ════════════════════════════════════════════════════ */
 const yearMap = {};
-PUBS.forEach(p => { yearMap[p.year] = (yearMap[p.year]||0)+1; });
+PUBS.forEach(p => { yearMap[p.year] = (yearMap[p.year] || 0) + 1; });
 const years = Object.keys(yearMap).sort();
 const maxY = Math.max(...Object.values(yearMap));
-const hist = document.getElementById('yearHist');
-const histLabels = document.getElementById('yearLabels');
+const hist = document.getElementById("yearHist");
+const histLabels = document.getElementById("yearLabels");
 years.forEach(y => {
-  const h = Math.round((yearMap[y]/maxY)*100);
-  hist.insertAdjacentHTML('beforeend', `
+  const h = Math.round((yearMap[y] / maxY) * 100);
+  hist.insertAdjacentHTML("beforeend", `
     <div class="hist-bar-col" title="${y}: ${yearMap[y]} papers">
       <div class="hist-val">${yearMap[y]}</div>
       <div class="hist-bar" style="height:${h}px"></div>
     </div>`);
-  histLabels.insertAdjacentHTML('beforeend', `<span class="hist-year-lbl">${y}</span>`);
+  histLabels.insertAdjacentHTML("beforeend", `<span class="hist-year-lbl">${y}</span>`);
 });
 
-/* ════════════════════════════════════════════════════
-   Venue bar chart
-════════════════════════════════════════════════════ */
-const venueData = [
-  { label:"TPAMI / TIP / TCYB /TGRS", val:9, cls:"navy" },
-  { label:"ICML/ CVPR / NeurIPS / KDD / ICLR", val:10, cls:"amber" },
-  { label:"AAAI / IJCAI / ACM MM", val:6, cls:"mid" },
-  { label:"IEEE TKDE/ACM TOIS", val:7, cls:"green" },
-  { label:"Information Fusion/ PR/ KBS / FCS /Neurocomputing", val: 14, cls:"violet" },
-];
-const maxV = Math.max(...venueData.map(d=>d.val));
-const vc = document.getElementById('venueChart');
-venueData.forEach(d => {
-  vc.insertAdjacentHTML('beforeend', `
-    <div class="bar-row">
-      <div class="bar-head"><span class="bar-label">${d.label}</span><span class="bar-val">${d.val}</span></div>
-      <div class="bar-track"><div class="bar-fill ${d.cls}" data-w="${Math.round(d.val/maxV*100)}"></div></div>
-    </div>`);
-});
-
-/* ════════════════════════════════════════════════════
-   Rank bar chart
-════════════════════════════════════════════════════ */
-const rankData = [
-  { label:"CCF-A", val:counts['ccf-a'], cls:"" },
-  { label:"CCF-B", val:counts['ccf-b'], cls:"mid" },
-  { label:"IEEE/ACM Trans", val:counts['trans'], cls:"violet" },
-  { label:"中科院1区", val:counts['q1'], cls:"green" },
-  { label:"一作/通讯", val:counts['cor'], cls:"amber" },
-];
-const maxR = Math.max(...rankData.map(d=>d.val));
-const rc = document.getElementById('rankChart');
+/* Rank chart: every value is generated from publication tags. */
+const rankKeys = ["ccf-a", "ccf-b", "trans", "q1", "cor"];
+const rankClasses = ["", "mid", "violet", "green", "amber"];
+const rankData = rankKeys.map((key, i) => ({
+  label: TAG_META[key].label,
+  val: counts[key],
+  cls: rankClasses[i]
+}));
+const maxR = Math.max(...rankData.map(d => d.val), 1);
+const rankChart = document.getElementById("rankChart");
 rankData.forEach(d => {
-  rc.insertAdjacentHTML('beforeend', `
+  rankChart.insertAdjacentHTML("beforeend", `
     <div class="bar-row">
       <div class="bar-head"><span class="bar-label">${d.label}</span><span class="bar-val">${d.val}</span></div>
-      <div class="bar-track"><div class="bar-fill ${d.cls}" data-w="${Math.round(d.val/maxR*100)}"></div></div>
+      <div class="bar-track"><div class="bar-fill ${d.cls}" data-w="${Math.round(d.val / maxR * 100)}"></div></div>
     </div>`);
 });
 
-/* Animate bar fills into view */
-(function(){
-  const fills = document.querySelectorAll('.bar-fill[data-w]');
-  const reveal = el => { el.style.width = el.dataset.w + '%'; };
-  if ('IntersectionObserver' in window) {
-    const bo = new IntersectionObserver(es => {
-      es.forEach(e => { if (e.isIntersecting) { setTimeout(()=>reveal(e.target), 60); bo.unobserve(e.target); } });
+(function animateBars(){
+  const fills = document.querySelectorAll(".bar-fill[data-w]");
+  const reveal = el => { el.style.width = el.dataset.w + "%"; };
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => reveal(entry.target), 60);
+          observer.unobserve(entry.target);
+        }
+      });
     }, { threshold:.3 });
-    fills.forEach(f => bo.observe(f));
-  } else {
-    fills.forEach(reveal);
-  }
+    fills.forEach(fill => observer.observe(fill));
+  } else fills.forEach(reveal);
 })();
 
 /* ════════════════════════════════════════════════════
-   Donut — authorship role (role-based)
+   Authorship donut
 ════════════════════════════════════════════════════ */
-(function(){
-  const first = PUBS.filter(p=>p.role==='first').length;
-  const corr  = PUBS.filter(p=>p.role==='corr').length;
-  const other = PUBS.filter(p=>p.role==='co').length;
-  const data  = [
-    {label:'1st / Co-first', val:first, color:'#1d4480'},
-    {label:'Corresponding',  val:corr,  color:'#2c5f9e'},
-    {label:'Co-author',      val:other, color:'#b8cfe8'},
+(function buildDonut(){
+  const first = PUBS.filter(p => p.role === "first").length;
+  const corr = PUBS.filter(p => p.role === "corr").length;
+  const other = PUBS.filter(p => p.role === "co").length;
+  const data = [
+    { label:"1st / Co-first", val:first, color:"#1d4480" },
+    { label:"Corresponding", val:corr, color:"#2c5f9e" },
+    { label:"Co-author", val:other, color:"#b8cfe8" }
   ];
   const total = first + corr + other;
   const cx=60, cy=60, r=44, r2=28;
-  let angle = -Math.PI/2;
-  const svg = document.getElementById('donutSvg');
+  let angle = -Math.PI / 2;
+  const svg = document.getElementById("donutSvg");
   data.forEach(d => {
-    const sweep = (d.val/total)*Math.PI*2;
+    const sweep = (d.val / total) * Math.PI * 2;
     const x1=cx+r*Math.cos(angle), y1=cy+r*Math.sin(angle);
     const x2=cx+r*Math.cos(angle+sweep), y2=cy+r*Math.sin(angle+sweep);
     const xi1=cx+r2*Math.cos(angle+sweep), yi1=cy+r2*Math.sin(angle+sweep);
     const xi2=cx+r2*Math.cos(angle), yi2=cy+r2*Math.sin(angle);
     const big = sweep > Math.PI ? 1 : 0;
-    svg.insertAdjacentHTML('beforeend',`<path d="M${x1},${y1} A${r},${r},0,${big},1,${x2},${y2} L${xi1},${yi1} A${r2},${r2},0,${big},0,${xi2},${yi2} Z" fill="${d.color}" opacity=".92"/>`);
+    svg.insertAdjacentHTML("beforeend", `<path d="M${x1},${y1} A${r},${r},0,${big},1,${x2},${y2} L${xi1},${yi1} A${r2},${r2},0,${big},0,${xi2},${yi2} Z" fill="${d.color}" opacity=".92"/>`);
     angle += sweep;
   });
-  const leg = document.getElementById('donutLegend');
-  data.forEach(d => {
-    leg.insertAdjacentHTML('beforeend',`
-      <div class="legend-item">
-        <span class="legend-dot" style="background:${d.color}"></span>
-        <span>${d.label} — <span style="font-family:var(--mono);font-weight:600">${d.val}</span></span>
-      </div>`);
-  });
+  const legend = document.getElementById("donutLegend");
+  data.forEach(d => legend.insertAdjacentHTML("beforeend", `
+    <div class="legend-item">
+      <span class="legend-dot" style="background:${d.color}"></span>
+      <span>${d.label} — <span style="font-family:var(--mono);font-weight:600">${d.val}</span></span>
+    </div>`));
 })();
 
 /* ════════════════════════════════════════════════════
-   Render publication list grouped by year
+   Publication list
 ════════════════════════════════════════════════════ */
 function tagHtml(tags) {
-  const map = { 'ccf-a':'ptag-a CCF-A', 'ccf-b':'ptag-b CCF-B', 'trans':'ptag-t Trans', 'q1':'ptag-q1 1区', 'cor':'ptag-cor 通讯/1作' };
-  return tags.map(t => map[t] ? `<span class="ptag ${map[t].split(' ')[0]}">${map[t].split(' ').slice(1).join(' ')}</span>` : '').join('');
+  return tags.map(tag => {
+    const meta = TAG_META[tag];
+    if (!meta) return "";
+    const cls = meta.className || "ptag-cor";
+    const title = meta.description || meta.label;
+    return `<span class="ptag ${cls}" title="${title}">${meta.label}</span>`;
+  }).join("");
 }
 function linksHtml(links) {
-  if(!links||!links.length) return '';
-  return '<span class="pub-lnks">' + links.map(l=>`<a href="${l.u}" target="_blank" rel="noopener">[${l.t}]</a>`).join('') + '</span>';
+  if (!links || !links.length) return "";
+  return `<span class="pub-lnks">${links.map(l => `<a href="${l.u}" target="_blank" rel="noopener">[${l.t}]</a>`).join("")}</span>`;
 }
 
-const container = document.getElementById('pubListFull');
+const publicationContainer = document.getElementById("pubListFull");
 const byYear = {};
-PUBS.forEach(p => { (byYear[p.year]=byYear[p.year]||[]).push(p); });
-const sortedYears = Object.keys(byYear).sort((a,b)=>b-a);
+PUBS.forEach(p => { (byYear[p.year] = byYear[p.year] || []).push(p); });
+const sortedYears = Object.keys(byYear).sort((a,b) => b-a);
 let globalNum = PUBS.length;
-
-sortedYears.forEach(y => {
-  const group = byYear[y];
-  const block = document.createElement('div');
-  block.className = 'pub-year-group';
-  block.dataset.year = y;
-  block.innerHTML = `<div class="pub-year-label">${y} <span class="pub-year-count">${group.length} paper${group.length>1?'s':''}</span></div>`;
+sortedYears.forEach(year => {
+  const group = byYear[year];
+  const block = document.createElement("div");
+  block.className = "pub-year-group";
+  block.dataset.year = year;
+  block.innerHTML = `<div class="pub-year-label">${year} <span class="pub-year-count">${group.length} paper${group.length > 1 ? "s" : ""}</span></div>`;
   group.forEach(p => {
-    const item = document.createElement('div');
-    item.className = 'pub-item';
-    item.dataset.tags = JSON.stringify(p.tags);
-    item.setAttribute('data-v','');
+    const item = document.createElement("div");
+    const allTags = getPublicationTags(p);
+    item.className = "pub-item";
+    item.dataset.tags = allTags.join(" ");
+    item.setAttribute("data-v", "");
     item.innerHTML = `
       <span class="pub-num">${globalNum--}</span>
       <div class="pub-content">
-        <div class="pub-title-txt">${p.links&&p.links.length ? `<a href="${p.links[0].u}" target="_blank" rel="noopener">${p.title}</a>` : p.title}</div>
+        <div class="pub-title-txt">${p.links && p.links.length ? `<a href="${p.links[0].u}" target="_blank" rel="noopener">${p.title}</a>` : p.title}</div>
         <div class="pub-authors-txt">${p.authors}</div>
         <div class="pub-venue-txt">${p.venue}</div>
-        <div class="pub-tags">${tagHtml(p.tags)}${linksHtml(p.links)}</div>
+        <div class="pub-tags">${tagHtml(allTags)}${linksHtml(p.links)}</div>
       </div>`;
     block.appendChild(item);
   });
-  container.appendChild(block);
+  publicationContainer.appendChild(block);
 });
 
 /* ════════════════════════════════════════════════════
-   Filter logic
+   Generated rank / role filter
 ════════════════════════════════════════════════════ */
-document.querySelectorAll('.ftag').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.ftag').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    document.querySelectorAll('.pub-item').forEach(item => {
-      const tags = JSON.parse(item.dataset.tags||'[]');
-      const show = f==='all' || tags.includes(f);
-      item.style.display = show ? '' : 'none';
-    });
-    // Hide empty year groups
-    document.querySelectorAll('.pub-year-group').forEach(grp => {
-      const visible = [...grp.querySelectorAll('.pub-item')].some(i=>i.style.display!=='none');
-      grp.style.display = visible ? '' : 'none';
-    });
+let activeMetric = null;
+function buildMetricFilters() {
+  const container = document.getElementById("metricFilters");
+  const tags = Object.entries(TAG_META)
+    .filter(([key, meta]) => meta.group === "metric" && counts[key] > 0)
+    .sort((a,b) => a[1].order - b[1].order);
+
+  const allButton = document.createElement("button");
+  allButton.type = "button";
+  allButton.className = "ftag active";
+  allButton.dataset.filter = "";
+  allButton.innerHTML = `全部 <span class="ftag-count">${PUBS.length}</span>`;
+  container.appendChild(allButton);
+
+  tags.forEach(([key, meta]) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "ftag";
+    button.dataset.filter = key;
+    button.innerHTML = `${meta.label} <span class="ftag-count">${counts[key]}</span>`;
+    container.appendChild(button);
+  });
+}
+buildMetricFilters();
+
+function applyFilters() {
+  let visibleCount = 0;
+  document.querySelectorAll(".pub-item").forEach(item => {
+    const tags = new Set((item.dataset.tags || "").split(/\s+/).filter(Boolean));
+    const show = !activeMetric || tags.has(activeMetric);
+    item.style.display = show ? "" : "none";
+    if (show) visibleCount++;
+  });
+  document.querySelectorAll(".pub-year-group").forEach(group => {
+    const visible = [...group.querySelectorAll(".pub-item")].some(item => item.style.display !== "none");
+    group.style.display = visible ? "" : "none";
+  });
+  const metricLabel = activeMetric ? TAG_META[activeMetric].label : "全部等级/角色";
+  document.getElementById("filterSummary").textContent = `Showing ${visibleCount} of ${PUBS.length} publications · ${metricLabel}`;
+}
+
+document.querySelectorAll(".ftag[data-filter]").forEach(button => {
+  button.addEventListener("click", () => {
+    activeMetric = button.dataset.filter || null;
+    document.querySelectorAll(".ftag[data-filter]").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    applyFilters();
   });
 });
+applyFilters();
 
-/* ════════════════════════════════════════════════════
-   Nav scroll + scroll reveal
-════════════════════════════════════════════════════ */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY>10), {passive:true});
-
-if ('IntersectionObserver' in window) {
-  const io = new IntersectionObserver(es => {
-    es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); }});
-  }, {threshold:.06, rootMargin:'0px 0px -16px 0px'});
-  document.querySelectorAll('[data-v]').forEach(el => io.observe(el));
-} else {
-  document.querySelectorAll('[data-v]').forEach(el => el.classList.add('vis'));
-}
+/* Nav scroll + scroll reveal */
+const nav = document.getElementById("nav");
+window.addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 10), { passive:true });
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("vis");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold:.06, rootMargin:"0px 0px -16px 0px" });
+  document.querySelectorAll("[data-v]").forEach(el => revealObserver.observe(el));
+} else document.querySelectorAll("[data-v]").forEach(el => el.classList.add("vis"));
 </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
