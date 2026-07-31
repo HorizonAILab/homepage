@@ -604,6 +604,204 @@ body {
   .topic-item { padding-left:10px; gap:7px; }
 }
 
+/* Refined analytics and two-state publication list */
+.analytics-grid {
+  grid-template-columns:minmax(300px,.68fr) minmax(0,1.62fr);
+  gap:10px; align-items:stretch;
+}
+.analytics-panel {
+  border:1px solid #dfe6ed;
+  border-radius:12px; height:250px;
+  background:rgba(255,255,255,.985);
+  box-shadow:0 7px 22px rgba(30,52,78,.045), inset 0 1px 0 rgba(255,255,255,.9);
+}
+.panel-head {
+  min-height:44px;
+  padding:8px 11px;
+  align-items:center;
+  background:linear-gradient(180deg,#fff,#fbfcfd);
+  border-bottom:1px solid #e8edf2;
+}
+.panel-heading { min-width:0; display:flex; align-items:center; }
+.panel-kicker {
+  display:block; margin-bottom:4px;
+  font:600 .5rem/1.2 var(--mono); letter-spacing:.13em; text-transform:uppercase;
+  color:#7d8a9a;
+}
+.panel-title { font-size:.76rem; letter-spacing:-.005em; }
+.panel-subtitle {
+  margin-top:3px; max-width:42rem; font-size:.58rem; line-height:1.4; color:#7a8797;
+}
+.panel-badge {
+  margin-top:0; padding:3px 7px; border-color:#dce5ed; background:#f7fafc;
+  color:#607188; font-size:.52rem;
+}
+
+/* Venue ranking */
+.venue-list {
+  flex:1; padding:7px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-auto-rows:35px; align-content:start; gap:3px 5px; background:#f8fafc;
+}
+.venue-row {
+  appearance:none; width:100%; min-height:35px; padding:4px 7px;
+  display:flex; gap:5px; align-items:center; justify-content:flex-start;
+  border:1px solid transparent; border-radius:6px; background:#fff;
+  color:var(--ink2); text-align:left; font:inherit; cursor:pointer;
+  transition:background .14s var(--ease),border-color .14s var(--ease);
+}
+.venue-row:hover { background:#f2f7fb; border-color:#dce6ef; }
+.venue-row:focus-visible { outline:2px solid #7ca3c8; outline-offset:1px; }
+.venue-row.active-row { background:#eef5fb; border-color:#cbddec; }
+.venue-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.59rem; font-weight:570; }
+.venue-count {
+  flex:0 0 auto; min-width:0; height:auto; padding:0; display:inline;
+  border:0; border-radius:0; background:transparent;
+  font:650 .58rem/1 var(--mono); color:#506b88;
+}
+.venue-row:hover .venue-count,.venue-row.active-row .venue-count {
+  color:#244f7e; background:transparent; border-color:transparent;
+}
+
+/* Research topic cards */
+.topic-panel { background:#f8fafc; }
+.topic-panel .panel-head { background:linear-gradient(180deg,#fff,#fbfcfd); }
+.topic-panel .panel-badge {
+  margin-top:1px; padding:4px 8px; color:#607188; background:#f7fafc; border:1px solid #dce5ed;
+}
+.topic-matrix {
+  flex:1; display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:6px; padding:6px 7px 7px; background:#f8fafc;
+}
+.topic-field-group {
+  --cat-color:#65768a; --cat-bg:#f4f7fa;
+  display:flex; flex-direction:column; overflow:hidden;
+  border:1px solid color-mix(in srgb,var(--cat-color) 14%,#e2e8ee);
+  border-radius:10px; background:#fff;
+  box-shadow:0 2px 9px rgba(35,55,80,.025);
+}
+.topic-field-group:last-child { border-bottom:1px solid color-mix(in srgb,var(--cat-color) 14%,#e2e8ee); }
+.topic-field-summary {
+  min-height:48px; padding:6px 6px 6px 8px; align-items:center;
+  background:linear-gradient(145deg,var(--cat-bg),#fff 88%);
+  border:0; border-bottom:1px solid color-mix(in srgb,var(--cat-color) 12%,#e7ebef);
+}
+.topic-field-summary::before {
+  content:""; width:6px; height:6px; flex:0 0 auto; margin:0 6px 0 0;
+  border-radius:50%; background:var(--cat-color);
+  box-shadow:0 0 0 5px color-mix(in srgb,var(--cat-color) 10%,transparent);
+}
+.topic-field-summary .field-copy { display:block; min-width:0; flex:1; }
+.topic-field-summary .field-index {
+  height:auto; min-width:0; margin:0 0 3px; padding:0; border:0; background:transparent;
+  color:color-mix(in srgb,var(--cat-color) 72%,#526173); font-size:.44rem;
+}
+.topic-field-summary .field-name {
+  max-width:none; font-size:.61rem; line-height:1.18; font-weight:640; color:#273548;
+}
+.category-count {
+  flex:0 0 auto; min-width:30px; margin:0 6px 0 5px; text-align:right;
+  font:670 .88rem/1 var(--mono); color:color-mix(in srgb,var(--cat-color) 76%,#34475c);
+}
+.topic-items {
+  flex:1; display:grid; grid-auto-rows:24px; align-content:start;
+  gap:2px; padding:4px;
+}
+.topic-item {
+  min-height:24px; padding:3px 4px 3px 6px; border:1px solid transparent; border-radius:6px;
+  grid-template-columns:minmax(0,1fr) auto; gap:4px;
+}
+.topic-item:last-child { border-bottom:1px solid transparent; }
+.topic-item:hover { background:var(--cat-bg); border-color:color-mix(in srgb,var(--cat-color) 13%,#e5e9ee); }
+.topic-item.active-row {
+  background:color-mix(in srgb,var(--cat-bg) 76%,#fff);
+  border-color:color-mix(in srgb,var(--cat-color) 34%,#dce3e9);
+  color:color-mix(in srgb,var(--cat-color) 78%,#213247);
+}
+.topic-item .topic-name {
+  min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  font-size:.53rem; line-height:1.18; font-weight:540;
+}
+.topic-count {
+  min-width:23px; height:18px; padding:0 4px; display:grid; place-items:center;
+  border:1px solid #e3e8ed; border-radius:99px; background:#f7f9fb;
+  font-size:.51rem; color:#59687a;
+}
+.topic-item:hover .topic-count,.topic-item.active-row .topic-count {
+  color:var(--cat-color); background:#fff; border-color:color-mix(in srgb,var(--cat-color) 25%,#dce3e9);
+}
+
+/* Publication list toolbar and default two-line rows */
+.publication-list-section { margin-top:16px; }
+.publication-list-head {
+  min-height:44px; padding:0 0 8px; display:flex; align-items:flex-end; justify-content:space-between; gap:18px;
+  border-bottom:1px solid #dce3ea;
+}
+.publication-list-title { font-size:1.05rem; line-height:1.2; font-weight:650; letter-spacing:-.015em; }
+.publication-list-note { margin-top:4px; font-size:.62rem; color:#7c8898; }
+.detail-toggle {
+  appearance:none; min-height:34px; padding:6px 11px; display:inline-flex; align-items:center; gap:8px;
+  border:1px solid #d4dde6; border-radius:9px; background:#fff; color:#405169;
+  font:600 .63rem/1 var(--sans); cursor:pointer;
+  box-shadow:0 2px 8px rgba(24,44,70,.04);
+  transition:border-color .14s var(--ease),background .14s var(--ease),color .14s var(--ease);
+}
+.detail-toggle:hover { border-color:#b7cadc; background:#f7fafc; color:#234f7b; }
+.detail-toggle:focus-visible { outline:2px solid var(--blue3); outline-offset:2px; }
+.publication-list .pub-year-label {
+  padding:18px 0 7px; border-bottom:1px solid #cfd9e3; font-size:1.1rem;
+}
+.publication-list .pub-item {
+  grid-template-columns:26px minmax(0,1fr); gap:11px; padding:7px 0;
+  border-bottom-color:#e6ebef; border-radius:0;
+}
+.publication-list .pub-item:hover {
+  margin:0 -8px; padding-left:8px; padding-right:8px; background:#f4f8fb;
+}
+.publication-list .pub-num { padding-top:2px; font-size:.6rem; }
+.publication-list .pub-content { min-width:0; }
+.publication-list .pub-title-txt {
+  margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  font-size:.78rem; line-height:1.35; font-weight:620;
+}
+.pub-compact-meta {
+  min-width:0; margin-top:1px; display:flex; align-items:baseline; gap:7px;
+  font-size:.64rem; line-height:1.35; color:#7b8795;
+}
+.pub-compact-authors,.pub-compact-venue { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pub-compact-authors { max-width:58%; color:#687688; }
+.pub-compact-authors strong { color:#4a586a; font-weight:600; }
+.pub-compact-separator { flex:0 0 auto; color:#bdc5ce; }
+.pub-compact-venue { flex:1; font-family:var(--mono); font-size:.57rem; }
+.pub-details { display:none; }
+.publication-list.is-expanded .pub-item { padding-top:11px; padding-bottom:11px; }
+.publication-list.is-expanded .pub-title-txt { white-space:normal; font-size:.86rem; line-height:1.4; }
+.publication-list.is-expanded .pub-compact-meta { display:none; }
+.publication-list.is-expanded .pub-details { display:block; margin-top:4px; }
+.publication-list.is-expanded .pub-authors-txt { margin-bottom:2px; font-size:.71rem; }
+.pub-venue-detail { display:flex; align-items:center; flex-wrap:wrap; gap:3px; }
+.publication-list.is-expanded .pub-venue-txt { margin:0; font-size:.61rem; }
+.publication-list.is-expanded .pub-tags { margin-top:6px; }
+.publication-list.is-expanded .ptag { border-radius:5px; }
+
+@media (max-width:940px) {
+  .analytics-grid { grid-template-columns:1fr; }
+  .analytics-panel { height:auto; }
+  .venue-list { grid-template-columns:repeat(2,minmax(0,1fr)); gap:3px 8px; }
+}
+@media (max-width:680px) {
+  .topic-matrix { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .venue-list { grid-template-columns:1fr; }
+  .publication-list-head { align-items:flex-start; flex-direction:column; gap:10px; }
+  .detail-toggle { align-self:stretch; justify-content:center; }
+}
+@media (max-width:480px) {
+  .panel-head { min-height:0; padding:14px; }
+  .panel-subtitle { display:none; }
+  .topic-matrix { grid-template-columns:1fr; padding:7px; gap:6px; }
+  .venue-row { grid-template-columns:minmax(0,1fr) auto; gap:6px; }
+  .pub-compact-authors { max-width:50%; }
+}
+
 </style>
 </head>
 <body>
@@ -632,7 +830,7 @@ body {
 
 <section class="dashboard" aria-labelledby="analyticsTitle">
   <div class="dashboard-heading">
-    <div><span class="dashboard-kicker">Research Intelligence</span><h2 class="dashboard-title" id="analyticsTitle">Publication analytics</h2></div>
+    <div><h2 class="dashboard-title" id="analyticsTitle">Publication analytics</h2></div>
   </div>
   <div class="overview-grid">
     <article class="overview-card" data-v>
@@ -659,23 +857,11 @@ body {
   </div>
   <div class="analytics-grid">
     <article class="analytics-panel venue-panel" data-v>
-      <header class="panel-head"><h3 class="panel-title">By venue and authorship</h3><span class="panel-badge" id="venueBadge">—</span></header>
-      <div class="table-scroll"><table class="data-table" aria-label="Publication statistics by venue and authorship"><thead><tr><th>Venue</th><th class="num">Papers</th><th class="num">Lead / Corr.</th></tr></thead><tbody id="venueStatsBody"></tbody><tfoot id="venueStatsFoot"></tfoot></table></div>
-      <div class="venue-insights">
-        <div class="venue-insights-title"><strong>Portfolio balance</strong><span>computed from all publications</span></div>
-        <div class="insight-row">
-          <span class="insight-label">Named venue groups</span><span class="insight-value" id="namedVenueShare">—</span>
-          <span class="insight-track"><span class="insight-fill" id="namedVenueBar"></span></span>
-        </div>
-        <div class="insight-row">
-          <span class="insight-label">Lead / corresponding authorship</span><span class="insight-value" id="leadAuthorShare">—</span>
-          <span class="insight-track"><span class="insight-fill" id="leadAuthorBar"></span></span>
-        </div>
-        <div class="venue-highlight"><span>Most represented named venue</span><strong id="topVenueHighlight">—</strong></div>
-      </div>
+      <header class="panel-head"><div class="panel-heading"><h3 class="panel-title">By venue and authorship</h3></div><span class="panel-badge" id="venueBadge">—</span></header>
+      <div class="venue-list" id="venueStatsBody" aria-label="Publication statistics by venue and authorship"></div>
     </article>
     <article class="analytics-panel topic-panel" data-v>
-      <header class="panel-head"><h3 class="panel-title">By research topic</h3><span class="panel-badge" id="topicBadge">—</span></header>
+      <header class="panel-head"><div class="panel-heading"><h3 class="panel-title">By research topic</h3></div><span class="panel-badge" id="topicBadge">—</span></header>
       <div class="topic-matrix" id="topicStatsBody" aria-label="Publication statistics by research topic"></div>
     </article>
   </div>
@@ -686,7 +872,7 @@ body {
 </section>
 
 <section class="topic-system" aria-labelledby="topicFilterTitle">
-  <div class="section-heading"><div><span class="dashboard-kicker">Explore the record</span><h2 class="dashboard-title" id="topicFilterTitle">Filter publications</h2></div></div>
+  <div class="section-heading"><div><h2 class="dashboard-title" id="topicFilterTitle">Filter publications</h2></div></div>
   <div class="filter-panel">
     <div class="filter-topline">
       <label class="search-wrap"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Search publications</span><input class="search-input" id="publicationSearch" type="search" placeholder="Search title, author, or venue…" autocomplete="off"></label>
@@ -701,7 +887,13 @@ body {
 <!-- ──────────────────────────────────────────────────────
      Full Publication List
 ────────────────────────────────────────────────────── -->
-<div id="pubListFull"></div>
+<section class="publication-list-section" aria-labelledby="publicationListTitle">
+  <div class="publication-list-head">
+    <div><h2 class="publication-list-title" id="publicationListTitle">All publications</h2></div>
+    <button class="detail-toggle" id="detailToggle" type="button" aria-expanded="false" aria-controls="pubListFull"><span id="detailToggleLabel">Show full details</span></button>
+  </div>
+  <div class="publication-list" id="pubListFull"></div>
+</section>
 
 <!-- Footer -->
 <footer class="footer">
@@ -1995,9 +2187,9 @@ const VENUE_GROUPS = [
   {id:"ijcai",label:"IJCAI",pattern:/International Joint Conference on Artificial Intelligence/i}
 ];
 function getVenueGroup(pub) { return VENUE_GROUPS.find(group => group.pattern.test(pub.venue))?.id || "others"; }
-const venueRows = [...VENUE_GROUPS,{id:"others",label:"Others"}].map(group => {
+const venueRows = VENUE_GROUPS.map(group => {
   const papers=PUBS.filter(pub => getVenueGroup(pub)===group.id);
-  return {...group,papers:papers.length,lead:papers.filter(pub => pub.role!=="co").length};
+  return {...group,papers:papers.length};
 }).filter(group => group.papers>0);
 
 document.getElementById("kpi-total").textContent=dashboardCounts.all;
@@ -2009,33 +2201,36 @@ document.getElementById("kpi-ccfa-share").textContent=`${Math.round(dashboardCou
 
 const venueStatsBody=document.getElementById("venueStatsBody");
 venueRows.forEach(row => venueStatsBody.insertAdjacentHTML("beforeend",`
-  <tr data-filter-row data-venue-filter="${row.id}" tabindex="0" role="button" aria-label="Filter by ${row.label}">
-    <td><span class="venue-name">${row.label}</span></td>
-    <td class="num"><span class="count-pill">${row.papers}</span></td>
-    <td class="num"><span class="count-pill">${row.lead}</span></td>
-  </tr>`));
-document.getElementById("venueStatsFoot").innerHTML=`<tr><td>Total</td><td class="num"><span class="count-pill">${dashboardCounts.all}</span></td><td class="num"><span class="count-pill">${leadCount}</span></td></tr>`;
-document.getElementById("venueBadge").textContent=`${venueRows.length} groups`;
-const namedVenueRows=venueRows.filter(row => row.id!=="others");
-const namedVenueCount=namedVenueRows.reduce((sum,row) => sum+row.papers,0);
-const namedVenuePercent=Math.round(namedVenueCount/dashboardCounts.all*100);
-const leadAuthorPercent=Math.round(leadCount/dashboardCounts.all*100);
-const topNamedVenue=[...namedVenueRows].sort((a,b) => b.papers-a.papers)[0];
-document.getElementById("namedVenueShare").textContent=`${namedVenueCount} · ${namedVenuePercent}%`;
-document.getElementById("namedVenueBar").style.setProperty("--insight-width",`${namedVenuePercent}%`);
-document.getElementById("leadAuthorShare").textContent=`${leadCount} · ${leadAuthorPercent}%`;
-document.getElementById("leadAuthorBar").style.setProperty("--insight-width",`${leadAuthorPercent}%`);
-document.getElementById("topVenueHighlight").textContent=`${topNamedVenue.label} · ${topNamedVenue.papers} papers`;
+  <button class="venue-row" type="button" data-filter-row data-venue-filter="${row.id}" aria-label="Filter by ${row.label}: ${row.papers} papers">
+    <span class="venue-name">${row.label}</span>
+    <span class="venue-count">${row.papers}</span>
+  </button>`));
+document.getElementById("venueBadge").textContent=`${venueRows.length} venues`;
 
 const topicStatsBody=document.getElementById("topicStatsBody");
-TOPIC_CATEGORIES.forEach((category,categoryIndex) => {
+const WEAK_SUPERVISION_DISPLAY_GROUPS = [
+  { ids:["semi-supervised"], label:"Semi-supervised" },
+  { ids:["partial-label","multi-label"], label:"Multi-label" },
+  { ids:["multi-instance"], label:"Multi-instance" },
+  { ids:["label-distribution"], label:"Label Distribution" },
+  { ids:["label-noise"], label:"Label Noise" }
+];
+let displayedTopicCount=0;
+TOPIC_CATEGORIES.forEach(category => {
   const visibleTopics=category.topics.filter(([topic]) => topicCounts[topic]>0);
   const categoryPapers=PUBS.filter(pub => getTopicTags(pub).some(topic => TOPIC_META[topic].category===category.id)).length;
-  const fieldIndex=String(categoryIndex+1).padStart(2,"0");
-  const topicItems=visibleTopics.map(([topic,label])=>`<button class="topic-item" type="button" data-filter-row data-topic-filter="${topic}" aria-label="Filter by ${label}"><span class="topic-name">${label}</span><span class="topic-count">${topicCounts[topic]}</span></button>`).join("");
-  topicStatsBody.insertAdjacentHTML("beforeend",`<section class="topic-field-group" style="--cat-color:${category.color};--cat-bg:${category.tint}" aria-label="${category.label}"><div class="topic-field-summary"><span class="field-copy"><span class="field-index">${fieldIndex}</span><span class="field-name">${category.label}</span><span class="category-count">${categoryPapers} papers</span></span></div><div class="topic-items">${topicItems}</div></section>`);
+  const displayGroups=category.id==="weak-supervision"
+    ? WEAK_SUPERVISION_DISPLAY_GROUPS
+    : visibleTopics.map(([topic,label]) => ({ids:[topic],label}));
+  displayedTopicCount+=displayGroups.length;
+  const topicItems=displayGroups.map(({ids,label}) => {
+    const filterKey=ids.join("|");
+    const count=PUBS.filter(pub => getTopicTags(pub).some(topic => ids.includes(topic))).length;
+    return `<button class="topic-item" type="button" data-filter-row data-topic-filter="${filterKey}" title="${label}" aria-label="Filter by ${label}: ${count} papers"><span class="topic-name">${label}</span><span class="topic-count">${count}</span></button>`;
+  }).join("");
+  topicStatsBody.insertAdjacentHTML("beforeend",`<section class="topic-field-group" style="--cat-color:${category.color};--cat-bg:${category.tint}" aria-label="${category.label}: ${categoryPapers} papers"><div class="topic-field-summary"><span class="field-copy"><span class="field-name">${category.label}</span></span><span class="category-count" title="${categoryPapers} tagged papers">${categoryPapers}</span></div><div class="topic-items">${topicItems}</div></section>`);
 });
-document.getElementById("topicBadge").textContent=`${Object.keys(TOPIC_META).length} topics · ${TOPIC_CATEGORIES.length} fields`;
+document.getElementById("topicBadge").textContent=`${displayedTopicCount} topics · ${TOPIC_CATEGORIES.length} fields`;
 
 const maxYearCount=Math.max(...Object.values(dashboardYearMap));
 dashboardYears.forEach(year => {
@@ -2061,9 +2256,11 @@ function compactMetricTagsHtml(tags) {
   }).join("");
 }
 function compactTopicTagsHtml(topics) {
-  return topics.map(topic => {
+  const displayTopics=[...new Set(topics.map(topic => topic==="partial-label"?"multi-label":topic))];
+  return displayTopics.map(topic => {
     const meta=TOPIC_META[topic]; if(!meta)return "";
-    return `<button class="topic-tag" type="button" data-topic-chip="${topic}" style="--topic-color:${meta.color}" title="${meta.categoryLabel}">${meta.label}</button>`;
+    const filterKey=topic==="multi-label"?"partial-label|multi-label":topic;
+    return `<button class="topic-tag" type="button" data-topic-chip="${filterKey}" style="--topic-color:${meta.color}" title="${meta.categoryLabel}">${meta.label}</button>`;
   }).join("");
 }
 function compactLinksHtml(links) {
@@ -2089,12 +2286,24 @@ Object.keys(compactByYear).sort((a,b)=>b-a).forEach(year => {
     item.setAttribute("data-v","");
     item.innerHTML=`<span class="pub-num">${compactGlobalNum--}</span><div class="pub-content">
       <div class="pub-title-txt">${pub.links&&pub.links.length?`<a href="${pub.links[0].u}" target="_blank" rel="noopener">${pub.title}</a>`:pub.title}</div>
-      <div class="pub-authors-txt">${pub.authors}</div><div class="pub-venue-txt">${pub.venue}</div>
-      <div class="pub-tags">${compactTopicTagsHtml(topicTags)}${compactMetricTagsHtml(metricTags)}${compactLinksHtml(pub.links)}</div></div>`;
+      <div class="pub-compact-meta"><span class="pub-compact-authors">${pub.authors}</span><span class="pub-compact-separator" aria-hidden="true">·</span><span class="pub-compact-venue">${pub.venue}</span></div>
+      <div class="pub-details"><div class="pub-authors-txt">${pub.authors}</div><div class="pub-venue-detail"><span class="pub-venue-txt">${pub.venue}</span>${compactLinksHtml(pub.links)}</div>
+      <div class="pub-tags">${compactTopicTagsHtml(topicTags)}${compactMetricTagsHtml(metricTags)}</div></div></div>`;
     block.appendChild(item);
   });
   document.getElementById("pubListFull").appendChild(block);
 });
+
+const publicationList=document.getElementById("pubListFull");
+const detailToggle=document.getElementById("detailToggle");
+const detailToggleLabel=document.getElementById("detailToggleLabel");
+function setDetailView(expanded) {
+  publicationList.classList.toggle("is-expanded",expanded);
+  detailToggle.setAttribute("aria-expanded",String(expanded));
+  detailToggleLabel.textContent=expanded?"Show compact view":"Show full details";
+}
+detailToggle.addEventListener("click",()=>setDetailView(detailToggle.getAttribute("aria-expanded")!=="true"));
+setDetailView(false);
 
 let selectedMetric=null,selectedCategory=null,selectedTopic=null,selectedVenue=null,publicationQuery="";
 const metricContainer=document.getElementById("metricFilters");
@@ -2112,10 +2321,11 @@ function selectTopic(topic) { selectedTopic=selectedTopic===topic?null:topic; se
 function selectVenue(venue) { selectedVenue=selectedVenue===venue?null:venue; applyCompactFilters(); }
 function applyCompactFilters() {
   let visibleCount=0;
+  const selectedTopics=selectedTopic?selectedTopic.split("|"):[];
   document.querySelectorAll(".pub-item").forEach(item => {
     const metrics=new Set((item.dataset.tags||"").split(/\s+/).filter(Boolean));
     const topics=(item.dataset.topics||"").split(/\s+/).filter(Boolean);
-    const show=(!selectedMetric||metrics.has(selectedMetric))&&(!selectedTopic||topics.includes(selectedTopic))&&
+    const show=(!selectedMetric||metrics.has(selectedMetric))&&(!selectedTopic||selectedTopics.some(topic => topics.includes(topic)))&&
       (!selectedCategory||topics.some(topic => TOPIC_META[topic]?.category===selectedCategory))&&
       (!selectedVenue||item.dataset.venue===selectedVenue)&&(!publicationQuery||(item.dataset.search||"").includes(publicationQuery));
     item.style.display=show?"":"none"; if(show)visibleCount++;
@@ -2132,7 +2342,10 @@ function applyCompactFilters() {
   const descriptors=[];
   if(selectedMetric)descriptors.push(TAG_META[selectedMetric].label);
   if(selectedCategory)descriptors.push(TOPIC_CATEGORIES.find(category => category.id===selectedCategory)?.label);
-  if(selectedTopic)descriptors.push(TOPIC_META[selectedTopic]?.label);
+  if(selectedTopic) {
+    const activeTopicRow=[...document.querySelectorAll("[data-topic-filter]")].find(row => row.dataset.topicFilter===selectedTopic);
+    descriptors.push(activeTopicRow?.querySelector(".topic-name")?.textContent||TOPIC_META[selectedTopic]?.label);
+  }
   if(selectedVenue)descriptors.push(venueRows.find(row => row.id===selectedVenue)?.label);
   if(publicationQuery)descriptors.push(`“${document.getElementById("publicationSearch").value.trim()}”`);
   document.getElementById("filterSummary").textContent=`Showing ${visibleCount} of ${PUBS.length} publications${descriptors.filter(Boolean).length?` · ${descriptors.filter(Boolean).join(" · ")}`:" · all research"}`;
@@ -2171,5 +2384,6 @@ if ("IntersectionObserver" in window) {
 } else document.querySelectorAll("[data-v]").forEach(el => el.classList.add("vis"));
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e"}' crossorigin="anonymous"></script>
 </body>
 </html>
