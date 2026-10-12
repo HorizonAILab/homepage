@@ -57,7 +57,7 @@ main{padding-top:14px}
 <label class="upload-target" for="new-input"><span class="file-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="document-sheet" d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path class="document-fold" d="M14 3v5h5"/><g class="document-lines"><path d="M9 12h6m-6 4h4"/></g><g class="zip-lines"><path d="M12 9v1m0 2v1m0 2v2"/><rect x="10.5" y="17" width="3" height="2" rx=".5"/></g></svg></span><span class="upload-copy"><span class="upload-name" id="new-name">选择新版文件</span><span class="upload-kind" id="new-meta">TEX / ZIP · 支持拖入</span></span><span class="upload-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 17V7m-4 4 4-4 4 4"/></svg></span></label>
 <input id="new-input" name="new-version" type="file" accept=".tex,.zip" class="visually-hidden"><p class="upload-error" id="new-error" role="alert" hidden></p></div>
 </section>
-<div class="controls"><div class="segmented" role="group" aria-label="标蓝粒度"><button data-gran="token" aria-pressed="true" class="active">字词</button><button data-gran="sentence" aria-pressed="false">整句</button><button data-gran="paragraph" aria-pressed="false">整段</button></div><span id="status" class="status" role="status" aria-live="polite">选择两版文件</span><button class="primary" id="download" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10m-4-4 4 4 4-4M5 16v4h14v-4"/></svg><span id="download-label">下载标蓝 TEX</span></button></div>
+<div class="controls"><div class="segmented" role="group" aria-label="标蓝粒度"><button data-gran="token" title="仅标实际变化的字词" aria-pressed="true" class="active">字词</button><button data-gran="sentence" title="扩大到整句，包含句内未修改文字" aria-pressed="false">整句</button><button data-gran="paragraph" title="扩大到整段，包含段内未修改文字" aria-pressed="false">整段</button></div><span id="status" class="status" role="status" aria-live="polite">选择两版文件</span><button class="primary" id="download" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10m-4-4 4 4 4-4M5 16v4h14v-4"/></svg><span id="download-label">下载标蓝 TEX</span></button></div>
 <section class="editor" aria-label="源码预览" id="editor">
 <div class="empty" id="empty"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 11 7 24l9 13m16-26 9 13-9 13M28 9l-8 30"/></svg><p>选择或拖入两版文件</p><button class="quiet" id="empty-demo">试用示例</button></div>
 <div class="editor-content" id="editor-content" hidden><aside class="file-panel"><div class="files-head"><span>文件</span><span id="file-count"></span></div><input type="search" id="file-search" name="file-search" placeholder="查找文件…" aria-label="查找文件" spellcheck="false" autocomplete="off"><div class="file-list" id="file-list"></div></aside><div class="preview"><div class="preview-head"><div class="tabs" role="group" aria-label="预览模式"><button id="tab-diff" aria-pressed="true" class="active">差异</button><button id="tab-output" aria-pressed="false">标蓝 TEX</button></div><div class="preview-actions"><button id="split" class="quiet" aria-pressed="false">对照</button><span class="change-index" id="change-index"></span><button id="prev-change" class="icon-button" aria-label="上一处修改" title="上一处修改"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 14 4-4 4 4"/></svg></button><button id="next-change" class="icon-button" aria-label="下一处修改" title="下一处修改"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg></button></div></div><div class="path-row"><span id="viewer-path" translate="no"></span><span id="viewer-kind"></span></div><div class="source-grid" id="source-grid"><div class="source-pane" id="old-pane" hidden><div class="pane-label">旧版</div><pre class="source" id="old-source" tabindex="0" aria-label="旧版源码"></pre></div><div class="source-pane"><div class="pane-label" id="new-pane-label">新版</div><pre class="source" id="new-source" tabindex="0" aria-label="新版源码"></pre></div></div></div></div>
@@ -326,16 +326,15 @@ main{padding-top:14px}
   }
   function myers(a, b, maxDistance, budget) {
     const v = new Map([[1, 0]]), trace = [];
-    let work = 0;
     for (let d = 0; d <= Math.min(a.length + b.length, maxDistance); d++) {
       trace.push(new Map(v));
       for (let k = -d; k <= d; k += 2) {
-        if (++work > budget) return null;
+        if (--budget.work < 0) return null;
         let x = (k === -d || (k !== d && (v.get(k - 1) ?? -Infinity) < (v.get(k + 1) ?? -Infinity))) ? (v.get(k + 1) ?? 0) : (v.get(k - 1) ?? 0) + 1;
         let y = x - k;
         while (x < a.length && y < b.length && a[x].value === b[y].value) {
           x++; y++;
-          if (++work > budget) return null;
+          if (--budget.work < 0) return null;
         }
         v.set(k, x);
         if (x >= a.length && y >= b.length) {
@@ -383,41 +382,141 @@ main{padding-top:14px}
       return { start: boundaries[Math.max(0, startIndex - (boundaries[startIndex] === r.start ? 0 : 1))], end: boundaries[Math.min(endIndex, boundaries.length - 1)] };
     }), text);
   }
-  function lineTokens(text, tokens) {
-    const lines = [];
-    let start = 0, tokenIndex = 0;
-    while (start < text.length) {
-      const newline = text.indexOf('\n', start), end = newline < 0 ? text.length : newline + 1;
-      const collected = [];
-      while (tokenIndex < tokens.length && tokens[tokenIndex].start < end) collected.push(tokens[tokenIndex++]);
-      if (collected.length) lines.push({ value: JSON.stringify(collected.map(t => t.value)), start: collected[0].start, end: collected[collected.length - 1].end, count: collected.length });
-      start = end;
+  // Unique token windows reconnect unchanged text independently of line wrapping.
+  // Hashes only nominate anchors: every candidate is checked token for token.
+  function tokenAnchors(a, b, a0, a1, b0, b1, width, budget) {
+    if (Math.min(a1 - a0, b1 - b0) < width) return [];
+    const cost = a1 - a0 + b1 - b0;
+    if (budget.scan < cost) return [];
+    budget.scan -= cost;
+    const base = 16777619;
+    let power = 1;
+    for (let k = 0; k < width; k++) power = Math.imul(power, base);
+    function uniqueWindows(tokens, start, end) {
+      const positions = new Map();
+      let hash = 0;
+      for (let i = start; i < end; i++) {
+        hash = (Math.imul(hash, base) + tokens[i].id) | 0;
+        if (i >= start + width) hash = (hash - Math.imul(tokens[i - width].id, power)) | 0;
+        if (i < start + width - 1) continue;
+        positions.set(hash, positions.has(hash) ? -1 : i - width + 1);
+      }
+      return positions;
     }
-    return lines;
+    const oldPositions = uniqueWindows(a, a0, a1), newPositions = uniqueWindows(b, b0, b1);
+    const candidates = [];
+    let previousA = -width;
+    for (const [hash, ai] of oldPositions) {
+      const bi = newPositions.get(hash);
+      if (ai < 0 || bi === undefined || bi < 0 || ai < previousA + width) continue;
+      let exact = true;
+      for (let k = 0; k < width; k++) if (a[ai + k].value !== b[bi + k].value) { exact = false; break; }
+      // A chance match in a low-diversity repeated run is not a reliable anchor.
+      if (exact && width > 1 && new Set(a.slice(ai, ai + width).map(token => token.id)).size < 4) exact = false;
+      if (exact) { candidates.push({ a: ai, b: bi }); previousA = ai; }
+    }
+    // Longest increasing subsequence prevents anchors from crossing after edits.
+    const tails = [], links = new Int32Array(candidates.length).fill(-1);
+    for (let i = 0; i < candidates.length; i++) {
+      let low = 0, high = tails.length;
+      while (low < high) {
+        const mid = (low + high) >>> 1;
+        if (candidates[tails[mid]].b < candidates[i].b) low = mid + 1;
+        else high = mid;
+      }
+      if (low) links[i] = tails[low - 1];
+      tails[low] = i;
+    }
+    const sequence = [];
+    for (let i = tails.length ? tails[tails.length - 1] : -1; i >= 0; i = links[i]) sequence.push(candidates[i]);
+    sequence.reverse();
+    const anchors = [];
+    for (const anchor of sequence) {
+      const last = anchors[anchors.length - 1];
+      if (!last || (anchor.a >= last.a + last.size && anchor.b >= last.b + last.size)) anchors.push({ ...anchor, size: width });
+    }
+    return anchors;
+  }
+  function excludeUnresolved(ranges, unresolved) {
+    if (!unresolved.length) return ranges;
+    const result = [];
+    let first = 0;
+    for (const range of ranges) {
+      let cursor = range.start;
+      while (first < unresolved.length && unresolved[first].end <= cursor) first++;
+      for (let i = first; i < unresolved.length && unresolved[i].start < range.end; i++) {
+        if (unresolved[i].start > cursor) result.push({ start: cursor, end: Math.min(range.end, unresolved[i].start) });
+        cursor = Math.max(cursor, unresolved[i].end);
+      }
+      if (cursor < range.end) result.push({ start: cursor, end: range.end });
+    }
+    return result;
   }
   function compare(oldText, newText, options) {
-    const oldTokens = tokenize(oldText, options), newTokens = tokenize(newText, options);
-    if (equalTokens(oldTokens, newTokens)) return { ranges: [], removedCount: 0, addedCount: 0, equal: true, fallback: false };
-    const insertion = asSubsequence(oldTokens, newTokens);
-    if (insertion !== null) return { ranges: expandRanges(insertion.map(i => newTokens[i]), newText, options.granularity), removedCount: 0, addedCount: insertion.length, equal: false, fallback: false };
-    const deletion = asSubsequence(newTokens, oldTokens);
-    if (deletion !== null) return { ranges: [], removedCount: deletion.length, addedCount: 0, equal: false, fallback: false };
-    let prefix = 0, suffix = 0;
-    while (prefix < oldTokens.length && prefix < newTokens.length && oldTokens[prefix].value === newTokens[prefix].value) prefix++;
-    while (suffix < oldTokens.length - prefix && suffix < newTokens.length - prefix && oldTokens[oldTokens.length - 1 - suffix].value === newTokens[newTokens.length - 1 - suffix].value) suffix++;
-    const a = oldTokens.slice(prefix, oldTokens.length - suffix), b = newTokens.slice(prefix, newTokens.length - suffix);
-    let result = a.length + b.length <= 24000 ? myers(a, b, 512, 1200000) : null;
-    if (result) return { ranges: expandRanges(result.added.map(i => b[i]), newText, options.granularity), removedCount: result.removed, addedCount: result.added.length, equal: false, fallback: false };
-    const oldLines = lineTokens(oldText, oldTokens), newLines = lineTokens(newText, newTokens);
-    result = oldLines.length + newLines.length <= 16000 ? myers(oldLines, newLines, 512, 1000000) : null;
-    if (result) {
-      const ranges = result.added.map(i => newLines[i]);
-      const addedCount = ranges.reduce((sum, r) => sum + r.count, 0);
-      // Coarse counts remain explicit: the report warns that line fallback is an estimate.
-      const removedCount = Math.max(0, oldTokens.length + addedCount - newTokens.length);
-      return { ranges: expandRanges(ranges, newText, options.granularity), removedCount, addedCount, equal: false, fallback: true };
+    const a = tokenize(oldText, options), b = tokenize(newText, options);
+    if (equalTokens(a, b)) return { ranges: [], rawRanges: [], unresolved: [], removedCount: 0, addedCount: 0, equal: true, fallback: false };
+    const vocabulary = new Map();
+    for (const tokens of [a, b]) for (const token of tokens) {
+      if (!vocabulary.has(token.value)) vocabulary.set(token.value, vocabulary.size + 1);
+      token.id = vocabulary.get(token.value);
     }
-    return { ranges: expandRanges(b.length ? [{ start: b[0].start, end: b[b.length - 1].end }] : [], newText, options.granularity), removedCount: a.length, addedCount: b.length, equal: false, fallback: true };
+    const added = [], unresolved = [];
+    let removedCount = 0;
+    // Bounded work is shared across all gaps, rather than colouring a whole file
+    // when a single global edit-distance limit is reached.
+    const budget = { work: 8000000, scan: 8000000 };
+    const gaps = [{ a0: 0, a1: a.length, b0: 0, b1: b.length }];
+    while (gaps.length) {
+      let { a0, a1, b0, b1 } = gaps.pop();
+      while (a0 < a1 && b0 < b1 && a[a0].value === b[b0].value) { a0++; b0++; }
+      while (a0 < a1 && b0 < b1 && a[a1 - 1].value === b[b1 - 1].value) { a1--; b1--; }
+      if (a0 === a1) { for (let i = b0; i < b1; i++) added.push(b[i]); continue; }
+      if (b0 === b1) { removedCount += a1 - a0; continue; }
+      const left = a.slice(a0, a1), right = b.slice(b0, b1);
+      const insertion = left.length <= right.length ? asSubsequence(left, right) : null;
+      if (insertion !== null) { for (const i of insertion) added.push(right[i]); continue; }
+      const deletion = right.length <= left.length ? asSubsequence(right, left) : null;
+      if (deletion !== null) { removedCount += deletion.length; continue; }
+      // If removing necessarily-new tokens leaves an old-text subsequence,
+      // this attains the minimum possible additions, even amid huge deletions.
+      const oldValues = new Set(left.map(token => token.id));
+      const novel = [], common = [];
+      for (const token of right) (oldValues.has(token.id) ? common : novel).push(token);
+      if (novel.length && asSubsequence(common, left) !== null) {
+        for (const token of novel) added.push(token);
+        removedCount += left.length - common.length; continue;
+      }
+      const small = left.length + right.length <= 2048;
+      let result = budget.work > 0 ? myers(left, right, small ? 512 : 64, budget) : null;
+      if (result) {
+        for (const i of result.added) added.push(right[i]);
+        removedCount += result.removed; continue;
+      }
+      let anchors = [];
+      for (const width of [12, 4, 1]) {
+        anchors = tokenAnchors(a, b, a0, a1, b0, b1, width, budget);
+        if (anchors.length) break;
+      }
+      if (anchors.length) {
+        let oldStart = a0, newStart = b0;
+        for (const anchor of anchors) {
+          gaps.push({ a0: oldStart, a1: anchor.a, b0: newStart, b1: anchor.b });
+          oldStart = anchor.a + anchor.size; newStart = anchor.b + anchor.size;
+        }
+        gaps.push({ a0: oldStart, a1, b0: newStart, b1 });
+        continue;
+      }
+      if (!small && budget.work > 0) result = myers(left, right, 512, budget);
+      if (result) {
+        for (const i of result.added) added.push(right[i]);
+        removedCount += result.removed; continue;
+      }
+      unresolved.push({ start: b[b0].start, end: b[b1 - 1].end, oldStart: a[a0].start, oldEnd: a[a1 - 1].end });
+    }
+    unresolved.sort((x, y) => x.start - y.start);
+    const rawRanges = mergeRanges(added, newText);
+    const ranges = excludeUnresolved(expandRanges(rawRanges, newText, options.granularity), unresolved);
+    return { ranges, rawRanges, unresolved, removedCount, addedCount: added.length, equal: false, fallback: unresolved.length > 0 };
   }
 
   function complexChanges(text, ranges) {
@@ -495,14 +594,14 @@ main{padding-top:14px}
         status = !oldFile ? 'added' : !newFile ? 'deleted' : result.equal ? 'unchanged' : 'modified';
         if (oldFile && newFile && result.equal && oldText !== newText) warnings.push(path + '：仅空白 / 注释等被忽略的内容变化，未计入标蓝。');
       }
-      if (result.fallback) warnings.push(path + '：修改规模超过精细比较预算，已回退为行 / 区块级范围；可能覆盖未修改内容，增删计数为粗略估计。');
-      files.push({ path, oldPath: oldFile ? oldPath : null, status, oldText, newText, ranges: result.ranges, removedCount: result.removedCount, addedCount: result.addedCount, complex: isTex ? complexChanges(newText, result.ranges) : status === 'unchanged' ? [] : ['图片 / 资源变化'], fallback: result.fallback, isTex, ignoredChanges: Boolean(isTex && oldFile && newFile && result.equal && oldText !== newText), oldSize: oldFile ? oldFile.size : null, newSize: newFile ? newFile.size : null });
+      if (result.fallback) warnings.push(path + '：有 ' + result.unresolved.length + ' 个片段未可靠对齐，未自动标蓝；增删计数仅含已确认部分。');
+      files.push({ path, oldPath: oldFile ? oldPath : null, status, oldText, newText, ranges: result.ranges, rawRanges: result.rawRanges || result.ranges, unresolved: result.unresolved || [], removedCount: result.removedCount, addedCount: result.addedCount, complex: isTex ? complexChanges(newText, result.ranges) : status === 'unchanged' ? [] : ['图片 / 资源变化'], fallback: result.fallback, isTex, ignoredChanges: Boolean(isTex && oldFile && newFile && result.equal && oldText !== newText), oldSize: oldFile ? oldFile.size : null, newSize: newFile ? newFile.size : null });
     }
     const ignoredAuxFiles = (oldProject.ignoredCount || 0) + (newProject.ignoredCount || 0), ignoredSourceChanges = files.filter(f => f.ignoredChanges).length;
     const totals = { files: files.length, sourceFiles: files.filter(f => f.isTex).length, resourceFiles: files.filter(f => !f.isTex).length, modified: 0, added: 0, deleted: 0, unchanged: 0, renamed: 0, changedRanges: 0, addedTokens: 0, removedTokens: 0, ignoredFiles: ignoredAuxFiles + ignoredSourceChanges, ignoredAuxFiles, ignoredSourceChanges };
     for (const f of files) { totals[f.status]++; totals.changedRanges += f.ranges.length; totals.addedTokens += f.addedCount; totals.removedTokens += f.removedCount; }
     if (totals.deleted || totals.removedTokens) warnings.push('删除内容仅计入报告，不在新版源码中标蓝；仅有删除时可能没有蓝色范围。');
-    if (options.granularity !== 'token') warnings.push('句 / 段粒度仅扩大源码预览范围，不表示这些范围可安全插入 TeX 颜色命令。');
+    if (options.granularity !== 'token') warnings.push('整句 / 整段会扩大标蓝范围；颜色命令仅插入已检查的安全位置。只标实际变化字词时，请选择“字词”。');
     if (files.some(f => !f.isTex && f.status !== 'unchanged')) warnings.push('图片及 .sty / .cls / .bib 等资源按原始字节比较，变更已计入文件报告；不生成源码蓝色范围，需人工检查编译后的效果。');
     return { files, warnings: unique(warnings), totals };
   }
@@ -866,6 +965,22 @@ main{padding-top:14px}
     return result;
   }
   function intersect(a, b) { const start = Math.max(a.start, b.start), end = Math.min(a.end, b.end); return end > start ? { start, end } : null; }
+  function subtractRanges(ranges, excluded) {
+    const result = [];
+    let first = 0;
+    for (const range of ranges) {
+      while (first < excluded.length && excluded[first].end <= range.start) first++;
+      let cursor = range.start;
+      for (let i = first; i < excluded.length && excluded[i].start < range.end; i++) {
+        const blocked = excluded[i];
+        if (blocked.start > cursor) result.push({ start: cursor, end: Math.min(blocked.start, range.end) });
+        cursor = Math.max(cursor, blocked.end);
+        if (cursor >= range.end) break;
+      }
+      if (cursor < range.end) result.push({ start: cursor, end: range.end });
+    }
+    return result;
+  }
   function rangeHits(span, ranges) {
     let low = 0, high = ranges.length;
     while (low < high) { const mid = (low + high) >>> 1; if (ranges[mid].end <= span.start) low = mid + 1; else high = mid; }
@@ -879,13 +994,17 @@ main{padding-top:14px}
     while (end > start && /\s/.test(text[end - 1])) end--;
     return end > start ? { start, end } : null;
   }
-  function markSource(text, ranges, rawRanges, syntax, macro, mathMode) {
+  function markSource(text, ranges, rawRanges, syntax, macro, mathMode, unresolvedRanges) {
     const marked = [], skipped = [];
     if (syntax.invalid) return { text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(text, r.start), reason: '文件未自动标蓝：' + syntax.invalid })) };
     const spans = sourceSpans(text, syntax, mathMode);
     for (const span of spans.safe) {
       if (span.kind === 'math') {
-        if (rangeHits(span, ranges).length) marked.push({ start: span.start, end: span.end, kind: 'math' });
+        if (rangeHits(span, ranges).length) {
+          if (rangeHits(span, unresolvedRanges).length) {
+            if (rangeHits(span, rawRanges).length) skipped.push({ start: span.start, end: span.end, line: lineAt(text, span.start), reason: '公式包含未可靠对齐片段，整式未自动标蓝' });
+          } else marked.push({ start: span.start, end: span.end, kind: 'math' });
+        }
       } else for (const crossing of rangeHits(span, ranges)) {
         const trimmed = trimmedSpan(text, crossing);
         if (trimmed) marked.push({ ...trimmed, kind: 'text' });
@@ -996,15 +1115,28 @@ main{padding-top:14px}
     let markedCount = 0;
     const analyzed = new Map((analysis && analysis.files || []).map(f => [f.path, f]));
     for (const [path, f] of files) if (/\.tex$/i.test(path)) {
-      const report = analyzed.get(path), ranges = normalizeRanges(report ? report.ranges : [], f.text);
-      const rawRanges = normalizeRanges(report && report.rawRanges ? report.rawRanges : ranges, f.text);
+      const report = analyzed.get(path);
+      let ranges = normalizeRanges(report ? report.ranges : [], f.text);
+      let rawRanges = normalizeRanges(report && report.rawRanges ? report.rawRanges : ranges, f.text);
       if (report && report.newText !== undefined && report.newText !== f.text) error(path + '：分析结果对应的源码已改变，请重新比较。');
+      if (report && report.unresolved !== undefined && !Array.isArray(report.unresolved)) error(path + '：未可靠对齐片段的范围格式无效，请重新比较。');
+      const unresolved = report && report.unresolved || [];
+      const unresolvedRanges = normalizeRanges(unresolved, f.text);
+      const legacyFallback = Boolean(report && report.fallback && report.unresolved === undefined);
+      const precisionSkipped = legacyFallback
+        ? (rawRanges.length ? rawRanges : [{ start: 0, end: 0 }]).map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '精细定位未完成，未自动标蓝' }))
+        : unresolved.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '此片段未可靠对齐，未自动标蓝' }));
+      if (legacyFallback) { ranges = []; rawRanges = []; }
+      else { ranges = subtractRanges(ranges, unresolvedRanges); rawRanges = subtractRanges(rawRanges, unresolvedRanges); }
       const syntax = syntaxes.get(path);
       let result;
-      if (mainFailure) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '主文件结构不完整，工程未自动标蓝：' + mainFailure })) };
+      if (legacyFallback) result = { text: f.text, markedCount: 0, skipped: [] };
+      else if (mainFailure) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '主文件结构不完整，工程未自动标蓝：' + mainFailure })) };
       else if (syntax.document && path !== options.main) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '另一独立文档入口未启用标蓝宏；请单独选择此主文件导出' })) };
       else if (graph && !graph.reachable.has(path)) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '未在所选主文件的静态 input / include 链中找到，未自动标蓝' })) };
-      else result = markSource(f.text, ranges, rawRanges, syntax, macro, options.math);
+      else result = markSource(f.text, ranges, rawRanges, syntax, macro, options.math, unresolvedRanges);
+      result.skipped.push(...precisionSkipped);
+      result.skipped.sort((a, b) => a.start - b.start);
       if (result.markedCount) {
         let headerEnd = 0, comment;
         while ((comment = /^%[^\r\n]*(?:\r?\n|$)/.exec(result.text.slice(headerEnd))) && comment[0].length) headerEnd += comment[0].length;
@@ -1088,9 +1220,9 @@ async function loadFile(side,file){if(!file)return;const id=++state.loadId[side]
 for(const side of ['old','new']){$(side+'-input').addEventListener('change',e=>loadFile(side,e.target.files[0]));const drop=$('drop-'+side);drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('dragging');});drop.addEventListener('dragleave',()=>drop.classList.remove('dragging'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('dragging');if(e.dataTransfer.files.length===1)loadFile(side,e.dataTransfer.files[0]);else{$(side+'-error').textContent='请选择一个 TEX 或 ZIP';$(side+'-error').hidden=false;renderUpload(side);}});}
 document.querySelectorAll('.remove').forEach(b=>b.addEventListener('click',()=>{const side=b.dataset.side;state.loadId[side]++;state.reading.delete(side);invalidate();state[side]=null;$(side+'-input').value='';$(side+'-error').hidden=true;renderUpload(side);if(side==='new')renderMain();status(side==='old'?'选择旧版文件':'选择新版文件');}));
 function runTask(data){return new Promise((resolve,reject)=>{let source='';for(const [id,file] of [['engine-source','engine.js'],['marker-source','marker.js']]){const inline=$(id);source+=inline?inline.textContent+'\n':`importScripts(${JSON.stringify(new URL(file,location.href).href)});\n`;}
-source+='self.onmessage=function(e){try{const a=BlueDiff.analyze(e.data.old,e.data.new,e.data.options);if(e.data.options.granularity!=="token"){const raw=BlueDiff.analyze(e.data.old,e.data.new,Object.assign({},e.data.options,{granularity:"token"}));const lookup=new Map(raw.files.map(f=>[f.path,f.ranges]));for(const f of a.files)f.rawRanges=lookup.get(f.path)||[];}const m=BlueMark.prepare(e.data.new,a,e.data.markOptions);self.postMessage({ok:true,result:a,marked:m});}catch(error){self.postMessage({ok:false,message:error.message});}};';
+source+='self.onmessage=function(e){try{const a=BlueDiff.analyze(e.data.old,e.data.new,e.data.options);const m=BlueMark.prepare(e.data.new,a,e.data.markOptions);self.postMessage({ok:true,result:a,marked:m});}catch(error){self.postMessage({ok:false,message:error.message});}};';
 let worker,url,timer,done=false;function finish(ok,value){if(done)return;done=true;clearTimeout(timer);if(worker)worker.terminate();if(url)URL.revokeObjectURL(url);if(state.cancel===cancel)state.cancel=null;if(ok)resolve(value);else reject(value);}const cancel=()=>finish(false,new Error('任务已取消'));try{url=URL.createObjectURL(new Blob([source],{type:'application/javascript'}));worker=new Worker(url);}catch(e){finish(false,new Error('请使用近期版本的 Chrome 或 Edge'));return;}state.cancel=cancel;timer=setTimeout(()=>finish(false,new Error('文件过大，请分章处理')),45000);worker.onmessage=e=>finish(e.data.ok,e.data.ok?e.data:new Error(e.data.message));worker.onerror=()=>finish(false,new Error('处理失败，请重新选择文件'));try{worker.postMessage(data);}catch(e){finish(false,e);}});}
-async function compare(){if(!state.old||!state.new||state.reading.size)return;if(state.cancel)state.cancel();const job=++state.job;state.busy=true;$('download').disabled=true;status('标蓝中…',true);feedback('');try{const out=await runTask({old:state.old,new:state.new,options:options(),markOptions:{main:$('main-file').value,math:$('math').value}});if(job!==state.job)return;state.result=out.result;state.marked=out.marked;state.selected=state.result.files.find(f=>f.isTex&&f.ranges.length)?.path??state.result.files.find(f=>f.status!=='unchanged')?.path??state.result.files[0]?.path??null;state.change=-1;$('file-search').value='';renderResults();const n=state.marked.markedCount;status(n?`${n} 处已标蓝`:'无可标蓝文字');$('download-label').textContent=downloadLabel();$('download').disabled=false;}catch(e){if(job!==state.job)return;state.result=null;state.marked=null;$('editor-content').hidden=true;$('empty').hidden=false;$('issues').hidden=true;status('处理失败');feedback(e.message||String(e),true);}finally{if(job===state.job)state.busy=false;}}
+async function compare(){if(!state.old||!state.new||state.reading.size)return;if(state.cancel)state.cancel();const job=++state.job;state.busy=true;$('download').disabled=true;status('标蓝中…',true);feedback('');try{const out=await runTask({old:state.old,new:state.new,options:options(),markOptions:{main:$('main-file').value,math:$('math').value}});if(job!==state.job)return;state.result=out.result;state.marked=out.marked;state.selected=state.result.files.find(f=>f.isTex&&f.ranges.length)?.path??state.result.files.find(f=>f.status!=='unchanged')?.path??state.result.files[0]?.path??null;state.change=-1;$('file-search').value='';renderResults();const n=state.marked.markedCount,pending=state.result.files.reduce((sum,f)=>sum+(f.unresolved?.length||0),0);status(pending?(n?`${n} 处已标蓝 · ${pending} 处待核对`:`${pending} 处待核对`):(n?`${n} 处已标蓝`:'无可标蓝文字'));$('download-label').textContent=downloadLabel();$('download').disabled=false;}catch(e){if(job!==state.job)return;state.result=null;state.marked=null;$('editor-content').hidden=true;$('empty').hidden=false;$('issues').hidden=true;status('处理失败');feedback(e.message||String(e),true);}finally{if(job===state.job)state.busy=false;}}
 function renderResults(){$('empty').hidden=true;$('editor-content').hidden=false;$('file-count').textContent=state.result.files.length;renderFiles();renderViewer();renderIssues();const removed=state.result.totals.removedTokens;$('bottom-count').textContent=removed?'删除已忽略':'仅标记新版';}
 function renderFiles(){if(!state.result)return;const q=$('file-search').value.toLowerCase(),only=$('only-changes').checked;const list=$('file-list');const focusPath=list.contains(document.activeElement)?document.activeElement.closest('button')?.dataset.path:null;list.replaceChildren();const files=state.result.files.filter(f=>(!only||f.status!=='unchanged')&&f.path.toLowerCase().includes(q));for(const f of files){const b=document.createElement('button');b.className='file-item'+(f.path===state.selected?' active':'');b.title=f.path;b.dataset.path=f.path;b.setAttribute('aria-current',f.path===state.selected?'true':'false');const top=document.createElement('span');top.className='file-item-top';const dot=document.createElement('span');dot.className='file-dot';dot.setAttribute('aria-hidden','true');const name=document.createElement('span');name.className='file-name';name.textContent=f.path.split('/').at(-1);const count=document.createElement('span');count.className='file-count';count.textContent=f.isTex?f.ranges.length:labels[f.status];top.append(dot,name,count);const parent=document.createElement('span');parent.className='file-parent';parent.textContent=f.path.includes('/')?f.path.slice(0,f.path.lastIndexOf('/')):labels[f.status];b.append(top,parent);b.addEventListener('click',()=>{state.selected=f.path;state.change=-1;renderFiles();renderViewer();});list.append(b);}if(!files.length){const p=document.createElement('p');p.className='empty-list';p.textContent=q?'没有匹配文件':'没有修改文件';list.append(p);}if(focusPath){const target=[...list.children].find(b=>b.dataset.path===focusPath);if(target)target.focus({preventScroll:true});}}
 function appendRanges(pre,text,ranges){const limit=100000;let pos=0;for(const r of ranges??[]){if(r.start>=limit)break;const start=Math.max(pos,r.start),end=Math.min(r.end,limit);if(end<=start)continue;pre.append(document.createTextNode(text.slice(pos,start)));const mark=document.createElement('mark');mark.textContent=text.slice(start,end);pre.append(mark);pos=end;}pre.append(document.createTextNode(text.slice(pos,limit)));if(text.length>limit)pre.append(document.createTextNode('\n\n…预览已截断，导出保留全文'));}
@@ -1101,7 +1233,7 @@ function issueItems(){const issues=[...(state.marked?.skipped??[])];for(const w 
 function renderIssues(){const issues=issueItems();$('issues').hidden=!issues.length;$('issues').open=false;$('issue-summary').textContent=`${issues.length} 处需检查`;$('issue-list').replaceChildren();for(const item of issues){const b=document.createElement('button');b.className='issue-item';const p=document.createElement('span');p.className='issue-path';p.textContent=item.path+(item.line?`:${item.line}`:'');const reason=document.createElement('span');reason.className='issue-reason';reason.textContent=item.reason;b.append(p,reason);b.addEventListener('click',()=>{if(state.result.files.some(f=>f.path===item.path)){state.selected=item.path;state.mode='diff';state.change=-1;renderFiles();renderViewer();if(item.line){focusLine(item.line);}}});$('issue-list').append(b);}}
 function downloadKind(){if(!state.new||!state.marked)return 'zip';return state.new.single&&(!state.marked.fragment||!state.marked.markedCount)&&!$('include-report').checked?'tex':'zip';}
 function fileValue(text){const bytes=new TextEncoder().encode(text);return{text,bytes,size:bytes.length};}
-function makeReport(){return{tool:'BlueRevision',version:'0.2',granularity:state.granularity,main:$('main-file').value,markedCount:state.marked.markedCount,skipped:state.marked.skipped,changes:state.result.files.map(f=>({path:f.path,status:f.status,removedTokens:f.removedCount,changes:f.ranges.length})),warnings:state.result.warnings};}
+function makeReport(){return{tool:'BlueRevision',version:'0.3',granularity:state.granularity,main:$('main-file').value,markedCount:state.marked.markedCount,skipped:state.marked.skipped,changes:state.result.files.map(f=>({path:f.path,status:f.status,addedTokens:f.addedCount,removedTokens:f.removedCount,changes:f.ranges.length,countsPartial:Boolean(f.unresolved?.length),unresolved:f.unresolved||[]})),warnings:state.result.warnings};}
 function saveBytes(bytes,name,type){const url=URL.createObjectURL(new Blob([bytes],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),4000);}
 async function download(){if(!state.marked||state.busy)return;if(state.marked.fragment&&state.marked.markedCount){$('fragment-dialog').showModal();return;}performDownload();}
 function performDownload(){try{const base=state.new.name.replace(/\.(?:tex|zip)$/i,'');if(downloadKind()==='tex'){const source=[...state.marked.files].find(([path])=>/\.tex$/i.test(path));if(!source)throw new Error('没有可导出的 TEX');saveBytes(source[1].bytes,base+'_blue.tex','application/x-tex;charset=utf-8');}else{const files=new Map(state.marked.files);if(state.marked.fragment&&state.marked.markedCount&&state.marked.preamble){if(files.has('blue_revision_preamble.tex'))throw new Error('工程中已有 blue_revision_preamble.tex，请先重命名该文件');files.set('blue_revision_preamble.tex',fileValue(state.marked.preamble));}if($('include-report').checked){const name='blue_revision_report.json';if(files.has(name))throw new Error('工程中已有同名检查清单，请先重命名');files.set(name,fileValue(JSON.stringify(makeReport(),null,2)));}saveBytes(BlueMark.writeZip(files),base+'_blue.zip','application/zip');}feedback(issueItems().length?'已下载 · 展开检查清单核对未标记内容':'已下载');}catch(e){feedback(e.message||String(e),true);}}
