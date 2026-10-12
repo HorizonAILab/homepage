@@ -3,884 +3,417 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/publication.png">
+<link rel="icon" type="image/svg+xml" href="icons/publication.svg">
 <title>Publications — Tingjin Luo</title>
 <meta name="description" content="Full publication list of Tingjin Luo, Associate Professor, NUDT.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:       #ffffff;
-  --surface:  #f7f8fa;
-  --surface2: #f0f2f5;
-  --border:   #e8eaed;
-  --border2:  #d1d5db;
-  --ink:      #111318;
-  --ink2:     #374151;
-  --ink3:     #6b7280;
-  --ink4:     #9ca3af;
-  --blue:     #1e3a5f;
-  --blue2:    #1d4480;
-  --blue3:    #2c5f9e;
-  --blue-bg:  #eef3fa;
-  --blue-bd:  #b8cfe8;
-  --green:    #059669;
-  --green-bg: #ecfdf5;
-  --green-bd: #a7f3d0;
-  --amber:    #d97706;
-  --amber-bg: #fffbeb;
-  --amber-bd: #fde68a;
-  --red:      #dc2626;
-  --red-bg:   #fef2f2;
-  --red-bd:   #fecaca;
-  --serif:    'DM Serif Display', Georgia, serif;
-  --sans:     'Inter', -apple-system, system-ui, sans-serif;
-  --mono:     'JetBrains Mono', monospace;
-  --nav-h:    56px;
-  --r:        8px;
-  --r2:       12px;
-  --ease:     cubic-bezier(.4,0,.2,1);
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg); color: var(--ink);
-  font-family: var(--sans); font-size: 15px; line-height: 1.65;
-  padding-top: var(--nav-h); -webkit-font-smoothing: antialiased;
-}
+/* Thin, quiet surfaces; compact content and restrained grey-blue accents. */
+:root { --bg: #eef1f5;
+  --surface: rgba(255, 255, 255, .46); --surface2: #edf1f6;
+  --border: rgba(87, 111, 143, .13); --border2: #c4cfdd;
+  --ink: #293b50; --ink2: #475a70; --ink3: #4b5e76; --ink4: #687a8e;
+  --blue: #41658f; --blue2: #52759b; --blue3: #7895b8;
+  --blue-bg: #e7eef8; --blue-bd: #c4d3e6;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  --nav-h: 56px; --r: 9px; --r2: 11px;
+  --ease: cubic-bezier(.2, .65, .3, 1); }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 22px); }
+body { margin: 0; padding-top: var(--nav-h);
+  background:
+    radial-gradient(ellipse 620px 460px at 12% 4%,rgba(255,255,255,.78),transparent 90%),
+    radial-gradient(ellipse 620px 480px at 86% 18%,rgba(160,181,207,.16),transparent 88%),
+    linear-gradient(145deg,#f5f7f9,#eaf0f5 70%,#f1f4f7);
+  background-attachment: fixed;
+  color: var(--ink); font: 13px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+button, input, select, textarea { font: inherit; }
+button, a, summary { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+button { cursor: pointer; }
 a { color: inherit; text-decoration: none; }
-sup { font-size: .62em; }
+h1, h2, h3, p { margin: 0; }
+sup { font-size: .68em; line-height: 0; }
+svg { fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
+::selection { background: #d6e3f6; color: #2e4b70; }
+:where(a, button, input, select, summary):focus-visible { outline: 1.5px solid #758eae; outline-offset: 2px; }
+button:disabled { cursor: default; opacity: .6; }
+[hidden], .pub-hidden { display: none !important; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.skip-link { position: fixed; top: -80px; left: 18px; z-index: 250; padding: 12px 16px; background: #fff; border-radius: 10px; }
+.skip-link:focus { top: 10px; }
 
-/* Nav */
-.nav {
-  position: fixed; inset: 0 0 auto 0; z-index: 200;
-  height: var(--nav-h); display: flex; align-items: center;
-  padding: 0 clamp(20px,5vw,60px);
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--border);
-  transition: box-shadow .2s var(--ease);
-}
-.nav.scrolled { box-shadow: 0 1px 16px rgba(0,0,0,.07); border-bottom-color: transparent; }
-.nav-brand { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); margin-right: auto; }
-.nav-home {
-  display:inline-flex; align-items:center; gap:8px; padding:4px 6px 4px 4px;
-  border-radius:9px; font-size:.75rem; font-weight:600; color:#5c6878;
-  transition:color .16s var(--ease), background .16s var(--ease);
-}
-.nav-home-icon {
-  width:25px; height:25px; display:grid; place-items:center; border-radius:7px;
-  color:#465466; background:#fff; border:1px solid #dce3e9;
-  box-shadow:0 1px 2px rgba(19,35,55,.04);
-  transition:transform .16s var(--ease), color .16s var(--ease), border-color .16s var(--ease);
-}
-.nav-home:hover { color:var(--blue2); background:#f5f8fb; }
-.nav-home:hover .nav-home-icon { transform:translateX(-2px); color:var(--blue2); border-color:#b9cee3; }
-.nav-home:focus-visible { outline:2px solid var(--blue3); outline-offset:3px; }
+/* Navigation and the opening composition. */
+.nav { position: fixed; inset: 0 0 auto; z-index: 200; height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  padding: 0 max(24px, calc((100vw - 1180px) / 2));
+  border-bottom: 1px solid rgba(99,118,144,.1); background: rgba(248,250,252,.76);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  transition: background-color .2s var(--ease); }
+.nav.scrolled { background: rgba(248,250,252,.9); box-shadow: none; }
+.nav-brand { display: inline-flex; align-items: center; min-height: 32px; min-width: 0; color: var(--ink); font-size: 13px; font-weight: 600; letter-spacing: -.12px; }
+.nav-home { display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0;
+  min-height: 32px; padding: 4px 9px 4px 4px; border-radius: 12px;
+  color: var(--ink2); font-size: 11px; font-weight: 550;
+  transition: background-color .16s var(--ease), color .16s var(--ease); }
+.nav-home-icon { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 8px; background: transparent; border: 1px solid transparent; }
+.nav-home-icon svg { width: 17px; height: 17px; }
+.nav-home:hover { background: rgba(255, 255, 255, .72); color: var(--blue); }
+.page { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding-bottom: 32px; }
+.page-header { padding: 22px 0 18px; }
+.page-header-grid { display: flex; align-items: center; gap: 12px 24px; justify-content: space-between; flex-wrap: wrap; }
+.page-title { color: var(--ink); font-size: 31px; font-weight: 600; line-height: 1.15; letter-spacing: -.9px; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 0; }
+.hero-links a { display: inline-flex; align-items: center; gap: 5px; min-height: 30px; padding: 4px 0; color: var(--ink2); font-size: 11px; font-weight: 500; transition: color .15s var(--ease); }
+.hero-links svg { width: 14px; height: 14px; color: #6882a7; }
+.hero-links a:hover { color: var(--blue); text-decoration: underline; text-underline-offset: 4px; }
 
-/* Page */
-.page {
-  width: min(1060px, calc(100% - clamp(24px,5vw,80px)));
-  margin: 0 auto; padding-bottom: 80px;
-  animation: rise .45s var(--ease) both;
+/* Only the two inventories and filtering controls need a material surface. */
+.analysis-surface { min-width: 0; }
+.analytics-panel, .filter-panel {
+  border: 1px solid rgba(100,121,147,.11); border-radius: 11px;
+  background: rgba(255,255,255,.35); box-shadow: none;
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
 }
-@keyframes rise { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+.overview-card, .analytics-panel, .filter-panel, .publication-list, .empty-results { min-width: 0; }
+.publication-list, .empty-results { border: 1px solid rgba(100,121,147,.1); border-radius: var(--r2); background: rgba(255,255,255,.7); box-shadow: none; }
+/* Overview: figures are data, not decorative illustration. */
+.dashboard { margin-bottom: 12px; }
+.dashboard-title, .publication-list-title { font-size: 16px; line-height: 1.3; font-weight: 600; letter-spacing: -.35px; }
+.overview-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)) minmax(240px,1.55fr); gap: 0; margin-bottom: 12px; padding: 0 0 9px; border-bottom: 1px solid rgba(100,121,147,.13); }
+.overview-card { position: relative; padding: 6px 14px 5px; min-height: 84px; }
+.overview-card + .overview-card::before { content: ""; position: absolute; left: 0; top: 12px; bottom: 12px; width: 1px; background: rgba(106,130,160,.1); }
+.overview-card:first-child { padding-left: 0; }
+.overview-card-head { display: flex; align-items: center; gap: 8px; min-height: 18px; }
+.overview-card-label { color: var(--ink2); font-size: 11px; font-weight: 500; line-height: 1.45; }
+.overview-card-value { margin: 3px 0 4px; color: var(--ink); font: 400 28px/1.1 var(--sans); letter-spacing: -.6px; font-variant-numeric: tabular-nums; }
+.overview-card-foot { color: var(--ink3); font-size: 10px; line-height: 1.4; }
+.scholar-metrics { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 12px; }
+.scholar-metric { display: inline-flex; align-items: baseline; gap: 5px; min-width: 0; }
+.scholar-metric strong { color: var(--ink2); font: 550 11px/1.4 var(--mono); font-variant-numeric: tabular-nums; }
+.scholar-metric small { color: var(--ink3); font-size: 10px; white-space: nowrap; }
 
-/* Page header */
-.page-header { padding: 48px 0 36px; border-bottom: 1px solid var(--border); }
-.page-eyebrow {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 3px 10px; border-radius: 99px;
-  background: var(--blue-bg); border: 1px solid var(--blue-bd);
-  font-size: .7rem; font-weight: 500; color: var(--blue2); margin-bottom: 14px;
-}
-.page-title {
-  font-family: var(--serif); font-size: clamp(1.9rem,3.5vw,2.6rem);
-  font-weight: 400; letter-spacing: -.01em; line-height: 1.1; color: var(--ink);
-  margin-bottom: 8px;
-}
-.page-sub { font-size: .9rem; color: var(--ink3); line-height: 1.6; }
-.page-sub a { color: var(--blue2); }
-.page-sub a:hover { text-decoration: underline; }
+/* Interactive venue and topic inventories. */
+.analytics-grid { display: grid; grid-template-columns: minmax(218px,.55fr) minmax(0,1.85fr); align-items: stretch; gap: 10px; }
+.analytics-panel { display: flex; flex-direction: column; overflow: hidden; }
+.topic-panel { border-color: rgba(100,121,147,.11); }
+.panel-head { display: flex; align-items: center; padding: 10px 14px 7px; min-height: 34px; }
+.panel-heading { min-width: 0; }
+.panel-title { color: var(--ink); font-size: 12px; line-height: 1.4; font-weight: 600; letter-spacing: -.1px; }
 
-/* ──────────────────────────────────────────────────────
-   Stats dashboard
-────────────────────────────────────────────────────── */
-.stats-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
-  margin: 36px 0 8px;
-}
-.stat-card {
-  padding: 20px 18px;
-  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r2);
-  transition: box-shadow .2s var(--ease), border-color .2s var(--ease);
-}
-.stat-card:hover { box-shadow: 0 3px 14px rgba(0,0,0,.06); border-color: var(--border2); }
-.stat-num {
-  font-family: var(--serif); font-size: 2.4rem; line-height: 1;
-  color: var(--blue2); margin-bottom: 4px;
-}
-.stat-label { font-size: .78rem; color: var(--ink3); line-height: 1.4; }
-.stat-sub { font-size: .7rem; color: var(--ink4); margin-top: 2px; font-family: var(--mono); }
-.stats-note {
-  margin: 12px 2px 0;
-  font-size: .7rem; color: var(--ink4); line-height: 1.55;
-  font-family: var(--mono);
-}
-.stats-note a { color: var(--blue2); }
-.stats-note a:hover { text-decoration: underline; }
-.scholar-card { background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%); }
-.scholar-card .stat-label { color: var(--ink2); }
+.venue-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-content: start; gap: 1px 8px; padding: 0 9px 10px; }
+.venue-row { display: flex; align-items: center; min-width: 0; min-height: 25px; padding: 3px 4px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--ink2); text-align: left; transition: background-color .15s var(--ease),color .15s var(--ease); }
+.venue-name { font-size: 11px; font-weight: 400; line-height: 1.45; overflow-wrap: break-word; }
 
-/* Chart section */
-.charts-row {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-  margin: 28px 0;
-}
-.chart-box {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r2);
-  padding: 20px 20px 16px;
-}
-.chart-title {
-  font-size: .8rem; font-weight: 600; color: var(--ink2); margin-bottom: 16px;
-  letter-spacing: .02em; text-transform: uppercase;
+.venue-row:hover { background: rgba(225,234,245,.55); }
+.venue-row.active-row { background: #dee8f4; color: #34577f; }
+.topic-matrix { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); align-items: start; gap: 10px 14px; padding: 0 14px 10px; }
+.topic-field-group { min-width: 0; display: flex; flex-direction: column; }
+.topic-field-summary { padding: 0 0 6px; border-bottom: 1px solid rgba(100,121,147,.1); }
+.field-copy { display: block; min-width: 0; }
+.field-name { display: block; font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--ink); overflow-wrap: break-word; text-wrap: balance; }
+
+.topic-items { display: flex; flex-direction: column; gap: 1px; margin: 0 -5px; padding: 4px 0 0; }
+.topic-item { display: flex; align-items: center; width: 100%; min-height: 25px; padding: 3px 4px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--ink2); text-align: left; transition: background-color .15s var(--ease),color .15s var(--ease); }
+.topic-name { min-width: 0; color: inherit; font-size: 11px; font-weight: 400; line-height: 1.45; overflow-wrap: break-word; white-space: normal; }
+
+.topic-item:hover { background: rgba(225,234,245,.55); }
+.topic-item.active-row { background: #dee8f4; color: #34577f; }
+.topic-item:focus-visible { outline-offset: -2px; }
+@supports (grid-template-rows: subgrid) {
+  .topic-matrix { align-items: stretch; }
+  .topic-field-group { display: grid; grid-template-rows: subgrid; grid-row: span 2; row-gap: 0; }
 }
 
-/* Bar chart — redesigned: stacked label + thick gradient bar with value badge */
-.bar-chart { display: flex; flex-direction: column; gap: 13px; }
-.bar-row { display: flex; flex-direction: column; gap: 5px; }
-.bar-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-.bar-label { font-size: .77rem; color: var(--ink2); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.bar-val {
-  font-family: var(--mono); font-size: .68rem; font-weight: 600; color: var(--ink2);
-  background: var(--bg); border: 1px solid var(--border);
-  padding: 1px 8px; border-radius: 99px; flex-shrink: 0; line-height: 1.5;
-}
-.bar-track {
-  position: relative;
-  background: linear-gradient(var(--border), var(--border)) padding-box;
-  background-color: rgba(0,0,0,.045);
-  border-radius: 7px; height: 12px; overflow: hidden;
-}
-.bar-fill {
-  position: relative;
-  height: 100%; border-radius: 7px; width: 0;
-  background: linear-gradient(90deg, var(--blue3), var(--blue2));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.18);
-  transition: width 1s cubic-bezier(.22,.61,.36,1);
-}
-.bar-fill::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.28));
-  border-radius: 7px;
-}
-.bar-fill.green  { background: linear-gradient(90deg, #34d399, var(--green)); }
-.bar-fill.amber  { background: linear-gradient(90deg, #fbbf24, var(--amber)); }
-.bar-fill.navy   { background: linear-gradient(90deg, #2c5f9e, #1e3a5f); }
-.bar-fill.mid    { background: linear-gradient(90deg, #5a8fc9, var(--blue3)); }
-.bar-fill.violet { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
+/* A compact timeline sits alongside the four headline figures. */
+.overview-timeline { padding-right: 0; }
+.trend-bars { position: relative; display: flex; align-items: flex-end; gap: 4px; height: 36px; margin-top: 4px; border-bottom: 1px solid rgba(100,121,147,.13); }
+.trend-col { display: flex; align-items: flex-end; justify-content: center; flex: 1; min-width: 0; height: 100%; margin: 0; padding: 0; border: 0; border-radius: 3px 3px 0 0; background: transparent; cursor: pointer; }
+.trend-col:focus-visible { outline-offset: 2px; }
+.trend-bar { display: block; width: min(60%,12px); border-radius: 2px 2px 0 0; background: #8fa5bf; transition: background-color .12s var(--ease); pointer-events: none; }
+.trend-col.is-active { background: rgba(106,135,170,.08); }
+.trend-col.is-active .trend-bar { background: #52759b; }
+.trend-tooltip { position: absolute; bottom: calc(100% + 6px); z-index: 5; width: max-content; max-width: 100%; padding: 5px 8px; border: 1px solid rgba(100,121,147,.18); border-radius: 6px; background: #f8fafc; color: var(--ink); font: 400 10px/1.4 var(--sans); font-variant-numeric: tabular-nums; white-space: nowrap; pointer-events: none; }
+.trend-years { display: flex; justify-content: space-between; margin-top: 3px; color: var(--ink3); font: 400 9px/1.4 var(--mono); font-variant-numeric: tabular-nums; }
 
-/* Donut chart */
-.donut-wrap { display: flex; align-items: center; gap: 20px; }
-.donut-svg { flex-shrink: 0; }
-.donut-legend { display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.legend-item { display: flex; align-items: center; gap: 8px; font-size: .76rem; color: var(--ink2); }
-.legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+/* Search and real, visible native selection controls. */
+.topic-system { margin-bottom: 14px; }
+.filter-panel { padding: 10px 12px; }
+.filter-topline { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; }
+.search-wrap { position: relative; display: block; min-width: 0; }
+.search-wrap > svg { position: absolute; width: 15px; height: 15px; left: 10px; top: 50%; transform: translateY(-50%); color: #6c83a1; pointer-events: none; }
+.search-input { display: block; width: 100%; min-width: 0; height: 32px; padding: 0 11px 0 33px; border: 1px solid rgba(107,131,163,.19); border-radius: 8px; background: rgba(255,255,255,.62); color: var(--ink); font-size: 11px; transition: border-color .15s var(--ease),background-color .15s var(--ease); }
+.search-input::placeholder { color: #65758c; opacity: 1; }
+.search-input:focus { border-color: #9eB4d0; background: rgba(255,255,255,.87); box-shadow: none; }
+.reset-btn, .detail-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 30px; padding: 5px 10px; border: 1px solid rgba(107,131,163,.18); border-radius: 8px; background: rgba(255,255,255,.42); color: var(--ink2); font-size: 11px; font-weight: 500; line-height: 1.4; transition: border-color .15s var(--ease),background-color .15s var(--ease); }
+.reset-btn svg { width: 14px; height: 14px; }
+.reset-btn:not(:disabled):hover, .detail-toggle:not(:disabled):hover { border-color: #a7bddb; background: #fff; }
+.detail-toggle[aria-expanded='true'] { background: #e2ebf9; border-color: transparent; color: #355c90; }
+.filter-group { min-width: 0; margin: 8px 0 0; padding: 0; border: 0; }
+.filter-group > legend { padding: 0; margin-bottom: 4px; color: var(--ink2); font-size: 10px; font-weight: 600; line-height: 1.5; }
+.filter-bar, .topic-category-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin: 0; padding: 0; }
+.filter-label { color: var(--ink3); font-size: 11px; font-weight: 550; margin-right: 4px; }
+.filter-option, .ftag, .topic-filter { display: inline-flex; align-items: center; gap: 6px; min-width: 0; min-height: 28px; padding: 3px 8px; border: 1px solid transparent; border-radius: 7px; background: rgba(246,249,253,.56); color: var(--ink2); font-size: 10px; font-weight: 500; line-height: 1.4; cursor: pointer; transition: background-color .15s var(--ease),color .15s var(--ease); }
+.filter-option input, .filter-checkbox { flex-shrink: 0; width: 12px; height: 12px; margin: 0; accent-color: #6c89ac; cursor: pointer; }
+.filter-option > span:not(.ftag-count), .filter-option-label { min-width: 0; overflow-wrap: anywhere; }
+.filter-option:hover, .ftag:hover, .topic-filter:hover { background: #e9f0fb; }
+.filter-option.active, .filter-option:has(input:checked), .ftag.active, .topic-filter.active { background: rgba(207,222,242,.82); color: #34577f; }
+/* Mouse selection uses the fill and checkmark; keyboard navigation keeps a fine focus indicator. */
+@supports selector(:has(*)) {
+  :is(.filter-option, .ftag, .topic-filter):has(input:focus-visible) { outline: 1.5px solid #758eae; outline-offset: 2px; }
+  .filter-option input:focus-visible, .filter-checkbox:focus-visible { outline: none; }
+}
+.ftag-count { flex-shrink: 0; color: #536b89; font: 400 9px/1.4 var(--mono); font-variant-numeric: tabular-nums; }
+.active-filters { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; padding-top: 0; }
+.active-chip, .active-filter-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 25px; max-width: 100%; padding: 3px 7px; border: 1px solid transparent; border-radius: 6px; background: rgba(213,226,243,.64); color: #3e5e86; font-size: 10px; line-height: 1.35; overflow-wrap: anywhere; text-align: left; }
+.active-chip:hover, .active-filter-chip:hover { background: #dfe9f8; }
+.active-chip svg { width: 12px; height: 12px; flex-shrink: 0; }
+.active-filter-chip > span:first-child { min-width: 0; }
+.active-filter-chip > span:last-child { flex-shrink: 0; font-size: 15px; line-height: 1; }
 
-/* Year histogram */
-.hist-outer { display: flex; flex-direction: column; gap: 0; }
-.hist-wrap { display: flex; align-items: flex-end; gap: 4px; height: 112px; }
-.hist-bar-col { display: flex; flex-direction: column-reverse; align-items: center; flex: 1; gap: 3px; }
-.hist-bar {
-  width: 100%; border-radius: 3px 3px 0 0;
-  background: var(--blue2); min-height: 3px;
-  transition: background .15s;
-}
-.hist-bar:hover { background: var(--blue3); }
-.hist-bar-col:hover .hist-year { color: var(--blue2); }
-.hist-labels { display: flex; align-items: flex-start; gap: 4px; margin-top: 5px; }
-.hist-year-lbl { flex: 1; text-align: center; font-family: var(--mono); font-size: .58rem; color: var(--ink3); white-space: nowrap; }
-.hist-val  { font-family: var(--mono); font-size: .6rem; color: var(--ink3); }
+/* Dense publication rows; titles stay complete at every width. */
+.publication-list-section { margin-top: 0; }
+.publication-list-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 9px; }
+.publication-list-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; }
+.result-count { color: var(--ink3); font: 400 12px/1.5 var(--mono); font-variant-numeric: tabular-nums; }
+.publication-list-note { margin-top: 3px; color: var(--ink3); font-size: 10px; line-height: 1.4; }
+.detail-toggle { flex-shrink: 0; }
+.publication-list { display: block; padding: 0 14px 4px; }
+.pub-year-group { padding: 0; }
+.pub-year-label { display: flex; align-items: baseline; gap: 8px; padding: 14px 0 6px; border-bottom: 1px solid var(--border); color: #435975; font: 500 17px/1.3 var(--sans); letter-spacing: -.3px; font-variant-numeric: tabular-nums; }
+.pub-year-count { color: var(--ink3); font: 400 10px/1.4 var(--mono); letter-spacing: 0; }
+.pub-item { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid rgba(149, 168, 192, .2); border-radius: 0; transition: background-color .15s var(--ease); }
+.pub-item:last-child { border-bottom: 0; }
+.pub-item:hover { background: rgba(219,231,245,.28); }
+.pub-num { padding-top: 2px; color: #5e748f; font: 400 9.5px/1.35 var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.pub-content { min-width: 0; }
+.pub-title-txt { color: #334455; font-size: 12.5px; font-weight: 600; line-height: 1.35; letter-spacing: 0; white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: break-word; }
+.pub-title-txt a { transition: color .15s var(--ease); }
+.pub-title-txt a:hover { color: #315f9c; text-decoration: underline; text-decoration-color: #96b2d8; text-underline-offset: 3px; }
+.pub-compact-meta { display: flex; align-items: baseline; gap: 7px; min-width: 0; margin-top: 1px; color: var(--ink3); font-size: 10px; line-height: 1.35; }
+.pub-compact-authors { min-width: 0; flex: 0 1 auto; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 58%; }
+.pub-compact-authors strong, .pub-authors-txt strong { font-weight: 600; color: #465b75; }
+.pub-compact-separator { color: #7186a3; flex-shrink: 0; }
+.pub-compact-venue { min-width: 0; flex: 1; font-size: 9.5px; line-height: 1.35; overflow-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pub-details { display: none; }
+.publication-list.is-expanded .pub-compact-meta { display: none; }
+.publication-list.is-expanded .pub-details { display: block; margin-top: 4px; }
+.publication-list.is-expanded .pub-item { padding-top: 11px; padding-bottom: 11px; }
+.pub-authors-txt { color: var(--ink3); font-size: 11px; line-height: 1.5; overflow-wrap: break-word; }
+.pub-venue-detail { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 7px; margin-top: 2px; }
+.pub-venue-txt { color: var(--ink2); font-size: 10px; line-height: 1.4; }
+.pub-lnks { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+.pub-lnks a { display: inline-flex; min-height: 22px; align-items: center; padding: 1px 5px; border: 1px solid #c5d7ef; border-radius: 5px; background: #edf4ff; color: #40638f; font: 400 9px/1.4 var(--mono); }
+.pub-lnks a:hover { background: #e0ecff; border-color: #9dbbe3; }
+.pub-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 5px; }
+.topic-tag, .ptag { display: inline-flex; align-items: center; gap: 4px; min-height: 22px; padding: 2px 6px; border: 1px solid #ccd8e8; border-radius: 6px; background: #f2f6fc; color: #465e7c; font-size: 9px; font-weight: 500; line-height: 1.4; }
+.topic-tag::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; background: var(--topic-color, #6e8db8); }
+.topic-tag:hover { background: #e9f1ff; border-color: #a8c0e1; }
+.ptag { font-family: var(--sans); }
+.ptag-a { color: #426185; border-color: rgba(125,149,181,.19); background: #ecf1f8; }
+.ptag-b { color: #3e6392; border-color: #c0d2e9; background: #edf3fd; }
+.ptag-t { color: #526582; border-color: rgba(125,149,181,.19); background: #edf1f7; }
+.ptag-q1 { color: #52647c; border-color: rgba(125,149,181,.19); background: #edf1f7; }
+.ptag-cor { color: #536379; border-color: #c8d2df; background: #f2f5fa; }
+.empty-results { padding: 28px 16px; text-align: center; }
+.empty-results > svg { width: 28px; height: 28px; color: #8099bc; margin-bottom: 10px; }
+.empty-results h3 { font-size: 15px; font-weight: 550; margin-bottom: 12px; }
 
-/* ──────────────────────────────────────────────────────
-   Filter bar
-────────────────────────────────────────────────────── */
-.filter-bar {
-  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  margin: 28px 0 18px;
-}
-.filter-label { font-size: .73rem; color: var(--ink4); font-weight: 500; margin-right: 4px; }
-.ftag {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 4px 12px; border-radius: 99px;
-  font-size: .73rem; font-weight: 500; cursor: pointer;
-  background: var(--surface); border: 1px solid var(--border); color: var(--ink3);
-  transition: color .13s, border-color .13s, background .13s;
-}
-.ftag:hover { color: var(--blue2); border-color: var(--blue-bd); background: var(--blue-bg); }
-.ftag.active { color: var(--blue2); border-color: var(--blue2); background: var(--blue-bg); font-weight: 600; }
-.ftag-count { font-family: var(--mono); font-size: .65rem; color: var(--ink4); }
-.ftag.active .ftag-count { color: var(--blue3); }
+/* Footer and progressive enhancement. Content is never hidden for animation. */
+.footer { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; margin-top: 24px; padding-top: 14px; border-top: 1px solid rgba(160, 182, 213, .34); }
+.footer-name { color: var(--ink2); font-size: 11px; font-weight: 550; }
+.footer-meta { color: var(--ink3); font-size: 10px; line-height: 1.5; text-align: right; }
+.footer-meta a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #aabdd6; }
+.footer-meta a:hover { color: var(--blue); }
 
-/* ──────────────────────────────────────────────────────
-   Publication list
-────────────────────────────────────────────────────── */
-.pub-year-group { margin-bottom: 0; }
-.pub-year-label {
-  font-family: var(--serif); font-size: 1.4rem; color: var(--ink);
-  padding: 28px 0 14px; border-bottom: 2px solid var(--blue2);
-  margin-bottom: 0;
-  display: flex; align-items: baseline; gap: 10px;
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .analytics-panel, .filter-panel, .publication-list, .empty-results { background: #f3f6fa; }
+  .nav { background: #edf2f9; }
 }
-.pub-year-count { font-family: var(--mono); font-size: .72rem; color: var(--ink4); font-weight: 400; }
 
-.pub-item {
-  display: grid; grid-template-columns: 24px 1fr;
-  gap: 14px; padding: 14px 0;
-  border-bottom: 1px solid var(--border);
-  transition: background .12s;
+@media (max-width: 1000px) {
+  .overview-grid { grid-template-columns: repeat(4,minmax(0,1fr)); row-gap: 8px; }
+  .overview-timeline { grid-column: 1 / -1; display: grid; grid-template-columns: 88px minmax(0,1fr); grid-template-rows: 36px auto; column-gap: 14px; min-height: 0; padding: 2px 0 5px; }
+  .overview-timeline::before { display: none; }
+  .overview-timeline .overview-card-head { grid-row: 1 / 3; align-self: center; }
+  .overview-timeline .trend-bars { margin-top: 0; }
+  .overview-timeline .trend-years { grid-column: 2; }
 }
-.pub-item:hover { background: var(--blue-bg); margin: 0 -10px; padding-left: 10px; padding-right: 10px; border-radius: 6px; }
-.pub-num { font-family: var(--mono); font-size: .65rem; color: var(--ink4); padding-top: 3px; text-align: right; }
-.pub-content {}
-.pub-title-txt {
-  font-size: .91rem; font-weight: 600; color: var(--ink); line-height: 1.38;
-  margin-bottom: 4px;
+@media (max-width: 940px) {
+  .analytics-grid { grid-template-columns: minmax(0,1fr); }
+  .venue-list { grid-template-columns: repeat(4,minmax(0,1fr)); }
 }
-.pub-title-txt a { transition: color .13s; }
-.pub-title-txt a:hover { color: var(--blue2); }
-.pub-authors-txt { font-size: .76rem; color: var(--ink3); line-height: 1.45; margin-bottom: 3px; }
-.pub-authors-txt strong { color: var(--ink2); font-weight: 600; }
-.pub-venue-txt { font-family: var(--mono); font-size: .65rem; color: var(--ink4); margin-bottom: 6px; }
-.pub-tags { display: flex; gap: 5px; flex-wrap: wrap; }
-.ptag {
-  display: inline-flex; align-items: center;
-  font-family: var(--mono); font-size: .55rem; font-weight: 500;
-  letter-spacing: .04em; padding: 2px 7px;
-  border: 1px solid; border-radius: 3px;
-}
-.ptag-a    { color: var(--green); border-color: var(--green-bd); background: var(--green-bg); }
-.ptag-b    { color: var(--blue2); border-color: var(--blue-bd); background: var(--blue-bg); }
-.ptag-t    { color: #7c3aed; border-color: #ddd6fe; background: #f5f3ff; }
-.ptag-q1   { color: var(--amber); border-color: var(--amber-bd); background: var(--amber-bg); }
-.ptag-cor  { color: var(--ink2); border-color: var(--border2); background: var(--surface); }
-.pub-lnks  { display: inline-flex; gap: 4px; margin-left: 6px; vertical-align: middle; }
-.pub-lnks a {
-  font-family: var(--mono); font-size: .58rem; font-weight: 500;
-  padding: 1px 7px; border: 1px solid var(--border); border-radius: 99px;
-  background: var(--surface); color: var(--ink2); white-space: nowrap;
-  transition: color .13s, border-color .13s, background .13s;
-}
-.pub-lnks a:hover { color: var(--blue2); border-color: var(--blue-bd); background: var(--blue-bg); }
 
-.pub-hidden { display: none; }
+@media (max-width: 680px) {
+  .page { width: calc(100% - 32px); }
+  .nav { padding: 0 16px; }
+  .page-header { padding: 20px 0 16px; gap: 10px 14px; }
+  .page-title { font-size: 29px; }
+  .hero-links { gap: 12px; }
+  .hero-links a { font-size: 10px; padding: 4px 0; }
+  .overview-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px 0; margin-bottom: 10px; padding-bottom: 9px; }
+  .overview-card:nth-child(3)::before { display: none; }
+  .overview-card { padding: 5px 12px; min-height: 73px; }
+  .overview-card:nth-child(odd) { padding-left: 0; }
+  .overview-card.overview-timeline { min-height: 0; padding: 3px 0 5px; }
+  .overview-card-value { font-size: 26px; margin: 3px 0 4px; }
+  .overview-card-foot { font-size: 9px; }
+  .analytics-grid { gap: 8px; }
+  .topic-matrix { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-/* Section label */
-.sec-title { font-size: 1.3rem; font-weight: 600; letter-spacing: -.02em; color: var(--ink); }
-
-/* Scroll reveal */
-[data-v] { opacity: 0; transform: translateY(8px); transition: opacity .36s var(--ease), transform .36s var(--ease); }
-[data-v].vis { opacity: 1; transform: translateY(0); }
-
-/* Footer */
-.footer {
-  margin-top: 56px; padding-top: 20px;
-  border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-}
-.footer-name { font-size: .84rem; font-weight: 600; color: var(--ink); }
-.footer-meta { font-family: var(--mono); font-size: .68rem; color: var(--ink4); text-align: right; line-height: 1.65; }
-.footer-meta a { color: var(--ink3); transition: color .13s; }
-.footer-meta a:hover { color: var(--blue2); }
-
-@media (max-width: 860px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .charts-row { grid-template-columns: 1fr; }
-}
-@media (max-width: 560px) {
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .pub-item { grid-template-columns: 20px 1fr; gap: 10px; }
-  .footer { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .filter-panel { padding: 10px 12px; }
+  .publication-list { padding: 0 11px 3px; }
+  .publication-list-head { gap: 8px; }
+  .publication-list-title { font-size: 15px; }
+  .publication-list-note { font-size: 9px; max-width: 235px; }
+  .pub-item { grid-template-columns: 19px minmax(0, 1fr); gap: 8px; }
+  .pub-compact-authors { max-width: 50%; }
   .footer-meta { text-align: left; }
 }
 
+@media (max-width: 440px) {
+  .nav-brand { font-size: 11px; }
+  .page { width: calc(100% - 24px); }
+  .page-title { font-size: 27px; }
+  .hero-links a { min-height: 28px; }
+  .overview-card-label { font-size: 10.5px; }
+  .overview-card-head { gap: 5px; min-height: 18px; }
+  .overview-card-value { font-size: 25px; }
+  .scholar-metrics { gap: 3px 8px; }
+  .scholar-metric strong { font-size: 10px; }
+  .scholar-metric small { font-size: 9px; }
+  .venue-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
-/* Tag system */
-.tag-guide {
-  margin: 28px 0 18px;
-  padding: 16px 18px;
-  border: 1px solid var(--blue-bd); border-radius: var(--r2);
-  background: linear-gradient(180deg, var(--blue-bg), #fff);
-}
-.tag-guide-title { font-size: .82rem; font-weight: 600; color: var(--ink); margin-bottom: 9px; }
-.tag-guide-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-.tag-guide-item { font-size: .75rem; color: var(--ink3); line-height: 1.6; }
-.tag-guide-item strong { color: var(--ink2); font-weight: 600; }
-.filter-panel {
-  margin: 28px 0 18px;
-  padding: 14px 16px 12px;
-  border: 1px solid var(--border); border-radius: var(--r2);
-  background: var(--surface);
-}
-.filter-panel .filter-bar { margin: 0; }
-.filter-summary { margin-top: 11px; font-family: var(--mono); font-size: .68rem; color: var(--ink4); }
-.ftag { font-family: var(--sans); }
-@media (max-width: 760px) { .tag-guide-grid { grid-template-columns: 1fr; gap: 8px; } }
-.charts-row.single-chart { grid-template-columns: 1fr; }
+  .trend-bars { gap: 3px; }
 
-/* Compact academic analytics dashboard */
-body {
-  background:
-    radial-gradient(circle at 86% 5%, rgba(45,95,158,.055), transparent 24rem),
-    #f5f7f9;
-}
-.page { width:min(1180px,calc(100% - clamp(24px,5vw,72px))); padding-bottom:60px; }
-.page-header { padding:32px 0 24px; border-bottom:0; }
-.page-title { font-size:clamp(1.8rem,3vw,2.35rem); }
-.page-eyebrow { margin-bottom:10px; }
-.dashboard { margin:0 0 24px; }
-.dashboard-heading,.section-heading {
-  display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:12px;
-}
-.dashboard-kicker {
-  display:block; margin-bottom:3px; font-family:var(--mono); font-size:.61rem;
-  font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--blue3);
-}
-.dashboard-title { font-size:1.05rem; line-height:1.25; letter-spacing:-.015em; color:var(--ink); font-weight:650; }
-.dashboard-meta { font-family:var(--mono); font-size:.62rem; color:var(--ink4); white-space:nowrap; }
-.overview-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:12px; }
-.overview-card {
-  min-height:106px; padding:15px 16px 14px; position:relative; overflow:hidden;
-  background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(249,251,253,.96));
-  border:1px solid #dde4eb; border-radius:14px;
-  box-shadow:0 5px 18px rgba(25,45,72,.045), inset 0 1px 0 rgba(255,255,255,.9);
-  transition:transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease);
-}
-.overview-card::before {
-  display:none;
-}
-.overview-card:hover {
-  transform:translateY(-1px); border-color:#ccd7e2;
-  box-shadow:0 9px 24px rgba(25,45,72,.07), inset 0 1px 0 rgba(255,255,255,.95);
-}
-.overview-card-head { display:flex; align-items:center; justify-content:space-between; gap:10px; }
-.overview-card-label { font-size:.7rem; font-weight:650; color:#465466; letter-spacing:.01em; }
-.metric-code {
-  padding:2px 6px; border:1px solid #e1e7ed; border-radius:5px;
-  background:#f7f9fb; color:#8491a2; font:550 .49rem var(--mono);
-  letter-spacing:.06em; text-transform:uppercase;
-}
-.overview-card-value { margin:8px 0 5px; font-family:var(--serif); font-size:1.95rem; line-height:.9; color:#121820; }
-.overview-card-foot {
-  font-family:var(--sans); font-size:.66rem; font-weight:500; line-height:1.45;
-  color:#69778a; letter-spacing:.005em;
-}
-.scholar-metrics {
-  display:grid; grid-template-columns:auto auto 1fr; gap:8px;
-  align-items:stretch; margin-top:7px;
-}
-.scholar-metric {
-  min-width:52px; padding:6px 8px; border:1px solid #e3e8ee; border-radius:7px;
-  background:rgba(247,249,251,.88); display:flex; flex-direction:column; gap:1px;
-}
-.scholar-metric strong { font:650 .76rem var(--sans); color:#253142; }
-.scholar-metric small { font:550 .6rem var(--sans); color:#657388; white-space:nowrap; }
-.scholar-metric.checked { min-width:0; align-items:flex-end; justify-content:center; text-align:right; }
-.scholar-metric.checked strong { font-size:.62rem; color:#4f5e72; }
-.analytics-grid {
-  display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.55fr); gap:12px; align-items:stretch;
-}
-.analytics-panel,.signal-panel,.filter-panel {
-  background:rgba(255,255,255,.97); border:1px solid #e1e6eb; border-radius:11px;
-  box-shadow:0 2px 8px rgba(18,38,63,.025);
-}
-.analytics-panel { overflow:hidden; display:flex; flex-direction:column; min-height:100%; }
-.panel-head {
-  min-height:47px; padding:10px 14px; display:flex; align-items:center;
-  justify-content:space-between; gap:16px; border-bottom:1px solid var(--border);
-}
-.panel-title { font-size:.79rem; line-height:1.25; font-weight:650; color:var(--ink); }
-.panel-badge {
-  padding:3px 8px; border-radius:99px; white-space:nowrap; font-family:var(--mono); font-size:.57rem;
-  color:var(--blue2); background:var(--blue-bg); border:1px solid var(--blue-bd);
-}
-.table-scroll { overflow-x:auto; }
-.analytics-panel > .table-scroll { flex:0 0 auto; }
-.data-table { width:100%; border-collapse:separate; border-spacing:0; font-size:.7rem; line-height:1.35; }
-.data-table th {
-  padding:7px 10px; text-align:left; font-size:.58rem; font-weight:600; letter-spacing:.08em;
-  text-transform:uppercase; color:var(--ink4); background:#f8fafb; border-bottom:1px solid var(--border);
-}
-.data-table th.num,.data-table td.num { width:66px; text-align:right; }
-.data-table td { padding:7px 10px; color:var(--ink2); border-bottom:1px solid #edf0f3; vertical-align:middle; }
-.data-table tbody tr:last-child td { border-bottom:0; }
-.data-table tbody tr[data-filter-row] { cursor:pointer; transition:background .12s; }
-.data-table tbody tr[data-filter-row]:hover,.data-table tbody tr.active-row { background:#f0f6fc; }
-.data-table tfoot td { font-weight:650; color:var(--ink); background:#fbfcfd; border-top:1px solid var(--border); border-bottom:0; }
-.venue-name { font-weight:550; color:var(--ink); }
-.count-pill { display:inline-flex; min-width:26px; justify-content:flex-end; font-family:var(--mono); font-size:.64rem; font-weight:600; }
-.category-cell {
-  width:158px; min-width:140px; padding:0!important; position:relative;
-  color:var(--ink)!important;
-  background:linear-gradient(145deg,var(--cat-bg,#f4f7fa),color-mix(in srgb,var(--cat-bg,#f4f7fa) 64%,#fff));
-  border-right:1px solid color-mix(in srgb,var(--cat-color,#7c8da3) 18%,#e5eaf0);
-  box-shadow:inset 3px 0 0 color-mix(in srgb,var(--cat-color,#7c8da3) 58%,#fff);
-}
-.field-cell {
-  min-height:100%; padding:13px 13px 13px 15px; display:flex;
-  align-items:center;
-}
-.field-copy { min-width:0; }
-.field-index {
-  display:inline-flex; align-items:center; justify-content:center;
-  min-width:25px; height:18px; margin-bottom:7px; padding:0 6px;
-  border:1px solid color-mix(in srgb,var(--cat-color,#7c8da3) 20%,transparent);
-  border-radius:5px; background:rgba(255,255,255,.5);
-  font:650 .48rem/1 var(--mono); letter-spacing:.08em;
-  color:color-mix(in srgb,var(--cat-color,#65768a) 74%,#435164);
-}
-.field-name {
-  display:block; max-width:125px; font-size:.68rem; font-weight:670; line-height:1.28;
-  color:#263242; letter-spacing:-.006em; text-wrap:balance;
-}
-.category-count {
-  display:block; margin-top:6px; font:570 .56rem/1.2 var(--mono);
-  color:#667588;
-}
-.topic-name { color:var(--ink2); font-weight:500; }
-.topic-panel {
-  background:rgba(255,255,255,.98);
-}
-.topic-panel .panel-head {
-  background:#fbfcfd;
-}
-.topic-panel .panel-badge {
-  padding:0; color:#647386; background:transparent; border:0;
-}
-.topic-matrix {
-  display:flex; flex-direction:column; padding:0; gap:0;
-}
-.topic-field-group {
-  --cat-color:#65768a; --cat-bg:#f4f7fa;
-  display:grid; grid-template-columns:158px minmax(0,1fr);
-  overflow:hidden; border:0; border-bottom:1px solid #e7ebef;
-  border-radius:0; background:#fff; box-shadow:none;
-}
-.topic-field-group:last-child { border-bottom:0; }
-.topic-field-summary {
-  position:relative; display:flex; align-items:center; min-height:100%;
-  padding:12px 14px 12px 16px;
-  background:var(--cat-bg);
-  border-right:1px solid color-mix(in srgb,var(--cat-color) 16%,#e4e9ee);
-  box-shadow:none;
-}
-.topic-field-summary .field-index { margin-bottom:7px; }
-.topic-field-summary .field-name { max-width:128px; font-size:.69rem; }
-.topic-items { display:flex; flex-direction:column; }
-.topic-item {
-  appearance:none; width:100%; min-height:34px; padding:6px 10px 6px 14px;
-  display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; align-items:center;
-  color:var(--ink2); text-align:left; border:0; border-bottom:1px solid #edf0f3;
-  background:transparent; font:inherit; cursor:pointer;
-  transition:background .14s var(--ease),color .14s var(--ease);
-}
-.topic-item:last-child { border-bottom:0; }
-.topic-item:hover { background:#f5f8fb; color:#20344a; }
-.topic-item:focus-visible { position:relative; z-index:1; outline:2px solid #7ca3c8; outline-offset:-2px; }
-.topic-item.active-row { background:#edf4fa; color:#1f4d78; }
-.topic-item .topic-name { font-size:.69rem; font-weight:540; color:inherit; }
-.topic-count {
-  min-width:24px; padding:0 2px; text-align:right;
-  background:transparent; border:0;
-  font:650 .61rem/1.3 var(--mono); color:#5a687a;
-}
-.topic-item:hover .topic-count,.topic-item.active-row .topic-count {
-  background:transparent; color:#315d87;
-}
-.venue-insights {
-  margin-top:auto; padding:14px; border-top:1px solid var(--border);
-  background:linear-gradient(180deg,#fbfcfd,#f7f9fb);
-}
-.venue-insights-title {
-  display:flex; justify-content:space-between; gap:12px; align-items:baseline; margin-bottom:11px;
-}
-.venue-insights-title strong { font-size:.68rem; font-weight:650; color:#354154; }
-.venue-insights-title span { font:500 .54rem var(--mono); color:#8a96a6; }
-.insight-row { display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center; margin-top:8px; }
-.insight-label { font-size:.61rem; font-weight:550; color:#677487; }
-.insight-value { font:650 .61rem var(--mono); color:#354154; }
-.insight-track {
-  grid-column:1 / -1; height:5px; overflow:hidden; border-radius:99px;
-  background:#e8edf2;
-}
-.insight-fill {
-  display:block; height:100%; width:var(--insight-width,0%);
-  border-radius:inherit; background:linear-gradient(90deg,#607d9d,#315d87);
-}
-.venue-highlight {
-  display:flex; justify-content:space-between; align-items:center; gap:12px;
-  margin-top:12px; padding-top:10px; border-top:1px dashed #dce3ea;
-  font-size:.6rem; color:#758194;
-}
-.venue-highlight strong { color:#354154; font-weight:650; }
-.signal-grid { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(260px,.55fr); gap:12px; margin-top:12px; }
-.signal-panel { padding:12px 14px 13px; }
-.signal-head { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:9px; }
-.signal-title { font-size:.72rem; font-weight:650; color:var(--ink2); }
-.signal-note { font-family:var(--mono); font-size:.56rem; color:var(--ink4); }
-.trend-bars { height:86px; display:flex; align-items:flex-end; gap:4px; border-bottom:1px solid var(--border); }
-.trend-col { height:100%; flex:1; min-width:20px; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; gap:3px; }
-.trend-value { font-family:var(--mono); font-size:.52rem; color:var(--ink4); }
-.trend-bar {
-  width:min(100%,24px); min-height:3px; border-radius:4px 4px 1px 1px;
-  background:linear-gradient(180deg,#4b7fb8,#244f7e); opacity:.9;
-}
-.trend-years { display:flex; gap:4px; margin-top:4px; }
-.trend-year { flex:1; min-width:20px; text-align:center; font-family:var(--mono); font-size:.5rem; color:var(--ink4); }
-.role-track { height:10px; display:flex; overflow:hidden; margin:5px 0 11px; border-radius:99px; background:var(--surface2); }
-.role-segment { height:100%; }
-.role-list { display:grid; gap:5px; }
-.role-item { display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:.65rem; color:var(--ink3); }
-.role-label { display:inline-flex; align-items:center; gap:6px; }
-.role-dot { width:7px; height:7px; border-radius:2px; }
-.role-count { font-family:var(--mono); color:var(--ink2); font-weight:600; }
-.dashboard .stats-note { margin:9px 2px 0; font-size:.58rem; line-height:1.5; }
-.topic-system { margin:24px 0 14px; }
-.topic-system .section-heading { margin-bottom:10px; }
-.filter-panel { margin:0; padding:12px 14px; }
-.filter-topline { display:grid; grid-template-columns:minmax(200px,.8fr) minmax(0,1.8fr) auto; gap:10px; align-items:center; }
-.search-wrap { position:relative; }
-.search-wrap::before { content:"⌕"; position:absolute; left:10px; top:50%; transform:translateY(-52%); color:var(--ink4); }
-.search-input {
-  width:100%; height:32px; padding:0 10px 0 30px; border:1px solid var(--border2); border-radius:7px;
-  background:#fff; color:var(--ink2); font:400 .68rem var(--sans); outline:0;
-}
-.search-input:focus { border-color:var(--blue3); box-shadow:0 0 0 3px rgba(44,95,158,.1); }
-.filter-bar { margin:0; gap:5px; }
-.ftag { min-height:28px; padding:3px 9px; font-size:.64rem; border-radius:7px; background:#fff; }
-.reset-btn {
-  height:30px; padding:0 10px; border-radius:7px; border:1px solid var(--border);
-  background:var(--surface); color:var(--ink3); font:550 .63rem var(--sans); cursor:pointer;
-}
-.topic-category-filters { display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-top:9px; padding-top:9px; border-top:1px solid var(--border); }
-.topic-filter {
-  --topic-color:var(--blue3); display:inline-flex; align-items:center; gap:5px; min-height:27px; padding:3px 9px;
-  border-radius:99px; background:#fff; border:1px solid var(--border); color:var(--ink3); font:550 .62rem var(--sans); cursor:pointer;
-}
-.topic-filter::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--topic-color); }
-.topic-filter:hover,.topic-filter.active { color:var(--ink); border-color:var(--topic-color); background:#f7f9fb; }
-.filter-summary { margin-top:8px; padding-top:8px; border-top:1px dashed var(--border); font-size:.59rem; }
-.pub-year-label { padding:20px 0 9px; font-size:1.18rem; border-bottom-width:1px; }
-.pub-item { gap:12px; padding:11px 0; }
-.pub-title-txt { font-size:.86rem; margin-bottom:3px; }
-.pub-authors-txt { font-size:.72rem; margin-bottom:2px; }
-.pub-venue-txt { margin-bottom:5px; }
-.pub-tags { gap:4px; align-items:center; }
-.topic-tag {
-  --topic-color:var(--blue3); display:inline-flex; align-items:center; padding:2px 7px; border-radius:99px;
-  border:1px solid #d7e0ea; background:#f7f9fb; color:var(--topic-color); font:550 .53rem var(--sans); cursor:pointer;
-}
-.topic-tag:hover { border-color:var(--topic-color); }
-@media (max-width:940px) {
-  .overview-grid { grid-template-columns:repeat(2,1fr); }
-  .analytics-grid,.signal-grid { grid-template-columns:1fr; }
-  .filter-topline { grid-template-columns:1fr; }
-  .reset-btn { justify-self:start; }
-  .venue-insights { margin-top:0; }
-}
-@media (max-width:560px) {
-  .dashboard-heading,.section-heading { align-items:flex-start; flex-direction:column; gap:5px; }
-  .dashboard-meta { white-space:normal; }
-  .overview-grid { gap:7px; }
-  .overview-card { min-height:84px; padding:12px; }
-  .overview-card-value { font-size:1.55rem; }
-  .category-cell { min-width:128px; width:138px; }
-  .field-cell { padding:11px; }
-  .topic-matrix { padding:0; gap:0; }
-  .topic-field-group { grid-template-columns:128px minmax(0,1fr); }
-  .topic-field-summary { padding:10px; }
-  .topic-field-summary .field-name { font-size:.63rem; }
-  .topic-item { padding-left:10px; gap:7px; }
+  .search-input { font-size: 10px; }
+  .filter-option, .ftag, .topic-filter { gap: 5px; padding: 3px 6px; }
+  .detail-toggle { font-size: 10px; padding: 5px 8px; }
+  .pub-title-txt { font-size: 12px; }
+  .pub-compact-meta { font-size: 9.5px; gap: 5px; }
+  .pub-compact-venue { font-size: 9px; }
+  .footer { align-items: flex-start; }
 }
 
-/* Refined analytics and two-state publication list */
-.analytics-grid {
-  grid-template-columns:minmax(300px,.68fr) minmax(0,1.62fr);
-  gap:10px; align-items:stretch;
-}
-.analytics-panel {
-  border:1px solid #dfe6ed;
-  border-radius:12px; height:250px;
-  background:rgba(255,255,255,.985);
-  box-shadow:0 7px 22px rgba(30,52,78,.045), inset 0 1px 0 rgba(255,255,255,.9);
-}
-.panel-head {
-  min-height:44px;
-  padding:8px 11px;
-  align-items:center;
-  background:linear-gradient(180deg,#fff,#fbfcfd);
-  border-bottom:1px solid #e8edf2;
-}
-.panel-heading { min-width:0; display:flex; align-items:center; }
-.panel-kicker {
-  display:block; margin-bottom:4px;
-  font:600 .5rem/1.2 var(--mono); letter-spacing:.13em; text-transform:uppercase;
-  color:#7d8a9a;
-}
-.panel-title { font-size:.76rem; letter-spacing:-.005em; }
-.panel-subtitle {
-  margin-top:3px; max-width:42rem; font-size:.58rem; line-height:1.4; color:#7a8797;
-}
-.panel-badge {
-  margin-top:0; padding:3px 7px; border-color:#dce5ed; background:#f7fafc;
-  color:#607188; font-size:.52rem;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-/* Venue ranking */
-.venue-list {
-  flex:1; padding:7px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
-  grid-auto-rows:35px; align-content:start; gap:3px 5px; background:#f8fafc;
-}
-.venue-row {
-  appearance:none; width:100%; min-height:35px; padding:4px 7px;
-  display:flex; gap:5px; align-items:center; justify-content:flex-start;
-  border:1px solid transparent; border-radius:6px; background:#fff;
-  color:var(--ink2); text-align:left; font:inherit; cursor:pointer;
-  transition:background .14s var(--ease),border-color .14s var(--ease);
-}
-.venue-row:hover { background:#f2f7fb; border-color:#dce6ef; }
-.venue-row:focus-visible { outline:2px solid #7ca3c8; outline-offset:1px; }
-.venue-row.active-row { background:#eef5fb; border-color:#cbddec; }
-.venue-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.59rem; font-weight:570; }
-.venue-count {
-  flex:0 0 auto; min-width:0; height:auto; padding:0; display:inline;
-  border:0; border-radius:0; background:transparent;
-  font:650 .58rem/1 var(--mono); color:#506b88;
-}
-.venue-row:hover .venue-count,.venue-row.active-row .venue-count {
-  color:#244f7e; background:transparent; border-color:transparent;
+@media (prefers-contrast: more) {
+  body { background: #edf2f8; }
+  .nav, .nav.scrolled { background: #f7f9fc; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .analytics-panel, .filter-panel, .publication-list, .empty-results { background: #fff; border-color: #8d9fb8; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .filter-option, .ftag, .topic-filter, .venue-row { background: #fff; border-color: #a1b4cf; }
 }
 
-/* Research topic cards */
-.topic-panel { background:#f8fafc; }
-.topic-panel .panel-head { background:linear-gradient(180deg,#fff,#fbfcfd); }
-.topic-panel .panel-badge {
-  margin-top:1px; padding:4px 8px; color:#607188; background:#f7fafc; border:1px solid #dce5ed;
+@media (prefers-reduced-transparency: reduce) {
+  body { background: #e9eef4; }
+  .nav, .nav.scrolled, .analytics-panel, .filter-panel, .publication-list, .empty-results { background: #f7f9fc; -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
-.topic-matrix {
-  flex:1; display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:6px; padding:6px 7px 7px; background:#f8fafc;
+@media (pointer: coarse) {
+  .topic-item, .venue-row, .ftag, .topic-filter { min-height: 32px; }
+  .filter-checkbox { width: 14px; height: 14px; }
 }
-.topic-field-group {
-  --cat-color:#65768a; --cat-bg:#f4f7fa;
-  display:flex; flex-direction:column; overflow:hidden;
-  border:1px solid color-mix(in srgb,var(--cat-color) 14%,#e2e8ee);
-  border-radius:10px; background:#fff;
-  box-shadow:0 2px 9px rgba(35,55,80,.025);
-}
-.topic-field-group:last-child { border-bottom:1px solid color-mix(in srgb,var(--cat-color) 14%,#e2e8ee); }
-.topic-field-summary {
-  min-height:48px; padding:6px 6px 6px 8px; align-items:center;
-  background:linear-gradient(145deg,var(--cat-bg),#fff 88%);
-  border:0; border-bottom:1px solid color-mix(in srgb,var(--cat-color) 12%,#e7ebef);
-}
-.topic-field-summary::before {
-  content:""; width:6px; height:6px; flex:0 0 auto; margin:0 6px 0 0;
-  border-radius:50%; background:var(--cat-color);
-  box-shadow:0 0 0 5px color-mix(in srgb,var(--cat-color) 10%,transparent);
-}
-.topic-field-summary .field-copy { display:block; min-width:0; flex:1; }
-.topic-field-summary .field-index {
-  height:auto; min-width:0; margin:0 0 3px; padding:0; border:0; background:transparent;
-  color:color-mix(in srgb,var(--cat-color) 72%,#526173); font-size:.44rem;
-}
-.topic-field-summary .field-name {
-  max-width:none; font-size:.61rem; line-height:1.18; font-weight:640; color:#273548;
-}
-.category-count {
-  flex:0 0 auto; min-width:30px; margin:0 6px 0 5px; text-align:right;
-  font:670 .88rem/1 var(--mono); color:color-mix(in srgb,var(--cat-color) 76%,#34475c);
-}
-.topic-items {
-  flex:1; display:grid; grid-auto-rows:24px; align-content:start;
-  gap:2px; padding:4px;
-}
-.topic-item {
-  min-height:24px; padding:3px 4px 3px 6px; border:1px solid transparent; border-radius:6px;
-  grid-template-columns:minmax(0,1fr) auto; gap:4px;
-}
-.topic-item:last-child { border-bottom:1px solid transparent; }
-.topic-item:hover { background:var(--cat-bg); border-color:color-mix(in srgb,var(--cat-color) 13%,#e5e9ee); }
-.topic-item.active-row {
-  background:color-mix(in srgb,var(--cat-bg) 76%,#fff);
-  border-color:color-mix(in srgb,var(--cat-color) 34%,#dce3e9);
-  color:color-mix(in srgb,var(--cat-color) 78%,#213247);
-}
-.topic-item .topic-name {
-  min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-  font-size:.53rem; line-height:1.18; font-weight:540;
-}
-.topic-count {
-  min-width:23px; height:18px; padding:0 4px; display:grid; place-items:center;
-  border:1px solid #e3e8ed; border-radius:99px; background:#f7f9fb;
-  font-size:.51rem; color:#59687a;
-}
-.topic-item:hover .topic-count,.topic-item.active-row .topic-count {
-  color:var(--cat-color); background:#fff; border-color:color-mix(in srgb,var(--cat-color) 25%,#dce3e9);
+@media print {
+  body { padding-top: 0; background: #fff; color: #223344; }
+  .page { width: 100%; padding: 0; }
+  .nav, .topic-system, .detail-toggle { display: none; }
+  .analytics-panel, .publication-list { background: #fff; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-color: #cbd4df; }
+  .page-header { padding-top: 0; }
+  .pub-item { break-inside: avoid; }
+  .pub-details { display: block; margin-top: 7px; }
+  .pub-compact-meta { display: none; }
+  .pub-year-label { break-after: avoid; }
 }
 
-/* Publication list toolbar and default two-line rows */
-.publication-list-section { margin-top:16px; }
-.publication-list-head {
-  min-height:44px; padding:0 0 8px; display:flex; align-items:flex-end; justify-content:space-between; gap:18px;
-  border-bottom:1px solid #dce3ea;
-}
-.publication-list-title { font-size:1.05rem; line-height:1.2; font-weight:650; letter-spacing:-.015em; }
-.publication-list-note { margin-top:4px; font-size:.62rem; color:#7c8898; }
-.detail-toggle {
-  appearance:none; min-height:34px; padding:6px 11px; display:inline-flex; align-items:center; gap:8px;
-  border:1px solid #d4dde6; border-radius:9px; background:#fff; color:#405169;
-  font:600 .63rem/1 var(--sans); cursor:pointer;
-  box-shadow:0 2px 8px rgba(24,44,70,.04);
-  transition:border-color .14s var(--ease),background .14s var(--ease),color .14s var(--ease);
-}
-.detail-toggle:hover { border-color:#b7cadc; background:#f7fafc; color:#234f7b; }
-.detail-toggle:focus-visible { outline:2px solid var(--blue3); outline-offset:2px; }
-.publication-list .pub-year-label {
-  padding:18px 0 7px; border-bottom:1px solid #cfd9e3; font-size:1.1rem;
-}
-.publication-list .pub-item {
-  grid-template-columns:26px minmax(0,1fr); gap:11px; padding:7px 0;
-  border-bottom-color:#e6ebef; border-radius:0;
-}
-.publication-list .pub-item:hover {
-  margin:0 -8px; padding-left:8px; padding-right:8px; background:#f4f8fb;
-}
-.publication-list .pub-num { padding-top:2px; font-size:.6rem; }
-.publication-list .pub-content { min-width:0; }
-.publication-list .pub-title-txt {
-  margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-  font-size:.78rem; line-height:1.35; font-weight:620;
-}
-.pub-compact-meta {
-  min-width:0; margin-top:1px; display:flex; align-items:baseline; gap:7px;
-  font-size:.64rem; line-height:1.35; color:#7b8795;
-}
-.pub-compact-authors,.pub-compact-venue { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.pub-compact-authors { max-width:58%; color:#687688; }
-.pub-compact-authors strong { color:#4a586a; font-weight:600; }
-.pub-compact-separator { flex:0 0 auto; color:#bdc5ce; }
-.pub-compact-venue { flex:1; font-family:var(--mono); font-size:.57rem; }
-.pub-details { display:none; }
-.publication-list.is-expanded .pub-item { padding-top:11px; padding-bottom:11px; }
-.publication-list.is-expanded .pub-title-txt { white-space:normal; font-size:.86rem; line-height:1.4; }
-.publication-list.is-expanded .pub-compact-meta { display:none; }
-.publication-list.is-expanded .pub-details { display:block; margin-top:4px; }
-.publication-list.is-expanded .pub-authors-txt { margin-bottom:2px; font-size:.71rem; }
-.pub-venue-detail { display:flex; align-items:center; flex-wrap:wrap; gap:3px; }
-.publication-list.is-expanded .pub-venue-txt { margin:0; font-size:.61rem; }
-.publication-list.is-expanded .pub-tags { margin-top:6px; }
-.publication-list.is-expanded .ptag { border-radius:5px; }
-
-@media (max-width:940px) {
-  .analytics-grid { grid-template-columns:1fr; }
-  .analytics-panel { height:auto; }
-  .venue-list { grid-template-columns:repeat(2,minmax(0,1fr)); gap:3px 8px; }
-}
-@media (max-width:680px) {
-  .topic-matrix { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .venue-list { grid-template-columns:1fr; }
-  .publication-list-head { align-items:flex-start; flex-direction:column; gap:10px; }
-  .detail-toggle { align-self:stretch; justify-content:center; }
-}
-@media (max-width:480px) {
-  .panel-head { min-height:0; padding:14px; }
-  .panel-subtitle { display:none; }
-  .topic-matrix { grid-template-columns:1fr; padding:7px; gap:6px; }
-  .venue-row { grid-template-columns:minmax(0,1fr) auto; gap:6px; }
-  .pub-compact-authors { max-width:50%; }
-}
-
+.topic-tag.active { background:#dbe7f7; border-color:transparent; color:#3d5e87; }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#publicationListTitle">Skip to publications</a>
 
-<nav class="nav" id="nav">
-  <span class="nav-brand">Tingjin Luo — Publications</span>
-  <a href="index.html" class="nav-home" aria-label="Return to home">
-    <span class="nav-home-icon" aria-hidden="true">←</span><span>Home</span>
+<nav class="nav" id="nav" aria-label="Page navigation">
+  <a class="nav-brand" href="index.html" aria-label="Tingjin Luo — home">Tingjin Luo</a>
+  <a href="navigate.html" class="nav-home" aria-label="Open navigation">
+    <span class="nav-home-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span><span>Navigate</span>
   </a>
 </nav>
 
-<div class="page">
+<main class="page" id="publicationPage">
 
 <!-- Page Header -->
-<div class="page-header">
-  <div class="page-eyebrow">Publication Record</div>
+<header class="page-header page-header-grid">
   <h1 class="page-title">Publications</h1>
-  <p class="page-sub">
-    Full list of publications by Tingjin Luo (罗廷金) &nbsp;·&nbsp;
-    <a href="https://scholar.google.com/citations?user=w0YDfhcAAAAJ" target="_blank" rel="noopener">Google Scholar</a> &nbsp;·&nbsp;
-    <a href="https://dblp.org/pid/175/8608.html" target="_blank" rel="noopener">DBLP</a> &nbsp;·&nbsp;
-    <sup>#</sup> = corresponding author &nbsp;·&nbsp;
-    <sup>*</sup> = co-first author
-  </p>
-</div>
+  <div class="hero-links">
+    <a href="https://scholar.google.com/citations?user=w0YDfhcAAAAJ" target="_blank" rel="noopener">Google Scholar<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+    <a href="https://dblp.org/pid/175/8608.html" target="_blank" rel="noopener">DBLP<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+  </div>
+</header>
 
 <section class="dashboard" aria-labelledby="analyticsTitle">
-  <div class="dashboard-heading">
-    <div><h2 class="dashboard-title" id="analyticsTitle">Publication analytics</h2></div>
-  </div>
+  <h2 class="sr-only" id="analyticsTitle">Publication analytics</h2>
   <div class="overview-grid">
-    <article class="overview-card" data-v>
-      <div class="overview-card-head"><div class="overview-card-label">Publications</div><span class="metric-code">Record</span></div>
+    <article class="overview-card">
+      <div class="overview-card-head"><div class="overview-card-label">Publications</div></div>
       <div class="overview-card-value" id="kpi-total">—</div><div class="overview-card-foot" id="kpi-years"></div>
     </article>
-    <article class="overview-card" data-v>
-      <div class="overview-card-head"><div class="overview-card-label">Lead / corresponding</div><span class="metric-code">Role</span></div>
-      <div class="overview-card-value" id="kpi-lead">—</div><div class="overview-card-foot" id="kpi-role-detail"></div>
+    <article class="overview-card">
+      <div class="overview-card-head"><div class="overview-card-label">Lead / corresponding</div></div>
+      <div class="overview-card-value" id="kpi-lead">—</div><div class="sr-only" id="kpi-role-detail"></div>
     </article>
-    <article class="overview-card" data-v>
-      <div class="overview-card-head"><div class="overview-card-label">CCF-A publications</div><span class="metric-code">Tier</span></div>
+    <article class="overview-card">
+      <div class="overview-card-head"><div class="overview-card-label">CCF-A publications</div></div>
       <div class="overview-card-value" id="kpi-ccfa">—</div><div class="overview-card-foot" id="kpi-ccfa-share"></div>
     </article>
-    <article class="overview-card" data-v>
-      <div class="overview-card-head"><div class="overview-card-label">Google Scholar citations</div><span class="metric-code">Impact</span></div>
+    <article class="overview-card">
+      <div class="overview-card-head"><div class="overview-card-label" title="Google Scholar · Profile checked 8 Oct 2026">Google Scholar citations</div></div>
       <div class="overview-card-value">1,369</div>
       <div class="scholar-metrics" aria-label="Google Scholar profile metrics">
         <span class="scholar-metric"><strong>22</strong><small>h-index</small></span>
         <span class="scholar-metric"><strong>41</strong><small>i10-index</small></span>
-        <span class="scholar-metric checked"><small>Profile checked</small><strong>8 Oct 2026</strong></span>
+        <span class="sr-only"><small>Profile checked</small><strong>8 Oct 2026</strong></span>
       </div>
     </article>
+    <article class="overview-card overview-timeline" aria-labelledby="timelineTitle">
+      <div class="overview-card-head"><h3 class="overview-card-label" id="timelineTitle">Timeline</h3></div>
+      <div class="trend-bars" id="yearTrend" role="group" aria-label="Publications by year"><div class="trend-tooltip" id="timelineTooltip" role="tooltip" hidden></div></div>
+      <div class="trend-years" id="yearTrendLabels" aria-hidden="true"></div>
+    </article>
   </div>
+  <div class="analysis-surface">
   <div class="analytics-grid">
-    <article class="analytics-panel venue-panel" data-v>
-      <header class="panel-head"><div class="panel-heading"><h3 class="panel-title">By venue and authorship</h3></div><span class="panel-badge" id="venueBadge">—</span></header>
-      <div class="venue-list" id="venueStatsBody" aria-label="Publication statistics by venue and authorship"></div>
+    <article class="analytics-panel venue-panel">
+      <header class="panel-head"><div class="panel-heading"><h3 class="panel-title">Venues</h3></div></header>
+      <div class="venue-list" id="venueStatsBody" aria-label="Filter by venue"></div>
     </article>
-    <article class="analytics-panel topic-panel" data-v>
-      <header class="panel-head"><div class="panel-heading"><h3 class="panel-title">By research topic</h3></div><span class="panel-badge" id="topicBadge">—</span></header>
-      <div class="topic-matrix" id="topicStatsBody" aria-label="Publication statistics by research topic"></div>
+    <article class="analytics-panel topic-panel">
+      <header class="panel-head"><div class="panel-heading"><h3 class="panel-title">Research topics</h3></div></header>
+      <div class="topic-matrix" id="topicStatsBody" aria-label="Filter by research topic"></div>
     </article>
   </div>
-  <div class="signal-grid">
-    <article class="signal-panel" data-v><div class="signal-head"><h3 class="signal-title">Publication timeline</h3><span class="signal-note" id="timelineNote"></span></div><div class="trend-bars" id="yearTrend"></div><div class="trend-years" id="yearTrendLabels"></div></article>
-    <article class="signal-panel" data-v><div class="signal-head"><h3 class="signal-title">Authorship role</h3><span class="signal-note">share of papers</span></div><div id="roleBreakdown"></div></article>
+
   </div>
 </section>
 
 <section class="topic-system" aria-labelledby="topicFilterTitle">
-  <div class="section-heading"><div><h2 class="dashboard-title" id="topicFilterTitle">Filter publications</h2></div></div>
+  <h2 class="sr-only" id="topicFilterTitle">Filter publications</h2><span class="sr-only" id="filterLogic">Publications must match every selected filter. The combined Multi-label option matches either partial-label or multi-label papers.</span>
   <div class="filter-panel">
     <div class="filter-topline">
-      <label class="search-wrap"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Search publications</span><input class="search-input" id="publicationSearch" type="search" placeholder="Search title, author, or venue…" autocomplete="off"></label>
-      <div class="filter-bar" id="metricFilters"><span class="filter-label">Rank / role:</span></div>
-      <button class="reset-btn" id="resetFilters" type="button">Reset filters</button>
+      <label class="search-wrap" for="publicationSearch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><span class="sr-only">Search publications</span><input class="search-input" id="publicationSearch" type="search" placeholder="Search title, author, or venue…" autocomplete="off"></label>
+      <button class="reset-btn" id="resetFilters" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></svg>Reset</button>
     </div>
-    <div class="topic-category-filters" id="topicCategoryFilters"><span class="filter-label">Research field:</span></div>
-    <div class="filter-summary" id="filterSummary" aria-live="polite"></div>
+    <fieldset class="filter-group" aria-describedby="filterLogic"><legend class="sr-only">Rank &amp; authorship</legend><div class="filter-bar" id="metricFilters"></div></fieldset>
+    <fieldset class="filter-group" aria-describedby="filterLogic"><legend class="sr-only">Research field</legend><div class="topic-category-filters" id="topicCategoryFilters"></div></fieldset>
+    <div class="active-filters" id="activeFilters" aria-label="Selected filters" hidden></div>
+    <div class="sr-only" id="filterSummary" aria-live="polite"></div>
   </div>
 </section>
 
@@ -889,1521 +422,25 @@ body {
 ────────────────────────────────────────────────────── -->
 <section class="publication-list-section" aria-labelledby="publicationListTitle">
   <div class="publication-list-head">
-    <div><h2 class="publication-list-title" id="publicationListTitle">All publications</h2></div>
-    <button class="detail-toggle" id="detailToggle" type="button" aria-expanded="false" aria-controls="pubListFull"><span id="detailToggleLabel">Show full details</span></button>
+    <div><h2 class="publication-list-title" id="publicationListTitle" tabindex="-1">Publications <span class="result-count" id="visibleCount"></span></h2><p class="publication-list-note"><sup>#</sup> Corresponding author · <sup>*</sup> Co-first author</p></div>
+    <button class="detail-toggle" id="detailToggle" type="button" aria-expanded="false" aria-controls="pubListFull"><span id="detailToggleLabel">Full details</span></button>
   </div>
   <div class="publication-list" id="pubListFull"></div>
+  <div class="empty-results" id="emptyResults" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4M8 10.5h5"/></svg><h3>No matches for this combination</h3><button class="reset-btn" id="resetEmptyFilters" type="button">Clear filters</button></div>
 </section>
 
 <!-- Footer -->
 <footer class="footer">
   <span class="footer-name">Tingjin Luo &middot; 罗廷金</span>
   <div class="footer-meta">
-    Last updated July 2026 &ensp;&middot;&ensp;
     <a href="https://github.com/HorizonAILab" target="_blank" rel="noopener">HorizonAILab</a>
     &ensp;&middot;&ensp; NUDT, Changsha
   </div>
 </footer>
 
-</div><!-- /page -->
+</main><!-- /page -->
 
-<script>
-/* ════════════════════════════════════════════════════
-   Rank and authorship tag dictionary
-   - Explicit tags: ccf-a, ccf-b, trans, q1
-   - Derived tag: cor, generated from role="first" or role="corr"
-════════════════════════════════════════════════════ */
-const TAG_META = {
-  "ccf-a": { label:"CCF-A", group:"metric", className:"ptag-a", order:1, description:"CCF-A venue" },
-  "ccf-b": { label:"CCF-B", group:"metric", className:"ptag-b", order:2, description:"CCF-B venue" },
-  "trans": { label:"Trans", group:"metric", className:"ptag-t", order:3, description:"IEEE/ACM Transactions" },
-  "q1": { label:"中科院/JCR Q1", group:"metric", className:"ptag-q1", order:4, description:"Top-quartile journal" },
-  "cor": { label:"一作/通讯", group:"metric", className:"ptag-cor", order:5, description:"First, co-first, or corresponding authorship; derived from role" }
-};
-
-const TOPIC_CATEGORIES = [
-  { id:"weak-supervision", label:"Weak Supervision", color:"#2f6fed", tint:"#f1f6ff", topics:[
-    ["semi-supervised","Semi-supervised Learning"],["partial-label","Partial-label Learning"],["multi-label","Multi-label Learning"],
-    ["multi-instance","Multi-instance Learning"],["label-distribution","Label Distribution Learning"],["label-noise","Label Noise Learning"]
-  ]},
-  { id:"representation-transfer", label:"Representation & Transfer", color:"#7458b8", tint:"#f7f4fc", topics:[
-    ["multi-view","Multi-view Learning"],["feature-learning","Feature Learning"],["domain-adaptation","Domain Adaptation"],["tensor-learning","Tensor Learning"],["clustering","Clustering & Subspace Learning"]
-  ]},
-  { id:"trustworthy-multimodal", label:"Trustworthy Multimodal AI", color:"#bc6b2c", tint:"#fff8f1", topics:[
-    ["imbalanced-learning","Imbalanced Learning"],["llm-hallucination","MLLM Hallucination"],["visual-reasoning","Visual Reasoning"],["fake-news-detection","Fake News Detection"]
-  ]},
-  { id:"applied-intelligence", label:"Scientific & Intelligence Applications", color:"#16816d", tint:"#f0faf7", topics:[
-    ["biology-medicine","Biology & Medicine"],["remote-sensing","Remote Sensing"],["intelligence-applications","Intelligence Applications"]
-  ]}
-];
-const TOPIC_META = Object.fromEntries(TOPIC_CATEGORIES.flatMap(category =>
-  category.topics.map(([id,label],order) => [id,{id,label,order,category:category.id,categoryLabel:category.label,color:category.color,tint:category.tint}])
-));
-
-/* ════════════════════════════════════════════════════
-   New-publication template
-
-   Copy one object into PUBS, usually at the top of the matching year.
-   role values:
-     "first" = first/co-first author
-     "corr"  = corresponding author
-     "co"    = co-author
-
-   The "cor" tag is added automatically when role is "first" or "corr".
-   The tags array only accepts: "ccf-a", "ccf-b", "trans", and "q1".
-   The topics array accepts keys declared in TOPIC_CATEGORIES above.
-   Leave tags as [] when none of these classifications applies.
-
-   {
-     year: 2026,
-     role: "corr",
-     title: "Paper title",
-     authors: "First Author, <strong>Tingjin Luo</strong><sup>#</sup>",
-     venue: "Conference or Journal, Accepted",
-     tags: ["ccf-a", "trans", "q1"],
-     topics: ["multi-view", "multi-label"],
-     links: [{ t:"PDF", u:"https://example.com/paper.pdf" }]
-   }
-════════════════════════════════════════════════════ */
-const NEW_PUBLICATIONS = [
-  {
-    year: 2026,
-    role: "corr",
-    title: "融合高阶语义信息的张量多视图半监督分类方法",
-    authors: "李向垚，<strong>罗廷金</strong><sup>#</sup>, 侯臣平",
-    venue: "计算机学报, Accepted",
-    tags: ["ccf-a"],
-    topics: ["multi-view", "semi-supervised", "tensor-learning"],
-    links: []
-  },
-  {
-    year: 2026,
-    role: "first",
-    title: "不平衡场景下自适应细粒度多示例多标签学习",
-    authors: "<strong>罗廷金</strong>, 张馨月, 栗阳, 周浩, 钱宇华<sup>#</sup>, 侯臣平<sup>#</sup>",
-    venue: "中国科学: 信息科学, Accepted",
-    tags: ["ccf-a"],
-    topics: ["multi-instance", "multi-label", "imbalanced-learning"],
-    links: []
-  },
-  {
-    year: 2026,
-    role: "corr",
-    title: "Unsupervised Distribution Alignment via Subspace Progressive Adaptation",
-    authors: "Mengtao Yang<sup>*</sup>, Yueying Liu<sup>*</sup>, Gaohao Yi, Hao Zhou, Yazhou Yang, <strong>Tingjin Luo</strong><sup>#</sup>",
-    venue: "Frontiers of Computer Science, Accepted",
-    tags: ["ccf-b", "q1"],
-    topics: ["domain-adaptation", "clustering", "feature-learning"],
-    links: []
-  },
-  {
-    year: 2026,
-    role: "corr",
-    title: "A reliable framework for brain tumor segmentation via multi-modal fusion and uncertainty modeling",
-    authors: "Tongxue Zhou, Mingyang Li, Su Ruan, <strong>Tingjin Luo</strong><sup>#</sup>, Bingbing Jiang, Junan Zhu, Ping Ma, Defu Yang, Guang Yang",
-    venue: "Information Fusion. Volume 129, May 2026, 104085",
-    tags: ["ccf-b", "q1"],
-    topics: ["biology-medicine", "multi-view", "feature-learning"],
-    links: []
-  },
-  {
-    year: 2025,
-    role: "co",
-    title: "Evolutionary Multi-View Classification via Eliminating Individual Fitness Bias",
-    authors: "Xinyan Liang, Shuai Li, Qian Guo, Yuhua Qian, Bingbing Jiang, <strong>Tingjin Luo</strong>, Liang Du",
-    venue: "Conference on Neural Information Processing Systems (NeurIPS), 2026",
-    tags: ["ccf-a"],
-    topics: ["multi-view", "feature-learning"],
-    links: []
-  },
-  {
-    year: 2025,
-    role: "corr",
-    title: "One-step Label Shift Adaptation via Robust Weight Estimation",
-    authors: "Ruidong Fan, Xiao Ouyang, <strong>Tingjin Luo</strong><sup>#</sup>, Lijun Zhang, Chenping Hou",
-    venue: "Proceedings of the Thirty-Fourth International Joint Conference on Artificial Intelligence (IJCAI-25)",
-    tags: ["ccf-b"],
-    topics: ["domain-adaptation", "imbalanced-learning"],
-    links: []
-  },
-  {
-    year: 2025,
-    role: "co",
-    title: "Trusted Multi-View Classification with Expert Knowledge Constraints",
-    authors: "Xinyan Liang, Shijie Wang, Yuhua Qian<sup>#</sup>, Qian Guo, Liang Du, Bingbing Jiang, <strong>Tingjin Luo</strong>, Feijiang Li",
-    venue: "Forty-second International Conference on Machine Learning (ICML), 13--19 July 2025, Vol. 267: 37409--37426",
-    tags: ["ccf-a"],
-    topics: ["multi-view", "feature-learning"],
-    links: []
-  },
-  {
-    year: 2025,
-    role: "co",
-    title: "A forward k-means algorithm for regression clustering",
-    authors: "Jun Lu, <strong>Tingjin Luo</strong>, Kai Li",
-    venue: "Information Sciences, Volume 711, 2025, 122105",
-    tags: ["ccf-b", "q1"],
-    topics: ["clustering"],
-    links: []
-  },
-  {
-    year: 2025,
-    role: "co",
-    title: "NLSC: A Noise-Robust Label Shift Correction Framework via Three-Head Training and Class-Adaptive Cleaning",
-    authors: "Xiaowen Wu, Ruidong Fan, <strong>Tingjin Luo</strong>, Chenping Hou",
-    venue: "Information Sciences, Volume 725, 2026, 122706",
-    tags: ["ccf-b", "q1"],
-    topics: ["label-noise", "domain-adaptation", "imbalanced-learning"],
-    links: []
-  },
-  {
-    year: 2025,
-    role: "co",
-    title: "DCMKC: A Dual Consistency Matching Approach for Multi-hop Question Answering in LLMs",
-    authors: "Xinyi Wang, Yiping Song, Chang Liu, <strong>Tingjin Luo</strong>, Bo Liu, Zheng Xie, Minlie Huang",
-    venue: "Findings of Empirical Methods in Natural Language Processing (EMNLP), 2025, pp. 259--273",
-    tags: ["ccf-b"],
-    topics: ["llm-hallucination", "intelligence-applications"],
-    links: []
-  }
-];
-
-const PUBS = [
-  ...NEW_PUBLICATIONS,
-  {
-    "year": 2026,
-    "role": "corr",
-    "title": "How Relation Enrichment Improves Clustering Ensemble Performance: A Second Order Induced Relation View",
-    "authors": "Feijiang Li, Jieting Wang, Yuhua Qian<sup>#</sup>, Hongren Yan, <strong>Tingjin Luo</strong>",
-    "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), Accepted",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "clustering"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "corr",
-    "title": "Dual-granularity Labeling for Multi-instance Multi-label Data with Skewed Annotation",
-    "authors": "Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Chenping Hou",
-    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE), Accepted",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "multi-instance",
-      "multi-label",
-      "imbalanced-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "corr",
-    "title": "Correcting Visual Blur Induced by Attention Distraction to Reduce Hallucinations: Algorithm and Theory",
-    "authors": "Quanjiang Li, Zhiming Liu, Wei Luo, <strong>Tingjin Luo</strong><sup>#</sup>, Chenping Hou",
-    "venue": "Forty-third International Conference on Machine Learning (ICML), Accepted",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "llm-hallucination",
-      "visual-reasoning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "corr",
-    "title": "Label-Guided Representation Learning for Incomplete Multi-View Multi-Label Classification",
-    "authors": "Yang Li, Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>",
-    "venue": "Forty-third International Conference on Machine Learning (ICML), Accepted",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "multi-view",
-      "multi-label",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "corr",
-    "title": "Imbalanced Multi-Domain Multi-Modal Learning with Expert Collaboration and Dynamic Fusion Mechanism for Fake News Detection",
-    "authors": "Yuchen Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Hongbing Wu, Xinwang Liu, Chenping Hou",
-    "venue": "ACM Transactions on Information Systems (TOIS), Accepted",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "imbalanced-learning",
-      "fake-news-detection",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "corr",
-    "title": "Self-Heterogeneous Knowledge Fusion with Personalized Guidance for Target Fine-grained Classification in Remote Sensing Images",
-    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Yongming He, Wenxia Guo",
-    "venue": "IEEE Transactions on Geoscience and Remote Sensing (TGRS), Accepted",
-    "tags": [
-      "ccf-b",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "remote-sensing",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "first",
-    "title": "Non-convex Transfer Subspace Learning via Embedded Distribution Alignment",
-    "authors": "<strong>Tingjin Luo</strong>, Yueyin Liu, Xinyue Zhang, Chenping Hou",
-    "venue": "IEEE Transactions on Image Processing (TIP), Accepted",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "domain-adaptation",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "corr",
-    "title": "Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition",
-    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>",
-    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "imbalanced-learning",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "first",
-    "title": "Deep Partial Label Feature Selection with Cluster-Guided Disambiguation",
-    "authors": "<strong>Tingjin Luo</strong>, Mengyuan Tong, Qingchang Shu, Yueyin Liu, Hao Zhou, Zheng Wang",
-    "venue": "ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "partial-label",
-      "feature-learning",
-      "clustering"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "first",
-    "title": "ESTIM: Efficient and Scalable Tensorial Incomplete Multi-view Semi-supervised Classification",
-    "authors": "<strong>Tingjin Luo</strong>, Xiangyao Li, Zhangqi Jiang, Shuanghui Zhang, Dewen Hu",
-    "venue": "ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "multi-view",
-      "semi-supervised"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "corr",
-    "title": "Multi-Label Classification with Incremental and Decremental Features",
-    "authors": "Mingdie Jiang, Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Yiping Song, Chenping Hou",
-    "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "multi-label",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "co",
-    "title": "DPRM: A Dual Implicit Process Reward Model for Automatic Labeling and Collaborative Reasoning in Multi-Hop Question Answering",
-    "authors": "Xinyi Wang, Yiping Song<sup>#</sup>, Zhiliang Tian, Bo Liu, <strong>Tingjin Luo</strong>, Minlie Huang",
-    "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "visual-reasoning",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2026,
-    "role": "first",
-    "title": "Nonconvex and Adaptive Multi-label Learning for Missing Labels",
-    "authors": "<strong>Tingjin Luo</strong><sup>#</sup>, Quanjiang Li, Mingdie Jiang, Chenping Hou",
-    "venue": "Knowledge-Based Systems (KBS), IF 7.6",
-    "tags": [
-      "ccf-b",
-      "q1"
-    ],
-    "topics": [
-      "multi-label"
-    ],
-    "links": []
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Tackling Noisy Labels with Noise-Free Prototype Guided Representation Calibration",
-    "authors": "Huiting Yuan, <strong>Tingjin Luo</strong><sup>#</sup>, Xinghao Wu, Jie Jiang",
-    "venue": "Knowledge-Based Systems (KBS), IF 7.6",
-    "tags": [
-      "ccf-b",
-      "q1"
-    ],
-    "topics": [
-      "label-noise",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Theory-Driven Label-Specific Representation for Incomplete Multi-View Multi-Label Learning",
-    "authors": "Quanjiang Li, Tianxiang Xu, <strong>Tingjin Luo</strong><sup>#</sup>, Yan Zhong, Yang Li, Yiyun Zhou, Chenping Hou",
-    "venue": "Conference on Neural Information Processing Systems (NeurIPS)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "multi-view",
-      "multi-label",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Adversarial Graph Fusion for Incomplete Multi-view Semi-supervised Learning with Tensorial Imputation",
-    "authors": "Zhangqi Jiang, <strong>Tingjin Luo</strong><sup>#</sup>, Xu Yang, Xinyan Liang",
-    "venue": "Conference on Neural Information Processing Systems (NeurIPS)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "multi-view",
-      "semi-supervised"
-    ],
-    "links": []
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network",
-    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang, Guoli Li",
-    "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), IF 20.8",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "visual-reasoning",
-      "feature-learning"
-    ],
-    "links": [
-      {
-        "t": "PDF",
-        "u": "https://ieeexplore.ieee.org/document/9858006"
-      }
-    ]
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels",
-    "authors": "Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Jiahui Liao",
-    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "multi-view",
-      "multi-label",
-      "label-noise"
-    ],
-    "links": [
-      {
-        "t": "PDF",
-        "u": "http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf"
-      }
-    ]
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens",
-    "authors": "Zhangqi Jiang, Junkai Chen, Beier Zhu, <strong>Tingjin Luo</strong><sup>#</sup>, Yankun Shen, Xu Yang<sup>#</sup>",
-    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "llm-hallucination",
-      "visual-reasoning"
-    ],
-    "links": [
-      {
-        "t": "arXiv",
-        "u": "http://arxiv.org/abs/2411.16724"
-      }
-    ]
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Dynamic Multi-experts Collaboration Learning for Long-tailed Visual Recognition",
-    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Yongming He, Jun Zhang",
-    "venue": "Information Fusion, 115:102734 (CAAI A, IF 14.7)",
-    "tags": [
-      "q1"
-    ],
-    "topics": [
-      "imbalanced-learning",
-      "intelligence-applications"
-    ],
-    "links": [
-      {
-        "t": "DOI",
-        "u": "https://doi.org/10.1016/j.inffus.2024.102734"
-      }
-    ]
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Nonconvex and Discriminative Transfer Subspace Learning for Unsupervised Domain Adaptation",
-    "authors": "Yueying Liu, <strong>Tingjin Luo</strong><sup>#</sup>",
-    "venue": "Frontiers of Computer Science, 19(2):192307",
-    "tags": [
-      "ccf-b"
-    ],
-    "topics": [
-      "domain-adaptation",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Imbalanced Multi-instance Multi-label Learning via Tensor Product-based Semantic Fusion",
-    "authors": "Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>",
-    "venue": "Frontiers of Computer Science",
-    "tags": [
-      "ccf-b"
-    ],
-    "topics": [
-      "multi-instance",
-      "multi-label",
-      "imbalanced-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Semi-Supervised Multi-View Multi-Label Learning with View-Specific Transformer and Enhanced Pseudo-Label",
-    "authors": "Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Mingdie Jiang, Zhangqi Jiang, Chenping Hou, Feijiang Li",
-    "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "semi-supervised",
-      "multi-view",
-      "multi-label"
-    ],
-    "links": []
-  },
-  {
-    "year": 2025,
-    "role": "corr",
-    "title": "Core-to-Global Reasoning for Compositional Visual Question Answering",
-    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Zhangqi Jiang",
-    "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "visual-reasoning",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2024,
-    "role": "first",
-    "title": "Robust Discriminative Feature Learning with Calibrated Data Reconstruction and Sparse Low-Rank Model",
-    "authors": "<strong>Tingjin Luo</strong>, Yang Yang<sup>#</sup>, Dongyun Yi, Jieping Ye",
-    "venue": "Applied Intelligence, 54:2867–2880",
-    "tags": [],
-    "topics": [
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2024,
-    "role": "corr",
-    "title": "Absent Multi-view Semi-supervised Classification",
-    "authors": "Wenzhang Zhuge, <strong>Tingjin Luo</strong><sup>#</sup>, Hong Tao, Chenping Hou<sup>#</sup>, Dongyun Yi",
-    "venue": "IEEE Transactions on Cybernetics (TCYB), 54(3):1708–1721",
-    "tags": [
-      "ccf-b",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "multi-view",
-      "semi-supervised"
-    ],
-    "links": []
-  },
-  {
-    "year": 2024,
-    "role": "co",
-    "title": "Core-Structures-Guided Multi-Modal Classification Neural Architecture Search",
-    "authors": "Pinhan Fu, Xinyan Liang, <strong>Tingjin Luo</strong>, Qian Guo, Yayu Zhang, Yuhua Qian<sup>#</sup>",
-    "venue": "International Joint Conference on Artificial Intelligence (IJCAI), 3980–3988",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "feature-learning",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2024,
-    "role": "corr",
-    "title": "Deep Incomplete Multi-View Learning Network with Insufficient Label Information",
-    "authors": "Zhangqi Jiang, <strong>Tingjin Luo</strong><sup>#</sup>, Xinyan Liang",
-    "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "multi-view",
-      "feature-learning"
-    ],
-    "links": [
-      {
-        "t": "PDF",
-        "u": "https://ojs.aaai.org/index.php/AAAI/article/view/29189"
-      },
-      {
-        "t": "Code",
-        "u": "https://github.com/ZhangqiJiang07/code_DIMvLN"
-      }
-    ]
-  },
-  {
-    "year": 2024,
-    "role": "co",
-    "title": "Compound Weakly Supervised Clustering",
-    "authors": "Hong Tao, Jiacheng Jiang, Chenping Hou<sup>#</sup>, <strong>Tingjin Luo</strong>, Ruidong Fan, Jing Zhang",
-    "venue": "IEEE Transactions on Image Processing (TIP), 33:957–971",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "semi-supervised",
-      "clustering"
-    ],
-    "links": []
-  },
-  {
-    "year": 2024,
-    "role": "corr",
-    "title": "结合对象属性识别的图像场景图生成方法研究",
-    "authors": "周浩, <strong>罗廷金</strong><sup>#</sup>, 崔国恒",
-    "venue": "计算机科学 (Computer Science), 51(11):205–212 (CCF 中文 T2)",
-    "tags": [],
-    "topics": [
-      "visual-reasoning",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2024,
-    "role": "corr",
-    "title": "基于多语义关联与融合的视觉问答模型",
-    "authors": "周浩, 王超, 崔国恒, <strong>罗廷金</strong><sup>#</sup>",
-    "venue": "计算机应用 (Journal of Computer Applications) (CCF 中文 T2)",
-    "tags": [],
-    "topics": [
-      "visual-reasoning",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2024,
-    "role": "corr",
-    "title": "Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds",
-    "authors": "Xinyue Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Yueying Liu, Chenping Hou",
-    "venue": "ACM International Conference on Multimedia (ACM MM), 5413–5422",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "multi-instance",
-      "multi-label",
-      "imbalanced-learning"
-    ],
-    "links": [
-      {
-        "t": "PDF",
-        "u": "https://dl.acm.org/doi/10.1145/3664647.3680911"
-      }
-    ]
-  },
-  {
-    "year": 2024,
-    "role": "corr",
-    "title": "Deep Incomplete Multi-View Network Semi-Supervised Multi-Label Learning with Unbiased Loss",
-    "authors": "Quanjiang Li, <strong>Tingjin Luo</strong><sup>#</sup>, Mingdie Jiang, Jiahui Liao, Zhangqi Jiang",
-    "venue": "ACM International Conference on Multimedia (ACM MM), 9048–9056",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "multi-view",
-      "semi-supervised",
-      "multi-label"
-    ],
-    "links": []
-  },
-  {
-    "year": 2023,
-    "role": "corr",
-    "title": "Debiased Scene Graph Generation for Dual Imbalance Learning",
-    "authors": "Hao Zhou, Jun Zhang<sup>#</sup>, <strong>Tingjin Luo</strong><sup>#</sup>, Yazhou Yang, Jun Lei",
-    "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 45(4):4274–4288",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "imbalanced-learning",
-      "visual-reasoning"
-    ],
-    "links": [
-      {
-        "t": "PDF",
-        "u": "https://ieeexplore.ieee.org/document/9858006"
-      },
-      {
-        "t": "Code",
-        "u": "https://github.com/zhouhao0515/unbiasedSGG-DSDI"
-      }
-    ]
-  },
-  {
-    "year": 2023,
-    "role": "corr",
-    "title": "Active Label Distribution Learning via Kernel Maximum Mean Discrepancy",
-    "authors": "Xinyue Dong, <strong>Tingjin Luo</strong><sup>#</sup>, Ruidong Fan, Wenzhang Zhuge, Chenping Hou<sup>#</sup>",
-    "venue": "Frontiers of Computer Science, 17(4):174327",
-    "tags": [
-      "ccf-b"
-    ],
-    "topics": [
-      "label-distribution",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2023,
-    "role": "first",
-    "title": "Semi-supervised Learning with Label Proportion",
-    "authors": "Ningzhao Sun<sup>*</sup>, <strong>Tingjin Luo</strong><sup>*</sup>, Hong Tao, Chenping Hou<sup>#</sup>, Dewen Hu<sup>#</sup>",
-    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE), 35(1):877–890",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "semi-supervised",
-      "label-distribution"
-    ],
-    "links": []
-  },
-  {
-    "year": 2023,
-    "role": "corr",
-    "title": "Joint Distribution Alignment and Transfer Subspace Learning for Unsupervised Domain Adaptation",
-    "authors": "Yueying Liu, <strong>Tingjin Luo</strong><sup>#</sup>",
-    "venue": "IEEE Int. Conf. on Cloud Computing and Intelligence Systems (CCIS), 53–58",
-    "tags": [],
-    "topics": [
-      "domain-adaptation",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2023,
-    "role": "co",
-    "title": "Online Learning with Incremental Feature Space and Bandit Feedback",
-    "authors": "Shilin Gu, <strong>Tingjin Luo</strong>, Ming He, Chenping Hou",
-    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE)",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2023,
-    "role": "co",
-    "title": "Incomplete Multi-view Learning under Label Shift",
-    "authors": "Ruidong Fan, Xiao Ouyang, <strong>Tingjin Luo</strong>, Dewen Hu, Chenping Hou",
-    "venue": "IEEE Transactions on Image Processing (TIP)",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "multi-view",
-      "domain-adaptation"
-    ],
-    "links": []
-  },
-  {
-    "year": 2023,
-    "role": "co",
-    "title": "Decorrelated Spectral Regression: An Unsupervised Dimension Reduction Method under Data Selection Bias",
-    "authors": "Xiuqi Huang, Haotian Ni, <strong>Tingjin Luo</strong>, Hong Tao, Chenping Hou<sup>#</sup>",
-    "venue": "Neurocomputing, 549:126406",
-    "tags": [],
-    "topics": [
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2022,
-    "role": "co",
-    "title": "Safe Incomplete Label Distribution Learning",
-    "authors": "Jing Zhang, Hong Tao<sup>#</sup>, <strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>",
-    "venue": "Pattern Recognition, 125:108518",
-    "tags": [
-      "ccf-b",
-      "q1"
-    ],
-    "topics": [
-      "label-distribution"
-    ],
-    "links": []
-  },
-  {
-    "year": 2022,
-    "role": "corr",
-    "title": "Joint Representation Learning and Clustering: A Framework for Grouping Partial Multiview Data",
-    "authors": "Wenzhang Zhuge, Hong Tao, <strong>Tingjin Luo</strong><sup>#</sup>, Linli Zeng, Chenping Hou<sup>#</sup>, Dongyun Yi",
-    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE), 34(8):3826–3840",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "multi-view",
-      "clustering",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2022,
-    "role": "co",
-    "title": "Multi-instance Positive and Unlabeled Learning with Bi-level Embedding",
-    "authors": "Xijia Tang, Chao Xu, <strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>",
-    "venue": "Intelligent Data Analysis, 26(3):659–678",
-    "tags": [],
-    "topics": [
-      "multi-instance",
-      "semi-supervised"
-    ],
-    "links": []
-  },
-  {
-    "year": 2022,
-    "role": "co",
-    "title": "基于独立自表达学习的不完全多视图聚类方法",
-    "authors": "诸葛文章, 范瑞东, <strong>罗廷金</strong>, 陶红, 侯臣平<sup>#</sup>",
-    "venue": "中国科学：信息科学， 52(7): 1186-1203",
-    "tags": [
-      "ccf-a",
-      "q1"
-    ],
-    "topics": [
-      "multi-view",
-      "clustering"
-    ],
-    "links": []
-  },
-  {
-    "year": 2021,
-    "role": "corr",
-    "title": "A Unified Deep Sparse Graph Attention Network for Scene Graph Generation",
-    "authors": "Hao Zhou, Yazhou Yang, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang<sup>#</sup>, Jun Lei, Shuohao Li",
-    "venue": "Pattern Recognition",
-    "tags": [
-      "ccf-b",
-      "q1"
-    ],
-    "topics": [
-      "visual-reasoning",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2021,
-    "role": "corr",
-    "title": "Relationship-aware Primal-Dual Graph Attention Network for Scene Graph Generation",
-    "authors": "Hao Zhou, <strong>Tingjin Luo</strong><sup>#</sup>, Jun Zhang, Jun Lei, Shuohao Li",
-    "venue": "IEEE International Conference on Multimedia and Expo (ICME)",
-    "tags": [
-      "ccf-b"
-    ],
-    "topics": [
-      "visual-reasoning",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2021,
-    "role": "corr",
-    "title": "Multiple Instance Learning for Unilateral Data",
-    "authors": "Xijia Tang, <strong>Tingjin Luo</strong><sup>#</sup>, Tianxiang Luan, Chenping Hou",
-    "venue": "Pacific-Asia Conf. on Knowledge Discovery and Data Mining (PAKDD)",
-    "tags": [],
-    "topics": [
-      "multi-instance"
-    ],
-    "links": []
-  },
-  {
-    "year": 2021,
-    "role": "co",
-    "title": "Active Label Distribution Learning",
-    "authors": "Xinyue Dong, Shilin Gu, Wenzhang Zhuge, <strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>",
-    "venue": "Neurocomputing, 436:12–21",
-    "tags": [
-      "ccf-b",
-      "q1"
-    ],
-    "topics": [
-      "label-distribution"
-    ],
-    "links": []
-  },
-  {
-    "year": 2020,
-    "role": "co",
-    "title": "Multi-view Subspace Learning via Bidirectional Sparsity",
-    "authors": "Ruidong Fan, <strong>Tingjin Luo</strong>, Wenzhang Zhuge, Sheng Qiang, Chenping Hou<sup>#</sup>",
-    "venue": "Pattern Recognition, 108:107524",
-    "tags": [
-      "ccf-b",
-      "q1"
-    ],
-    "topics": [
-      "multi-view",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2020,
-    "role": "co",
-    "title": "Optimal Representative Distribution Margin Machine for Multi-Instance Learning",
-    "authors": "Tianxiang Luan, <strong>Tingjin Luo</strong>, Wenzhang Zhuge, Chenping Hou<sup>#</sup>",
-    "venue": "IEEE Access, 8:74864–74874",
-    "tags": [],
-    "topics": [
-      "multi-instance"
-    ],
-    "links": []
-  },
-  {
-    "year": 2020,
-    "role": "co",
-    "title": "Multi-View Spectral Clustering with Incomplete Graphs",
-    "authors": "Wenzhang Zhuge, <strong>Tingjin Luo</strong>, Hong Tao, Chenping Hou<sup>#</sup>, Dongyun Yi",
-    "venue": "IEEE Access, 8:99820–99831",
-    "tags": [],
-    "topics": [
-      "multi-view",
-      "clustering"
-    ],
-    "links": []
-  },
-  {
-    "year": 2019,
-    "role": "first",
-    "title": "Dimension Reduction for Non-Gaussian Data by Adaptive Discriminative Analysis",
-    "authors": "<strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>, Feiping Nie, Dongyun Yi",
-    "venue": "IEEE Transactions on Cybernetics (TCYB), 49(3):933–946",
-    "tags": [
-      "ccf-b",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2019,
-    "role": "corr",
-    "title": "Non-Convex Transfer Subspace Learning for Unsupervised Domain Adaptation",
-    "authors": "Zhipeng Lin, Zhenyu Zhao, <strong>Tingjin Luo</strong><sup>#</sup>, Wenjing Yang, Yongjun Zhang, Yuhua Tang",
-    "venue": "IEEE International Conference on Multimedia and Expo (ICME), 1468–1473",
-    "tags": [
-      "ccf-b"
-    ],
-    "topics": [
-      "domain-adaptation",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2019,
-    "role": "co",
-    "title": "Rademacher Dropout: An Adaptive Dropout for Deep Neural Network via Optimizing Generalization Gap",
-    "authors": "Haotian Wang, Wenjing Yang<sup>#</sup>, Zhenyu Zhao, <strong>Tingjin Luo</strong>, Ji Wang, Yuhua Tang",
-    "venue": "Neurocomputing, 357:177–187",
-    "tags": [
-      "ccf-b",
-      "q1"
-    ],
-    "topics": [
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2019,
-    "role": "co",
-    "title": "Bi-direction Hierarchical LSTM with Spatial-Temporal Attention for Action Recognition",
-    "authors": "Haodong Yang, Jun Zhang<sup>#</sup>, Shuohao Li<sup>#</sup>, <strong>Tingjin Luo</strong>",
-    "venue": "Journal of Intelligent & Fuzzy Systems, 36(1):775–786",
-    "tags": [],
-    "topics": [
-      "feature-learning",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2018,
-    "role": "first",
-    "title": "Semi-Supervised Feature Selection via Insensitive Sparse Regression with Application to Video Semantic Recognition",
-    "authors": "<strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>, Feiping Nie, Hong Tao, Dongyun Yi",
-    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE), 30(10):1943–1956",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "semi-supervised",
-      "feature-learning",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2018,
-    "role": "first",
-    "title": "Identifying Genetic Risk Factors for Alzheimer's Disease via Shared Tree-Guided Feature Learning Across Multiple Tasks",
-    "authors": "Weizhong Zhang<sup>*</sup>, <strong>Tingjin Luo</strong><sup>*</sup>, Shuang Qiu, Jieping Ye, Deng Cai, Xiaofei He, Jie Wang<sup>#</sup>",
-    "venue": "IEEE Transactions on Knowledge and Data Engineering (TKDE), 30(11):2145–2156",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "biology-medicine",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2018,
-    "role": "co",
-    "title": "Robust Feature Selection via Simultaneous Capped Norm and Sparse Regularizer Minimization",
-    "authors": "Gongmin Lan, Chenping Hou<sup>#</sup>, Feiping Nie, <strong>Tingjin Luo</strong>, Dongyun Yi",
-    "venue": "Neurocomputing, 283:228–240",
-    "tags": [
-      "ccf-b",
-      "q1"
-    ],
-    "topics": [
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2017,
-    "role": "first",
-    "title": "Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning",
-    "authors": "<strong>Tingjin Luo</strong>, Weizhong Zhang, Shuang Qiu, Yang Yang, Dongyun Yi, Guangtao Wang, Jieping Ye<sup>#</sup>, Jie Wang<sup>#</sup>",
-    "venue": "ACM SIGKDD International Conference on Knowledge Discovery & Data Mining (KDD), 345–354",
-    "tags": [
-      "ccf-a"
-    ],
-    "topics": [
-      "multi-instance",
-      "biology-medicine"
-    ],
-    "links": [
-      {
-        "t": "PDF",
-        "u": "https://dl.acm.org/doi/10.1145/3097983.3097984"
-      },
-      {
-        "t": "Code",
-        "u": "https://github.com/HorizonAILab/Paper_Code"
-      },
-      {
-        "t": "Video",
-        "u": "https://videolectures.net/videos/kdd2017_luo_human_protein_coding"
-      }
-    ]
-  },
-  {
-    "year": 2017,
-    "role": "first",
-    "title": "A Robust Method for Inferring Network Structures",
-    "authors": "Yang Yang<sup>*</sup>, <strong>Tingjin Luo</strong><sup>*</sup>, Zhoujun Li, Xiaoming Zhang, Philip S. Yu",
-    "venue": "Scientific Reports, 7:5221",
-    "tags": [],
-    "topics": [
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2017,
-    "role": "co",
-    "title": "2D Feature Selection by Sparse Matrix Regression",
-    "authors": "Chenping Hou, Yuanyuan Jiao, Feiping Nie, <strong>Tingjin Luo</strong>, Zhi-Hua Zhou<sup>#</sup>",
-    "venue": "IEEE Transactions on Image Processing (TIP), 26(9):4255–4268",
-    "tags": [
-      "ccf-a",
-      "trans",
-      "q1"
-    ],
-    "topics": [
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2017,
-    "role": "co",
-    "title": "Robust Self-Tuning Sparse Subspace Clustering",
-    "authors": "Guangtao Wang, Jiayu Zhou, Jingjie Ni, <strong>Tingjin Luo</strong>, Wei Long, Hai Zhen, Gao Cong, Jieping Ye<sup>#</sup>",
-    "venue": "IEEE International Conference on Data Mining Workshops (ICDMW), 858–865",
-    "tags": [],
-    "topics": [
-      "clustering",
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2016,
-    "role": "first",
-    "title": "Discriminative Orthogonal Elastic Preserving Projections for Classification",
-    "authors": "<strong>Tingjin Luo</strong>, Chenping Hou<sup>#</sup>, Dongyun Yi, Jun Zhang",
-    "venue": "Neurocomputing, 179:54–68",
-    "tags": [
-      "ccf-b",
-      "q1"
-    ],
-    "topics": [
-      "feature-learning"
-    ],
-    "links": []
-  },
-  {
-    "year": 2014,
-    "role": "first",
-    "title": "Speed up Junction Detector based on Azimuth Consensus by Harris Corner",
-    "authors": "<strong>Tingjin Luo</strong>, Jun Zhang, Lin Lian",
-    "venue": "Optical Review, 21(2):135–142",
-    "tags": [],
-    "topics": [
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2013,
-    "role": "corr",
-    "title": "Junction Point Detection Algorithm for SAR Image",
-    "authors": "Jun Zhang, <strong>Tingjin Luo</strong><sup>#</sup>, Gui Gao, Lin Lian",
-    "venue": "International Journal of Antennas and Propagation, 2013:1–9",
-    "tags": [],
-    "topics": [
-      "remote-sensing",
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2013,
-    "role": "co",
-    "title": "3D Reconstruction of Periodic Human Walking Trajectories Based on Single View",
-    "authors": "Jun Zhang, Weiqiang Huang, <strong>Tingjin Luo</strong>",
-    "venue": "Chinese Journal of Electronics, 22(3):455–460",
-    "tags": [],
-    "topics": [
-      "intelligence-applications"
-    ],
-    "links": []
-  },
-  {
-    "year": 2012,
-    "role": "co",
-    "title": "Accurate Moving Target Detection Based on Background Subtraction and SUSAN",
-    "authors": "Jun Zhang, Shukui Xu, Kuihua Huang, <strong>Tingjin Luo</strong>",
-    "venue": "International Journal of Computer and Electrical Engineering, 4(4):436–439",
-    "tags": [],
-    "topics": [
-      "intelligence-applications"
-    ],
-    "links": []
-  }
-];
-
-function getPublicationTags(pub) {
-  const tags = new Set(pub.tags || []);
-  if (pub.role === "first" || pub.role === "corr") tags.add("cor");
-  return [...tags].sort((a,b) => (TAG_META[a]?.order ?? 9999) - (TAG_META[b]?.order ?? 9999));
-}
-
-const CATEGORY_ORDER = Object.fromEntries(TOPIC_CATEGORIES.map((category,index) => [category.id,index]));
-function getTopicTags(pub) {
-  return [...new Set(pub.topics || [])].sort((a,b) => {
-    const categoryDiff = (CATEGORY_ORDER[TOPIC_META[a]?.category] ?? 999) - (CATEGORY_ORDER[TOPIC_META[b]?.category] ?? 999);
-    return categoryDiff || (TOPIC_META[a]?.order ?? 999) - (TOPIC_META[b]?.order ?? 999);
-  });
-}
-
-function validatePublications() {
-  const knownTags = new Set(Object.keys(TAG_META));
-  const knownTopics = new Set(Object.keys(TOPIC_META));
-  const knownRoles = new Set(["first", "corr", "co"]);
-  const seen = new Set();
-  PUBS.forEach((p, i) => {
-    const pos = `PUBS[${i}]`;
-    ["year","role","title","authors","venue","tags","topics","links"].forEach(k => {
-      if (!(k in p)) console.warn(`${pos}: missing field "${k}"`);
-    });
-    if (!knownRoles.has(p.role)) console.warn(`${pos}: unknown role "${p.role}"`);
-    (p.tags || []).forEach(t => {
-      if (!knownTags.has(t)) console.warn(`${pos}: unknown tag "${t}"`);
-    });
-    (p.topics || []).forEach(topic => {
-      if (!knownTopics.has(topic)) console.warn(`${pos}: unknown topic "${topic}"`);
-    });
-    if (!(p.topics || []).length) console.warn(`${pos}: no research topic assigned`);
-    const key = `${p.year}::${p.title.trim().toLowerCase()}`;
-    if (seen.has(key)) console.warn(`${pos}: possible duplicate publication`, p.title);
-    seen.add(key);
-  });
-}
-validatePublications();
-
-/* Compact dashboard — every value below is derived from PUBS. */
-const dashboardCounts = {all:PUBS.length};
-Object.keys(TAG_META).forEach(tag => dashboardCounts[tag]=0);
-PUBS.forEach(pub => getPublicationTags(pub).forEach(tag => dashboardCounts[tag]++));
-const topicCounts = Object.fromEntries(Object.keys(TOPIC_META).map(topic => [topic,0]));
-PUBS.forEach(pub => getTopicTags(pub).forEach(topic => topicCounts[topic]++));
-const roleCounts = {
-  first:PUBS.filter(pub => pub.role==="first").length,
-  corr:PUBS.filter(pub => pub.role==="corr").length,
-  co:PUBS.filter(pub => pub.role==="co").length
-};
-const leadCount = roleCounts.first + roleCounts.corr;
-const dashboardYearMap = {};
-PUBS.forEach(pub => { dashboardYearMap[pub.year]=(dashboardYearMap[pub.year]||0)+1; });
-const dashboardYears = Object.keys(dashboardYearMap).map(Number).sort((a,b)=>a-b);
-
-const VENUE_GROUPS = [
-  {id:"tpami",label:"TPAMI",pattern:/Pattern Analysis and Machine Intelligence/i},
-  {id:"tkde",label:"TKDE",pattern:/Knowledge and Data Engineering/i},
-  {id:"tip",label:"TIP",pattern:/Transactions on Image Processing/i},
-  {id:"cvpr",label:"CVPR",pattern:/Computer Vision and Pattern Recognition/i},
-  {id:"kdd",label:"KDD",pattern:/Knowledge Discovery/i},
-  {id:"aaai",label:"AAAI",pattern:/AAAI Conference/i},
-  {id:"neurips",label:"NeurIPS",pattern:/Neural Information Processing Systems/i},
-  {id:"acm-mm",label:"ACM MM",pattern:/ACM International Conference on Multimedia/i},
-  {id:"icml",label:"ICML",pattern:/International Conference on Machine Learning/i},
-  {id:"ijcai",label:"IJCAI",pattern:/International Joint Conference on Artificial Intelligence/i}
-];
-function getVenueGroup(pub) { return VENUE_GROUPS.find(group => group.pattern.test(pub.venue))?.id || "others"; }
-const venueRows = VENUE_GROUPS.map(group => {
-  const papers=PUBS.filter(pub => getVenueGroup(pub)===group.id);
-  return {...group,papers:papers.length};
-}).filter(group => group.papers>0);
-
-document.getElementById("kpi-total").textContent=dashboardCounts.all;
-document.getElementById("kpi-years").textContent=`${dashboardYears[0]}–${dashboardYears.at(-1)} · ${dashboardYears.length} active years`;
-document.getElementById("kpi-lead").textContent=leadCount;
-document.getElementById("kpi-role-detail").textContent=`first ${roleCounts.first} · corresponding ${roleCounts.corr}`;
-document.getElementById("kpi-ccfa").textContent=dashboardCounts["ccf-a"];
-document.getElementById("kpi-ccfa-share").textContent=`${Math.round(dashboardCounts["ccf-a"]/dashboardCounts.all*100)}% of the publication record`;
-
-const venueStatsBody=document.getElementById("venueStatsBody");
-venueRows.forEach(row => venueStatsBody.insertAdjacentHTML("beforeend",`
-  <button class="venue-row" type="button" data-filter-row data-venue-filter="${row.id}" aria-label="Filter by ${row.label}: ${row.papers} papers">
-    <span class="venue-name">${row.label}</span>
-    <span class="venue-count">${row.papers}</span>
-  </button>`));
-document.getElementById("venueBadge").textContent=`${venueRows.length} venues`;
-
-const topicStatsBody=document.getElementById("topicStatsBody");
-const WEAK_SUPERVISION_DISPLAY_GROUPS = [
-  { ids:["semi-supervised"], label:"Semi-supervised" },
-  { ids:["partial-label","multi-label"], label:"Multi-label" },
-  { ids:["multi-instance"], label:"Multi-instance" },
-  { ids:["label-distribution"], label:"Label Distribution" },
-  { ids:["label-noise"], label:"Label Noise" }
-];
-let displayedTopicCount=0;
-TOPIC_CATEGORIES.forEach(category => {
-  const visibleTopics=category.topics.filter(([topic]) => topicCounts[topic]>0);
-  const categoryPapers=PUBS.filter(pub => getTopicTags(pub).some(topic => TOPIC_META[topic].category===category.id)).length;
-  const displayGroups=category.id==="weak-supervision"
-    ? WEAK_SUPERVISION_DISPLAY_GROUPS
-    : visibleTopics.map(([topic,label]) => ({ids:[topic],label}));
-  displayedTopicCount+=displayGroups.length;
-  const topicItems=displayGroups.map(({ids,label}) => {
-    const filterKey=ids.join("|");
-    const count=PUBS.filter(pub => getTopicTags(pub).some(topic => ids.includes(topic))).length;
-    return `<button class="topic-item" type="button" data-filter-row data-topic-filter="${filterKey}" title="${label}" aria-label="Filter by ${label}: ${count} papers"><span class="topic-name">${label}</span><span class="topic-count">${count}</span></button>`;
-  }).join("");
-  topicStatsBody.insertAdjacentHTML("beforeend",`<section class="topic-field-group" style="--cat-color:${category.color};--cat-bg:${category.tint}" aria-label="${category.label}: ${categoryPapers} papers"><div class="topic-field-summary"><span class="field-copy"><span class="field-name">${category.label}</span></span><span class="category-count" title="${categoryPapers} tagged papers">${categoryPapers}</span></div><div class="topic-items">${topicItems}</div></section>`);
-});
-document.getElementById("topicBadge").textContent=`${displayedTopicCount} topics · ${TOPIC_CATEGORIES.length} fields`;
-
-const maxYearCount=Math.max(...Object.values(dashboardYearMap));
-dashboardYears.forEach(year => {
-  const height=Math.max(3,Math.round(dashboardYearMap[year]/maxYearCount*60));
-  document.getElementById("yearTrend").insertAdjacentHTML("beforeend",`<div class="trend-col" title="${year}: ${dashboardYearMap[year]} papers"><span class="trend-value">${dashboardYearMap[year]}</span><span class="trend-bar" style="height:${height}px"></span></div>`);
-  document.getElementById("yearTrendLabels").insertAdjacentHTML("beforeend",`<span class="trend-year">${String(year).slice(2)}</span>`);
-});
-document.getElementById("timelineNote").textContent=`${dashboardYears[0]}–${dashboardYears.at(-1)} · peak ${maxYearCount}/year`;
-
-const roleData=[
-  {label:"First / co-first",color:"#244f7e",value:roleCounts.first},
-  {label:"Corresponding",color:"#39a58e",value:roleCounts.corr},
-  {label:"Co-author",color:"#cbd6e1",value:roleCounts.co}
-];
-document.getElementById("roleBreakdown").innerHTML=`
-  <div class="role-track" aria-hidden="true">${roleData.map(role => `<span class="role-segment" style="width:${role.value/dashboardCounts.all*100}%;background:${role.color}"></span>`).join("")}</div>
-  <div class="role-list">${roleData.map(role => `<div class="role-item"><span class="role-label"><span class="role-dot" style="background:${role.color}"></span>${role.label}</span><span class="role-count">${role.value}</span></div>`).join("")}</div>`;
-
-function compactMetricTagsHtml(tags) {
-  return tags.map(tag => {
-    const meta=TAG_META[tag]; if(!meta)return "";
-    return `<span class="ptag ${meta.className||"ptag-cor"}" title="${meta.description||meta.label}">${meta.label}</span>`;
-  }).join("");
-}
-function compactTopicTagsHtml(topics) {
-  const displayTopics=[...new Set(topics.map(topic => topic==="partial-label"?"multi-label":topic))];
-  return displayTopics.map(topic => {
-    const meta=TOPIC_META[topic]; if(!meta)return "";
-    const filterKey=topic==="multi-label"?"partial-label|multi-label":topic;
-    return `<button class="topic-tag" type="button" data-topic-chip="${filterKey}" style="--topic-color:${meta.color}" title="${meta.categoryLabel}">${meta.label}</button>`;
-  }).join("");
-}
-function compactLinksHtml(links) {
-  if(!links||!links.length)return "";
-  return `<span class="pub-lnks">${links.map(link => `<a href="${link.u}" target="_blank" rel="noopener">[${link.t}]</a>`).join("")}</span>`;
-}
-function plainText(html) {
-  const node=document.createElement("div"); node.innerHTML=html;
-  return (node.textContent||"").replace(/\s+/g," ").trim();
-}
-
-const compactByYear={};
-PUBS.forEach(pub => { (compactByYear[pub.year]=compactByYear[pub.year]||[]).push(pub); });
-let compactGlobalNum=PUBS.length;
-Object.keys(compactByYear).sort((a,b)=>b-a).forEach(year => {
-  const group=compactByYear[year],block=document.createElement("div");
-  block.className="pub-year-group"; block.dataset.year=year;
-  block.innerHTML=`<div class="pub-year-label">${year} <span class="pub-year-count">${group.length} paper${group.length>1?"s":""}</span></div>`;
-  group.forEach(pub => {
-    const item=document.createElement("article"),metricTags=getPublicationTags(pub),topicTags=getTopicTags(pub);
-    item.className="pub-item"; item.dataset.tags=metricTags.join(" "); item.dataset.topics=topicTags.join(" ");
-    item.dataset.venue=getVenueGroup(pub); item.dataset.search=plainText(`${pub.title} ${pub.authors} ${pub.venue}`).toLowerCase();
-    item.setAttribute("data-v","");
-    item.innerHTML=`<span class="pub-num">${compactGlobalNum--}</span><div class="pub-content">
-      <div class="pub-title-txt">${pub.links&&pub.links.length?`<a href="${pub.links[0].u}" target="_blank" rel="noopener">${pub.title}</a>`:pub.title}</div>
-      <div class="pub-compact-meta"><span class="pub-compact-authors">${pub.authors}</span><span class="pub-compact-separator" aria-hidden="true">·</span><span class="pub-compact-venue">${pub.venue}</span></div>
-      <div class="pub-details"><div class="pub-authors-txt">${pub.authors}</div><div class="pub-venue-detail"><span class="pub-venue-txt">${pub.venue}</span>${compactLinksHtml(pub.links)}</div>
-      <div class="pub-tags">${compactTopicTagsHtml(topicTags)}${compactMetricTagsHtml(metricTags)}</div></div></div>`;
-    block.appendChild(item);
-  });
-  document.getElementById("pubListFull").appendChild(block);
-});
-
-const publicationList=document.getElementById("pubListFull");
-const detailToggle=document.getElementById("detailToggle");
-const detailToggleLabel=document.getElementById("detailToggleLabel");
-function setDetailView(expanded) {
-  publicationList.classList.toggle("is-expanded",expanded);
-  detailToggle.setAttribute("aria-expanded",String(expanded));
-  detailToggleLabel.textContent=expanded?"Show compact view":"Show full details";
-}
-detailToggle.addEventListener("click",()=>setDetailView(detailToggle.getAttribute("aria-expanded")!=="true"));
-setDetailView(false);
-
-let selectedMetric=null,selectedCategory=null,selectedTopic=null,selectedVenue=null,publicationQuery="";
-const metricContainer=document.getElementById("metricFilters");
-metricContainer.insertAdjacentHTML("beforeend",`<button type="button" class="ftag active" data-metric-filter="">全部 <span class="ftag-count">${PUBS.length}</span></button>`);
-Object.entries(TAG_META).filter(([key,meta]) => meta.group==="metric"&&dashboardCounts[key]>0).sort((a,b)=>a[1].order-b[1].order).forEach(([key,meta]) => {
-  metricContainer.insertAdjacentHTML("beforeend",`<button type="button" class="ftag" data-metric-filter="${key}">${meta.label} <span class="ftag-count">${dashboardCounts[key]}</span></button>`);
-});
-const categoryContainer=document.getElementById("topicCategoryFilters");
-TOPIC_CATEGORIES.forEach(category => {
-  const count=PUBS.filter(pub => getTopicTags(pub).some(topic => TOPIC_META[topic].category===category.id)).length;
-  categoryContainer.insertAdjacentHTML("beforeend",`<button type="button" class="topic-filter" data-category-filter="${category.id}" style="--topic-color:${category.color}">${category.label} <span class="ftag-count">${count}</span></button>`);
-});
-
-function selectTopic(topic) { selectedTopic=selectedTopic===topic?null:topic; selectedCategory=null; applyCompactFilters(); }
-function selectVenue(venue) { selectedVenue=selectedVenue===venue?null:venue; applyCompactFilters(); }
-function applyCompactFilters() {
-  let visibleCount=0;
-  const selectedTopics=selectedTopic?selectedTopic.split("|"):[];
-  document.querySelectorAll(".pub-item").forEach(item => {
-    const metrics=new Set((item.dataset.tags||"").split(/\s+/).filter(Boolean));
-    const topics=(item.dataset.topics||"").split(/\s+/).filter(Boolean);
-    const show=(!selectedMetric||metrics.has(selectedMetric))&&(!selectedTopic||selectedTopics.some(topic => topics.includes(topic)))&&
-      (!selectedCategory||topics.some(topic => TOPIC_META[topic]?.category===selectedCategory))&&
-      (!selectedVenue||item.dataset.venue===selectedVenue)&&(!publicationQuery||(item.dataset.search||"").includes(publicationQuery));
-    item.style.display=show?"":"none"; if(show)visibleCount++;
-  });
-  document.querySelectorAll(".pub-year-group").forEach(group => {
-    const visible=[...group.querySelectorAll(".pub-item")].filter(item => item.style.display!=="none");
-    group.style.display=visible.length?"":"none";
-    group.querySelector(".pub-year-count").textContent=`${visible.length} paper${visible.length===1?"":"s"}`;
-  });
-  document.querySelectorAll("[data-metric-filter]").forEach(button => button.classList.toggle("active",(button.dataset.metricFilter||null)===selectedMetric));
-  document.querySelectorAll("[data-category-filter]").forEach(button => button.classList.toggle("active",button.dataset.categoryFilter===selectedCategory));
-  document.querySelectorAll("[data-topic-filter]").forEach(row => row.classList.toggle("active-row",row.dataset.topicFilter===selectedTopic));
-  document.querySelectorAll("[data-venue-filter]").forEach(row => row.classList.toggle("active-row",row.dataset.venueFilter===selectedVenue));
-  const descriptors=[];
-  if(selectedMetric)descriptors.push(TAG_META[selectedMetric].label);
-  if(selectedCategory)descriptors.push(TOPIC_CATEGORIES.find(category => category.id===selectedCategory)?.label);
-  if(selectedTopic) {
-    const activeTopicRow=[...document.querySelectorAll("[data-topic-filter]")].find(row => row.dataset.topicFilter===selectedTopic);
-    descriptors.push(activeTopicRow?.querySelector(".topic-name")?.textContent||TOPIC_META[selectedTopic]?.label);
-  }
-  if(selectedVenue)descriptors.push(venueRows.find(row => row.id===selectedVenue)?.label);
-  if(publicationQuery)descriptors.push(`“${document.getElementById("publicationSearch").value.trim()}”`);
-  document.getElementById("filterSummary").textContent=`Showing ${visibleCount} of ${PUBS.length} publications${descriptors.filter(Boolean).length?` · ${descriptors.filter(Boolean).join(" · ")}`:" · all research"}`;
-}
-document.querySelectorAll("[data-metric-filter]").forEach(button => button.addEventListener("click",()=>{selectedMetric=button.dataset.metricFilter||null;applyCompactFilters();}));
-document.querySelectorAll("[data-category-filter]").forEach(button => button.addEventListener("click",()=>{selectedCategory=selectedCategory===button.dataset.categoryFilter?null:button.dataset.categoryFilter;selectedTopic=null;applyCompactFilters();}));
-document.querySelectorAll("[data-topic-filter]").forEach(row => {
-  const handler=()=>selectTopic(row.dataset.topicFilter); row.addEventListener("click",handler);
-  if(row.tagName!=="BUTTON")row.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();handler();}});
-});
-document.querySelectorAll("[data-venue-filter]").forEach(row => {
-  const handler=()=>selectVenue(row.dataset.venueFilter); row.addEventListener("click",handler);
-  row.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();handler();}});
-});
-document.querySelectorAll("[data-topic-chip]").forEach(button => button.addEventListener("click",()=>selectTopic(button.dataset.topicChip)));
-document.getElementById("publicationSearch").addEventListener("input",event=>{publicationQuery=event.target.value.trim().toLowerCase();applyCompactFilters();});
-document.getElementById("resetFilters").addEventListener("click",()=>{
-  selectedMetric=null;selectedCategory=null;selectedTopic=null;selectedVenue=null;publicationQuery="";
-  document.getElementById("publicationSearch").value="";applyCompactFilters();
-});
-applyCompactFilters();
-
-/* Nav scroll + scroll reveal */
-const nav = document.getElementById("nav");
-window.addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 10), { passive:true });
-if ("IntersectionObserver" in window) {
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("vis");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold:.06, rootMargin:"0px 0px -16px 0px" });
-  document.querySelectorAll("[data-v]").forEach(el => revealObserver.observe(el));
-} else document.querySelectorAll("[data-v]").forEach(el => el.classList.add("vis"));
-</script>
+<script src="publication-core.js"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e"}' crossorigin="anonymous"></script>
 </body>
 </html>

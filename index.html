@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico?v=2" type="image/x-icon">
 <title>Tingjin Luo — NUDT</title>
 <meta name="description" content="Tingjin Luo, Associate Professor, College of Sciences, NUDT.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1467,6 +1467,31 @@ document.addEventListener('keydown', function(e){
     }
   }
 });
+
+/* Navigation shortcut (N). */
+(function(){
+  var composing = false;
+  document.addEventListener('compositionstart', function(){ composing = true; });
+  document.addEventListener('compositionend', function(){ composing = false; });
+  function isEditing(node){
+    if (node && node.nodeType === 3) node = node.parentElement;
+    if (!node) return false;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(node.tagName || '') || node.isContentEditable) return true;
+    if (typeof node.closest !== 'function') return false;
+    if (node.closest('input, textarea, select')) return true;
+    var editable = node.closest('[contenteditable]');
+    return !!editable && editable.getAttribute('contenteditable') !== 'false';
+  }
+  document.addEventListener('keydown', function(e){
+    if ((e.key !== 'n' && e.key !== 'N') || e.defaultPrevented || e.repeat ||
+        e.ctrlKey || e.metaKey || e.altKey || e.isComposing || composing ||
+        e.keyCode === 229 || (typeof e.getModifierState === 'function' && e.getModifierState('AltGraph'))) return;
+    var path = typeof e.composedPath === 'function' ? e.composedPath() : [e.target];
+    if (isEditing(document.activeElement) || path.some(isEditing)) return;
+    e.preventDefault();
+    window.location.assign('navigate.html');
+  });
+})();
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.0/swiper-bundle.min.js"></script>
