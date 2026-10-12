@@ -67,7 +67,7 @@ main{padding-top:14px}
 <p id="export-feedback" class="export-feedback" role="status" aria-live="polite" hidden></p>
 </main>
 </div>
-<dialog id="settings" aria-labelledby="settings-title"><form method="dialog" class="dialog-heading"><h2 id="settings-title">设置</h2><button class="icon-button" aria-label="关闭设置"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button></form><div class="setting-row"><label for="main-file">主文件</label><select id="main-file" aria-label="新版主文件"><option value="">自动识别</option></select></div><div class="setting-row"><label for="math">公式</label><select id="math"><option value="whole">整式标蓝</option><option value="skip">不标蓝</option></select></div><label class="toggle-row"><span>忽略注释</span><input type="checkbox" id="ignore-comments" checked></label><label class="toggle-row"><span>忽略空白调整</span><input type="checkbox" id="ignore-whitespace" checked></label><label class="toggle-row"><span>识别文件改名</span><input type="checkbox" id="ignore-moves" checked></label><label class="toggle-row"><span>只显示修改文件</span><input type="checkbox" id="only-changes" checked></label><label class="toggle-row"><span>打包检查清单</span><input type="checkbox" id="include-report"></label><p class="setting-note">UTF-8 · TEX ≤ 1 MB · ZIP ≤ 100 MB</p><form method="dialog"><button class="primary full">完成</button></form></dialog>
+<dialog id="settings" aria-labelledby="settings-title"><form method="dialog" class="dialog-heading"><h2 id="settings-title">设置</h2><button class="icon-button" aria-label="关闭设置"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button></form><div class="setting-row"><label for="main-file">主文件</label><select id="main-file" aria-label="新版主文件"><option value="">自动识别</option></select></div><div class="setting-row"><label for="math">公式</label><select id="math"><option value="whole">整式标蓝</option><option value="skip">不标蓝</option></select></div><label class="toggle-row"><span>忽略注释</span><input type="checkbox" id="ignore-comments" checked></label><label class="toggle-row"><span>忽略空白调整</span><input type="checkbox" id="ignore-whitespace" checked></label><label class="toggle-row"><span>识别文件改名</span><input type="checkbox" id="ignore-moves" title="识别改名或移位的章节；相似内容须唯一匹配" checked></label><label class="toggle-row"><span>只显示修改文件</span><input type="checkbox" id="only-changes" checked></label><label class="toggle-row"><span>打包检查清单</span><input type="checkbox" id="include-report"></label><p class="setting-note">UTF-8 · TEX ≤ 1 MB · ZIP ≤ 100 MB</p><form method="dialog"><button class="primary full">完成</button></form></dialog>
 <dialog id="fragment-dialog" aria-labelledby="fragment-title"><form method="dialog" class="dialog-heading"><h2 id="fragment-title">章节片段</h2><button class="icon-button" aria-label="关闭"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button></form><p>标蓝 TEX 与配套导言文件一起打包。<br>请在主文件导言区加入：</p><code>\input{blue_revision_preamble.tex}</code><button class="primary full" id="fragment-download">下载 ZIP</button></dialog>
 <script id="engine-source">(function (root, factory) {
   'use strict';
@@ -269,6 +269,55 @@ main{padding-top:14px}
     const ending = text.indexOf(text[cursor], cursor + 1);
     return ending < 0 ? text.length : ending + 1;
   }
+  function sourceDefinitionEnd(text, start) {
+    const command = /^\\(newcommand|renewcommand|providecommand|DeclareRobustCommand|newenvironment|renewenvironment|(?:New|Renew|Provide|Declare)(?:Expandable)?Document(?:Command|Environment)|DeclareMathOperator|newtheorem|def|gdef|edef|xdef)\*?(?![A-Za-z@])/.exec(text.slice(start));
+    if (!command) return null;
+    let cursor = start + command[0].length;
+    function space() {
+      while (cursor < text.length) {
+        if (/\s/.test(text[cursor])) cursor++;
+        else if (text[cursor] === '%') { const end = text.indexOf('\n', cursor); cursor = end < 0 ? text.length : end + 1; }
+        else break;
+      }
+    }
+    function group(open, close) {
+      if (text[cursor] !== open) return false;
+      let depth = 1, braces = 0;
+      for (cursor++; cursor < text.length; cursor++) {
+        const ch = text[cursor];
+        if (ch === '\\') { cursor++; continue; }
+        if (ch === '%') { const end = text.indexOf('\n', cursor); if (end < 0) return false; cursor = end; continue; }
+        if (open === '[' && ch === '{') { braces++; continue; }
+        if (open === '[' && ch === '}') { braces--; continue; }
+        if (braces) continue;
+        if (ch === open) depth++;
+        else if (ch === close && --depth === 0) { cursor++; return true; }
+      }
+      return false;
+    }
+    space();
+    const name = command[1];
+    if (/^(?:def|gdef|edef|xdef)$/.test(name)) {
+      while (cursor < text.length && text[cursor] !== '{') {
+        if (text[cursor] === '%') { const end = text.indexOf('\n', cursor); cursor = end < 0 ? text.length : end + 1; }
+        else if (text[cursor] === '\\') { const target = /^\\(?:[A-Za-z@]+|[\s\S])/.exec(text.slice(cursor)); cursor += target ? target[0].length : 1; }
+        else cursor++;
+      }
+      return group('{', '}') ? cursor : null;
+    }
+    if (text[cursor] === '{') { if (!group('{', '}')) return null; }
+    else {
+      const target = /^\\(?:[A-Za-z@]+|[\s\S])/.exec(text.slice(cursor));
+      if (!target) return null;
+      cursor += target[0].length;
+    }
+    space();
+    while (text[cursor] === '[') { if (!group('[', ']')) return null; space(); }
+    const count = /DocumentEnvironment$/.test(name) ? 3 : /DocumentCommand$/.test(name) ? 2 : /environment$/.test(name) ? 2 : 1;
+    for (let n = 0; n < count; n++) { space(); if (!group('{', '}')) return null; }
+    if (name === 'newtheorem') { const end = cursor; space(); if (text[cursor] === '[') { if (!group('[', ']')) return null; } else cursor = end; }
+    return cursor;
+  }
   function tokenize(text, options) {
     const tokens = [];
     let i = 0;
@@ -283,14 +332,18 @@ main{padding-top:14px}
         const next = text.indexOf('\n', i), end = next < 0 ? text.length : next;
         if (options.ignoreComments) i = end; else push(end, 'comment');
       } else if (ch === '\\') {
+        const definitionEnd = sourceDefinitionEnd(text, i);
+        if (definitionEnd !== null) { push(definitionEnd, 'definition'); continue; }
         const inlineEnd = inlineLiteralEnd(text, i);
         if (inlineEnd !== null) { push(inlineEnd, 'verbatim'); continue; }
-        const env = /^\\begin\s*\{(verbatim\*?|Verbatim|lstlisting|minted)\}/.exec(text.slice(i));
+        const env = /^\\begin\s*\{(verbatim\*?|Verbatim\*?|BVerbatim|LVerbatim|SaveVerbatim|lstlisting\*?|minted|comment|filecontents\*?)\}/.exec(text.slice(i));
         if (env) {
           const endRe = new RegExp('\\\\end\\s*\\{' + env[1].replace(/\*/g, '\\*') + '\\}', 'g');
           endRe.lastIndex = i + env[0].length;
           const ending = endRe.exec(text);
-          push(ending ? endRe.lastIndex : text.length, 'verbatim');
+          const end = ending ? endRe.lastIndex : text.length;
+          if (env[1] === 'comment' && options.ignoreComments) i = end;
+          else push(end, env[1] === 'comment' ? 'comment' : 'verbatim');
           continue;
         }
         const verb = /^\\verb\*?(?![A-Za-z])/.exec(text.slice(i));
@@ -355,6 +408,126 @@ main{padding-top:14px}
       }
     }
     return null;
+  }
+  // Reconstruct an exact LCS with two reusable score rows. Subproblems are
+  // processed iteratively, so neither a quadratic table nor recursive rows live
+  // on the stack. The deterministic budget counts every DP cell actually read.
+  // Hirschberg, CACM 18(6), 1975, Algorithm C.
+  function hirschberg(a, b, budget) {
+    const area = a.length * b.length;
+    if (area > Math.floor(budget.cells / 3)) return null;
+    const swapped = a.length < b.length, x = swapped ? b : a, y = swapped ? a : b;
+    const forward = new Uint32Array(y.length + 1), backward = new Uint32Array(y.length + 1);
+    const matched = new Uint8Array(b.length), pending = [{ x0: 0, x1: x.length, y0: 0, y1: y.length }];
+    let count = 0;
+    function match(i, j) { matched[swapped ? i : j] = 1; count++; }
+    function row(x0, x1, y0, y1, reverse, values) {
+      const width = y1 - y0, cost = (x1 - x0) * width;
+      if (cost > budget.cells) return false;
+      budget.cells -= cost;
+      values.fill(0, 0, width + 1);
+      for (let i = 0; i < x1 - x0; i++) {
+        const id = x[reverse ? x1 - 1 - i : x0 + i].id;
+        let diagonal = 0;
+        for (let j = 1; j <= width; j++) {
+          const previous = values[j];
+          values[j] = id === y[reverse ? y1 - j : y0 + j - 1].id ? diagonal + 1 : Math.max(values[j], values[j - 1]);
+          diagonal = previous;
+        }
+      }
+      return true;
+    }
+    while (pending.length) {
+      let { x0, x1, y0, y1 } = pending.pop();
+      while (x0 < x1 && y0 < y1 && x[x0].id === y[y0].id) { match(x0++, y0++); }
+      while (x0 < x1 && y0 < y1 && x[x1 - 1].id === y[y1 - 1].id) { match(--x1, --y1); }
+      if (x0 === x1 || y0 === y1) continue;
+      if (x1 - x0 === 1 || y1 - y0 === 1) {
+        const cost = (x1 - x0) * (y1 - y0);
+        if (cost > budget.cells) return null;
+        budget.cells -= cost;
+        if (x1 - x0 === 1) { for (let j = y0; j < y1; j++) if (x[x0].id === y[j].id) { match(x0, j); break; } }
+        else { for (let i = x0; i < x1; i++) if (x[i].id === y[y0].id) { match(i, y0); break; } }
+        continue;
+      }
+      const middle = (x0 + x1) >>> 1, width = y1 - y0;
+      if (!row(x0, middle, y0, y1, false, forward) || !row(middle, x1, y0, y1, true, backward)) return null;
+      let best = -1, split = 0;
+      for (let j = 0; j <= width; j++) {
+        const length = forward[j] + backward[width - j];
+        if (length > best) { best = length; split = j; }
+      }
+      // The first maximizing split is deterministic; trim above protects exact
+      // unchanged ends when several longest common subsequences are possible.
+      pending.push({ x0: middle, x1, y0: y0 + split, y1 });
+      pending.push({ x0, x1: middle, y0, y1: y0 + split });
+    }
+    const added = [];
+    for (let i = 0; i < b.length; i++) if (!matched[i]) added.push(i);
+    return { added, removed: a.length - count, lcs: count };
+  }
+  // Per-value positive count differences are an unavoidable addition lower
+  // bound. If removing exactly that many occurrences leaves an old subsequence,
+  // the bound is attained: the returned script is globally optimal, not a guess.
+  function frequencyAlignment(a, b, budget) {
+    const cost = 6 * (a.length + b.length);
+    if (cost > budget.scan) return { bound: null, result: null };
+    budget.scan -= cost;
+    const oldCounts = new Map(), newCounts = new Map(), surplus = new Map();
+    for (const t of a) oldCounts.set(t.id, (oldCounts.get(t.id) || 0) + 1);
+    for (const t of b) newCounts.set(t.id, (newCounts.get(t.id) || 0) + 1);
+    let bound = 0;
+    for (const [id, count] of newCounts) {
+      const excess = count - (oldCounts.get(id) || 0);
+      if (excess > 0) { surplus.set(id, excess); bound += excess; }
+    }
+    if (!bound) return { bound, result: null };
+    for (const reverse of [false, true]) {
+      const need = new Map(surplus), remove = new Uint8Array(b.length), added = [];
+      for (let k = 0; k < b.length; k++) {
+        const i = reverse ? b.length - 1 - k : k, count = need.get(b[i].id) || 0;
+        if (count) { remove[i] = 1; added.push(i); need.set(b[i].id, count - 1); }
+      }
+      let cursor = 0, valid = true;
+      for (let j = 0; j < b.length; j++) if (!remove[j]) {
+        while (cursor < a.length && a[cursor].id !== b[j].id) cursor++;
+        if (cursor === a.length) { valid = false; break; }
+        cursor++;
+      }
+      if (valid) {
+        if (reverse) added.reverse();
+        const lcs = b.length - bound;
+        return { bound, result: { added, removed: a.length - lcs, lcs } };
+      }
+    }
+    return { bound, result: null };
+  }
+  // Exact length-only certificate for a proposed anchor partition. BigInt masks
+  // nominate no alignment: they only compute LCS length. Both arithmetic work
+  // and the sum of mask bit lengths have explicit caps before masks are built.
+  function lcsCertificate(a, b, budget) {
+    if (typeof BigInt !== 'function') return null;
+    const x = a.length >= b.length ? a : b, y = a.length >= b.length ? b : a;
+    if (!y.length) return 0;
+    const words = Math.ceil(y.length / 64), wordCost = 6 * (x.length + 2 * y.length) * words;
+    if (wordCost > budget.certWords || x.length + y.length > budget.scan) return null;
+    budget.scan -= x.length + y.length;
+    const common = new Set(x.map(t => t.id)), lastPositions = new Map();
+    for (let i = 0; i < y.length; i++) if (common.has(y[i].id)) lastPositions.set(y[i].id, i);
+    let maskBits = 0;
+    for (const last of lastPositions.values()) maskBits += last + 1;
+    if (maskBits > 64000000) return null;
+    budget.certWords -= wordCost;
+    const masks = new Map();
+    for (let i = 0; i < y.length; i++) if (lastPositions.has(y[i].id)) masks.set(y[i].id, (masks.get(y[i].id) || 0n) | (1n << BigInt(i)));
+    let state = 0n;
+    for (const token of x) {
+      const occupied = (masks.get(token.id) || 0n) | state;
+      state = occupied & ~(occupied - ((state << 1n) | 1n));
+    }
+    let length = 0;
+    for (const bit of state.toString(2)) if (bit === '1') length++;
+    return length;
   }
   function mergeRanges(ranges, text) {
     const result = [];
@@ -460,63 +633,69 @@ main{padding-top:14px}
       if (!vocabulary.has(token.value)) vocabulary.set(token.value, vocabulary.size + 1);
       token.id = vocabulary.get(token.value);
     }
-    const added = [], unresolved = [];
-    let removedCount = 0;
-    // Bounded work is shared across all gaps, rather than colouring a whole file
-    // when a single global edit-distance limit is reached.
-    const budget = { work: 8000000, scan: 8000000 };
-    const gaps = [{ a0: 0, a1: a.length, b0: 0, b1: b.length }];
-    while (gaps.length) {
-      let { a0, a1, b0, b1 } = gaps.pop();
-      while (a0 < a1 && b0 < b1 && a[a0].value === b[b0].value) { a0++; b0++; }
-      while (a0 < a1 && b0 < b1 && a[a1 - 1].value === b[b1 - 1].value) { a1--; b1--; }
-      if (a0 === a1) { for (let i = b0; i < b1; i++) added.push(b[i]); continue; }
-      if (b0 === b1) { removedCount += a1 - a0; continue; }
+    // Independent caps: cheap edit frontiers, DP cells, token scans, and exact
+    // bitset certificate arithmetic. No wall-clock-dependent alignment result.
+    const budget = { work: 8000000, cells: 24000000, scan: 8000000, certWords: 48000000 };
+    const certificates = new Map();
+    function solve(a0, a1, b0, b1, depth) {
+      let fixed = 0;
+      while (a0 < a1 && b0 < b1 && a[a0].id === b[b0].id) { a0++; b0++; fixed++; }
+      while (a0 < a1 && b0 < b1 && a[a1 - 1].id === b[b1 - 1].id) { a1--; b1--; fixed++; }
+      const lift = result => { if (result.lcs !== null) result.lcs += fixed; return result; };
+      const resultFrom = result => lift({ added: result.added.map(i => b[b0 + i]), removed: result.removed, unresolved: [], lcs: b1 - b0 - result.added.length });
+      if (a0 === a1) return lift({ added: b.slice(b0, b1), removed: 0, unresolved: [], lcs: 0 });
+      if (b0 === b1) return lift({ added: [], removed: a1 - a0, unresolved: [], lcs: 0 });
       const left = a.slice(a0, a1), right = b.slice(b0, b1);
       const insertion = left.length <= right.length ? asSubsequence(left, right) : null;
-      if (insertion !== null) { for (const i of insertion) added.push(right[i]); continue; }
+      if (insertion !== null) return resultFrom({ added: insertion, removed: 0 });
       const deletion = right.length <= left.length ? asSubsequence(right, left) : null;
-      if (deletion !== null) { removedCount += deletion.length; continue; }
-      // If removing necessarily-new tokens leaves an old-text subsequence,
-      // this attains the minimum possible additions, even amid huge deletions.
-      const oldValues = new Set(left.map(token => token.id));
-      const novel = [], common = [];
-      for (const token of right) (oldValues.has(token.id) ? common : novel).push(token);
-      if (novel.length && asSubsequence(common, left) !== null) {
-        for (const token of novel) added.push(token);
-        removedCount += left.length - common.length; continue;
+      if (deletion !== null) return resultFrom({ added: [], removed: deletion.length });
+      const frequency = frequencyAlignment(left, right, budget);
+      if (frequency.result) return resultFrom(frequency.result);
+      let exact = budget.work > 0 ? myers(left, right, 64, budget) : null;
+      if (exact) return resultFrom(exact);
+      exact = hirschberg(left, right, budget);
+      if (exact) return resultFrom(exact);
+      const key = `${a0}:${a1}:${b0}:${b1}`;
+      function score() {
+        if (!certificates.has(key)) certificates.set(key, lcsCertificate(left, right, budget));
+        return certificates.get(key);
       }
-      const small = left.length + right.length <= 2048;
-      let result = budget.work > 0 ? myers(left, right, small ? 512 : 64, budget) : null;
-      if (result) {
-        for (const i of result.added) added.push(right[i]);
-        removedCount += result.removed; continue;
-      }
-      let anchors = [];
-      for (const width of [12, 4, 1]) {
-        anchors = tokenAnchors(a, b, a0, a1, b0, b1, width, budget);
-        if (anchors.length) break;
-      }
-      if (anchors.length) {
+      // Windows only propose partitions. Each child must carry an exact LCS
+      // length (even if its positions remain unresolved), and the entire
+      // partition must attain a proven global bound before any edits escape.
+      if (depth < 4) for (const width of [12, 4, 1]) {
+        const anchors = tokenAnchors(a, b, a0, a1, b0, b1, width, budget);
+        if (!anchors.length) continue;
+        const candidate = { added: [], removed: 0, unresolved: [], lcs: 0 };
         let oldStart = a0, newStart = b0;
+        const append = part => {
+          for (const t of part.added) candidate.added.push(t);
+          for (const gap of part.unresolved) candidate.unresolved.push(gap);
+          candidate.removed += part.removed;
+          if (part.lcs === null) candidate.lcs = null;
+          else if (candidate.lcs !== null) candidate.lcs += part.lcs;
+        };
         for (const anchor of anchors) {
-          gaps.push({ a0: oldStart, a1: anchor.a, b0: newStart, b1: anchor.b });
+          append(solve(oldStart, anchor.a, newStart, anchor.b, depth + 1));
+          if (candidate.lcs !== null) candidate.lcs += anchor.size;
           oldStart = anchor.a + anchor.size; newStart = anchor.b + anchor.size;
         }
-        gaps.push({ a0: oldStart, a1, b0: newStart, b1 });
-        continue;
+        append(solve(oldStart, a1, newStart, b1, depth + 1));
+        if (candidate.lcs === null) continue;
+        const frequencyUpper = frequency.bound === null ? null : right.length - frequency.bound;
+        if (candidate.lcs === frequencyUpper || candidate.lcs === score()) return lift(candidate);
       }
-      if (!small && budget.work > 0) result = myers(left, right, 512, budget);
-      if (result) {
-        for (const i of result.added) added.push(right[i]);
-        removedCount += result.removed; continue;
-      }
-      unresolved.push({ start: b[b0].start, end: b[b1 - 1].end, oldStart: a[a0].start, oldEnd: a[a1 - 1].end });
+      exact = budget.work > 0 ? myers(left, right, 512, budget) : null;
+      if (exact) return resultFrom(exact);
+      return lift({ added: [], removed: 0, unresolved: [{ start: b[b0].start, end: b[b1 - 1].end, oldStart: a[a0].start, oldEnd: a[a1 - 1].end }], lcs: score() });
     }
+    const aligned = solve(0, a.length, 0, b.length, 0);
+    const added = aligned.added, unresolved = aligned.unresolved;
     unresolved.sort((x, y) => x.start - y.start);
     const rawRanges = mergeRanges(added, newText);
     const ranges = excludeUnresolved(expandRanges(rawRanges, newText, options.granularity), unresolved);
-    return { ranges, rawRanges, unresolved, removedCount, addedCount: added.length, equal: false, fallback: unresolved.length > 0 };
+    return { ranges, rawRanges, unresolved, removedCount: aligned.removed, addedCount: added.length, equal: false, fallback: unresolved.length > 0 };
   }
 
   function complexChanges(text, ranges) {
@@ -551,12 +730,89 @@ main{padding-top:14px}
     return typeof a.text === 'string' && a.text === b.text;
   }
 
+  // Content fingerprints are only a candidate filter for renamed, edited sources.
+  // Exact string shingles avoid hash collisions; the hash selects a stable sample,
+  // so inserting a word does not shift every subsequent fingerprint.
+  function renameFingerprint(file, budget) {
+    if (typeof file.text !== 'string') return null;
+    if (file.text.length > budget.characters) { budget.exhausted = true; return null; }
+    budget.characters -= file.text.length;
+    const words = tokenize(file.text, { ignoreWhitespace: true, ignoreComments: true })
+      .filter(t => t.type === 'text' && t.value.length <= 80).map(t => t.value);
+    if (!words.length) return null;
+    const diverse = words.length >= 80 && new Set(words).size >= 16;
+    const features = new Set();
+    for (let i = 0; i + 5 <= words.length; i++) {
+      const window = words.slice(i, i + 5);
+      if (new Set(window).size < 3) continue;
+      const key = JSON.stringify(window);
+      let hash = 2166136261;
+      for (let j = 0; j < key.length; j++) hash = Math.imul(hash ^ key.charCodeAt(j), 16777619);
+      if ((hash & 3) === 0) features.add(key);
+      if (features.size > 100000 || features.size > budget.features) { budget.exhausted = true; return null; }
+    }
+    budget.features -= features.size;
+    return features.size ? { features, length: words.length, eligible: diverse && features.size >= 16 } : null;
+  }
+
+  function similarRenames(oldFiles, newFiles, usedOld, paired, renamed, warnings) {
+    const budget = { characters: 16 * 1024 * 1024, features: 250000, links: 2000000, exhausted: false };
+    const old = [], fresh = [], index = new Map();
+    const abandon = () => { warnings.push('部分文件超出相似改名匹配预算，未猜测改名关系；仍逐文件比较。'); return new Map(); };
+    for (const [path, file] of oldFiles) if (!newFiles.has(path) && !usedOld.has(path) && TEX.test(path)) {
+      const fingerprint = renameFingerprint(file, budget);
+      if (fingerprint) old.push({ path, ...fingerprint });
+      if (budget.exhausted) return abandon();
+    }
+    if (!old.length) return new Map();
+    for (const [path, file] of newFiles) if (!oldFiles.has(path) && !paired.has(path) && !renamed.has(path) && TEX.test(path)) {
+      const fingerprint = renameFingerprint(file, budget);
+      if (fingerprint) fresh.push({ path, ...fingerprint });
+      if (budget.exhausted) return abandon();
+    }
+    for (let i = 0; i < old.length; i++) for (const key of old[i].features) {
+      if (!index.has(key)) index.set(key, []);
+      index.get(key).push(i);
+    }
+    const byOld = new Map(), byNew = new Map();
+    for (const next of fresh) {
+      const counts = new Map();
+      for (const key of next.features) {
+        const owners = index.get(key) || [];
+        // Never drop a possible runner-up to save work: it could hide ambiguity.
+        budget.links -= owners.length;
+        if (budget.links < 0) return abandon();
+        for (const i of owners) counts.set(i, (counts.get(i) || 0) + 1);
+      }
+      for (const [i, evidence] of counts) {
+        const previous = old[i];
+        const comparableLength = Math.min(previous.length, next.length) / Math.max(previous.length, next.length) >= 0.7;
+        const score = 2 * evidence / (previous.features.size + next.features.size);
+        if (score < 0.72) continue;
+        const candidate = { oldPath: previous.path, path: next.path, score, eligible: comparableLength && previous.eligible && next.eligible && evidence >= 16 && oldFiles.get(previous.path).text !== newFiles.get(next.path).text };
+        if (!byOld.has(previous.path)) byOld.set(previous.path, []);
+        if (!byNew.has(next.path)) byNew.set(next.path, []);
+        byOld.get(previous.path).push(candidate); byNew.get(next.path).push(candidate);
+      }
+    }
+    for (const list of [...byOld.values(), ...byNew.values()]) list.sort((a, b) => b.score - a.score || a.path.localeCompare(b.path) || a.oldPath.localeCompare(b.oldPath));
+    const matches = new Map(), clear = list => list.length === 1 || list[0].score - list[1].score >= 0.12;
+    for (const [path, candidates] of byNew) {
+      const best = candidates[0], reverse = byOld.get(best.oldPath);
+      if (best.eligible && best.score >= 0.86 && clear(candidates) && clear(reverse) && reverse[0] === best) {
+        paired.set(path, best.oldPath); usedOld.add(best.oldPath); matches.set(path, best.score);
+      } else if (best.score >= 0.86) warnings.push(path + '：存在相似章节，未猜测改名关系；按新增文件处理，请核对文件配对。');
+    }
+    return matches;
+  }
+
   function analyze(oldProject, newProject, options) {
     options = Object.assign({ granularity: 'token', ignoreWhitespace: true, ignoreComments: true, ignoreMoves: true }, options || {});
     if (!['token', 'sentence', 'paragraph'].includes(options.granularity)) fail('不支持此标蓝粒度。');
     const oldFiles = new Map(oldProject.files), newFiles = new Map(newProject.files);
     const warnings = [...(oldProject.warnings || []), ...(newProject.warnings || [])], files = [];
     const renamed = new Map(), paired = new Map(), usedOld = new Set();
+    let similar = new Map();
     if (oldFiles.size === 1 && newFiles.size === 1) {
       const oldPath = [...oldFiles.keys()][0], newPath = [...newFiles.keys()][0];
       if (oldPath !== newPath && TEX.test(oldPath) && TEX.test(newPath)) {
@@ -578,6 +834,7 @@ main{padding-top:14px}
         else if (oldPaths.length !== 1 || newCounts.get(f.text) !== 1) warnings.push(path + '：存在多个内容相同的文件，未猜测重命名关系。');
         else warnings.push(path + '：解码后的源码相同，但原始字节不同，未认定为精确重命名。');
       }
+      similar = similarRenames(oldFiles, newFiles, usedOld, paired, renamed, warnings);
     }
     const paths = [...new Set([...newFiles.keys(), ...oldFiles.keys()].filter(path => !usedOld.has(path)))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
     for (const path of paths) {
@@ -595,7 +852,7 @@ main{padding-top:14px}
         if (oldFile && newFile && result.equal && oldText !== newText) warnings.push(path + '：仅空白 / 注释等被忽略的内容变化，未计入标蓝。');
       }
       if (result.fallback) warnings.push(path + '：有 ' + result.unresolved.length + ' 个片段未可靠对齐，未自动标蓝；增删计数仅含已确认部分。');
-      files.push({ path, oldPath: oldFile ? oldPath : null, status, oldText, newText, ranges: result.ranges, rawRanges: result.rawRanges || result.ranges, unresolved: result.unresolved || [], removedCount: result.removedCount, addedCount: result.addedCount, complex: isTex ? complexChanges(newText, result.ranges) : status === 'unchanged' ? [] : ['图片 / 资源变化'], fallback: result.fallback, isTex, ignoredChanges: Boolean(isTex && oldFile && newFile && result.equal && oldText !== newText), oldSize: oldFile ? oldFile.size : null, newSize: newFile ? newFile.size : null });
+      files.push({ path, oldPath: oldFile ? oldPath : null, pairing: similar.has(path) ? 'similarity' : oldPath !== path && oldFile ? (renamed.has(path) ? 'identical' : 'single') : oldFile && newFile ? 'path' : null, similarity: similar.get(path) || null, status, oldText, newText, ranges: result.ranges, rawRanges: result.rawRanges || result.ranges, unresolved: result.unresolved || [], removedCount: result.removedCount, addedCount: result.addedCount, complex: isTex ? complexChanges(newText, result.ranges) : status === 'unchanged' ? [] : ['图片 / 资源变化'], fallback: result.fallback, isTex, ignoredChanges: Boolean(isTex && oldFile && newFile && result.equal && oldText !== newText), oldSize: oldFile ? oldFile.size : null, newSize: newFile ? newFile.size : null });
     }
     const ignoredAuxFiles = (oldProject.ignoredCount || 0) + (newProject.ignoredCount || 0), ignoredSourceChanges = files.filter(f => f.ignoredChanges).length;
     const totals = { files: files.length, sourceFiles: files.filter(f => f.isTex).length, resourceFiles: files.filter(f => !f.isTex).length, modified: 0, added: 0, deleted: 0, unchanged: 0, renamed: 0, changedRanges: 0, addedTokens: 0, removedTokens: 0, ignoredFiles: ignoredAuxFiles + ignoredSourceChanges, ignoredAuxFiles, ignoredSourceChanges };
@@ -607,12 +864,28 @@ main{padding-top:14px}
   }
   function uncommented(text) {
     const tokens = tokenize(text, { ignoreWhitespace: false, ignoreComments: false });
-    return tokens.map(t => t.type === 'comment' || t.type === 'verbatim' ? ' '.repeat(t.end - t.start) : t.value).join('');
+    return tokens.map(t => {
+      if (t.type === 'definition') {
+        const command = /^\\[A-Za-z@]+\*?/.exec(t.value)[0];
+        return command + ' '.repeat(t.end - t.start - command.length);
+      }
+      return t.type === 'comment' || t.type === 'verbatim' ? ' '.repeat(t.end - t.start) : t.value;
+    }).join('');
   }
   function findMains(project) {
     return texEntries(project).filter(([, f]) => {
-      const source = uncommented(f.text);
-      return /\\documentclass(?:\s*\[[^\]]*\])?\s*\{/.test(source) && /\\begin\s*\{document\}/.test(source);
+      const tokens = tokenize(f.text, { ignoreWhitespace: true, ignoreComments: true });
+      let depth = 0, documentClass = false, document = false;
+      for (let i = 0; i < tokens.length; i++) {
+        const token = tokens[i];
+        if (depth === 0 && token.type === 'command') {
+          if (token.value === '\\documentclass') documentClass = true;
+          if (token.value === '\\begin' && tokens[i + 1]?.value === '{' && tokens[i + 2]?.value === 'document' && tokens[i + 3]?.value === '}') document = true;
+        }
+        if (token.type === 'symbol' && token.value === '{') depth++;
+        else if (token.type === 'symbol' && token.value === '}') depth = Math.max(0, depth - 1);
+      }
+      return documentClass && document;
     }).map(([path]) => path).sort((a, b) => {
       const rank = p => /(^|\/)main\.tex$/i.test(p) ? 0 : 1;
       return rank(a) - rank(b) || a.split('/').length - b.split('/').length || a.localeCompare(b);
@@ -668,17 +941,20 @@ main{padding-top:14px}
   'use strict';
   const encoder = new TextEncoder();
   const STAMP = '% BlueMark: exported revision ';
-  const DEFINITIONS = new Set('newcommand renewcommand providecommand DeclareRobustCommand newenvironment renewenvironment NewDocumentCommand RenewDocumentCommand ProvideDocumentCommand DeclareDocumentCommand NewDocumentEnvironment RenewDocumentEnvironment DeclareDocumentEnvironment def gdef edef xdef'.split(' '));
+  const MAX_SYNTAX_DEPTH = 256;
+  const DEFINITIONS = new Set('newcommand renewcommand providecommand DeclareRobustCommand newenvironment renewenvironment NewDocumentCommand RenewDocumentCommand ProvideDocumentCommand DeclareDocumentCommand NewExpandableDocumentCommand RenewExpandableDocumentCommand ProvideExpandableDocumentCommand DeclareExpandableDocumentCommand NewDocumentEnvironment RenewDocumentEnvironment ProvideDocumentEnvironment DeclareDocumentEnvironment DeclareMathOperator newtheorem def gdef edef xdef'.split(' '));
   const DYNAMIC = new Set('catcode csname endcsname expandafter futurelet let directlua write read inputlineno scantokens ExplSyntaxOn obeyspaces obeylines active'.split(' '));
-  const BODY_ENVS = new Set('document itemize enumerate description quote quotation center flushleft flushright abstract theorem theorem* lemma lemma* proposition corollary proof remark definition example exercise solution'.split(' '));
-  const RAW_ENVS = new Set('verbatim verbatim* Verbatim lstlisting minted'.split(' '));
+  const BODY_ENVS = new Set('document itemize enumerate description quote quotation verse center flushleft flushright abstract samepage minipage multicols multicols* spacing list theorem theorem* lemma lemma* proposition proposition* corollary corollary* proof remark remark* definition definition* example example* exercise exercise* solution solution*'.split(' '));
+  const BODY_ARGS = { minipage: 1, multicols: 1, 'multicols*': 1, spacing: 1, list: 2 };
+  const RAW_ENVS = new Set('verbatim verbatim* Verbatim Verbatim* BVerbatim LVerbatim SaveVerbatim lstlisting lstlisting* minted comment filecontents filecontents*'.split(' '));
   const MATH_ENVS = new Set('math displaymath equation equation* align align* alignat alignat* flalign flalign* gather gather* multline multline* eqnarray eqnarray*'.split(' '));
   const INNER_MATH_ENVS = new Set('aligned alignedat gathered split cases matrix pmatrix bmatrix Bmatrix vmatrix Vmatrix smallmatrix array'.split(' '));
   const SAFE_ZERO = new Set('par noindent indent centering raggedright raggedleft normalfont normalcolor rmfamily sffamily ttfamily upshape itshape slshape scshape mdseries bfseries tiny scriptsize footnotesize small normalsize large Large LARGE huge Huge clearpage cleardoublepage newpage maketitle tableofcontents listoffigures listoftables appendix frontmatter mainmatter backmatter hfill vfill medskip smallskip bigskip leavevmode'.split(' '));
   const OPTIONAL_ONLY = new Set('pagebreak nopagebreak linebreak nolinebreak'.split(' '));
   const VISIBLE = new Set('chapter section subsection subsubsection paragraph subparagraph part caption textbf textit textsl textsc textup textmd textnormal textrm textsf texttt emph underline mbox fbox footnote footnotetext thanks marginpar'.split(' '));
   const SHORT_VISIBLE = new Set('chapter section subsection subsubsection paragraph subparagraph part caption'.split(' '));
-  const FILE_ARGS = new Set('label ref eqref pageref autoref nameref vref cref Cref cite citep citet citealp citealt nocite url nolinkurl path input include includegraphics bibliography bibliographystyle addbibresource documentclass usepackage RequirePackage index glossary gls glspl'.split(' '));
+  const FILE_ARGS = new Set('label ref eqref pageref autoref nameref vref cref Cref cite citep citet citealp citealt nocite url nolinkurl path input include includeonly import subimport inputfrom subinputfrom includefrom subincludefrom includegraphics graphicspath DeclareGraphicsExtensions bibliography bibliographystyle addbibresource documentclass usepackage RequirePackage index glossary gls glspl'.split(' '));
+  const TEXT_ARGS = { href: [1, 2], hyperref: [0, 1], texorpdfstring: [0, 2], textcolor: [1, 2], colorbox: [1, 2], fcolorbox: [2, 3], foreignlanguage: [1, 2] };
   const MATH_COMMANDS = new Set(('begin end label tag notag nonumber ref eqref text textrm textsf texttt textnormal textbf textit emph mathrm mathbf mathsf mathtt mathit mathcal mathbb mathfrak boldsymbol bm operatorname operatornamewithlimits frac dfrac tfrac binom dbinom tbinom sqrt overset underset overbrace underbrace overline underline widehat widetilde hat tilde bar vec dot ddot acute grave check breve mathop mathord mathbin mathrel mathopen mathclose mathpunct limits nolimits left right middle big Big bigg Bigg bigl bigr Bigl Bigr biggl biggr Biggl Biggr color hspace vspace quad qquad thinspace negthinspace displaystyle textstyle scriptstyle scriptscriptstyle substack boxed phantom hphantom vphantom smash rule strut mathstrut leq le geq ge ne neq approx sim simeq cong equiv propto ll gg subset superset subseteq supseteq in notin ni not forall exists nexists emptyset varnothing partial nabla infinity infty pm mp times div cdot ast star circ bullet oplus otimes odot cap cup bigcap bigcup wedge vee land lor neg setminus backslash to mapsto rightarrow leftarrow leftrightarrow Rightarrow Leftarrow Leftrightarrow longrightarrow longleftarrow longleftrightarrow Longrightarrow Longleftarrow Longleftrightarrow uparrow downarrow Uparrow Downarrow gets implies iff colon ldots cdots vdots ddots dots ell prime degree angle triangle perp parallel vert Vert lvert rvert lVert rVert langle rangle lceil rceil lfloor rfloor lbrace rbrace sum prod coprod int iint iiint oint lim limsup liminf sup inf max min arg det dim ker hom log ln exp sin cos tan cot sec csc arcsin arccos arctan sinh cosh tanh coth gcd mod bmod pmod pod Pr alpha beta gamma delta epsilon varepsilon zeta eta theta vartheta iota kappa lambda mu nu xi omicron pi varpi rho varrho sigma varsigma tau upsilon phi varphi chi psi omega Gamma Delta Theta Lambda Xi Pi Sigma Upsilon Phi Psi Omega').split(' '));
   function error(s) { throw new Error(s); }
   const commandAt = (text, offset) => /^\\([A-Za-z@]+\*?|[\s\S])/.exec(text.slice(offset));
@@ -696,10 +972,13 @@ main{padding-top:14px}
   function commentEnd(text, i) { const end = text.indexOf('\n', i); return end < 0 ? text.length : end; }
   function groupEnd(text, start, opening, closing, literal) {
     if (text[start] !== opening) return null;
-    let depth = 1;
+    let depth = 1, braces = 0;
     for (let i = start + 1; i < text.length; i++) {
       if (!literal && text[i] === '%') { i = commentEnd(text, i) - 1; continue; }
       if (text[i] === '\\') { i++; continue; }
+      if (opening === '[' && !literal && text[i] === '{') { braces++; continue; }
+      if (opening === '[' && !literal && text[i] === '}' && braces) { braces--; continue; }
+      if (braces) continue;
       if (text[i] === opening) depth++;
       else if (text[i] === closing && --depth === 0) return i + 1;
     }
@@ -742,10 +1021,54 @@ main{padding-top:14px}
     }
     return null;
   }
+  function definitionEnd(text, start, command) {
+    const name = commandName(command[1]);
+    let cursor = skipSpace(text, start + command[0].length, text.length);
+    if (/^(?:def|gdef|edef|xdef)$/.test(name)) {
+      while (cursor < text.length && text[cursor] !== '{') {
+        if (text[cursor] === '%') cursor = commentEnd(text, cursor);
+        else cursor++;
+      }
+      return groupEnd(text, cursor, '{', '}', false);
+    }
+    if (text[cursor] === '{') cursor = groupEnd(text, cursor, '{', '}', false);
+    else if (text[cursor] === '\\') { const target = commandAt(text, cursor); cursor = target ? cursor + target[0].length : null; }
+    else return null;
+    if (!cursor) return null;
+    cursor = skipSpace(text, cursor, text.length);
+    while (text[cursor] === '[') {
+      cursor = groupEnd(text, cursor, '[', ']', false);
+      if (!cursor) return null;
+      cursor = skipSpace(text, cursor, text.length);
+    }
+    const count = /DocumentEnvironment$/.test(name) ? 3 : /DocumentCommand$/.test(name) ? 2 : /environment$/.test(name) ? 2 : 1;
+    for (let n = 0; n < count; n++) {
+      cursor = groupEnd(text, skipSpace(text, cursor, text.length), '{', '}', false);
+      if (!cursor) return null;
+    }
+    if (name === 'newtheorem') {
+      const probe = skipSpace(text, cursor, text.length);
+      if (text[probe] === '[') cursor = groupEnd(text, probe, '[', ']', false);
+    }
+    return cursor;
+  }
+  function definitionDynamics(text, start, end, dynamic) {
+    for (let i = start; i < end;) {
+      if (text[i] === '%') { i = commentEnd(text, i); continue; }
+      if (text[i] !== '\\') { i++; continue; }
+      const literal = inlineEnd(text, i);
+      if (literal) { i = literal.end; continue; }
+      const command = commandAt(text, i);
+      if (!command) { i++; continue; }
+      const name = commandName(command[1]);
+      if (DYNAMIC.has(name)) dynamic.push(name);
+      i += command[0].length;
+    }
+  }
 
   // This is a lexical safety gate, not a TeX interpreter.
   function inspectSyntax(text) {
-    const groups = new Map(), environments = new Map(), literals = new Map(), maths = new Map();
+    const groups = new Map(), environments = new Map(), literals = new Map(), maths = new Map(), definitions = new Map();
     const braceStack = [], envStack = [], dynamic = [];
     let document = null, invalid = null;
     for (let i = 0; i < text.length;) {
@@ -760,6 +1083,13 @@ main{padding-top:14px}
         const c = commandAt(text, i);
         if (!c) { i++; continue; }
         const name = commandName(c[1]);
+        if (DEFINITIONS.has(name)) {
+          const end = definitionEnd(text, i, c);
+          if (!end) { invalid = '宏 / 环境定义参数未闭合'; break; }
+          definitions.set(i, { start: i, end });
+          definitionDynamics(text, i + c[0].length, end, dynamic);
+          i = end; continue;
+        }
         const literal = inlineEnd(text, i);
         if (literal) {
           if (literal.invalid) { invalid = '行内原样输出参数未闭合'; break; }
@@ -789,6 +1119,7 @@ main{padding-top:14px}
               if (document) { invalid = '存在多个 document 环境'; break; }
               document = entry;
             }
+            if (envStack.length + braceStack.length >= MAX_SYNTAX_DEPTH) { invalid = '语法嵌套超过安全深度，未自动解析'; break; }
             envStack.push(entry);
           } else {
             const entry = envStack.pop();
@@ -800,7 +1131,10 @@ main{padding-top:14px}
         if (DYNAMIC.has(name)) dynamic.push(name);
         i += c[0].length; continue;
       }
-      if (ch === '{') braceStack.push(i);
+      if (ch === '{') {
+        if (braceStack.length + envStack.length >= MAX_SYNTAX_DEPTH) { invalid = '语法嵌套超过安全深度，未自动解析'; break; }
+        braceStack.push(i);
+      }
       else if (ch === '}') {
         const start = braceStack.pop();
         if (start === undefined) { invalid = '存在无对应起点的花括号'; break; }
@@ -811,7 +1145,7 @@ main{padding-top:14px}
     if (!invalid && braceStack.length) invalid = '花括号未闭合';
     if (!invalid && envStack.length) invalid = '环境未闭合：' + envStack[envStack.length - 1].name;
     if (!invalid && dynamic.length) invalid = '含改变词法或展开行为的动态 TeX 命令：\\' + [...new Set(dynamic)].join(' / \\');
-    return { groups, environments, literals, maths, document, invalid };
+    return { groups, environments, literals, maths, definitions, document, invalid };
   }
   function safeMath(text, start, end) {
     const source = text.slice(start, end);
@@ -859,6 +1193,8 @@ main{padding-top:14px}
         if (text[i] === '%') { const stop = Math.min(commentEnd(text, i), end); protect(i, stop, '注释'); i = stop; continue; }
         const literal = syntax.literals.get(i);
         if (literal) { protect(i, literal.end, '原样输出 / 代码 / 网址参数'); i = literal.end; continue; }
+        const definition = syntax.definitions.get(i);
+        if (definition) { protect(i, definition.end, '宏 / 环境定义'); i = definition.end; continue; }
         const formula = syntax.maths.get(i);
         if (formula) { math(formula); i = formula.end; continue; }
         const env = syntax.environments.get(i);
@@ -868,6 +1204,16 @@ main{padding-top:14px}
             protect(i, env.headerEnd, '环境结构');
             let bodyStart = env.headerEnd, probe = skipSpace(text, bodyStart, env.bodyEnd);
             while (text[probe] === '[') {
+              const stop = groupEnd(text, probe, '[', ']', false);
+              if (!stop || stop > env.bodyEnd) { protect(bodyStart, env.bodyEnd, '环境可选参数未闭合'); bodyStart = env.bodyEnd; break; }
+              protect(bodyStart, stop, '环境可选配置参数'); bodyStart = stop; probe = skipSpace(text, bodyStart, env.bodyEnd);
+            }
+            for (let n = 0; n < (BODY_ARGS[env.name] || 0); n++) {
+              const stop = text[probe] === '{' ? syntax.groups.get(probe) : null;
+              if (!stop || stop > env.bodyEnd) { protect(bodyStart, env.bodyEnd, '环境配置参数无法安全识别'); bodyStart = env.bodyEnd; break; }
+              protect(bodyStart, stop, '环境配置参数'); bodyStart = stop; probe = skipSpace(text, bodyStart, env.bodyEnd);
+            }
+            while (text[probe] === '[' && bodyStart < env.bodyEnd) {
               const stop = groupEnd(text, probe, '[', ']', false);
               if (!stop || stop > env.bodyEnd) { protect(bodyStart, env.bodyEnd, '环境可选参数未闭合'); bodyStart = env.bodyEnd; break; }
               protect(bodyStart, stop, '环境可选配置参数'); bodyStart = stop; probe = skipSpace(text, bodyStart, env.bodyEnd);
@@ -901,7 +1247,27 @@ main{padding-top:14px}
             protect(i, cursor, '宏 / 环境定义'); i = cursor; continue;
           }
           protect(i, cursor, 'TeX 命令结构');
-          if (VISIBLE.has(name) || name === 'captionof') {
+          if (TEXT_ARGS[name]) {
+            let probe = skipSpace(text, cursor, end), optional = false;
+            while (text[probe] === '[') {
+              const stop = groupEnd(text, probe, '[', ']', false);
+              if (!stop || stop > end) break;
+              protect(cursor, stop, '非正文可选参数'); cursor = stop; probe = skipSpace(text, cursor, end); optional = true;
+            }
+            const args = [], [visibleIndex, count] = TEXT_ARGS[name];
+            for (let n = 0; n < count; n++) {
+              const stop = text[probe] === '{' ? syntax.groups.get(probe) : null;
+              if (!stop || stop > end) break;
+              args.push({ start: probe, end: stop }); cursor = stop; probe = skipSpace(text, cursor, end);
+            }
+            if (args.length === count && (name !== 'hyperref' || optional)) {
+              args.forEach((arg, n) => {
+                if (n !== visibleIndex) protect(arg.start, arg.end, '路径 / 颜色 / 语言 / PDF 字符串参数');
+                else { protect(arg.start, arg.start + 1, '文本参数结构'); walk(arg.start + 1, arg.end - 1); protect(arg.end - 1, arg.end, '文本参数结构'); }
+              });
+              i = cursor; continue;
+            }
+          } else if (VISIBLE.has(name) || name === 'captionof') {
             let probe = skipSpace(text, cursor, end);
             if (text[probe] === '[') {
               const stop = groupEnd(text, probe, '[', ']', false);
@@ -996,7 +1362,7 @@ main{padding-top:14px}
   }
   function markSource(text, ranges, rawRanges, syntax, macro, mathMode, unresolvedRanges) {
     const marked = [], skipped = [];
-    if (syntax.invalid) return { text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(text, r.start), reason: '文件未自动标蓝：' + syntax.invalid })) };
+    if (syntax.invalid) return { text, markedCount: 0, outputRanges: [], skipped: rawRanges.map(r => ({ ...r, line: lineAt(text, r.start), reason: '文件未自动标蓝：' + syntax.invalid })) };
     const spans = sourceSpans(text, syntax, mathMode);
     for (const span of spans.safe) {
       if (span.kind === 'math') {
@@ -1025,7 +1391,21 @@ main{padding-top:14px}
     }
     parts.push(text.slice(0, cursor));
     const result = parts.reverse().join('');
-    return { text: result, markedCount: marked.length, skipped: deduped };
+    const outputRanges = [];
+    let addedLength = 0;
+    for (const span of marked.slice().sort((a, b) => a.start - b.start)) {
+      const extra = span.kind === 'math' ? '\\begingroup\\color[rgb]{0,0,1}'.length + '\\endgroup{}'.length : macro.length + 3;
+      const start = span.start + addedLength;
+      outputRanges.push({ start, end: start + span.end - span.start + extra, kind: span.kind });
+      addedLength += extra;
+    }
+    return { text: result, markedCount: marked.length, outputRanges, skipped: deduped };
+  }
+  function shiftOutputRanges(ranges, insertion, length) {
+    for (const range of ranges) {
+      if (range.start >= insertion) range.start += length;
+      if (range.end > insertion) range.end += length;
+    }
   }
   function byteEqual(a, b) { return a.length === b.length && a.every((value, i) => value === b[i]); }
   function suffix(index) { let value = ''; do { value = String.fromCharCode(65 + index % 26) + value; index = Math.floor(index / 26) - 1; } while (index >= 0); return value; }
@@ -1053,42 +1433,153 @@ main{padding-top:14px}
     return result.join('/');
   }
   function reachableFiles(project, syntaxes, main) {
-    const reachable = new Set(), warnings = [], queue = [main];
-    while (queue.length) {
-      const path = queue.shift();
-      if (reachable.has(path)) continue;
-      reachable.add(path);
-      const source = project.files.get(path).text, syntax = syntaxes.get(path);
-      for (let i = 0; i < source.length;) {
+    const reachable = new Set(), warnings = [], roles = new Map(), seen = new Set(), active = new Set(), cache = new Map();
+    let contextCount = 0, exhausted = false;
+    const mainDirectory = main.includes('/') ? main.slice(0, main.lastIndexOf('/')) : '';
+    const workDirectories = [...new Set([mainDirectory, ''])];
+    const policy = { selected: null, uncertain: false };
+    const loaders = new Set('input include import subimport inputfrom subinputfrom includefrom subincludefrom'.split(' '));
+    const imports = new Set('import subimport inputfrom subinputfrom includefrom subincludefrom'.split(' '));
+    const noFi = new Set('ifthenelse ifstrequal ifstrempty ifblank ifnumcomp ifdimcomp iftoggle ifbool ifundef ifdefstring ifdefequal ifcsdef ifdefempty ifboolexpr'.split(' '));
+    const isConditional = name => /^if[A-Za-z@]*$/.test(name) && !noFi.has(name);
+    const staticText = raw => {
+      const value = raw.replace(/%[^\r\n]*(?:\r?\n|$)/g, '').trim();
+      return /[\\#$^~&{}]/.test(value) ? null : value.replace(/^"([^"]*)"$/, '$1');
+    };
+    const fileName = value => /\.[^/]+$/.test(value) ? value : value + '.tex';
+    const includeName = value => value.trim().replace(/\.tex$/i, '');
+    function conditionalEnd(source, syntax, start) {
+      let depth = 1;
+      for (let i = start; i < source.length;) {
         if (source[i] === '%') { i = commentEnd(source, i); continue; }
-        const literal = syntax.literals.get(i);
-        if (literal) { i = literal.end; continue; }
+        const opaque = syntax.literals.get(i) || syntax.definitions.get(i);
+        if (opaque) { i = opaque.end; continue; }
+        if (source[i] !== '\\') { i++; continue; }
+        const c = commandAt(source, i);
+        if (!c) { i++; continue; }
+        const name = commandName(c[1]); i += c[0].length;
+        if (isConditional(name)) depth++;
+        else if (name === 'fi' && --depth === 0) return i;
+      }
+      return null;
+    }
+    function references(path) {
+      if (cache.has(path)) return cache.get(path);
+      const source = project.files.get(path).text, syntax = syntaxes.get(path), refs = [];
+      if (syntax.invalid) { cache.set(path, refs); return refs; }
+      const protectedSpans = sourceSpans(source, syntax, 'skip').protectedSpans;
+      const bodyEnd = syntax.document ? syntax.environments.get(syntax.document.start).bodyEnd : source.length;
+      for (let i = 0; i < bodyEnd;) {
+        if (source[i] === '%') { i = commentEnd(source, i); continue; }
+        const opaque = syntax.literals.get(i) || syntax.definitions.get(i);
+        if (opaque) { i = opaque.end; continue; }
         if (source[i] !== '\\') { i++; continue; }
         const command = commandAt(source, i);
         if (!command) { i++; continue; }
-        const name = commandName(command[1]), commandStart = i;
+        const name = commandName(command[1]), start = i;
         i += command[0].length;
-        if (name !== 'input' && name !== 'include') continue;
-        let cursor = skipSpace(source, i, source.length), reference;
-        if (source[cursor] === '{') {
-          const stop = syntax.groups.get(cursor);
-          if (!stop) continue;
-          reference = source.slice(cursor + 1, stop - 1).trim(); i = stop;
-        } else {
-          const match = /^[^\s%{}]+/.exec(source.slice(cursor));
-          reference = match ? match[0] : ''; i = cursor + reference.length;
+        const preamble = Boolean(syntax.document && start < syntax.document.headerEnd);
+        const protectedContext = protectedSpans.some(span => span.start <= start && start < span.end &&
+          !['导言区', 'TeX 命令结构', '花括号结构', '文本参数结构', '环境结构'].includes(span.reason) &&
+          !(loaders.has(name) && span.start === start && span.reason.startsWith('未知命令或无花括号参数')));
+        if (isConditional(name)) {
+          const stop = conditionalEnd(source, syntax, i);
+          const end = stop || bodyEnd;
+          refs.push({ name: 'conditional', start, preamble, protectedContext, uncertainPolicy: /\\(?:includeonly|input|include|import|subimport|inputfrom|subinputfrom|includefrom|subincludefrom)\b/.test(source.slice(i, end)) });
+          i = end; continue;
         }
-        if (!reference || /[\\#$]/.test(reference)) {
-          warnings.push({ path, line: lineAt(source, commandStart), reason: '动态 input / include 无法解析；相关章节可能未自动标蓝' }); continue;
+        if (!loaders.has(name) && name !== 'includeonly') continue;
+        const args = [];
+        let cursor = skipSpace(source, i, source.length);
+        for (let n = 0; n < (imports.has(name) ? 2 : 1); n++) {
+          if (source[cursor] === '{') {
+            const stop = syntax.groups.get(cursor);
+            if (!stop) break;
+            args.push(source.slice(cursor + 1, stop - 1)); cursor = skipSpace(source, stop, source.length); i = stop;
+          } else if (!imports.has(name) && name !== 'includeonly') {
+            const match = /^[^\s%{}]+/.exec(source.slice(cursor));
+            args.push(match ? match[0] : ''); i = cursor + args[0].length; break;
+          } else break;
         }
-        if (!/\.[^/]+$/.test(reference)) reference += '.tex';
-        const parent = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : '';
-        const candidates = [...new Set([resolvedPath('', reference), resolvedPath(parent, reference)].filter(p => p && project.files.has(p) && /\.tex$/i.test(p)))];
-        if (candidates.length === 1) queue.push(candidates[0]);
-        else warnings.push({ path, line: lineAt(source, commandStart), reason: candidates.length ? 'input / include 路径有多个候选，未猜测章节：' + reference : 'input / include 章节未找到：' + reference });
+        refs.push({ name, args, start, preamble, protectedContext });
       }
+      cache.set(path, refs); return refs;
     }
-    return { reachable, warnings };
+    function locate(reference, directories, path, line, label) {
+      const choices = [...new Set(directories.map(base => resolvedPath(base, fileName(reference)))
+        .filter(candidate => candidate && project.files.has(candidate) && /\.tex$/i.test(candidate)))];
+      if (choices.length === 1) return choices[0];
+      warnings.push({ path, line, reason: choices.length ? label + '路径有多个候选，未猜测章节：' + reference : label + '章节未找到：' + reference });
+      return null;
+    }
+    function visit(path, state, depth) {
+      if (!roles.has(path)) roles.set(path, new Set());
+      roles.get(path).add(state.role);
+      const key = JSON.stringify([path, state.role, state.importPaths, state.importLogical, policy.selected && [...policy.selected], policy.uncertain]);
+      if (depth > 128 || active.has(key)) { warnings.push({ path, line: 1, reason: '静态载入链循环或过深，后续文件未自动解析' }); return; }
+      if (seen.has(key) || exhausted) return;
+      if (++contextCount > 10000) {
+        exhausted = true;
+        warnings.push({ path, line: 1, reason: '静态载入上下文过多，后续文件未自动解析' }); return;
+      }
+      reachable.add(path);
+      seen.add(key); active.add(key);
+      const source = project.files.get(path).text;
+      for (const ref of references(path)) {
+        if (exhausted) break;
+        const line = lineAt(source, ref.start);
+        const role = state.role !== 'body' ? state.role : ref.protectedContext ? 'protected' : ref.preamble ? 'preamble' : 'body';
+        if (ref.name === 'conditional') {
+          warnings.push({ path, line, reason: '条件分支中的文件载入未执行，相关文件未自动标蓝' });
+          if ((role === 'preamble' || ref.preamble) && ref.uncertainPolicy) policy.uncertain = true;
+          continue;
+        }
+        if (ref.name === 'includeonly') {
+          if (role === 'protected' || (!ref.preamble && state.role !== 'preamble')) {
+            if (ref.preamble || state.role === 'preamble') policy.uncertain = true;
+            warnings.push({ path, line, reason: '非静态导言区 includeonly 未作为章节白名单' }); continue;
+          }
+          const value = ref.args.length === 1 ? staticText(ref.args[0]) : null;
+          if (value === null) { policy.uncertain = true; warnings.push({ path, line, reason: '动态 includeonly 无法可靠判断参与章节，include 文件未自动标蓝' }); }
+          else { policy.selected = new Set(value.split(',').map(includeName).filter(Boolean)); policy.uncertain = false; }
+          continue;
+        }
+        const values = ref.args.map(staticText);
+        if (values.length !== (imports.has(ref.name) ? 2 : 1) || values.some(value => value === null) || !values.at(-1)) {
+          warnings.push({ path, line, reason: '动态 input / include / import 无法解析；相关章节可能未自动标蓝' }); continue;
+        }
+        const imported = imports.has(ref.name), reference = values.at(-1);
+        let next = { ...state, role }, target = null, includeReference = reference;
+        if (imported) {
+          const bases = ref.name.startsWith('sub') && state.importPaths.length ? [state.importPaths[0]] : workDirectories;
+          const folders = [...new Set(bases.map(base => resolvedPath(base, values[0])).filter(base => base !== null))];
+          const choices = folders.map(folder => ({ folder, path: resolvedPath(folder, fileName(reference)) }))
+            .filter(item => item.path && project.files.has(item.path) && /\.tex$/i.test(item.path));
+          if (choices.length !== 1) { warnings.push({ path, line, reason: choices.length ? 'import 路径有多个候选，未猜测章节：' + reference : 'import 章节未找到或路径越界：' + reference }); continue; }
+          target = choices[0].path;
+          const prefix = ref.name.startsWith('sub') ? state.importLogical : '';
+          const logical = prefix + (values[0] ? values[0].replace(/\/+$/, '') + '/' : '');
+          next = { role, importPaths: [...new Set([choices[0].folder, ...state.importPaths])], importLogical: logical };
+          includeReference = logical + reference;
+        } else {
+          for (const folder of state.importPaths) {
+            const candidate = resolvedPath(folder, fileName(reference));
+            if (candidate && project.files.has(candidate) && /\.tex$/i.test(candidate)) { target = candidate; break; }
+          }
+          if (!target) target = locate(reference, workDirectories, path, line, 'input / include ');
+        }
+        if (!target) continue;
+        if (ref.name === 'include' || /includefrom$/.test(ref.name)) {
+          if (policy.uncertain) { warnings.push({ path, line, reason: 'includeonly 的执行状态不确定，此 include 章节未自动标蓝' }); continue; }
+          if (policy.selected && !policy.selected.has(includeName(includeReference))) continue;
+        }
+        visit(target, next, depth + 1);
+      }
+      active.delete(key);
+    }
+    visit(main, { role: 'body', importPaths: [], importLogical: '' }, 0);
+    const blocked = new Set([...roles].filter(([, contexts]) => contexts.has('preamble') || contexts.has('protected')).map(([path]) => path));
+    return { reachable, blocked, warnings };
   }
   function prepare(newProject, analysis, options) {
     options = Object.assign({ main: null, math: 'whole' }, options || {});
@@ -1133,6 +1624,7 @@ main{padding-top:14px}
       if (legacyFallback) result = { text: f.text, markedCount: 0, skipped: [] };
       else if (mainFailure) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '主文件结构不完整，工程未自动标蓝：' + mainFailure })) };
       else if (syntax.document && path !== options.main) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '另一独立文档入口未启用标蓝宏；请单独选择此主文件导出' })) };
+      else if (graph && graph.blocked.has(path)) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '此文件由导言区或受保护区域载入，未自动标蓝' })) };
       else if (graph && !graph.reachable.has(path)) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '未在所选主文件的静态 input / include 链中找到，未自动标蓝' })) };
       else result = markSource(f.text, ranges, rawRanges, syntax, macro, options.math, unresolvedRanges);
       result.skipped.push(...precisionSkipped);
@@ -1140,13 +1632,14 @@ main{padding-top:14px}
       if (result.markedCount) {
         let headerEnd = 0, comment;
         while ((comment = /^%[^\r\n]*(?:\r?\n|$)/.exec(result.text.slice(headerEnd))) && comment[0].length) headerEnd += comment[0].length;
+        shiftOutputRanges(result.outputRanges || [], headerEnd, (STAMP + macro + '\n').length);
         result.text = result.text.slice(0, headerEnd) + STAMP + macro + '\n' + result.text.slice(headerEnd);
         const payload = encoder.encode(result.text), bytes = f.hasBom ? new Uint8Array(payload.length + 3) : payload;
         if (f.hasBom) { bytes.set([0xef, 0xbb, 0xbf]); bytes.set(payload, 3); }
         files.set(path, { text: result.text, bytes, size: bytes.length, hasBom: f.hasBom });
       }
       markedCount += result.markedCount;
-      const entry = { path, text: result.text, ranges, markedCount: result.markedCount, skipped: result.skipped };
+      const entry = { path, text: result.text, ranges, outputRanges: result.outputRanges || [], markedCount: result.markedCount, skipped: result.skipped };
       entries.push(entry);
       for (const s of result.skipped) allSkipped.push({ path, line: s.line, reason: s.reason });
     }
@@ -1154,6 +1647,7 @@ main{padding-top:14px}
       const entry = entries.find(e => e.path === options.main), file = files.get(options.main);
       const stampLength = entry.markedCount ? (STAMP + macro + '\n').length : 0;
       const insertion = mainSyntax.document.start + stampLength;
+      shiftOutputRanges(entry.outputRanges, insertion, preamble.length);
       entry.text = entry.text.slice(0, insertion) + preamble + entry.text.slice(insertion);
       const payload = encoder.encode(entry.text), bytes = file.hasBom ? new Uint8Array(payload.length + 3) : payload;
       if (file.hasBom) { bytes.set([0xef, 0xbb, 0xbf]); bytes.set(payload, 3); }
@@ -1208,12 +1702,12 @@ main{padding-top:14px}
 });
 </script><script>'use strict';
 const $=id=>document.getElementById(id);
-const state={old:null,new:null,result:null,marked:null,selected:null,granularity:'token',mode:'diff',split:false,change:-1,demo:false,busy:false,job:0,cancel:null,reading:new Set(),loadId:{old:0,new:0}};
+const state={old:null,new:null,result:null,marked:null,selected:null,granularity:'token',mode:'diff',split:false,change:-1,demo:false,busy:false,job:0,cancel:null,preview:null,reading:new Set(),loadId:{old:0,new:0}};
 const labels={modified:'修改',added:'新增',deleted:'删除',unchanged:'未变',renamed:'改名'};
 function status(text,busy=false){$('status').textContent=text;$('status').classList.toggle('busy',busy);}
 function feedback(message,error=false){$('export-feedback').hidden=!message;$('export-feedback').textContent=message;$('export-feedback').classList.toggle('error',error);}
 function options(){return{granularity:state.granularity,ignoreComments:$('ignore-comments').checked,ignoreWhitespace:$('ignore-whitespace').checked,ignoreMoves:$('ignore-moves').checked};}
-function invalidate(){state.job++;if(state.cancel)state.cancel();state.result=null;state.marked=null;state.busy=false;$('download').disabled=true;$('editor-content').hidden=true;$('empty').hidden=false;$('issues').hidden=true;feedback('');}
+function invalidate(){state.job++;if(state.cancel)state.cancel();state.result=null;state.marked=null;state.preview=null;state.busy=false;$('download').disabled=true;$('editor-content').hidden=true;$('empty').hidden=false;$('issues').hidden=true;feedback('');}
 function renderUpload(side){const p=state[side],reading=state.reading.has(side),card=$('drop-'+side);$(side+'-name').textContent=p?p.name:reading?'读取文件…':`选择${side==='old'?'旧版':'新版'}文件`;$(side+'-name').title=p?p.name:'';$(side+'-meta').textContent=p?`${p.single?'TEX':'ZIP'} · ${p.files.size} 个文件${state.demo?' · 示例':''}`:'TEX / ZIP · 支持拖入';$(side+'-ready').hidden=!p||reading;card.classList.toggle('is-loaded',Boolean(p));card.classList.toggle('is-zip',Boolean(p&&!p.single));card.classList.toggle('has-error',!$(side+'-error').hidden);card.setAttribute('aria-busy',String(reading));document.querySelector(`[data-side="${side}"]`).hidden=!p;}
 function renderMain(){const select=$('main-file'),previous=select.value;select.replaceChildren();if(!state.new){select.add(new Option('自动识别',''));return;}const mains=BlueDiff.findMains(state.new);if(!mains.length)select.add(new Option('章节片段',''));else for(const path of mains)select.add(new Option(path,path));if(mains.includes(previous))select.value=previous;}
 async function loadFile(side,file){if(!file)return;const id=++state.loadId[side];invalidate();if(state.demo){state.old=null;state.new=null;state.demo=false;renderUpload('old');renderUpload('new');}state[side]=null;$(side+'-error').hidden=true;state.reading.add(side);renderUpload(side);if(side==='new')renderMain();status('读取文件…',true);try{const project=await BlueDiff.readUpload(file,{encoding:'utf-8'});if(id!==state.loadId[side])return;state[side]=project;renderUpload(side);if(side==='new')renderMain();}catch(e){if(id===state.loadId[side]){$(side+'-error').textContent=e.message||String(e);$(side+'-error').hidden=false;}}finally{if(id===state.loadId[side]){state.reading.delete(side);$(side+'-input').value='';renderUpload(side);if(!state.reading.size){if(state.old&&state.new)compare();else status(state.old?'选择新版文件':state.new?'选择旧版文件':'选择两版文件');}}}}
@@ -1225,15 +1719,108 @@ let worker,url,timer,done=false;function finish(ok,value){if(done)return;done=tr
 async function compare(){if(!state.old||!state.new||state.reading.size)return;if(state.cancel)state.cancel();const job=++state.job;state.busy=true;$('download').disabled=true;status('标蓝中…',true);feedback('');try{const out=await runTask({old:state.old,new:state.new,options:options(),markOptions:{main:$('main-file').value,math:$('math').value}});if(job!==state.job)return;state.result=out.result;state.marked=out.marked;state.selected=state.result.files.find(f=>f.isTex&&f.ranges.length)?.path??state.result.files.find(f=>f.status!=='unchanged')?.path??state.result.files[0]?.path??null;state.change=-1;$('file-search').value='';renderResults();const n=state.marked.markedCount,pending=state.result.files.reduce((sum,f)=>sum+(f.unresolved?.length||0),0);status(pending?(n?`${n} 处已标蓝 · ${pending} 处待核对`:`${pending} 处待核对`):(n?`${n} 处已标蓝`:'无可标蓝文字'));$('download-label').textContent=downloadLabel();$('download').disabled=false;}catch(e){if(job!==state.job)return;state.result=null;state.marked=null;$('editor-content').hidden=true;$('empty').hidden=false;$('issues').hidden=true;status('处理失败');feedback(e.message||String(e),true);}finally{if(job===state.job)state.busy=false;}}
 function renderResults(){$('empty').hidden=true;$('editor-content').hidden=false;$('file-count').textContent=state.result.files.length;renderFiles();renderViewer();renderIssues();const removed=state.result.totals.removedTokens;$('bottom-count').textContent=removed?'删除已忽略':'仅标记新版';}
 function renderFiles(){if(!state.result)return;const q=$('file-search').value.toLowerCase(),only=$('only-changes').checked;const list=$('file-list');const focusPath=list.contains(document.activeElement)?document.activeElement.closest('button')?.dataset.path:null;list.replaceChildren();const files=state.result.files.filter(f=>(!only||f.status!=='unchanged')&&f.path.toLowerCase().includes(q));for(const f of files){const b=document.createElement('button');b.className='file-item'+(f.path===state.selected?' active':'');b.title=f.path;b.dataset.path=f.path;b.setAttribute('aria-current',f.path===state.selected?'true':'false');const top=document.createElement('span');top.className='file-item-top';const dot=document.createElement('span');dot.className='file-dot';dot.setAttribute('aria-hidden','true');const name=document.createElement('span');name.className='file-name';name.textContent=f.path.split('/').at(-1);const count=document.createElement('span');count.className='file-count';count.textContent=f.isTex?f.ranges.length:labels[f.status];top.append(dot,name,count);const parent=document.createElement('span');parent.className='file-parent';parent.textContent=f.path.includes('/')?f.path.slice(0,f.path.lastIndexOf('/')):labels[f.status];b.append(top,parent);b.addEventListener('click',()=>{state.selected=f.path;state.change=-1;renderFiles();renderViewer();});list.append(b);}if(!files.length){const p=document.createElement('p');p.className='empty-list';p.textContent=q?'没有匹配文件':'没有修改文件';list.append(p);}if(focusPath){const target=[...list.children].find(b=>b.dataset.path===focusPath);if(target)target.focus({preventScroll:true});}}
-function appendRanges(pre,text,ranges){const limit=100000;let pos=0;for(const r of ranges??[]){if(r.start>=limit)break;const start=Math.max(pos,r.start),end=Math.min(r.end,limit);if(end<=start)continue;pre.append(document.createTextNode(text.slice(pos,start)));const mark=document.createElement('mark');mark.textContent=text.slice(start,end);pre.append(mark);pos=end;}pre.append(document.createTextNode(text.slice(pos,limit)));if(text.length>limit)pre.append(document.createTextNode('\n\n…预览已截断，导出保留全文'));}
-function renderViewer(){if(!state.result)return;const f=state.result.files.find(x=>x.path===state.selected);if(!f)return;$('viewer-path').textContent=f.path;$('viewer-path').title=f.path;$('viewer-kind').textContent=labels[f.status];$('tab-diff').classList.toggle('active',state.mode==='diff');$('tab-output').classList.toggle('active',state.mode==='output');$('tab-diff').setAttribute('aria-pressed',String(state.mode==='diff'));$('tab-output').setAttribute('aria-pressed',String(state.mode==='output'));$('tab-diff').tabIndex=0;$('tab-output').tabIndex=0;$('old-pane').hidden=!state.split;$('source-grid').classList.toggle('split',state.split);$('old-source').textContent=f.isTex?f.oldText:'资源文件';$('new-pane-label').textContent=state.mode==='output'?'输出 TEX':'新版';const pre=$('new-source');pre.replaceChildren();if(f.status==='deleted')pre.textContent='已从新版删除';else if(!f.isTex)pre.textContent='资源文件按新版原样保留';else if(state.mode==='diff')appendRanges(pre,f.newText,f.ranges);else{const entry=state.marked.entries.find(x=>x.path===f.path);const text=entry?.text??state.marked.files.get(f.path)?.text??f.newText;const ranges=[];const macro=state.marked.macro;const needle='\\'+macro+'{';let i=0;while(i<text.length){const start=text.indexOf(needle,i);if(start<0)break;let end=start+needle.length,depth=1;while(end<text.length&&depth){if(text[end]==='\\'){end+=2;continue;}if(text[end]==='{')depth++;if(text[end]==='}')depth--;end++;}ranges.push({start,end});i=end;}appendRanges(pre,text,ranges);}setNavigation();}
-function setNavigation(){const marks=$('new-source').querySelectorAll('mark');if(state.change>=marks.length)state.change=-1;$('change-index').textContent=marks.length?`${state.change>=0?state.change+1:'–'} / ${marks.length}`:'';$('prev-change').disabled=!marks.length;$('next-change').disabled=!marks.length;}
-function navigate(delta){const marks=[...$('new-source').querySelectorAll('mark')];if(!marks.length)return;marks.forEach(m=>m.classList.remove('focus'));state.change=(state.change<0?(delta>0?0:marks.length-1):(state.change+delta+marks.length)%marks.length);marks[state.change].classList.add('focus');marks[state.change].scrollIntoView({block:'nearest',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});setNavigation();}
+const PREVIEW_LIMIT=100000;
+function previewWindow(text,anchor=0,limit=PREVIEW_LIMIT){
+  anchor=Math.max(0,Math.min(text.length,Number.isFinite(anchor)?anchor:0));
+  limit=Math.max(2,Math.floor(limit));
+  let start=Math.max(0,Math.min(Math.floor(anchor-limit/2),text.length-limit));
+  let end=Math.min(text.length,start+limit);
+  // Keep UTF-16 surrogate pairs intact at the two display boundaries.
+  if(start>0&&/[\uDC00-\uDFFF]/.test(text[start])&&/[\uD800-\uDBFF]/.test(text[start-1]))start++;
+  if(end<text.length&&/[\uD800-\uDBFF]/.test(text[end-1])&&/[\uDC00-\uDFFF]/.test(text[end]))end--;
+  return{start,end};
+}
+function lineBounds(text,line){
+  if(!Number.isInteger(line)||line<1)return null;
+  let start=0;
+  for(let i=1;i<line;i++){const next=text.indexOf('\n',start);if(next<0)return null;start=next+1;}
+  let end=text.indexOf('\n',start);if(end<0)end=text.length;
+  return{start,end:Math.min(text.length,Math.max(start+1,end))};
+}
+function correspondingOldOffset(oldText,newText,offset){
+  let line=1;
+  for(let pos=0;pos<Math.min(offset,newText.length);pos++)if(newText[pos]==='\n')line++;
+  return lineBounds(oldText,line)?.start??oldText.length;
+}
+function markedRanges(text,macro){
+  if(!macro)return[];
+  const ranges=[],needle='\\'+macro+'{';let i=0;
+  while(i<text.length){
+    const start=text.indexOf(needle,i);if(start<0)break;
+    let end=start+needle.length,depth=1;
+    while(end<text.length&&depth){if(text[end]==='\\'){end=Math.min(text.length,end+2);continue;}if(text[end]==='{')depth++;if(text[end]==='}')depth--;end++;}
+    ranges.push({start,end});i=end;
+  }
+  return ranges;
+}
+function previewData(){
+  const file=state.result?.files.find(f=>f.path===state.selected);if(!file)return null;
+  if(state.preview?.file===file&&state.preview.mode===state.mode&&state.preview.marked===state.marked)return state.preview;
+  const entry=state.mode==='output'?state.marked?.entries.find(x=>x.path===file.path):null;
+  const text=state.mode==='output'?(entry?.text??state.marked?.files.get(file.path)?.text??file.newText):file.newText;
+  const ranges=!file.isTex||file.status==='deleted'?[]:state.mode==='output'?(Array.isArray(entry?.outputRanges)?entry.outputRanges:markedRanges(text,state.marked?.macro)):(file.ranges??[]);
+  return state.preview={file,mode:state.mode,marked:state.marked,text,ranges,anchor:0,review:null};
+}
+function appendRanges(pre,text,ranges,view=previewWindow(text),selected=-1,review=null){
+  pre.replaceChildren();pre.dataset.windowStart=String(view.start);pre.dataset.windowEnd=String(view.end);
+  pre.title=view.start>0||view.end<text.length?'预览片段 · 导出保留全文':'';
+  function ellipsis(value){const span=document.createElement('span');span.textContent=value;span.setAttribute('aria-hidden','true');pre.append(span);}
+  function segment(start,end,index=-1){
+    if(end<=start)return;
+    const cuts=[start,end];if(review)for(const boundary of [review.start,review.end])if(boundary>start&&boundary<end)cuts.push(boundary);
+    cuts.sort((a,b)=>a-b);
+    for(let i=1;i<cuts.length;i++){
+      const a=cuts[i-1],b=cuts[i];let node=document.createTextNode(text.slice(a,b));
+      if(index>=0){const mark=document.createElement('mark');mark.dataset.changeIndex=String(index);mark.classList.toggle('focus',index===selected);mark.append(node);node=mark;}
+      if(review&&a<review.end&&b>review.start){const span=document.createElement('span');span.className='review-line';span.append(node);node=span;}
+      pre.append(node);
+    }
+  }
+  if(view.start>0)ellipsis('…\n');
+  let pos=view.start;
+  for(let index=0;index<(ranges??[]).length;index++){
+    const range=ranges[index];if(range.start>=view.end)break;if(range.end<=view.start)continue;
+    const start=Math.max(pos,range.start,view.start),end=Math.min(range.end,view.end);if(end<=start)continue;
+    segment(pos,start);segment(start,end,index);pos=end;
+  }
+  segment(pos,view.end);
+  if(view.end<text.length)ellipsis('\n…');
+}
+function renderViewer(target={}){
+  const data=previewData();if(!data)return;const f=data.file;
+  if(Number.isFinite(target.anchor))data.anchor=target.anchor;
+  if(Object.prototype.hasOwnProperty.call(target,'review'))data.review=target.review;
+  const mapping=f.oldPath&&f.oldPath!==f.path?`${f.oldPath} → ${f.path}`:f.path;
+  $('viewer-path').textContent=mapping;$('viewer-path').title=mapping;$('viewer-kind').textContent=f.oldPath&&f.oldPath!==f.path&&f.status==='modified'?'改名 · 修改':labels[f.status];
+  $('tab-diff').classList.toggle('active',state.mode==='diff');$('tab-output').classList.toggle('active',state.mode==='output');
+  $('tab-diff').setAttribute('aria-pressed',String(state.mode==='diff'));$('tab-output').setAttribute('aria-pressed',String(state.mode==='output'));
+  $('tab-diff').tabIndex=0;$('tab-output').tabIndex=0;$('old-pane').hidden=!state.split;$('source-grid').classList.toggle('split',state.split);
+  const oldPre=$('old-source');
+  if(!state.split)oldPre.replaceChildren();
+  else if(!f.isTex)oldPre.textContent='资源文件';
+  else{const oldAnchor=correspondingOldOffset(f.oldText,data.text,data.anchor);appendRanges(oldPre,f.oldText,[],previewWindow(f.oldText,oldAnchor));}
+  $('new-pane-label').textContent=state.mode==='output'?'输出 TEX':'新版';const pre=$('new-source');
+  if(f.status==='deleted')pre.textContent='已从新版删除';
+  else if(!f.isTex)pre.textContent='资源文件按新版原样保留';
+  else{data.window=previewWindow(data.text,data.anchor);appendRanges(pre,data.text,data.ranges,data.window,state.change,data.review);}
+  setNavigation();
+}
+function setNavigation(){
+  const ranges=previewData()?.ranges??[];if(state.change>=ranges.length)state.change=-1;
+  $('change-index').textContent=ranges.length?`${state.change>=0?state.change+1:'–'} / ${ranges.length}`:'';
+  $('prev-change').disabled=!ranges.length;$('next-change').disabled=!ranges.length;
+}
+function navigate(delta){
+  const data=previewData();if(!data?.ranges.length)return;const total=data.ranges.length;
+  state.change=state.change<0?(delta>0?0:total-1):(state.change+delta+total)%total;
+  renderViewer({anchor:data.ranges[state.change].start,review:null});
+  $('new-source').querySelector(`mark[data-change-index="${state.change}"]`)?.scrollIntoView({block:'center',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+}
 function issueItems(){const issues=[...(state.marked?.skipped??[])];for(const w of state.result?.warnings??[])if(/超过精细|回退为|未猜测|大小写/.test(w))issues.push({path:'工程',line:null,reason:w});return issues;}
 function renderIssues(){const issues=issueItems();$('issues').hidden=!issues.length;$('issues').open=false;$('issue-summary').textContent=`${issues.length} 处需检查`;$('issue-list').replaceChildren();for(const item of issues){const b=document.createElement('button');b.className='issue-item';const p=document.createElement('span');p.className='issue-path';p.textContent=item.path+(item.line?`:${item.line}`:'');const reason=document.createElement('span');reason.className='issue-reason';reason.textContent=item.reason;b.append(p,reason);b.addEventListener('click',()=>{if(state.result.files.some(f=>f.path===item.path)){state.selected=item.path;state.mode='diff';state.change=-1;renderFiles();renderViewer();if(item.line){focusLine(item.line);}}});$('issue-list').append(b);}}
 function downloadKind(){if(!state.new||!state.marked)return 'zip';return state.new.single&&(!state.marked.fragment||!state.marked.markedCount)&&!$('include-report').checked?'tex':'zip';}
 function fileValue(text){const bytes=new TextEncoder().encode(text);return{text,bytes,size:bytes.length};}
-function makeReport(){return{tool:'BlueRevision',version:'0.3',granularity:state.granularity,main:$('main-file').value,markedCount:state.marked.markedCount,skipped:state.marked.skipped,changes:state.result.files.map(f=>({path:f.path,status:f.status,addedTokens:f.addedCount,removedTokens:f.removedCount,changes:f.ranges.length,countsPartial:Boolean(f.unresolved?.length),unresolved:f.unresolved||[]})),warnings:state.result.warnings};}
+function makeReport(){return{tool:'BlueRevision',version:'0.4',granularity:state.granularity,main:$('main-file').value,markedCount:state.marked.markedCount,skipped:state.marked.skipped,changes:state.result.files.map(f=>({path:f.path,oldPath:f.oldPath??null,pairing:f.pairing??null,similarity:f.similarity??null,status:f.status,addedTokens:f.addedCount,removedTokens:f.removedCount,changes:f.ranges.length,countsPartial:Boolean(f.unresolved?.length),unresolved:f.unresolved||[]})),warnings:state.result.warnings};}
 function saveBytes(bytes,name,type){const url=URL.createObjectURL(new Blob([bytes],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),4000);}
 async function download(){if(!state.marked||state.busy)return;if(state.marked.fragment&&state.marked.markedCount){$('fragment-dialog').showModal();return;}performDownload();}
 function performDownload(){try{const base=state.new.name.replace(/\.(?:tex|zip)$/i,'');if(downloadKind()==='tex'){const source=[...state.marked.files].find(([path])=>/\.tex$/i.test(path));if(!source)throw new Error('没有可导出的 TEX');saveBytes(source[1].bytes,base+'_blue.tex','application/x-tex;charset=utf-8');}else{const files=new Map(state.marked.files);if(state.marked.fragment&&state.marked.markedCount&&state.marked.preamble){if(files.has('blue_revision_preamble.tex'))throw new Error('工程中已有 blue_revision_preamble.tex，请先重命名该文件');files.set('blue_revision_preamble.tex',fileValue(state.marked.preamble));}if($('include-report').checked){const name='blue_revision_report.json';if(files.has(name))throw new Error('工程中已有同名检查清单，请先重命名');files.set(name,fileValue(JSON.stringify(makeReport(),null,2)));}saveBytes(BlueMark.writeZip(files),base+'_blue.zip','application/zip');}feedback(issueItems().length?'已下载 · 展开检查清单核对未标记内容':'已下载');}catch(e){feedback(e.message||String(e),true);}}
@@ -1278,7 +1865,12 @@ for(const id of ['tab-diff','tab-output'])$(id).addEventListener('keydown',e=>{i
 
 function downloadLabel(){const base=state.marked?.markedCount?'下载标蓝':'下载新版';return base+(downloadKind()==='tex'?' TEX':' ZIP');}
 
-function focusLine(line){const f=state.result.files.find(f=>f.path===state.selected);if(!f||!f.isTex)return;const text=f.newText;let start=0;for(let i=1;i<line;i++){const next=text.indexOf('\n',start);if(next<0)return;start=next+1;}if(start>=100000){feedback('该行超出预览范围，请在下载的 TEX 中查看');return;}let end=text.indexOf('\n',start);if(end<0)end=text.length;end=Math.min(Math.max(start+1,end),text.length,100000);const pre=$('new-source');function boundary(offset){const walker=document.createTreeWalker(pre,NodeFilter.SHOW_TEXT);let total=0,node;while((node=walker.nextNode())){if(total+node.length>=offset)return{node,offset:offset-total};total+=node.length;}return null;}const a=boundary(start),b=boundary(end);if(!a||!b)return;const r=document.createRange();r.setStart(a.node,a.offset);r.setEnd(b.node,b.offset);const span=document.createElement('span');span.className='review-line';span.append(r.extractContents());r.insertNode(span);span.scrollIntoView({block:'center'});}
+function focusLine(line){
+  const f=state.result?.files.find(file=>file.path===state.selected);if(!f?.isTex)return;
+  const review=lineBounds(f.newText,line);if(!review)return;
+  state.mode='diff';state.change=-1;renderViewer({anchor:review.start,review});
+  ($('new-source').querySelector('.review-line')??$('new-source')).scrollIntoView({block:'center'});
+}
 </script>
 </body>
 </html>
