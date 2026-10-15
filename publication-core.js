@@ -162,7 +162,7 @@ const PUBS = [
   ...NEW_PUBLICATIONS,
   {
     "year": 2026,
-    "role": "corr",
+    "role": "co",
     "title": "How Relation Enrichment Improves Clustering Ensemble Performance: A Second Order Induced Relation View",
     "authors": "Feijiang Li, Jieting Wang, Yuhua Qian<sup>#</sup>, Hongren Yan, <strong>Tingjin Luo</strong>",
     "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), Accepted",
