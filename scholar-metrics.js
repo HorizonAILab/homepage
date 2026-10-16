@@ -1,11 +1,10 @@
-/* 只更新下方数据即可。数值取 Google Scholar 的 All 栏，日期为实际核对日期。
-   当前保留网站已有快照；并非 2026-10-16 实时抓取结果。 */
+/* 数值取 Google Scholar 的 All 栏 */
 window.SCHOLAR_METRICS = {
   profileId: 'w0YDfhcAAAAJ',
-  citations: 1369,
-  hIndex: 22,
-  i10Index: 41,
-  updatedAt: '2026-10-08'
+  citations: 1399,
+  hIndex: 23,
+  i10Index: 42,
+  updatedAt: '2026-10-16'
 };
 
 (function () {
