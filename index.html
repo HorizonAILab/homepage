@@ -779,7 +779,7 @@ sup { font-size: .62em; }
 .home-papers { --paper-gap: 24px; min-width: 0; font-family: var(--system-sans); }
 .mobile-paper-track {
   display: flex; align-items: stretch; gap: var(--paper-gap); position: relative;
-  width: 100%; min-width: 0; overflow-x: auto; padding: 4px 0 8px;
+  width: 100%; min-width: 0; overflow-x: auto; padding: 2px 0 4px;
   scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch; scrollbar-width: none;
 }
@@ -790,31 +790,34 @@ sup { font-size: .62em; }
 .mobile-paper-meta { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; font-size: 12px; letter-spacing: 0; }
 .mobile-paper-venue { color: #526b8a; font-weight: 600; }
 .mobile-paper-year { color: var(--ink3); font: 12px var(--system-sans); }
-.mobile-paper-title { color: var(--ink); font: 500 20px/1.4 var(--system-sans); letter-spacing: -.025em; overflow-wrap: anywhere; }
+.mobile-paper-title { color: var(--ink); font: 500 20px/1.4 var(--system-sans); letter-spacing: -.025em; overflow-wrap: break-word; text-wrap: balance; }
 .home-paper-authors-full { margin: 10px 0 0; color: var(--ink3); font-size: 13px; line-height: 1.6; }
 .home-paper-authors-full .is-me { color: #405673; font-weight: 500; }
 .home-paper-authors-full sup { margin-left: 1px; font-size: .65em; }
-.home-paper-abstract { margin: 12px 0 0; color: #647181; font-size: 13px; line-height: 1.65; }
+.home-paper-abstract { margin: 12px 0 0; color: #647181; font-size: 13px; line-height: 1.65; text-wrap: pretty; }
+.paper-ending { white-space: nowrap; overflow-wrap: normal; }
+.home-paper-authors-full > span { white-space: nowrap; }
 .home-paper-figure { display: none; margin: 0; }
 .mobile-paper-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 20px; margin-top: auto; padding-top: 8px; }
 .mobile-paper-links a { display: inline-flex; align-items: center; min-height: 36px; color: #526b8a; font-size: 13px; transition: color .18s var(--ease-out); }
 .mobile-paper-links a:hover, .mobile-papers-all:hover { color: var(--blue2); text-decoration: underline; text-underline-offset: 4px; }
 .mobile-paper-links a:focus-visible, .mobile-papers-all:focus-visible, .mobile-paper-controls button:focus-visible, .home-paper-figure-link:focus-visible { outline: 2px solid #6483aa; outline-offset: 3px; border-radius: 2px; }
 .mobile-paper-tail { flex: 0 0 auto; width: 0; pointer-events: none; }
-.mobile-paper-progress { height: 1px; margin-top: 12px; background: #edf0f4; overflow: hidden; }
+.mobile-paper-progress { height: 1px; margin-top: 8px; background: #edf0f4; overflow: hidden; }
 .mobile-paper-progress-fill { display: block; width: 100%; height: 100%; background: #7d91ac; transform-origin: left center; transition: transform .24s var(--ease-out); }
-.mobile-papers-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 6px; }
+.mobile-papers-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 2px; }
 .mobile-papers-all { display: inline-flex; align-items: center; min-height: 40px; color: #63758c; font-size: 13px; }
 .mobile-paper-controls { display: flex; align-items: center; gap: 0; }
 .mobile-paper-controls button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; appearance: none; border: 0; border-radius: 6px; background: none; color: #526985; cursor: pointer; transition: color .18s var(--ease-out), background-color .18s var(--ease-out), transform .18s var(--ease-out); }
 .mobile-paper-controls button:active:not(:disabled) { transform: translateY(1px); }
 .mobile-paper-controls button:disabled { color: #c9d1da; cursor: default; }
 .mobile-paper-count { min-width: 50px; text-align: center; color: #8793a3; font: 12px var(--system-sans); font-variant-numeric: tabular-nums; }
-.publications-section .sec-head { margin-bottom: 18px; }
+.publications-section .sec-head { margin-bottom: 14px; }
 .publications-section .sec-title { font-family: var(--system-sans); font-size: 23px; font-weight: 600; letter-spacing: -.025em; }
 
 @media (min-width: 761px) {
-  .publications-section.sec { padding-top: 48px; }
+  .publications-section.sec { padding-top: 40px; }
+  .publications-section + .anchor + .sec { padding-top: 44px; }
   .home-papers .mobile-paper {
     flex-basis: calc(40% - var(--paper-gap) * .8);
     display: grid; grid-template-columns: minmax(0, 1fr);
@@ -822,19 +825,19 @@ sup { font-size: .62em; }
     grid-template-rows: auto auto auto auto auto; align-content: start;
   }
   .home-papers .mobile-paper.has-figure {
-    grid-template-columns: minmax(0, 1fr) 96px; column-gap: 16px;
-    grid-template-areas: "meta meta" "title title" "authors figure" "abstract abstract" "links links";
+    grid-template-columns: minmax(0, 1fr) 80px; column-gap: 10px;
+    grid-template-areas: "meta figure" "title title" "authors authors" "abstract abstract" "links links";
   }
   .home-papers .home-paper-body { display: contents; }
-  .home-papers .mobile-paper-meta { grid-area: meta; margin-bottom: 7px; }
-  .home-papers .mobile-paper-title { grid-area: title; font-size: 18px; line-height: 1.4; letter-spacing: -.02em; }
+  .home-papers .mobile-paper-meta { grid-area: meta; align-self: center; margin-bottom: 6px; }
+  .home-papers .mobile-paper-title { grid-area: title; font-size: 18px; line-height: 1.35; letter-spacing: -.02em; }
   .home-papers .mobile-paper-authors { display: none; }
-  .home-paper-authors-full { grid-area: authors; margin-top: 8px; font-size: 12px; line-height: 1.55; }
-  .home-paper-abstract { grid-area: abstract; margin-top: 7px; font-size: 12.5px; line-height: 1.6; }
+  .home-paper-authors-full { grid-area: authors; margin-top: 5px; font-size: 12px; line-height: 1.5; text-wrap: pretty; }
+  .home-paper-abstract { grid-area: abstract; margin-top: 5px; font-size: 12.5px; line-height: 1.55; }
   .home-papers .mobile-paper-title, .home-paper-authors-full, .home-paper-abstract { display: block; white-space: normal; overflow: visible; overflow-wrap: break-word; }
-  .home-papers .mobile-paper-links { grid-area: links; gap: 0 16px; padding-top: 5px; min-height: 37px; }
+  .home-papers .mobile-paper-links { grid-area: links; gap: 0 16px; padding-top: 3px; min-height: 35px; }
   .home-papers .mobile-paper-links a { min-height: 32px; font-size: 12px; }
-  .home-paper-figure { display: block; grid-area: figure; align-self: center; width: 96px; height: 60px; margin-top: 8px; }
+  .home-paper-figure { display: block; grid-area: figure; align-self: center; width: 80px; height: 42px; margin-bottom: 6px; }
   .home-paper-figure[hidden] { display: none; }
   .home-paper-figure-link { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 3px; border-radius: 6px; background: #f7f9fc; transition: background-color .18s var(--ease-out); }
   .home-paper-figure img { width: 100%; height: 100%; object-fit: contain; }
@@ -842,9 +845,9 @@ sup { font-size: .62em; }
 }
 @media (min-width: 761px) and (max-width: 980px) {
   .home-papers { --paper-gap: 20px; }
-  .home-papers .mobile-paper.has-figure { grid-template-columns: minmax(0, 1fr) 80px; column-gap: 12px; }
+  .home-papers .mobile-paper.has-figure { grid-template-columns: minmax(0, 1fr) 72px; column-gap: 10px; }
   .home-papers .mobile-paper-title { font-size: 17px; }
-  .home-paper-figure { width: 80px; height: 60px; }
+  .home-paper-figure { width: 72px; height: 40px; }
 }
 @media (hover: hover) and (pointer: fine) {
   .mobile-paper-controls button:hover:not(:disabled), .home-paper-figure-link:hover { background: rgba(225,234,245,.55); color: #405f85; }
@@ -852,7 +855,7 @@ sup { font-size: .62em; }
 @media (max-width: 760px) {
   .home-papers .home-paper-authors-full, .home-papers .home-paper-abstract, .home-papers .home-paper-figure { display: none; }
   .home-papers .home-paper-body { flex: 1; }
-  .publications-section .sec-head { margin-bottom: 18px; }
+  .publications-section .sec-head { margin-bottom: 14px; }
   .publications-section .sec-title { font-size: 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1129,7 +1132,7 @@ sup { font-size: .62em; }
   .mobile-paper-meta { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; font-size: .68rem; letter-spacing: .025em; }
   .mobile-paper-venue { font-weight: 600; color: #4d6583; }
   .mobile-paper-year { color: #8a96a5; font-family: var(--mono); font-size: .65rem; }
-  .mobile-paper-title { font-size: 1.075rem; font-weight: 500; line-height: 1.52; letter-spacing: -.02em; color: var(--ink); overflow-wrap: anywhere; }
+  .mobile-paper-title { font-size: 1.075rem; font-weight: 500; line-height: 1.52; letter-spacing: -.02em; color: var(--ink); overflow-wrap: break-word; }
   .mobile-paper-authors { margin: 12px 0 6px; color: #7b8695; font-size: .76rem; line-height: 1.65; }
   .mobile-paper-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 18px; margin-top: auto; padding-top: 6px; }
   .mobile-paper-links a { display: inline-flex; align-items: center; min-height: 44px; color: #536b8a; font-size: .75rem; }
@@ -1318,6 +1321,16 @@ sup { font-size: .62em; }
   .email-chip { justify-self: start; justify-content: flex-start; min-height: 44px; }
   .email-addr { text-align: left; }
   .mobile-profile-summary { width: 100%; justify-self: stretch; text-align: left; }
+}
+</style>
+<style id="selected-paper-spacing">
+@media (max-width: 760px) {
+  .publications-section.sec { padding-top: 32px; }
+  .publications-section .mobile-paper-track { padding: 2px 0 4px; }
+  .publications-section .mobile-paper-meta { margin-bottom: 7px; }
+  .publications-section .mobile-paper-authors { margin-top: 9px; }
+  .publications-section .mobile-paper-progress { margin-top: 10px; }
+  .publications-section .mobile-papers-footer { padding-top: 2px; }
 }
 </style>
 <style id="homepage-scroll-motion">
@@ -1529,7 +1542,7 @@ sup { font-size: .62em; }
 <a id="publications" class="anchor"></a>
 <section class="sec publications-section" aria-labelledby="selectedPapersTitle">
   <div class="sec-head"><h2 class="sec-title" id="selectedPapersTitle">Selected publications</h2></div>
-  <div class="papers papers-fallback home-papers"><div class="mobile-paper-track" role="list" tabindex="0" aria-label="Representative publications"><article class="mobile-paper has-figure" role="listitem" aria-posinset="1" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)">CVPR</span><span class="mobile-paper-year">2026</span></p><h3 class="mobile-paper-title">Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition</h3><p class="mobile-paper-authors">Hao Zhou, Tingjin Luo</p><p class="home-paper-authors-full"><span>Hao Zhou</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span></p><p class="home-paper-abstract">Calibrates trust across multiple experts to balance head and tail classes, improving collaborative learning for long-tailed visual recognition.</p></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/CVPR2026Trust.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition"><img src="./images/pub_figs/CVPR2026Trust.png" alt="Figure for Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="2" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="ACM SIGKDD Conference on Knowledge Discovery &amp; Data Mining (KDD)">KDD</span><span class="mobile-paper-year">2026</span></p><h3 class="mobile-paper-title">Deep Partial Label Feature Selection with Cluster-Guided Disambiguation</h3><p class="mobile-paper-authors">Tingjin Luo, Mengyuan Tong, et al.</p><p class="home-paper-authors-full"><span class="is-me">Tingjin Luo</span>, <span>Mengyuan Tong</span>, <span>Qingchang Shu</span>, <span>Yueyin Liu</span>, <span>Hao Zhou</span>, <span>Zheng Wang</span></p><p class="home-paper-abstract">Pairs cluster-guided disambiguation with deep feature selection to resolve candidate-label ambiguity and learn informative features from partial-label data.</p></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/KDD2026DPLFS.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Deep Partial Label Feature Selection with Cluster-Guided Disambiguation"><img src="./images/pub_figs/KDD2026DPLFS.png" alt="Figure for Deep Partial Label Feature Selection with Cluster-Guided Disambiguation" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="3" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)">CVPR</span><span class="mobile-paper-year">2025</span></p><h3 class="mobile-paper-title">Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens</h3><p class="mobile-paper-authors">Zhangqi Jiang, Junkai Chen, et al.</p><p class="home-paper-authors-full"><span>Zhangqi Jiang</span>, <span>Junkai Chen</span>, <span>Beier Zhu</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Yankun Shen</span>, <span>Xu Yang<sup aria-label="corresponding author">#</sup></span></p><p class="home-paper-abstract">Uses attention differences in the middle layers of large vision-language models to detect and mitigate object hallucinations without additional training.</p><div class="mobile-paper-links"><a href="http://arxiv.org/abs/2411.16724" target="_blank" rel="noopener noreferrer">arXiv</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/CVPR2025thumbnail.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens"><img src="./images/pub_figs/CVPR2025thumbnail.png" alt="Figure for Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="4" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)">CVPR</span><span class="mobile-paper-year">2025</span></p><h3 class="mobile-paper-title">Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels</h3><p class="mobile-paper-authors">Quanjiang Li, Tingjin Luo, et al.</p><p class="home-paper-authors-full"><span>Quanjiang Li</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Jiahui Liao</span></p><p class="home-paper-abstract">Combines information-bottleneck theory, cycle-consistent estimation, and label-correlation regularization to learn from incomplete views and noisy labels.</p><div class="mobile-paper-links"><a href="http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf" target="_blank" rel="noopener noreferrer">PDF</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/CVPR2025DMMIvNL.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels"><img src="./images/pub_figs/CVPR2025DMMIvNL.png" alt="Figure for Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="5" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)">TPAMI</span><span class="mobile-paper-year">2025</span></p><h3 class="mobile-paper-title">Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network</h3><p class="mobile-paper-authors">Hao Zhou, Tingjin Luo, et al.</p><p class="home-paper-authors-full"><span>Hao Zhou</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Jun Zhang</span>, <span>Guoli Li</span></p><p class="home-paper-abstract">Uses causal feature enhancement to reduce object-specific biases and improve relationship prediction in scene graph generation, including tail relationships.</p><div class="mobile-paper-links"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener noreferrer">Paper</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/TPAMI2025CFEN.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network"><img src="./images/pub_figs/TPAMI2025CFEN.png" alt="Figure for Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="6" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="AAAI Conference on Artificial Intelligence (AAAI)">AAAI</span><span class="mobile-paper-year">2024</span></p><h3 class="mobile-paper-title">Deep Incomplete Multi-View Learning Network with Insufficient Label Information</h3><p class="mobile-paper-authors">Zhangqi Jiang, Tingjin Luo, et al.</p><p class="home-paper-authors-full"><span>Zhangqi Jiang</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Xinyan Liang</span></p><p class="home-paper-abstract">Combines graph neural networks and semi-supervised learning to handle incomplete views and limited labels through cross-view information propagation.</p><div class="mobile-paper-links"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/29189" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://github.com/ZhangqiJiang07/code_DIMvLN" target="_blank" rel="noopener noreferrer">Code</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/AAAI2024DIMvLN.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Deep Incomplete Multi-View Learning Network with Insufficient Label Information"><img src="./images/pub_figs/AAAI2024DIMvLN.png" alt="Figure for Deep Incomplete Multi-View Learning Network with Insufficient Label Information" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="7" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="ACM International Conference on Multimedia (ACM MM)">ACM MM</span><span class="mobile-paper-year">2024</span></p><h3 class="mobile-paper-title">Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds</h3><p class="mobile-paper-authors">Xinyue Zhang, Tingjin Luo, et al.</p><p class="home-paper-authors-full"><span>Xinyue Zhang</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Yueying Liu</span>, <span>Chenping Hou</span></p><p class="home-paper-abstract">Uses error-correcting coding ensembles and adaptive per-label thresholds to address label imbalance in multi-instance multi-label learning.</p><div class="mobile-paper-links"><a href="https://dl.acm.org/doi/10.1145/3664647.3680911" target="_blank" rel="noopener noreferrer">Paper</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/ACMMM2024IMIMLC.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds"><img src="./images/pub_figs/ACMMM2024IMIMLC.png" alt="Figure for Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="8" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)">TPAMI</span><span class="mobile-paper-year">2023</span></p><h3 class="mobile-paper-title">Debiased Scene Graph Generation for Dual Imbalance Learning</h3><p class="mobile-paper-authors">Hao Zhou, Jun Zhang, et al.</p><p class="home-paper-authors-full"><span>Hao Zhou</span>, <span>Jun Zhang<sup aria-label="corresponding author">#</sup></span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Yazhou Yang</span>, <span>Jun Lei</span></p><p class="home-paper-abstract">Uses a bias-resistance loss and causal intervention tree to address predicate and foreground-background imbalance in scene graph generation.</p><div class="mobile-paper-links"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://github.com/zhouhao0515/unbiasedSGG-DSDI" target="_blank" rel="noopener noreferrer">Code</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/TPAMI2023DSDI.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Debiased Scene Graph Generation for Dual Imbalance Learning"><img src="./images/pub_figs/TPAMI2023DSDI.png" alt="Figure for Debiased Scene Graph Generation for Dual Imbalance Learning" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="9" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="ACM SIGKDD Conference on Knowledge Discovery &amp; Data Mining (KDD)">KDD</span><span class="mobile-paper-year">2017</span></p><h3 class="mobile-paper-title">Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning</h3><p class="mobile-paper-authors">Tingjin Luo, Weizhong Zhang, et al.</p><p class="home-paper-authors-full"><span class="is-me">Tingjin Luo</span>, <span>Weizhong Zhang</span>, <span>Shuang Qiu</span>, <span>Yang Yang</span>, <span>Dongyun Yi</span>, <span>Guangtao Wang</span>, <span>Jieping Ye<sup aria-label="corresponding author">#</sup></span>, <span>Jie Wang<sup aria-label="corresponding author">#</sup></span></p><p class="home-paper-abstract">Uses sparse simplex projection and non-convex multi-instance learning to distinguish protein coding isoform functions, optimized by block coordinate descent.</p><div class="mobile-paper-links"><a href="https://dl.acm.org/doi/10.1145/3097983.3097984" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://github.com/HorizonAILab/Paper_Code" target="_blank" rel="noopener noreferrer">Code</a><a href="https://videolectures.net/videos/kdd2017_luo_human_protein_coding" target="_blank" rel="noopener noreferrer">Video</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/ACMKDD2017WLRM.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning"><img src="./images/pub_figs/ACMKDD2017WLRM.png" alt="Figure for Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning" loading="lazy" decoding="async"></a></figure></article></div><div class="mobile-papers-footer"><a class="mobile-papers-all" href="publications.html">All publications</a></div></div>
+  <div class="papers papers-fallback home-papers"><div class="mobile-paper-track" role="list" tabindex="0" aria-label="Representative publications"><article class="mobile-paper has-figure" role="listitem" aria-posinset="1" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)">CVPR</span><span class="mobile-paper-year">2026</span></p><h3 class="mobile-paper-title">Trust-calibrated Collaborative Learning for Long-Tailed <span class="paper-ending">Visual Recognition</span></h3><p class="mobile-paper-authors">Hao Zhou, <span class="paper-ending">Tingjin Luo</span></p><p class="home-paper-authors-full"><span>Hao Zhou</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span></p><p class="home-paper-abstract">Calibrates trust between experts to balance head and tail classes in long-tailed <span class="paper-ending">visual recognition.</span></p></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/CVPR2026Trust.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition"><img src="./images/pub_figs/CVPR2026Trust.png" alt="Figure for Trust-calibrated Collaborative Learning for Long-Tailed Visual Recognition" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="2" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="ACM SIGKDD Conference on Knowledge Discovery &amp; Data Mining (KDD)">KDD</span><span class="mobile-paper-year">2026</span></p><h3 class="mobile-paper-title">Deep Partial Label Feature Selection with Cluster-<span class="paper-ending">Guided Disambiguation</span></h3><p class="mobile-paper-authors">Tingjin Luo, Mengyuan Tong, <span class="paper-ending">et al.</span></p><p class="home-paper-authors-full"><span class="is-me">Tingjin Luo</span>, <span>Mengyuan Tong</span>, <span>Qingchang Shu</span>, <span>Yueyin Liu</span>, <span>Hao Zhou</span>, <span>Zheng Wang</span></p><p class="home-paper-abstract">Combines cluster-guided disambiguation and deep feature selection to learn from <span class="paper-ending">partial-label data.</span></p></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/KDD2026DPLFS.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Deep Partial Label Feature Selection with Cluster-Guided Disambiguation"><img src="./images/pub_figs/KDD2026DPLFS.png" alt="Figure for Deep Partial Label Feature Selection with Cluster-Guided Disambiguation" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="3" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)">CVPR</span><span class="mobile-paper-year">2025</span></p><h3 class="mobile-paper-title">Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via <span class="paper-ending">Attention Lens</span></h3><p class="mobile-paper-authors">Zhangqi Jiang, Junkai Chen, <span class="paper-ending">et al.</span></p><p class="home-paper-authors-full"><span>Zhangqi Jiang</span>, <span>Junkai Chen</span>, <span>Beier Zhu</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Yankun Shen</span>, <span>Xu Yang<sup aria-label="corresponding author">#</sup></span></p><p class="home-paper-abstract">Uses middle-layer attention to detect and mitigate object hallucinations in vision-language models <span class="paper-ending">without retraining.</span></p><div class="mobile-paper-links"><a href="http://arxiv.org/abs/2411.16724" target="_blank" rel="noopener noreferrer">arXiv</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/CVPR2025thumbnail.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens"><img src="./images/pub_figs/CVPR2025thumbnail.png" alt="Figure for Devils in Middle Layers of Large Vision-Language Models: Interpreting, Detecting and Mitigating Object Hallucinations via Attention Lens" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="4" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)">CVPR</span><span class="mobile-paper-year">2025</span></p><h3 class="mobile-paper-title">Deep Multi-View Multi-Label Learning with Incomplete Views and <span class="paper-ending">Noisy Labels</span></h3><p class="mobile-paper-authors">Quanjiang Li, Tingjin Luo, <span class="paper-ending">et al.</span></p><p class="home-paper-authors-full"><span>Quanjiang Li</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Jiahui Liao</span></p><p class="home-paper-abstract">Uses information-bottleneck theory and cycle-consistent estimation to learn from incomplete views and <span class="paper-ending">noisy labels.</span></p><div class="mobile-paper-links"><a href="http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf" target="_blank" rel="noopener noreferrer">PDF</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/CVPR2025DMMIvNL.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels"><img src="./images/pub_figs/CVPR2025DMMIvNL.png" alt="Figure for Deep Multi-View Multi-Label Learning with Incomplete Views and Noisy Labels" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="5" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)">TPAMI</span><span class="mobile-paper-year">2025</span></p><h3 class="mobile-paper-title">Exploring the Essence of Relationships for Scene Graph Generation via Causal Features <span class="paper-ending">Enhancement Network</span></h3><p class="mobile-paper-authors">Hao Zhou, Tingjin Luo, <span class="paper-ending">et al.</span></p><p class="home-paper-authors-full"><span>Hao Zhou</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Jun Zhang</span>, <span>Guoli Li</span></p><p class="home-paper-abstract">Uses causal feature enhancement to reduce object bias in relationship prediction for scene <span class="paper-ending">graph generation.</span></p><div class="mobile-paper-links"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener noreferrer">Paper</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/TPAMI2025CFEN.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network"><img src="./images/pub_figs/TPAMI2025CFEN.png" alt="Figure for Exploring the Essence of Relationships for Scene Graph Generation via Causal Features Enhancement Network" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="6" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="AAAI Conference on Artificial Intelligence (AAAI)">AAAI</span><span class="mobile-paper-year">2024</span></p><h3 class="mobile-paper-title">Deep Incomplete Multi-View Learning Network with Insufficient <span class="paper-ending">Label Information</span></h3><p class="mobile-paper-authors">Zhangqi Jiang, Tingjin Luo, <span class="paper-ending">et al.</span></p><p class="home-paper-authors-full"><span>Zhangqi Jiang</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Xinyan Liang</span></p><p class="home-paper-abstract">Uses graph networks and semi-supervised learning to learn from incomplete views and <span class="paper-ending">limited labels.</span></p><div class="mobile-paper-links"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/29189" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://github.com/ZhangqiJiang07/code_DIMvLN" target="_blank" rel="noopener noreferrer">Code</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/AAAI2024DIMvLN.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Deep Incomplete Multi-View Learning Network with Insufficient Label Information"><img src="./images/pub_figs/AAAI2024DIMvLN.png" alt="Figure for Deep Incomplete Multi-View Learning Network with Insufficient Label Information" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="7" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="ACM International Conference on Multimedia (ACM MM)">ACM MM</span><span class="mobile-paper-year">2024</span></p><h3 class="mobile-paper-title">Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and <span class="paper-ending">Adaptive Thresholds</span></h3><p class="mobile-paper-authors">Xinyue Zhang, Tingjin Luo, <span class="paper-ending">et al.</span></p><p class="home-paper-authors-full"><span>Xinyue Zhang</span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Yueying Liu</span>, <span>Chenping Hou</span></p><p class="home-paper-abstract">Uses coding ensembles and adaptive label thresholds to address imbalance in multi-instance <span class="paper-ending">multi-label learning.</span></p><div class="mobile-paper-links"><a href="https://dl.acm.org/doi/10.1145/3664647.3680911" target="_blank" rel="noopener noreferrer">Paper</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/ACMMM2024IMIMLC.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds"><img src="./images/pub_figs/ACMMM2024IMIMLC.png" alt="Figure for Imbalanced Multi-instance Multi-label Learning via Coding Ensemble and Adaptive Thresholds" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="8" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)">TPAMI</span><span class="mobile-paper-year">2023</span></p><h3 class="mobile-paper-title">Debiased Scene Graph Generation for Dual <span class="paper-ending">Imbalance Learning</span></h3><p class="mobile-paper-authors">Hao Zhou, Jun Zhang, <span class="paper-ending">et al.</span></p><p class="home-paper-authors-full"><span>Hao Zhou</span>, <span>Jun Zhang<sup aria-label="corresponding author">#</sup></span>, <span class="is-me">Tingjin Luo<sup aria-label="corresponding author">#</sup></span>, <span>Yazhou Yang</span>, <span>Jun Lei</span></p><p class="home-paper-abstract">Uses a bias-resistance loss and causal intervention tree to tackle dual imbalance in scene <span class="paper-ending">graph generation.</span></p><div class="mobile-paper-links"><a href="https://ieeexplore.ieee.org/document/9858006" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://github.com/zhouhao0515/unbiasedSGG-DSDI" target="_blank" rel="noopener noreferrer">Code</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/TPAMI2023DSDI.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Debiased Scene Graph Generation for Dual Imbalance Learning"><img src="./images/pub_figs/TPAMI2023DSDI.png" alt="Figure for Debiased Scene Graph Generation for Dual Imbalance Learning" loading="lazy" decoding="async"></a></figure></article><article class="mobile-paper has-figure" role="listitem" aria-posinset="9" aria-setsize="9"><div class="home-paper-body"><p class="mobile-paper-meta"><span class="mobile-paper-venue" title="ACM SIGKDD Conference on Knowledge Discovery &amp; Data Mining (KDD)">KDD</span><span class="mobile-paper-year">2017</span></p><h3 class="mobile-paper-title">Functional Annotation of Human Protein Coding Isoforms via Non-convex <span class="paper-ending">Multi-Instance Learning</span></h3><p class="mobile-paper-authors">Tingjin Luo, Weizhong Zhang, <span class="paper-ending">et al.</span></p><p class="home-paper-authors-full"><span class="is-me">Tingjin Luo</span>, <span>Weizhong Zhang</span>, <span>Shuang Qiu</span>, <span>Yang Yang</span>, <span>Dongyun Yi</span>, <span>Guangtao Wang</span>, <span>Jieping Ye<sup aria-label="corresponding author">#</sup></span>, <span>Jie Wang<sup aria-label="corresponding author">#</sup></span></p><p class="home-paper-abstract">Uses non-convex multi-instance learning and sparse simplex projection to annotate protein-coding <span class="paper-ending">isoform functions.</span></p><div class="mobile-paper-links"><a href="https://dl.acm.org/doi/10.1145/3097983.3097984" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://github.com/HorizonAILab/Paper_Code" target="_blank" rel="noopener noreferrer">Code</a><a href="https://videolectures.net/videos/kdd2017_luo_human_protein_coding" target="_blank" rel="noopener noreferrer">Video</a></div></div><figure class="home-paper-figure"><a class="home-paper-figure-link" href="./images/pub_figs/ACMKDD2017WLRM.png" target="_blank" rel="noopener noreferrer" aria-label="Open figure for Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning"><img src="./images/pub_figs/ACMKDD2017WLRM.png" alt="Figure for Functional Annotation of Human Protein Coding Isoforms via Non-convex Multi-Instance Learning" loading="lazy" decoding="async"></a></figure></article></div><div class="mobile-papers-footer"><a class="mobile-papers-all" href="publications.html">All publications</a></div></div>
 </section>
 
 <!-- STUDENTS -->
@@ -1870,7 +1883,7 @@ document.addEventListener('keydown', function(e){
       "Collaborative Learning",
       "Trust Calibration"
     ],
-    "abstract": "Calibrates trust across multiple experts to balance head and tail classes, improving collaborative learning for long-tailed visual recognition.",
+    "abstract": "Calibrates trust between experts to balance head and tail classes in long-tailed visual recognition.",
     "links": {},
     "accent": "#1d4480",
     "figure": "./images/pub_figs/CVPR2026Trust.png"
@@ -1907,7 +1920,7 @@ document.addEventListener('keydown', function(e){
       "Feature Selection",
       "Disambiguation"
     ],
-    "abstract": "Pairs cluster-guided disambiguation with deep feature selection to resolve candidate-label ambiguity and learn informative features from partial-label data.",
+    "abstract": "Combines cluster-guided disambiguation and deep feature selection to learn from partial-label data.",
     "links": {},
     "accent": "#117a65",
     "figure": "./images/pub_figs/KDD2026DPLFS.png"
@@ -1947,7 +1960,7 @@ document.addEventListener('keydown', function(e){
       "Attention",
       "Training-Free"
     ],
-    "abstract": "Uses attention differences in the middle layers of large vision-language models to detect and mitigate object hallucinations without additional training.",
+    "abstract": "Uses middle-layer attention to detect and mitigate object hallucinations in vision-language models without retraining.",
     "links": {
       "arxiv": "http://arxiv.org/abs/2411.16724"
     },
@@ -1978,7 +1991,7 @@ document.addEventListener('keydown', function(e){
       "Multi-Label",
       "Information Bottleneck"
     ],
-    "abstract": "Combines information-bottleneck theory, cycle-consistent estimation, and label-correlation regularization to learn from incomplete views and noisy labels.",
+    "abstract": "Uses information-bottleneck theory and cycle-consistent estimation to learn from incomplete views and noisy labels.",
     "links": {
       "pdf": "http://openaccess.thecvf.com/content/CVPR2025/papers/Li_Theory-Inspired_Deep_Multi-View_Multi-Label_Learning_With_Incomplete_Views_and_Noisy_Labels_CVPR_2025_paper.pdf"
     },
@@ -2012,7 +2025,7 @@ document.addEventListener('keydown', function(e){
       "Causal Inference",
       "Debiasing"
     ],
-    "abstract": "Uses causal feature enhancement to reduce object-specific biases and improve relationship prediction in scene graph generation, including tail relationships.",
+    "abstract": "Uses causal feature enhancement to reduce object bias in relationship prediction for scene graph generation.",
     "links": {
       "ieee": "https://ieeexplore.ieee.org/document/9858006"
     },
@@ -2043,7 +2056,7 @@ document.addEventListener('keydown', function(e){
       "Semi-Supervised",
       "GNN"
     ],
-    "abstract": "Combines graph neural networks and semi-supervised learning to handle incomplete views and limited labels through cross-view information propagation.",
+    "abstract": "Uses graph networks and semi-supervised learning to learn from incomplete views and limited labels.",
     "links": {
       "aaai": "https://ojs.aaai.org/index.php/AAAI/article/view/29189",
       "code": "https://github.com/ZhangqiJiang07/code_DIMvLN"
@@ -2078,7 +2091,7 @@ document.addEventListener('keydown', function(e){
       "Multi-Label",
       "Imbalance"
     ],
-    "abstract": "Uses error-correcting coding ensembles and adaptive per-label thresholds to address label imbalance in multi-instance multi-label learning.",
+    "abstract": "Uses coding ensembles and adaptive label thresholds to address imbalance in multi-instance multi-label learning.",
     "links": {
       "acm": "https://dl.acm.org/doi/10.1145/3664647.3680911"
     },
@@ -2116,7 +2129,7 @@ document.addEventListener('keydown', function(e){
       "Dual Imbalance",
       "Causal Intervention"
     ],
-    "abstract": "Uses a bias-resistance loss and causal intervention tree to address predicate and foreground-background imbalance in scene graph generation.",
+    "abstract": "Uses a bias-resistance loss and causal intervention tree to tackle dual imbalance in scene graph generation.",
     "links": {
       "ieee": "https://ieeexplore.ieee.org/document/9858006",
       "code": "https://github.com/zhouhao0515/unbiasedSGG-DSDI"
@@ -2164,7 +2177,7 @@ document.addEventListener('keydown', function(e){
       "Bioinformatics",
       "Non-convex"
     ],
-    "abstract": "Uses sparse simplex projection and non-convex multi-instance learning to distinguish protein coding isoform functions, optimized by block coordinate descent.",
+    "abstract": "Uses non-convex multi-instance learning and sparse simplex projection to annotate protein-coding isoform functions.",
     "links": {
       "acm": "https://dl.acm.org/doi/10.1145/3097983.3097984",
       "code": "https://github.com/HorizonAILab/Paper_Code",
@@ -2204,6 +2217,24 @@ function mountHomepagePapers(papers, host, reduced) {
     var element = document.createElement(tag);
     if (className) element.className = className;
     if (text !== undefined) element.textContent = text;
+    return element;
+  }
+  function paperText(tag, className, value) {
+    var text = String(value || '');
+    var element = node(tag, className);
+    var ending = text.match(/(\S+\s+\S+)\s*$/);
+    // Long compounds may break at their hyphen, while the ending stays together.
+    if (ending && ending[1].length > 28) {
+      var hyphen = ending[1].indexOf('-');
+      if (hyphen >= 0 && hyphen < ending[1].search(/\s/)) {
+        var split = ending.index + hyphen + 1;
+        ending = {index: split, 1: text.slice(split).trim()};
+      }
+    }
+    // A bounded ending avoids lone-word last lines without a wide nowrap block.
+    if (!ending || ending[1].length > 28) { element.textContent = text; return element; }
+    element.appendChild(document.createTextNode(text.slice(0, ending.index)));
+    element.appendChild(node('span', 'paper-ending', ending[1]));
     return element;
   }
   function listen(target, type, listener, options) {
@@ -2257,14 +2288,14 @@ function mountHomepagePapers(papers, host, reduced) {
     meta.appendChild(venue);
     if (paper.year) meta.appendChild(node('span', 'mobile-paper-year', String(paper.year)));
     body.appendChild(meta);
-    var title = node('h3', 'mobile-paper-title', String(paper.title || ''));
+    var title = paperText('h3', 'mobile-paper-title', paper.title);
     body.appendChild(title);
 
     var authors = (paper.authors || []).map(function (author) {
       return typeof author === 'string' ? author : author.name;
     }).filter(Boolean);
     if (authors.length) {
-      body.appendChild(node('p', 'mobile-paper-authors', authors.slice(0, 2).join(', ') + (authors.length > 2 ? ', et al.' : '')));
+      body.appendChild(paperText('p', 'mobile-paper-authors', authors.slice(0, 2).join(', ') + (authors.length > 2 ? ', et al.' : '')));
     }
 
     var fullAuthors = node('p', 'home-paper-authors-full');
@@ -2283,7 +2314,7 @@ function mountHomepagePapers(papers, host, reduced) {
       body.appendChild(fullAuthors);
     }
     if (paper.abstract) {
-      var abstract = node('p', 'home-paper-abstract', paper.abstract);
+      var abstract = paperText('p', 'home-paper-abstract', paper.abstract);
       body.appendChild(abstract);
     }
 
