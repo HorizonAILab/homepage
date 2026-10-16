@@ -22,7 +22,7 @@ const TOPIC_CATEGORIES = [
   { id:"trustworthy-multimodal", label:"Trustworthy Multimodal AI", color:"#bc6b2c", tint:"#fff8f1", topics:[
     ["imbalanced-learning","Imbalanced Learning"],["llm-hallucination","MLLM Hallucination"],["visual-reasoning","Visual Reasoning"],["fake-news-detection","Fake News Detection"]
   ]},
-  { id:"applied-intelligence", label:"Scientific & Intelligence Applications", color:"#16816d", tint:"#f0faf7", topics:[
+  { id:"applied-intelligence", label:"Applied Intelligence", color:"#16816d", tint:"#f0faf7", topics:[
     ["biology-medicine","Biology & Medicine"],["remote-sensing","Remote Sensing"],["intelligence-applications","Intelligence Applications"]
   ]}
 ];
@@ -162,7 +162,7 @@ const PUBS = [
   ...NEW_PUBLICATIONS,
   {
     "year": 2026,
-    "role": "co",
+    "role": "corr",
     "title": "How Relation Enrichment Improves Clustering Ensemble Performance: A Second Order Induced Relation View",
     "authors": "Feijiang Li, Jieting Wang, Yuhua Qian<sup>#</sup>, Hongren Yan, <strong>Tingjin Luo</strong>",
     "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), Accepted",

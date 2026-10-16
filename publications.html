@@ -100,37 +100,44 @@ button:disabled { cursor: default; opacity: .6; }
 .scholar-metric strong { color: var(--ink2); font: 550 11px/1.4 var(--mono); font-variant-numeric: tabular-nums; }
 .scholar-metric small { color: var(--ink3); font-size: 10px; white-space: nowrap; }
 
+.scholar-number { display: inline-block; }
+.scholar-number.is-increasing { animation: scholar-rise .95s ease-out; }
+@keyframes scholar-rise { from { opacity: .55; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .scholar-number.is-increasing { animation: none; } }
+
 /* Interactive venue and topic inventories. */
 .analytics-grid { display: grid; grid-template-columns: minmax(218px,.55fr) minmax(0,1.85fr); align-items: stretch; gap: 10px; }
 .analytics-panel { display: flex; flex-direction: column; overflow: hidden; }
 .topic-panel { border-color: rgba(100,121,147,.11); }
 .panel-head { display: flex; align-items: center; padding: 10px 14px 7px; min-height: 34px; }
 .panel-heading { min-width: 0; }
-.panel-title { color: var(--ink); font-size: 12px; line-height: 1.4; font-weight: 600; letter-spacing: -.1px; }
+.panel-title { color: var(--ink); font-size: 12px; line-height: 1.4; font-weight: 700; letter-spacing: -.1px; }
 
 .venue-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-content: start; gap: 1px 8px; padding: 0 9px 10px; }
-.venue-row { display: flex; align-items: center; min-width: 0; min-height: 25px; padding: 3px 4px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--ink2); text-align: left; transition: background-color .15s var(--ease),color .15s var(--ease); }
+.venue-row { display: inline-flex; align-items: center; justify-self: start; width: fit-content; max-width: 100%; min-width: 0; min-height: 25px; padding: 3px 4px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--ink2); text-align: left; transition: background-color .18s var(--ease),color .18s var(--ease); }
 .venue-name { font-size: 11px; font-weight: 400; line-height: 1.45; overflow-wrap: break-word; }
 
-.venue-row:hover { background: rgba(225,234,245,.55); }
+@media (hover: hover) and (pointer: fine) {
+  .venue-row:hover { background: rgba(225,234,245,.55); }
+}
+.venue-row:focus-visible { background: rgba(225,234,245,.55); }
 .venue-row.active-row { background: #dee8f4; color: #34577f; }
 .topic-matrix { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); align-items: start; gap: 10px 14px; padding: 0 14px 10px; }
 .topic-field-group { min-width: 0; display: flex; flex-direction: column; }
-.topic-field-summary { padding: 0 0 6px; border-bottom: 1px solid rgba(100,121,147,.1); }
+.topic-field-summary { padding: 0 0 2px; }
 .field-copy { display: block; min-width: 0; }
-.field-name { display: block; font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--ink); overflow-wrap: break-word; text-wrap: balance; }
+.field-name { display: block; font-size: 11px; font-weight: 600; line-height: 1.4; color: var(--ink); overflow-wrap: break-word; text-wrap: balance; }
 
-.topic-items { display: flex; flex-direction: column; gap: 1px; margin: 0 -5px; padding: 4px 0 0; }
-.topic-item { display: flex; align-items: center; width: 100%; min-height: 25px; padding: 3px 4px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--ink2); text-align: left; transition: background-color .15s var(--ease),color .15s var(--ease); }
+.topic-items { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; margin: 0 -5px; padding: 0; }
+.topic-item { display: inline-flex; align-items: center; align-self: flex-start; width: fit-content; max-width: 100%; min-height: 25px; padding: 3px 4px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--ink2); text-align: left; transition: background-color .18s var(--ease),color .18s var(--ease); }
 .topic-name { min-width: 0; color: inherit; font-size: 11px; font-weight: 400; line-height: 1.45; overflow-wrap: break-word; white-space: normal; }
 
-.topic-item:hover { background: rgba(225,234,245,.55); }
+@media (hover: hover) and (pointer: fine) {
+  .topic-item:hover { background: rgba(225,234,245,.55); }
+}
+.topic-item:focus-visible { background: rgba(225,234,245,.55); }
 .topic-item.active-row { background: #dee8f4; color: #34577f; }
 .topic-item:focus-visible { outline-offset: -2px; }
-@supports (grid-template-rows: subgrid) {
-  .topic-matrix { align-items: stretch; }
-  .topic-field-group { display: grid; grid-template-rows: subgrid; grid-row: span 2; row-gap: 0; }
-}
 
 /* A compact timeline sits alongside the four headline figures. */
 .overview-timeline { padding-right: 0; }
@@ -189,9 +196,12 @@ button:disabled { cursor: default; opacity: .6; }
 .pub-year-group { padding: 0; }
 .pub-year-label { display: flex; align-items: baseline; gap: 8px; padding: 14px 0 6px; border-bottom: 1px solid var(--border); color: #435975; font: 500 17px/1.3 var(--sans); letter-spacing: -.3px; font-variant-numeric: tabular-nums; }
 .pub-year-count { color: var(--ink3); font: 400 10px/1.4 var(--mono); letter-spacing: 0; }
-.pub-item { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid rgba(149, 168, 192, .2); border-radius: 0; transition: background-color .15s var(--ease); }
-.pub-item:last-child { border-bottom: 0; }
-.pub-item:hover { background: rgba(219,231,245,.28); }
+.pub-item { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; margin: 0 -6px; padding: 7px 6px 8px; border: 0; border-radius: 6px; background: transparent; box-shadow: none; transition: background-color .18s var(--ease); }
+.pub-item:last-child { padding-bottom: 7px; }
+.pub-item:focus-within { background: rgba(225,234,245,.55); }
+@media (hover: hover) and (pointer: fine) {
+  .pub-item:hover { background: rgba(225,234,245,.55); }
+}
 .pub-num { padding-top: 2px; color: #5e748f; font: 400 9.5px/1.35 var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
 .pub-content { min-width: 0; }
 .pub-title-txt { color: #334455; font-size: 12.5px; font-weight: 600; line-height: 1.35; letter-spacing: 0; white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: break-word; }
@@ -205,7 +215,8 @@ button:disabled { cursor: default; opacity: .6; }
 .pub-details { display: none; }
 .publication-list.is-expanded .pub-compact-meta { display: none; }
 .publication-list.is-expanded .pub-details { display: block; margin-top: 4px; }
-.publication-list.is-expanded .pub-item { padding-top: 11px; padding-bottom: 11px; }
+.publication-list.is-expanded .pub-item { padding-top: 11px; padding-bottom: 12px; }
+.publication-list.is-expanded .pub-item:last-child { padding-bottom: 11px; }
 .pub-authors-txt { color: var(--ink3); font-size: 11px; line-height: 1.5; overflow-wrap: break-word; }
 .pub-venue-detail { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 7px; margin-top: 2px; }
 .pub-venue-txt { color: var(--ink2); font-size: 10px; line-height: 1.4; }
@@ -328,7 +339,7 @@ button:disabled { cursor: default; opacity: .6; }
   .nav, .topic-system, .detail-toggle { display: none; }
   .analytics-panel, .publication-list { background: #fff; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-color: #cbd4df; }
   .page-header { padding-top: 0; }
-  .pub-item { break-inside: avoid; }
+  .pub-item, .pub-item:hover, .pub-item:focus-within { break-inside: avoid; background: transparent; box-shadow: none; }
   .pub-details { display: block; margin-top: 7px; }
   .pub-compact-meta { display: none; }
   .pub-year-label { break-after: avoid; }
@@ -374,12 +385,12 @@ button:disabled { cursor: default; opacity: .6; }
       <div class="overview-card-value" id="kpi-ccfa">—</div><div class="overview-card-foot" id="kpi-ccfa-share"></div>
     </article>
     <article class="overview-card">
-      <div class="overview-card-head"><div class="overview-card-label" title="Google Scholar · Profile checked 8 Oct 2026">Google Scholar citations</div></div>
-      <div class="overview-card-value">1,380</div>
+      <div class="overview-card-head"><div class="overview-card-label" data-scholar-source>Google Scholar citations</div></div>
+      <div class="overview-card-value scholar-number" data-scholar-metric="citations">—</div>
       <div class="scholar-metrics" aria-label="Google Scholar profile metrics">
-        <span class="scholar-metric"><strong>23</strong><small>h-index</small></span>
-        <span class="scholar-metric"><strong>42</strong><small>i10-index</small></span>
-        <span class="sr-only"><small>Profile checked</small><strong>12 Oct 2026</strong></span>
+        <span class="scholar-metric"><strong class="scholar-number" data-scholar-metric="hIndex">—</strong><small>h-index</small></span>
+        <span class="scholar-metric"><strong class="scholar-number" data-scholar-metric="i10Index">—</strong><small>i10-index</small></span>
+        <span class="sr-only"><small>Profile checked</small><time data-scholar-updated></time></span>
       </div>
     </article>
     <article class="overview-card overview-timeline" aria-labelledby="timelineTitle">
@@ -441,6 +452,7 @@ button:disabled { cursor: default; opacity: .6; }
 </main><!-- /page -->
 
 <script src="publication-core.js"></script>
+<script src="scholar-metrics.js"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>

@@ -31,15 +31,16 @@ main{padding-top:14px}
 .file-icon{display:grid;place-items:center;flex-shrink:0;width:50px;height:54px;border-radius:12px;color:#7c8fad;background:linear-gradient(145deg,#f9fbfe,#eff3f8);box-shadow:inset 0 0 0 1px #e4eaf3,0 2px 5px #233d6406}.file-icon svg{width:29px;height:29px;stroke-width:1.55}.document-sheet{fill:#fff}.document-fold{fill:#eef3fa}.upload-new .file-icon{color:#6485c6;background:linear-gradient(145deg,#f7faff,#edf3ff);box-shadow:inset 0 0 0 1px #dfE8fa,0 2px 5px #233d6406}.upload-new .document-fold{fill:#e7efff}.upload-new .document-lines{color:#4c76cb}.zip-lines{display:none}.is-zip .zip-lines{display:block}.is-zip .document-lines{display:none}
 .upload-copy{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}.upload-name{display:block;font-size:16px;font-weight:550;letter-spacing:-.2px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.is-loaded .upload-name{font-size:15px;font-weight:600;letter-spacing:0}.upload-kind{display:block;font-size:11px;color:#687386;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .upload-arrow{display:grid;place-items:center;width:28px;height:28px;border:1px solid #e3e9f3;border-radius:8px;background:#ffffffa6;color:#899ab4;flex-shrink:0;transition:color .18s,border-color .18s}.upload-arrow svg{width:16px;height:16px}.upload:hover .upload-arrow{color:#5477ba;border-color:#c6d6ef}.upload.is-loaded .upload-arrow{display:none}.upload-error{font-size:11px;color:#ae423a;margin:3px 0 0;overflow-wrap:anywhere}
-.controls{display:flex;gap:18px;align-items:center;margin:22px 0 17px;min-height:36px}.segmented{display:flex;background:var(--soft);border:1px solid #f1f2f5;border-radius:7px;padding:3px;gap:2px;flex-shrink:0}.segmented button{background:none;color:#6f798a;font-size:11px;padding:5px 14px;border-radius:4px;white-space:nowrap}.segmented button.active{background:white;color:var(--text);box-shadow:0 1px 3px #141d3012}.segmented button:hover:not(.active){color:#444e60}.status{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.status.busy{display:flex;align-items:center;gap:7px}.status.busy:before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;border:1.4px solid #dce4f2;border-top-color:var(--blue);animation:spin .8s linear infinite;flex-shrink:0}@keyframes spin{to{transform:rotate(360deg)}}.primary{background:var(--blue);color:white;border-radius:6px;padding:9px 16px;font-size:12px;display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:36px}.primary:hover{background:#164ed3}.primary:disabled{background:#e9edf3;color:#a4acb9}.primary svg{width:17px;height:17px;stroke-width:1.4}#download{margin-left:auto;flex-shrink:0}.editor{border:1px solid var(--line);border-radius:10px;overflow:hidden;min-height:435px;background:white}.empty{height:435px;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#a8b0bd}.empty>svg{width:41px;height:41px;stroke-width:1.25;margin-bottom:8px;color:#c6d0df}.empty p{font-size:12px;margin:7px 0 16px;color:#6d798b}.empty .quiet{font-size:11px;color:#667eac}.editor-content{display:grid;grid-template-columns:204px minmax(0,1fr);min-height:435px}.file-panel{border-right:1px solid var(--line);padding:13px 10px 10px;background:#fcfcfd;min-width:0}.files-head{display:flex;align-items:center;justify-content:space-between;color:#6e7b8d;padding:0 9px;margin-bottom:11px;font-size:10px;font-variant-numeric:tabular-nums}input[type=search]{width:100%;border:1px solid #e7eaf0;border-radius:5px;background:white;padding:7px 8px;font-size:10px;color:#697489;margin-bottom:8px;min-width:0}.file-list{max-height:410px;overflow:auto;overscroll-behavior:contain}.file-item{display:block;width:100%;text-align:left;border-radius:5px;padding:9px 10px;background:transparent;color:#687488;margin:2px 0;content-visibility:auto;contain-intrinsic-size:54px}.file-item:hover{background:#f1f3f7}.file-item.active{background:var(--blue-soft);color:var(--blue)}.file-item-top{display:flex;align-items:center;gap:7px}.file-dot{width:4px;height:4px;background:#97a7c0;border-radius:50%;flex-shrink:0}.file-item.active .file-dot{background:var(--blue)}.file-name{font:11px/1.6 ui-monospace,SFMono-Regular,Consolas,"Microsoft YaHei",monospace;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1;min-width:0}.file-count{font-size:9px;color:#98a5bb;font-variant-numeric:tabular-nums;flex-shrink:0}.file-parent{display:block;font-size:9px;color:#a2a9b5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-left:11px;line-height:1.7}.preview{min-width:0}.preview-head{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:0 13px;height:43px}.tabs{display:flex;align-self:stretch;gap:17px}.tabs button{background:none;padding:0 3px;font-size:11px;color:#69768d;border-bottom:2px solid transparent}.tabs button.active{color:#364860;border-color:#6a83ac}.preview-actions{display:flex;align-items:center;gap:1px}.preview-actions .quiet{font-size:10px;margin-right:8px}.preview-actions .quiet[aria-pressed=true]{color:var(--blue)}.preview-actions .icon-button{width:23px;height:25px}.preview-actions svg{width:16px;height:16px}.change-index{font-size:9px;color:#a0a9b7;margin-right:4px;font-variant-numeric:tabular-nums;min-width:26px;text-align:right}.path-row{height:32px;display:flex;justify-content:space-between;align-items:center;background:#fafbfd;padding:0 16px;font:10px ui-monospace,SFMono-Regular,Consolas,"Microsoft YaHei",monospace;color:#67768d;gap:12px}.path-row span:first-child{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0}.path-row span:last-child{font:9px var(--sans);flex-shrink:0;color:#9cabc0}.source-grid{display:grid;grid-template-columns:minmax(0,1fr)}.source-grid.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.source-pane{min-width:0}.split .source-pane+.source-pane{border-left:1px solid var(--line)}.pane-label{padding:9px 16px 0;font-size:9px;color:#acb5c2}.source{margin:0;padding:12px 16px 21px;color:#687488;font:12px/2 ui-monospace,SFMono-Regular,Consolas,"Microsoft YaHei",monospace;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;tab-size:2;min-height:320px;max-height:410px;overflow:auto;overscroll-behavior:contain}.source mark{background:var(--blue-soft);color:var(--blue);padding:1px 0;border-radius:1px}.source mark.focus{background:#d6e4ff;box-shadow:0 0 0 1px #c3d7fc}.source .syntax{color:#315bac}.issues{margin-top:13px;border:1px solid #ede8dc;border-radius:6px;background:#fffcf5;color:var(--amber)}.issues summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:9px 13px;cursor:pointer;font-size:11px}.issues summary::-webkit-details-marker{display:none}.issues summary svg{width:16px;height:16px;transition:transform .15s}.issues[open] summary svg{transform:rotate(180deg)}#issue-list{max-height:180px;overflow:auto;padding:0 12px 10px}.issue-item{width:100%;background:none;display:flex;text-align:left;font-size:10px;color:#9f824a;gap:10px;padding:5px 0}.issue-item:hover{color:#5b4212}.issue-item .issue-path{font-family:ui-monospace,Consolas,monospace;flex:1;overflow-wrap:anywhere;min-width:0}.issue-item .issue-reason{flex:1.2;overflow-wrap:anywhere}.bottom{display:flex;justify-content:space-between;font-size:10px;color:#a1a9b5;padding:13px 1px 30px}.export-feedback{font-size:11px;color:#738196;margin:0 0 25px}.export-feedback.error{color:#ac493d}dialog{border:1px solid var(--line);border-radius:12px;width:360px;max-width:calc(100vw - 36px);padding:21px 24px 24px;box-shadow:0 14px 70px #25375429;color:var(--text);overscroll-behavior:contain}dialog::backdrop{background:#1a294f24;backdrop-filter:blur(2px)}.dialog-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.dialog-heading h2{margin:0;font-size:16px;font-weight:550}.setting-row{display:flex;justify-content:space-between;align-items:center;margin:13px 0;gap:15px;font-size:12px}.setting-row select{border:1px solid var(--line);border-radius:5px;background:white;color:#66748b;padding:6px 7px;font-size:11px;width:190px;min-width:0;max-width:68%}.toggle-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#5f6e86;margin:17px 0;cursor:pointer}input[type=checkbox]{accent-color:var(--blue);width:14px;height:14px;cursor:pointer}.setting-note{font-size:10px;color:#a2aab7;margin:24px 0 18px}.full{width:100%}#fragment-dialog p{font-size:12px;color:#6c798f;line-height:1.9}#fragment-dialog code{display:block;font-size:11px;padding:12px;background:var(--soft);border-radius:5px;margin:14px 0 22px;color:#516586;overflow-wrap:anywhere}.skip-link{position:absolute;top:-60px;left:20px;background:white;padding:10px;z-index:9}.skip-link:focus{top:10px}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.empty-list{font-size:10px;color:#98a3b6;padding:14px 9px}[hidden]{display:none!important}@media(min-width:1500px){.app-shell{padding-top:20px}.editor,.editor-content,.empty{min-height:500px}.empty{height:500px}.source{max-height:480px}}
-@media(max-width:750px){.app-shell{padding:0 22px}.header{height:90px;gap:12px}.brand{font-size:20px}.header-caption{display:none}.header nav{gap:13px}.upload{padding:14px 17px 17px}.upload-target{gap:12px}.file-icon{width:44px;height:48px}.file-icon svg{width:27px;height:27px}.upload-name{font-size:15px}.is-loaded .upload-name{font-size:14px}.upload-arrow{width:24px;height:24px}.editor-content{grid-template-columns:170px minmax(0,1fr)}.controls{gap:10px}.segmented button{padding:5px 10px}.source{font-size:11px;padding:10px 12px}.status{font-size:10px}}
-@media(max-width:540px){.app-shell{padding:0 16px}.header{height:82px;gap:10px}.brand{font-size:18px;gap:8px;letter-spacing:-.5px}.brand-mark{width:31px;height:34px;border-radius:9px}.brand svg{width:24px;height:24px}.header nav{gap:9px}.settings-button{height:34px;padding:0 9px;gap:5px;font-size:11px}.settings-button svg{width:17px;height:17px}.header .quiet{font-size:11px;padding:3px}.uploads{gap:12px}.upload{padding:12px 14px 16px;border-radius:12px}.upload-head{gap:5px;min-height:26px}.upload-head>label{font-size:12px;gap:7px}.upload-actions{gap:4px}.upload-ready{font-size:0;gap:0}.upload-ready svg{width:14px;height:14px}.upload-head .icon-button{width:24px;height:24px}.upload-target{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding-top:13px;min-height:120px}.file-icon{display:grid;width:40px;height:44px;border-radius:10px}.file-icon svg{width:26px;height:26px}.upload-copy{gap:4px}.upload-name,.is-loaded .upload-name{font-size:14px}.upload-kind{font-size:10px}.upload-arrow{position:absolute;right:0;top:21px;width:24px;height:24px}.controls{flex-wrap:wrap;margin:20px 0 14px;gap:10px}.status{flex:1}#download{padding:8px 12px;font-size:11px}.segmented{order:0}.status{order:2;flex-basis:100%;height:16px}.editor-content{grid-template-columns:1fr}.file-panel{border-right:0;border-bottom:1px solid var(--line);padding:9px 10px}.files-head{display:none}input[type=search]{display:none}.file-list{display:flex;max-height:80px;gap:4px;overflow-x:auto}.file-item{width:140px;min-width:140px;padding:7px 8px;contain-intrinsic-size:140px 45px}.preview-head{height:41px;padding:0 10px}.tabs{gap:12px}.tabs button{font-size:10px}.preview-actions .quiet{font-size:9px;margin-right:5px}.preview-actions .icon-button{width:21px}.source-grid.split{grid-template-columns:minmax(0,1fr)}.split .source-pane+.source-pane{border-left:0;border-top:1px solid var(--line)}.source{min-height:250px;max-height:330px;font-size:11px}.editor,.empty{min-height:340px}.empty{height:340px}.source-grid.split .source{min-height:180px;max-height:240px}.bottom{font-size:9px}.issue-item{font-size:9px}.issue-item .issue-reason{flex:1}}
+.controls{display:flex;gap:18px;align-items:center;margin:22px 0 17px;min-height:36px}.segmented{display:flex;background:var(--soft);border:1px solid #f1f2f5;border-radius:7px;padding:3px;gap:2px;flex-shrink:0}.segmented button{background:none;color:#6f798a;font-size:11px;padding:5px 14px;border-radius:4px;white-space:nowrap}.segmented button.active{background:white;color:var(--text);box-shadow:0 1px 3px #141d3012}.segmented button:hover:not(.active){color:#444e60}.status{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.status.busy{display:flex;align-items:center;gap:7px}.status.busy:before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;border:1.4px solid #dce4f2;border-top-color:var(--blue);animation:spin .8s linear infinite;flex-shrink:0}@keyframes spin{to{transform:rotate(360deg)}}.primary{background:var(--blue);color:white;border-radius:6px;padding:9px 16px;font-size:12px;display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:36px}.primary:hover{background:#164ed3}.primary:disabled{background:#e9edf3;color:#a4acb9}.primary svg{width:17px;height:17px;stroke-width:1.4}#download{margin-left:auto;flex-shrink:0}.editor{border:1px solid var(--line);border-radius:10px;overflow:hidden;min-height:435px;background:white}.empty{height:435px;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#a8b0bd}.empty>svg{width:41px;height:41px;stroke-width:1.25;margin-bottom:8px;color:#c6d0df}.empty p{font-size:12px;margin:7px 0 16px;color:#6d798b}.empty .quiet{font-size:11px;color:#667eac}.editor-content{display:grid;grid-template-columns:224px minmax(0,1fr);min-height:435px}.file-panel{border-right:1px solid var(--line);padding:13px 10px 10px;background:#fcfcfd;min-width:0}.files-head{display:flex;align-items:center;justify-content:space-between;color:#6e7b8d;padding:0 9px;margin-bottom:11px;font-size:10px;font-variant-numeric:tabular-nums}input[type=search]{width:100%;border:1px solid #e7eaf0;border-radius:5px;background:white;padding:7px 8px;font-size:10px;color:#697489;margin-bottom:8px;min-width:0}.file-list{max-height:410px;overflow:auto;overscroll-behavior:contain;padding:1px 0 4px;scrollbar-width:thin}.file-item{display:flex;align-items:center;gap:6px;width:100%;min-width:0;text-align:left;border-radius:4px;padding:5px 7px 5px calc(4px + var(--tree-level,0)*12px);min-height:30px;background:transparent;color:#697487;margin:1px 0;content-visibility:auto;contain-intrinsic-size:auto 30px}.file-item:hover{background:#f0f2f6}.file-item.active{background:#edf3fe;color:#315caa}.file-item:focus-visible{outline:1px solid #9bb7e8;outline-offset:-1px}.tree-folder{color:#526176}.tree-icon{width:15px;height:15px;flex-shrink:0;color:#96a3b6;stroke-width:1.35}.tree-folder>.tree-icon:not(.tree-chevron){color:#8a9cb7}.tree-chevron,.tree-chevron-spacer{width:9px;height:12px;flex-shrink:0}.tree-chevron{color:#9ba6b5;transition:transform .12s}.tree-folder[aria-expanded=true]>.tree-chevron{transform:rotate(90deg)}.file-item.active>.tree-icon{color:#6286c5}.file-name{font:11px/1.65 ui-monospace,SFMono-Regular,Consolas,"Microsoft YaHei",monospace;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1;min-width:0}.file-count{font-size:9px;color:#9aa6b8;font-variant-numeric:tabular-nums;flex-shrink:0;margin-left:3px}.file-item[data-status=modified] .file-count,.file-item[data-status=added] .file-count{color:#6d8ebf}.file-item[data-status=deleted] .file-name{color:#a4aab5;text-decoration:line-through;text-decoration-color:#c3cad5}.file-item.active .file-count{color:#6b8bbd}.preview{min-width:0}.preview-head{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:0 13px;height:43px}.tabs{display:flex;align-self:stretch;gap:17px}.tabs button{background:none;padding:0 3px;font-size:11px;color:#69768d;border-bottom:2px solid transparent}.tabs button.active{color:#364860;border-color:#6a83ac}.preview-actions{display:flex;align-items:center;gap:1px}.preview-actions .quiet{font-size:10px;margin-right:8px}.preview-actions .quiet[aria-pressed=true]{color:var(--blue)}.preview-actions .icon-button{width:23px;height:25px}.preview-actions svg{width:16px;height:16px}.change-index{font-size:9px;color:#a0a9b7;margin-right:4px;font-variant-numeric:tabular-nums;min-width:26px;text-align:right}.path-row{height:32px;display:flex;justify-content:space-between;align-items:center;background:#fafbfd;padding:0 16px;font:10px ui-monospace,SFMono-Regular,Consolas,"Microsoft YaHei",monospace;color:#67768d;gap:12px}.path-row span:first-child{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0}.path-row span:last-child{font:9px var(--sans);flex-shrink:0;color:#9cabc0}.source-grid{display:grid;grid-template-columns:minmax(0,1fr)}.source-grid.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.source-pane{min-width:0}.split .source-pane+.source-pane{border-left:1px solid var(--line)}.pane-label{padding:9px 16px 0;font-size:9px;color:#acb5c2}.source{margin:0;padding:12px 16px 21px;color:#687488;font:12px/2 ui-monospace,SFMono-Regular,Consolas,"Microsoft YaHei",monospace;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;tab-size:2;min-height:320px;max-height:410px;overflow:auto;overscroll-behavior:contain}.source mark{background:var(--blue-soft);color:var(--blue);padding:1px 0;border-radius:1px}.source mark.focus{background:#d6e4ff;box-shadow:0 0 0 1px #c3d7fc}.source .syntax{color:#315bac}.issues{margin-top:13px;border:1px solid #ede8dc;border-radius:6px;background:#fffcf5;color:var(--amber)}.issues summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:9px 13px;cursor:pointer;font-size:11px}.issues summary::-webkit-details-marker{display:none}.issues summary svg{width:16px;height:16px;transition:transform .15s}.issues[open] summary svg{transform:rotate(180deg)}#issue-list{max-height:180px;overflow:auto;padding:0 12px 10px}.issue-item{width:100%;background:none;display:flex;text-align:left;font-size:10px;color:#9f824a;gap:10px;padding:5px 0}.issue-item:hover{color:#5b4212}.issue-item .issue-path{font-family:ui-monospace,Consolas,monospace;flex:1;overflow-wrap:anywhere;min-width:0}.issue-item .issue-reason{flex:1.2;overflow-wrap:anywhere}.bottom{display:flex;justify-content:space-between;font-size:10px;color:#a1a9b5;padding:13px 1px 30px}.export-feedback{font-size:11px;color:#738196;margin:0 0 25px}.export-feedback.error{color:#ac493d}dialog{border:1px solid var(--line);border-radius:12px;width:360px;max-width:calc(100vw - 36px);padding:21px 24px 24px;box-shadow:0 14px 70px #25375429;color:var(--text);overscroll-behavior:contain}dialog::backdrop{background:#1a294f24;backdrop-filter:blur(2px)}.dialog-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.dialog-heading h2{margin:0;font-size:16px;font-weight:550}.setting-row{display:flex;justify-content:space-between;align-items:center;margin:13px 0;gap:15px;font-size:12px}.setting-row select{border:1px solid var(--line);border-radius:5px;background:white;color:#66748b;padding:6px 7px;font-size:11px;width:190px;min-width:0;max-width:68%}.toggle-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#5f6e86;margin:17px 0;cursor:pointer}input[type=checkbox]{accent-color:var(--blue);width:14px;height:14px;cursor:pointer}.setting-note{font-size:10px;color:#a2aab7;margin:24px 0 18px}.full{width:100%}#fragment-dialog p{font-size:12px;color:#6c798f;line-height:1.9}#fragment-dialog code{display:block;font-size:11px;padding:12px;background:var(--soft);border-radius:5px;margin:14px 0 22px;color:#516586;overflow-wrap:anywhere}.skip-link{position:absolute;top:-60px;left:20px;background:white;padding:10px;z-index:9}.skip-link:focus{top:10px}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.empty-list{font-size:10px;color:#98a3b6;padding:14px 9px}[hidden]{display:none!important}@media(min-width:1500px){.app-shell{padding-top:20px}.editor,.editor-content,.empty{min-height:500px}.empty{height:500px}.source{max-height:480px}}
+@media(max-width:750px){.app-shell{padding:0 22px}.header{height:90px;gap:12px}.brand{font-size:20px}.header-caption{display:none}.header nav{gap:13px}.upload{padding:14px 17px 17px}.upload-target{gap:12px}.file-icon{width:44px;height:48px}.file-icon svg{width:27px;height:27px}.upload-name{font-size:15px}.is-loaded .upload-name{font-size:14px}.upload-arrow{width:24px;height:24px}.editor-content{grid-template-columns:186px minmax(0,1fr)}.controls{gap:10px}.segmented button{padding:5px 10px}.source{font-size:11px;padding:10px 12px}.status{font-size:10px}}
+@media(max-width:540px){.app-shell{padding:0 16px}.header{height:82px;gap:10px}.brand{font-size:18px;gap:8px;letter-spacing:-.5px}.brand-mark{width:31px;height:34px;border-radius:9px}.brand svg{width:24px;height:24px}.header nav{gap:9px}.settings-button{height:34px;padding:0 9px;gap:5px;font-size:11px}.settings-button svg{width:17px;height:17px}.header .quiet{font-size:11px;padding:3px}.uploads{gap:12px}.upload{padding:12px 14px 16px;border-radius:12px}.upload-head{gap:5px;min-height:26px}.upload-head>label{font-size:12px;gap:7px}.upload-actions{gap:4px}.upload-ready{font-size:0;gap:0}.upload-ready svg{width:14px;height:14px}.upload-head .icon-button{width:24px;height:24px}.upload-target{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding-top:13px;min-height:120px}.file-icon{display:grid;width:40px;height:44px;border-radius:10px}.file-icon svg{width:26px;height:26px}.upload-copy{gap:4px}.upload-name,.is-loaded .upload-name{font-size:14px}.upload-kind{font-size:10px}.upload-arrow{position:absolute;right:0;top:21px;width:24px;height:24px}.controls{flex-wrap:wrap;margin:20px 0 14px;gap:10px}.status{flex:1}#download{padding:8px 12px;font-size:11px}.segmented{order:0}.status{order:2;flex-basis:100%;height:16px}.editor-content{grid-template-columns:1fr}.file-panel{border-right:0;border-bottom:1px solid var(--line);padding:9px 10px}.files-head{margin:0 0 7px;padding:0 4px}input[type=search]{display:block;margin-bottom:6px;padding:8px;font-size:11px}.file-list{display:block;max-height:184px;overflow:auto}.file-item{width:100%;min-width:0;min-height:32px;padding-top:6px;padding-bottom:6px;contain-intrinsic-size:auto 32px}.file-name{font-size:11px}.preview-head{height:41px;padding:0 10px}.tabs{gap:12px}.tabs button{font-size:10px}.preview-actions .quiet{font-size:9px;margin-right:5px}.preview-actions .icon-button{width:21px}.source-grid.split{grid-template-columns:minmax(0,1fr)}.split .source-pane+.source-pane{border-left:0;border-top:1px solid var(--line)}.source{min-height:250px;max-height:330px;font-size:11px}.editor,.empty{min-height:340px}.empty{height:340px}.source-grid.split .source{min-height:180px;max-height:240px}.bottom{font-size:9px}.issue-item{font-size:9px}.issue-item .issue-reason{flex:1}}
 @media(max-width:400px){.header #demo{display:none}.header nav{gap:10px}.upload{padding-left:12px;padding-right:12px}.upload-name,.is-loaded .upload-name{font-size:13px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 
 .review-line{background:#fff4d6;box-shadow:0 0 0 2px #f2dca4;border-radius:2px}
 
 .suite-navigation{width:32px;height:32px}.suite-navigation svg{width:17px;height:17px}
+.file-count.has-review::after{content:"";display:inline-block;width:4px;height:4px;margin-left:5px;border-radius:50%;background:#b9975c;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -60,7 +61,7 @@ main{padding-top:14px}
 <div class="controls"><div class="segmented" role="group" aria-label="标蓝粒度"><button data-gran="token" title="仅标实际变化的字词" aria-pressed="true" class="active">字词</button><button data-gran="sentence" title="扩大到整句，包含句内未修改文字" aria-pressed="false">整句</button><button data-gran="paragraph" title="扩大到整段，包含段内未修改文字" aria-pressed="false">整段</button></div><span id="status" class="status" role="status" aria-live="polite">选择两版文件</span><button class="primary" id="download" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10m-4-4 4 4 4-4M5 16v4h14v-4"/></svg><span id="download-label">下载标蓝 TEX</span></button></div>
 <section class="editor" aria-label="源码预览" id="editor">
 <div class="empty" id="empty"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 11 7 24l9 13m16-26 9 13-9 13M28 9l-8 30"/></svg><p>选择或拖入两版文件</p><button class="quiet" id="empty-demo">试用示例</button></div>
-<div class="editor-content" id="editor-content" hidden><aside class="file-panel"><div class="files-head"><span>文件</span><span id="file-count"></span></div><input type="search" id="file-search" name="file-search" placeholder="查找文件…" aria-label="查找文件" spellcheck="false" autocomplete="off"><div class="file-list" id="file-list"></div></aside><div class="preview"><div class="preview-head"><div class="tabs" role="group" aria-label="预览模式"><button id="tab-diff" aria-pressed="true" class="active">差异</button><button id="tab-output" aria-pressed="false">标蓝 TEX</button></div><div class="preview-actions"><button id="split" class="quiet" aria-pressed="false">对照</button><span class="change-index" id="change-index"></span><button id="prev-change" class="icon-button" aria-label="上一处修改" title="上一处修改"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 14 4-4 4 4"/></svg></button><button id="next-change" class="icon-button" aria-label="下一处修改" title="下一处修改"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg></button></div></div><div class="path-row"><span id="viewer-path" translate="no"></span><span id="viewer-kind"></span></div><div class="source-grid" id="source-grid"><div class="source-pane" id="old-pane" hidden><div class="pane-label">旧版</div><pre class="source" id="old-source" tabindex="0" aria-label="旧版源码"></pre></div><div class="source-pane"><div class="pane-label" id="new-pane-label">新版</div><pre class="source" id="new-source" tabindex="0" aria-label="新版源码"></pre></div></div></div></div>
+<div class="editor-content" id="editor-content" hidden><aside class="file-panel"><div class="files-head"><span>文件</span><span id="file-count"></span></div><input type="search" id="file-search" name="file-search" placeholder="查找文件…" aria-label="查找文件" spellcheck="false" autocomplete="off"><div class="file-list" id="file-list" role="tree" aria-label="工程文件"></div></aside><div class="preview"><div class="preview-head"><div class="tabs" role="group" aria-label="预览模式"><button id="tab-diff" aria-pressed="true" class="active">差异</button><button id="tab-output" aria-pressed="false">标蓝 TEX</button></div><div class="preview-actions"><button id="split" class="quiet" aria-pressed="false">对照</button><span class="change-index" id="change-index"></span><button id="prev-change" class="icon-button" aria-label="上一处修改" title="上一处修改"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 14 4-4 4 4"/></svg></button><button id="next-change" class="icon-button" aria-label="下一处修改" title="下一处修改"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg></button></div></div><div class="path-row"><span id="viewer-path" translate="no"></span><span id="viewer-kind"></span></div><div class="source-grid" id="source-grid"><div class="source-pane" id="old-pane" hidden><div class="pane-label">旧版</div><pre class="source" id="old-source" tabindex="0" aria-label="旧版源码"></pre></div><div class="source-pane"><div class="pane-label" id="new-pane-label">新版</div><pre class="source" id="new-source" tabindex="0" aria-label="新版源码"></pre></div></div></div></div>
 </section>
 <details class="issues" id="issues" hidden><summary><span id="issue-summary"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg></summary><div id="issue-list"></div></details>
 <div class="bottom"><span>本地处理 · 仅修改 TEX</span><span id="bottom-count">删除忽略</span></div>
@@ -79,7 +80,6 @@ main{padding-top:14px}
 
   const LIMITS = Object.freeze({ upload: 100 * 1024 * 1024, expanded: 200 * 1024 * 1024, tex: 1024 * 1024, entries: 3000 });
   const TEX = /\.tex$/i;
-  const TEXT = /\.(?:tex|sty|cls|bib|bbl|bst|cfg|def|clo|txt|md)$/i;
   const AUX = /\.(?:aux|log|toc|out|lof|lot|fls|fdb_latexmk|synctex(?:\.gz)?|blg|nav|snm|vrb)$/i;
   const CJK = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;
   const WORD = /[\p{L}\p{N}_]/u;
@@ -209,7 +209,9 @@ main{padding-top:14px}
       catch (error) { fail(e.path + '：' + error.message); }
       if (data.length !== e.size || crc32(data) !== e.crc) fail('ZIP 文件大小或校验值不匹配：' + e.path);
       const value = { bytes: data, size: data.length };
-      if (TEXT.test(e.path)) value.text = decode(data, encoding, e.path);
+      // Resources are opaque bytes. A bibliography, class or image can use a
+      // different encoding from the .tex sources and must never block upload.
+      if (TEX.test(e.path)) value.text = decode(data, encoding, e.path);
       files.set(e.path, value);
     }
     // A single enclosing archive folder is packaging, not a source file rename.
@@ -502,32 +504,91 @@ main{padding-top:14px}
     }
     return { bound, result: null };
   }
-  // Exact length-only certificate for a proposed anchor partition. BigInt masks
-  // nominate no alignment: they only compute LCS length. Both arithmetic work
-  // and the sum of mask bit lengths have explicit caps before masks are built.
-  function lcsCertificate(a, b, budget) {
+  // Allison–Dix bit-vector LCS rows, reconstructed with Hirschberg's
+  // divide-and-conquer. BigInt performs each complete row in machine-word
+  // chunks, avoiding quadratic JavaScript DP and an O(N*M) traceback table.
+  // The final script is exact: structural/token windows never certify their
+  // own alignment. Deterministic budgets count bit words, mask storage and scans.
+  function bitLcsRow(x, x0, x1, y, y0, y1, reverse, budget) {
     if (typeof BigInt !== 'function') return null;
-    const x = a.length >= b.length ? a : b, y = a.length >= b.length ? b : a;
-    if (!y.length) return 0;
-    const words = Math.ceil(y.length / 64), wordCost = 6 * (x.length + 2 * y.length) * words;
-    if (wordCost > budget.certWords || x.length + y.length > budget.scan) return null;
-    budget.scan -= x.length + y.length;
-    const common = new Set(x.map(t => t.id)), lastPositions = new Map();
-    for (let i = 0; i < y.length; i++) if (common.has(y[i].id)) lastPositions.set(y[i].id, i);
+    const width = y1 - y0, height = x1 - x0;
+    if (!width || !height) return 0n;
+    const cost = 6 * (height + 2 * width) * Math.ceil(width / 64);
+    if (cost > budget.bitWords || height + width > budget.scan) return null;
+    const common = new Set();
+    for (let i = x0; i < x1; i++) common.add(x[i].id);
+    const positions = new Map();
     let maskBits = 0;
-    for (const last of lastPositions.values()) maskBits += last + 1;
-    if (maskBits > 64000000) return null;
-    budget.certWords -= wordCost;
+    for (let k = 0; k < width; k++) {
+      const id = y[reverse ? y1 - 1 - k : y0 + k].id;
+      if (!common.has(id)) continue;
+      if (!positions.has(id)) positions.set(id, []);
+      positions.get(id).push(k);
+    }
+    for (const list of positions.values()) maskBits += list[list.length - 1] + 1;
+    // A million-token adversarial alphabet must not allocate gigabytes of masks.
+    if (maskBits > 384000000) return null;
+    budget.bitWords -= cost; budget.scan -= height + width;
     const masks = new Map();
-    for (let i = 0; i < y.length; i++) if (lastPositions.has(y[i].id)) masks.set(y[i].id, (masks.get(y[i].id) || 0n) | (1n << BigInt(i)));
+    for (const [id, list] of positions) {
+      let mask = 0n;
+      for (const k of list) mask |= 1n << BigInt(k);
+      masks.set(id, mask);
+    }
     let state = 0n;
-    for (const token of x) {
+    for (let k = 0; k < height; k++) {
+      const token = x[reverse ? x1 - 1 - k : x0 + k];
       const occupied = (masks.get(token.id) || 0n) | state;
       state = occupied & ~(occupied - ((state << 1n) | 1n));
     }
-    let length = 0;
-    for (const bit of state.toString(2)) if (bit === '1') length++;
-    return length;
+    return state;
+  }
+  function bitCount(state) {
+    let count = 0;
+    for (const digit of state.toString(2)) if (digit === '1') count++;
+    return count;
+  }
+  function lcsCertificate(a, b, budget) {
+    const x = a.length >= b.length ? a : b, y = a.length >= b.length ? b : a;
+    const row = bitLcsRow(x, 0, x.length, y, 0, y.length, false, budget);
+    return row === null ? null : bitCount(row);
+  }
+  function bitHirschberg(a, b, budget) {
+    const swapped = a.length < b.length, x = swapped ? b : a, y = swapped ? a : b;
+    const matched = new Uint8Array(b.length), pending = [{ x0: 0, x1: x.length, y0: 0, y1: y.length }];
+    let count = 0;
+    const record = (i, j) => { matched[swapped ? i : j] = 1; count++; };
+    while (pending.length) {
+      let { x0, x1, y0, y1 } = pending.pop();
+      while (x0 < x1 && y0 < y1 && x[x0].id === y[y0].id) record(x0++, y0++);
+      while (x0 < x1 && y0 < y1 && x[x1 - 1].id === y[y1 - 1].id) record(--x1, --y1);
+      if (x0 === x1 || y0 === y1) continue;
+      if (x1 - x0 === 1 || y1 - y0 === 1) {
+        const cost = x1 - x0 + y1 - y0;
+        if (cost > budget.scan) return null;
+        budget.scan -= cost;
+        if (x1 - x0 === 1) { for (let j = y0; j < y1; j++) if (x[x0].id === y[j].id) { record(x0, j); break; } }
+        else { for (let i = x0; i < x1; i++) if (x[i].id === y[y0].id) { record(i, y0); break; } }
+        continue;
+      }
+      const middle = (x0 + x1) >>> 1, width = y1 - y0;
+      const forward = bitLcsRow(x, x0, middle, y, y0, y1, false, budget);
+      const backward = bitLcsRow(x, middle, x1, y, y0, y1, true, budget);
+      if (forward === null || backward === null) return null;
+      const fbits = forward.toString(2), rbits = backward.toString(2);
+      let fscore = 0, rscore = bitCount(backward), best = rscore, split = 0;
+      for (let j = 1; j <= width; j++) {
+        if (fbits[fbits.length - j] === '1') fscore++;
+        if (rbits[rbits.length - (width - j + 1)] === '1') rscore--;
+        const total = fscore + rscore;
+        if (total > best) { best = total; split = j; }
+      }
+      pending.push({ x0: middle, x1, y0: y0 + split, y1 });
+      pending.push({ x0, x1: middle, y0, y1: y0 + split });
+    }
+    const added = [];
+    for (let i = 0; i < b.length; i++) if (!matched[i]) added.push(i);
+    return { added, removed: a.length - count, lcs: count };
   }
   function mergeRanges(ranges, text) {
     const result = [];
@@ -625,9 +686,68 @@ main{padding-top:14px}
     }
     return result;
   }
+  // Match complete unchanged paragraphs before aligning the residual edits.
+  // A moved table or paragraph must not force an otherwise unchanged chapter
+  // into a single enormous edit frontier. Every key stores the complete token
+  // sequence, not a hash, and each occurrence can be consumed only once.
+  function reuseExactBlocks(oldText, newText, oldTokens, newTokens) {
+    function blocks(text, tokens, kind) {
+      const boundaries = [];
+      const re = kind === 'line' ? /\r?\n/g : kind === 'sentence' ? /[.!?。！？]/g : /\r?\n[ \t]*\r?\n(?:[ \t]*\r?\n)*/g;
+      let match;
+      while ((match = re.exec(text))) boundaries.push(match.index + match[0].length);
+      boundaries.push(text.length);
+      const result = [];
+      let cursor = 0;
+      for (const boundary of boundaries) {
+        let first = cursor;
+        while (cursor < tokens.length && tokens[cursor].start < boundary) cursor++;
+        // List structure is not part of the following natural-language
+        // sentence. An existing question can become the middle sentence of an
+        // expanded item; match its prose without consuming the \item command.
+        if (kind === 'sentence' && first < cursor && tokens[first].value === '\\item') first++;
+        const values = tokens.slice(first, cursor).map(t => t.value);
+        // A whole unchanged sentence/line can move with its surrounding table,
+        // even when paragraph boundaries change. Short labels and punctuation
+        // alone are never evidence of moved prose.
+        if (values.length >= 12 && new Set(values).size >= 4)
+          result.push({ first, end: cursor, key: JSON.stringify(values) });
+      }
+      return result;
+    }
+    const oldMatched = new Uint8Array(oldTokens.length), newMatched = new Uint8Array(newTokens.length);
+    let count = 0;
+    function occupancy(bits) {
+      const prefix = new Uint32Array(bits.length + 1);
+      for (let i = 0; i < bits.length; i++) prefix[i + 1] = prefix[i] + bits[i];
+      return prefix;
+    }
+    for (const kind of ['paragraph', 'line', 'sentence']) {
+      const oldOccupied = occupancy(oldMatched), newOccupied = occupancy(newMatched), previous = new Map();
+      for (const block of blocks(oldText, oldTokens, kind)) {
+        if (oldOccupied[block.end] !== oldOccupied[block.first]) continue;
+        if (!previous.has(block.key)) previous.set(block.key, []);
+        previous.get(block.key).push(block);
+      }
+      for (const block of blocks(newText, newTokens, kind)) {
+        if (newOccupied[block.end] !== newOccupied[block.first]) continue;
+        const candidates = previous.get(block.key);
+        if (!candidates || !candidates.length) continue;
+        const old = candidates.pop();
+        // Units within each pass are disjoint, and occupancy excludes every
+        // token already consumed by a coarser pass. An added duplicate therefore
+        // cannot borrow an old occurrence twice across different unit sizes.
+        oldMatched.fill(1, old.first, old.end);
+        newMatched.fill(1, block.first, block.end);
+        count += block.end - block.first;
+      }
+    }
+    return count ? [oldTokens.filter((_, i) => !oldMatched[i]), newTokens.filter((_, i) => !newMatched[i])] : [oldTokens, newTokens];
+  }
   function compare(oldText, newText, options) {
-    const a = tokenize(oldText, options), b = tokenize(newText, options);
+    let a = tokenize(oldText, options), b = tokenize(newText, options);
     if (equalTokens(a, b)) return { ranges: [], rawRanges: [], unresolved: [], removedCount: 0, addedCount: 0, equal: true, fallback: false };
+    if (options.ignoreMoves) [a, b] = reuseExactBlocks(oldText, newText, a, b);
     const vocabulary = new Map();
     for (const tokens of [a, b]) for (const token of tokens) {
       if (!vocabulary.has(token.value)) vocabulary.set(token.value, vocabulary.size + 1);
@@ -635,7 +755,7 @@ main{padding-top:14px}
     }
     // Independent caps: cheap edit frontiers, DP cells, token scans, and exact
     // bitset certificate arithmetic. No wall-clock-dependent alignment result.
-    const budget = { work: 8000000, cells: 24000000, scan: 8000000, certWords: 48000000 };
+    const budget = { work: 8000000, cells: 24000000, scan: 24000000, bitWords: 1600000000 };
     const certificates = new Map();
     function solve(a0, a1, b0, b1, depth) {
       let fixed = 0;
@@ -655,6 +775,8 @@ main{padding-top:14px}
       let exact = budget.work > 0 ? myers(left, right, 64, budget) : null;
       if (exact) return resultFrom(exact);
       exact = hirschberg(left, right, budget);
+      if (exact) return resultFrom(exact);
+      exact = bitHirschberg(left, right, budget);
       if (exact) return resultFrom(exact);
       const key = `${a0}:${a1}:${b0}:${b1}`;
       function score() {
@@ -806,21 +928,131 @@ main{padding-top:14px}
     return matches;
   }
 
+  // Chapter numbers are filenames, not identities: inserting a chapter shifts
+  // every later path. Match stable chapter labels/titles globally before the
+  // path fallback. A substantive shared five-token vocabulary is also required,
+  // and every old occurrence is consumed once. Static include chains keep a
+  // draft/backup with the same heading from stealing the published chapter.
+  function chapterPairs(oldProject, newProject, paired, usedOld, warnings, snapshots) {
+    function reachable(project) {
+      const mains = findMains(project);
+      if (!mains.length) return null;
+      const visited = new Set(), queue = mains.slice();
+      while (queue.length) {
+        const path = queue.pop();
+        if (visited.has(path)) continue;
+        visited.add(path);
+        const file = project.files.get(path);
+        if (!file || typeof file.text !== 'string') continue;
+        const source = uncommented(file.text), re = /\\(?:input|include)\s*(?:\{([^}]*)\}|([^\s%{}]+))/g;
+        let match;
+        while ((match = re.exec(source))) {
+          let name = (match[1] || match[2]).trim();
+          if (!name || /[\\#$]/.test(name) || /^[A-Za-z]:|^\//.test(name)) continue;
+          if (!/\.[^/]+$/.test(name)) name += '.tex';
+          const parent = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : '';
+          const found = unique([resolveReference('', name), resolveReference(parent, name)].filter(Boolean)).find(p => project.files.has(p));
+          if (found && TEX.test(found)) queue.push(found);
+        }
+      }
+      return visited;
+    }
+    function identity(file) {
+      const source = uncommented(file.text.slice(0, 8192));
+      const chapter = /\\chapter\*?\s*(?:\[[^\]]*\]\s*)?\{/.exec(source);
+      if (!chapter) return null;
+      const first = chapter.index + chapter[0].length - 1, end = literalGroupEnd(source, first, '{', '}');
+      const normalize = text => text.replace(/\\[A-Za-z@]+\*?/g, '').replace(/[^\p{L}\p{N}]/gu, '').toLowerCase();
+      const title = normalize(source.slice(first + 1, end - 1));
+      const label = /^\s*\\label\s*\{([^{}]+)\}/.exec(source.slice(end));
+      return { title, label: label ? label[1].trim() : null };
+    }
+    const oldLive = reachable(oldProject), newLive = reachable(newProject), previous = [], fresh = [];
+    for (const [path, file] of texEntries(oldProject)) if (!usedOld.has(path) && (!oldLive || oldLive.has(path))) {
+      const key = identity(file); if (key) previous.push({ path, file, ...key });
+    }
+    for (const [path, file] of texEntries(newProject)) if (!paired.has(path) && (!newLive || newLive.has(path))) {
+      const key = identity(file); if (key) fresh.push({ path, file, ...key });
+    }
+    const budget = { characters: 16 * 1024 * 1024, features: 400000, exhausted: false }, cache = new Map();
+    const fingerprint = entry => {
+      if (!cache.has(entry)) cache.set(entry, renameFingerprint(entry.file, budget));
+      return cache.get(entry);
+    };
+    const byNew = new Map(), byOld = new Map();
+    const labelCounts = entries => {
+      const counts = new Map();
+      for (const entry of entries) if (entry.label) counts.set(entry.label, (counts.get(entry.label) || 0) + 1);
+      return counts;
+    };
+    const oldLabels = labelCounts(previous), newLabels = labelCounts(fresh);
+    for (const next of fresh) for (const before of previous) {
+      if (!(next.title && next.title === before.title) && !(next.label && next.label === before.label)) continue;
+      const a = fingerprint(before), b = fingerprint(next);
+      if (!a || !b || !a.eligible || !b.eligible) continue;
+      let shared = 0;
+      for (const key of a.features) if (b.features.has(key)) shared++;
+      const score = 2 * shared / (a.features.size + b.features.size), coverage = shared / Math.min(a.features.size, b.features.size);
+      const sharedIdentity = oldLive && newLive && next.label && next.label === before.label && oldLabels.get(next.label) === 1 && newLabels.get(next.label) === 1;
+      // A unique author-supplied chapter label in both actual include chains is
+      // stronger identity evidence than a mutable title. Permit major rewrites,
+      // but still require dozens of exact shared prose windows. Backups and
+      // duplicate labels can never use this less restrictive branch.
+      const rewrittenChapter = sharedIdentity && shared >= 64 && score >= 0.08 && coverage >= 0.10;
+      if (!rewrittenChapter && (shared < 16 || score < 0.55 || coverage < 0.65)) continue;
+      const candidate = { oldPath: before.path, path: next.path, score, coverage };
+      if (!byNew.has(next.path)) byNew.set(next.path, []);
+      if (!byOld.has(before.path)) byOld.set(before.path, []);
+      byNew.get(next.path).push(candidate); byOld.get(before.path).push(candidate);
+    }
+    for (const list of [...byNew.values(), ...byOld.values()]) list.sort((a, b) => b.score - a.score || a.path.localeCompare(b.path));
+    const clear = list => list.length === 1 || list[0].score - list[1].score >= 0.12, matches = new Map();
+    for (const [path, list] of byNew) {
+      const best = list[0], reverse = byOld.get(best.oldPath);
+      if (!clear(list) || !clear(reverse) || reverse[0] !== best) continue;
+      paired.set(path, best.oldPath); usedOld.add(best.oldPath);
+      if (path !== best.oldPath) matches.set(path, best.score);
+    }
+    // A retained inactive source at exactly the same path is a historical
+    // snapshot, not a newly inserted live chapter. A primary live successor can
+    // share its baseline with this original snapshot only under these narrow
+    // conditions. New filenames, active inserted chapters, weak similarities
+    // and duplicate labels do not gain an extra old occurrence.
+    if (oldLive && newLive) for (const before of previous) {
+      if (!usedOld.has(before.path) || paired.has(before.path) || newLive.has(before.path)) continue;
+      const file = newProject.files.get(before.path);
+      if (!file || typeof file.text !== 'string') continue;
+      const next = { path: before.path, file, ...identity(file) };
+      if (!(next.label && next.label === before.label) && !(next.title && next.title === before.title)) continue;
+      const a = fingerprint(before), b = fingerprint(next);
+      if (!a || !b || !a.eligible || !b.eligible) continue;
+      let shared = 0;
+      for (const key of a.features) if (b.features.has(key)) shared++;
+      const score = 2 * shared / (a.features.size + b.features.size), coverage = shared / Math.min(a.features.size, b.features.size);
+      if (shared >= 64 && score >= 0.72 && coverage >= 0.85) snapshots.set(before.path, score);
+    }
+    if (matches.size) warnings.push('已根据章节标题 / 标签及正文匹配 ' + matches.size + ' 个改名或重编号章节；报告保留前后路径。');
+    return matches;
+  }
+
   function analyze(oldProject, newProject, options) {
     options = Object.assign({ granularity: 'token', ignoreWhitespace: true, ignoreComments: true, ignoreMoves: true }, options || {});
     if (!['token', 'sentence', 'paragraph'].includes(options.granularity)) fail('不支持此标蓝粒度。');
     const oldFiles = new Map(oldProject.files), newFiles = new Map(newProject.files);
     const warnings = [...(oldProject.warnings || []), ...(newProject.warnings || [])], files = [];
     const renamed = new Map(), paired = new Map(), usedOld = new Set();
-    let similar = new Map();
-    if (oldFiles.size === 1 && newFiles.size === 1) {
-      const oldPath = [...oldFiles.keys()][0], newPath = [...newFiles.keys()][0];
+    let similar = new Map(), chapters = new Map();
+    const snapshots = new Map();
+    const oldSources = texEntries(oldProject), newSources = texEntries(newProject);
+    if (oldSources.length === 1 && newSources.length === 1) {
+      const oldPath = oldSources[0][0], newPath = newSources[0][0];
       if (oldPath !== newPath && TEX.test(oldPath) && TEX.test(newPath)) {
         paired.set(newPath, oldPath); usedOld.add(oldPath);
-        warnings.push('两边均为单个 .tex 文件，已将 ' + oldPath + ' 与 ' + newPath + ' 作为前后版本配对。');
+        warnings.push('两边均只有一个 .tex 源文件，已将 ' + oldPath + ' 与 ' + newPath + ' 作为前后版本配对。');
       }
     }
     if (options.ignoreMoves) {
+      chapters = chapterPairs(oldProject, newProject, paired, usedOld, warnings, snapshots);
       const candidates = new Map();
       for (const [path, f] of oldFiles) if (!newFiles.has(path) && !usedOld.has(path) && TEX.test(path)) {
         if (!candidates.has(f.text)) candidates.set(f.text, []);
@@ -836,9 +1068,11 @@ main{padding-top:14px}
       }
       similar = similarRenames(oldFiles, newFiles, usedOld, paired, renamed, warnings);
     }
-    const paths = [...new Set([...newFiles.keys(), ...oldFiles.keys()].filter(path => !usedOld.has(path)))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+    const paths = [...new Set([...newFiles.keys(), ...[...oldFiles.keys()].filter(path => !usedOld.has(path))])].sort((a, b) => a.localeCompare(b, 'zh-CN'));
     for (const path of paths) {
-      const oldPath = paired.get(path) || renamed.get(path) || path, oldFile = oldFiles.get(oldPath), newFile = newFiles.get(path);
+      const oldPath = paired.get(path) || renamed.get(path) || path;
+      const claimedElsewhere = !paired.has(path) && !renamed.has(path) && !snapshots.has(path) && usedOld.has(path);
+      const oldFile = claimedElsewhere ? undefined : oldFiles.get(oldPath), newFile = newFiles.get(path);
       const isTex = TEX.test(path);
       const oldText = isTex && oldFile ? oldFile.text : '', newText = isTex && newFile ? newFile.text : '';
       let status, result;
@@ -852,14 +1086,13 @@ main{padding-top:14px}
         if (oldFile && newFile && result.equal && oldText !== newText) warnings.push(path + '：仅空白 / 注释等被忽略的内容变化，未计入标蓝。');
       }
       if (result.fallback) warnings.push(path + '：有 ' + result.unresolved.length + ' 个片段未可靠对齐，未自动标蓝；增删计数仅含已确认部分。');
-      files.push({ path, oldPath: oldFile ? oldPath : null, pairing: similar.has(path) ? 'similarity' : oldPath !== path && oldFile ? (renamed.has(path) ? 'identical' : 'single') : oldFile && newFile ? 'path' : null, similarity: similar.get(path) || null, status, oldText, newText, ranges: result.ranges, rawRanges: result.rawRanges || result.ranges, unresolved: result.unresolved || [], removedCount: result.removedCount, addedCount: result.addedCount, complex: isTex ? complexChanges(newText, result.ranges) : status === 'unchanged' ? [] : ['图片 / 资源变化'], fallback: result.fallback, isTex, ignoredChanges: Boolean(isTex && oldFile && newFile && result.equal && oldText !== newText), oldSize: oldFile ? oldFile.size : null, newSize: newFile ? newFile.size : null });
+      files.push({ path, oldPath: oldFile ? oldPath : null, pairing: snapshots.has(path) ? 'snapshot' : chapters.has(path) ? 'chapter' : similar.has(path) ? 'similarity' : oldPath !== path && oldFile ? (renamed.has(path) ? 'identical' : 'single') : oldFile && newFile ? 'path' : null, similarity: snapshots.get(path) || chapters.get(path) || similar.get(path) || null, status, oldText, newText, ranges: result.ranges, rawRanges: result.rawRanges || result.ranges, unresolved: result.unresolved || [], removedCount: result.removedCount, addedCount: result.addedCount, complex: isTex ? complexChanges(newText, result.ranges) : [], fallback: result.fallback, isTex, ignoredChanges: Boolean(isTex && oldFile && newFile && result.equal && oldText !== newText), oldSize: oldFile ? oldFile.size : null, newSize: newFile ? newFile.size : null });
     }
     const ignoredAuxFiles = (oldProject.ignoredCount || 0) + (newProject.ignoredCount || 0), ignoredSourceChanges = files.filter(f => f.ignoredChanges).length;
     const totals = { files: files.length, sourceFiles: files.filter(f => f.isTex).length, resourceFiles: files.filter(f => !f.isTex).length, modified: 0, added: 0, deleted: 0, unchanged: 0, renamed: 0, changedRanges: 0, addedTokens: 0, removedTokens: 0, ignoredFiles: ignoredAuxFiles + ignoredSourceChanges, ignoredAuxFiles, ignoredSourceChanges };
     for (const f of files) { totals[f.status]++; totals.changedRanges += f.ranges.length; totals.addedTokens += f.addedCount; totals.removedTokens += f.removedCount; }
     if (totals.deleted || totals.removedTokens) warnings.push('删除内容仅计入报告，不在新版源码中标蓝；仅有删除时可能没有蓝色范围。');
     if (options.granularity !== 'token') warnings.push('整句 / 整段会扩大标蓝范围；颜色命令仅插入已检查的安全位置。只标实际变化字词时，请选择“字词”。');
-    if (files.some(f => !f.isTex && f.status !== 'unchanged')) warnings.push('图片及 .sty / .cls / .bib 等资源按原始字节比较，变更已计入文件报告；不生成源码蓝色范围，需人工检查编译后的效果。');
     return { files, warnings: unique(warnings), totals };
   }
   function uncommented(text) {
@@ -944,18 +1177,34 @@ main{padding-top:14px}
   const MAX_SYNTAX_DEPTH = 256;
   const DEFINITIONS = new Set('newcommand renewcommand providecommand DeclareRobustCommand newenvironment renewenvironment NewDocumentCommand RenewDocumentCommand ProvideDocumentCommand DeclareDocumentCommand NewExpandableDocumentCommand RenewExpandableDocumentCommand ProvideExpandableDocumentCommand DeclareExpandableDocumentCommand NewDocumentEnvironment RenewDocumentEnvironment ProvideDocumentEnvironment DeclareDocumentEnvironment DeclareMathOperator newtheorem def gdef edef xdef'.split(' '));
   const DYNAMIC = new Set('catcode csname endcsname expandafter futurelet let directlua write read inputlineno scantokens ExplSyntaxOn obeyspaces obeylines active'.split(' '));
-  const BODY_ENVS = new Set('document itemize enumerate description quote quotation verse center flushleft flushright abstract samepage minipage multicols multicols* spacing list theorem theorem* lemma lemma* proposition proposition* corollary corollary* proof remark remark* definition definition* example example* exercise exercise* solution solution*'.split(' '));
+  const BODY_ENVS = new Set('document itemize enumerate description quote quotation verse center flushleft flushright abstract samepage minipage multicols multicols* spacing list theorem theorem* lemma lemma* proposition proposition* corollary corollary* proof remark remark* definition definition* example example* exercise exercise* solution solution* conclusion conclusions summary problemset problems problem problem* questions question answer answers note notes'.split(' '));
   const BODY_ARGS = { minipage: 1, multicols: 1, 'multicols*': 1, spacing: 1, list: 2 };
   const RAW_ENVS = new Set('verbatim verbatim* Verbatim Verbatim* BVerbatim LVerbatim SaveVerbatim lstlisting lstlisting* minted comment filecontents filecontents*'.split(' '));
   const MATH_ENVS = new Set('math displaymath equation equation* align align* alignat alignat* flalign flalign* gather gather* multline multline* eqnarray eqnarray*'.split(' '));
   const INNER_MATH_ENVS = new Set('aligned alignedat gathered split cases matrix pmatrix bmatrix Bmatrix vmatrix Vmatrix smallmatrix array'.split(' '));
+  const FLOAT_ENVS = new Set('table table* figure figure* subfigure subtable'.split(' '));
+  const TABLE_ARGS = { tabular: 1, 'tabular*': 2, tabularx: 2, tabulary: 2, longtable: 1, supertabular: 1, xltabular: 2 };
+  const CONFIG_ARGS = { setlength: 2, addtolength: 2, setcounter: 2, addtocounter: 2, stepcounter: 1, refstepcounter: 1, fontsize: 2, hspace: 1, vspace: 1, rule: 2, color: 1, rowcolor: 1, cellcolor: 1, columncolor: 1, definecolor: 3, colorlet: 2, addcontentsline: 3, addtocontents: 2, markboth: 2, markright: 1, hypersetup: 1, lstset: 1, usetikzlibrary: 1, tikzset: 1, floatplacement: 2, needspace: 1, Needspace: 1, cline: 1, cmidrule: 1, hhline: 1, tabucline: 1, specialrule: 3, extrarowheight: 1 };
+  const TEXT_COMMANDS = new Set('TeX LaTeX LaTeXe CTeX XeTeX XeLaTeX LuaTeX LuaLaTeX BibTeX AmSTeX dots ldots textemdash textendash textellipsis textrightarrow textleftarrow textcopyright textregistered texttrademark today copyright pounds euro degree dag ddag S P'.split(' '));
+  const ALGORITHM_ZERO = new Set('STATE State RETURN Return REQUIRE Require ENSURE Ensure ELSE Else ENDIF EndIf ENDFOR EndFor ENDWHILE EndWhile ENDLOOP EndLoop REPEAT Repeat ENDPROCEDURE EndProcedure ENDFUNCTION EndFunction'.split(' '));
   const SAFE_ZERO = new Set('par noindent indent centering raggedright raggedleft normalfont normalcolor rmfamily sffamily ttfamily upshape itshape slshape scshape mdseries bfseries tiny scriptsize footnotesize small normalsize large Large LARGE huge Huge clearpage cleardoublepage newpage maketitle tableofcontents listoffigures listoftables appendix frontmatter mainmatter backmatter hfill vfill medskip smallskip bigskip leavevmode'.split(' '));
   const OPTIONAL_ONLY = new Set('pagebreak nopagebreak linebreak nolinebreak'.split(' '));
   const VISIBLE = new Set('chapter section subsection subsubsection paragraph subparagraph part caption textbf textit textsl textsc textup textmd textnormal textrm textsf texttt emph underline mbox fbox footnote footnotetext thanks marginpar'.split(' '));
   const SHORT_VISIBLE = new Set('chapter section subsection subsubsection paragraph subparagraph part caption'.split(' '));
   const FILE_ARGS = new Set('label ref eqref pageref autoref nameref vref cref Cref cite citep citet citealp citealt nocite url nolinkurl path input include includeonly import subimport inputfrom subinputfrom includefrom subincludefrom includegraphics graphicspath DeclareGraphicsExtensions bibliography bibliographystyle addbibresource documentclass usepackage RequirePackage index glossary gls glspl'.split(' '));
-  const TEXT_ARGS = { href: [1, 2], hyperref: [0, 1], texorpdfstring: [0, 2], textcolor: [1, 2], colorbox: [1, 2], fcolorbox: [2, 3], foreignlanguage: [1, 2] };
+  const TEXT_ARGS = { href: [1, 2], hyperref: [0, 1], texorpdfstring: [0, 2], textcolor: [1, 2], colorbox: [1, 2], fcolorbox: [2, 3], foreignlanguage: [1, 2], multicolumn: [2, 3], multirow: [2, 3], makecell: [0, 1], shortstack: [0, 1], parbox: [1, 2], resizebox: [2, 3], scalebox: [1, 2], IF: [0, 1], If: [0, 1], ELSIF: [0, 1], ElsIf: [0, 1], FOR: [0, 1], For: [0, 1], FORALL: [0, 1], ForAll: [0, 1], WHILE: [0, 1], While: [0, 1], UNTIL: [0, 1], Until: [0, 1], COMMENT: [0, 1], Comment: [0, 1] };
   const MATH_COMMANDS = new Set(('begin end label tag notag nonumber ref eqref text textrm textsf texttt textnormal textbf textit emph mathrm mathbf mathsf mathtt mathit mathcal mathbb mathfrak boldsymbol bm operatorname operatornamewithlimits frac dfrac tfrac binom dbinom tbinom sqrt overset underset overbrace underbrace overline underline widehat widetilde hat tilde bar vec dot ddot acute grave check breve mathop mathord mathbin mathrel mathopen mathclose mathpunct limits nolimits left right middle big Big bigg Bigg bigl bigr Bigl Bigr biggl biggr Biggl Biggr color hspace vspace quad qquad thinspace negthinspace displaystyle textstyle scriptstyle scriptscriptstyle substack boxed phantom hphantom vphantom smash rule strut mathstrut leq le geq ge ne neq approx sim simeq cong equiv propto ll gg subset superset subseteq supseteq in notin ni not forall exists nexists emptyset varnothing partial nabla infinity infty pm mp times div cdot ast star circ bullet oplus otimes odot cap cup bigcap bigcup wedge vee land lor neg setminus backslash to mapsto rightarrow leftarrow leftrightarrow Rightarrow Leftarrow Leftrightarrow longrightarrow longleftarrow longleftrightarrow Longrightarrow Longleftarrow Longleftrightarrow uparrow downarrow Uparrow Downarrow gets implies iff colon ldots cdots vdots ddots dots ell prime degree angle triangle perp parallel vert Vert lvert rvert lVert rVert langle rangle lceil rceil lfloor rfloor lbrace rbrace sum prod coprod int iint iiint oint lim limsup liminf sup inf max min arg det dim ker hom log ln exp sin cos tan cot sec csc arcsin arccos arctan sinh cosh tanh coth gcd mod bmod pmod pod Pr alpha beta gamma delta epsilon varepsilon zeta eta theta vartheta iota kappa lambda mu nu xi omicron pi varpi rho varrho sigma varsigma tau upsilon phi varphi chi psi omega Gamma Delta Theta Lambda Xi Pi Sigma Upsilon Phi Psi Omega').split(' '));
+  for (const name of 'mid nmid prec succ preceq succeq leqslant geqslant lesssim gtrsim lessapprox gtrapprox asymp doteq triangleq subsetneq supsetneq sqsubseteq sqsupseteq sqcup sqcap bigodot bigoplus bigotimes bigvee bigwedge hline cline top bot angle measuredangle xrightarrow xleftarrow overrightarrow overleftarrow overleftrightarrow underrightarrow underleftarrow mathscr textup rm bf sf it cal mit lg ointop intop allowbreak mkern kern vphantom vcenter intertext shortintertext'.split(' ')) MATH_COMMANDS.add(name);
+  for (const name of 'quad qquad selectfont songti heiti kaishu fangsong citshape cfs raggedbottom flushbottom phantomsection topcaption endfirsthead endhead endfoot endlastfoot toprule midrule bottomrule hline addlinespace arraybackslash tabularnewline relax ignorespaces ignorespacesafterend null strut'.split(' ')) SAFE_ZERO.add(name);
+  for (const name of 'toprule midrule bottomrule addlinespace'.split(' ')) OPTIONAL_ONLY.add(name);
+  for (const name of 'makebox framebox'.split(' ')) TEXT_ARGS[name] = [0, 1];
+  CONFIG_ARGS.captionsetup = 1;
+  for (const name of 'algorithm algorithm* algorithmic'.split(' ')) BODY_ENVS.add(name);
+  for (const name of 'begingroup endgroup'.split(' ')) SAFE_ZERO.add(name);
+  for (const name of 'thechapter thesection thesubsection thesubsubsection thetable thefigure theequation thepage'.split(' ')) TEXT_COMMANDS.add(name);
+  VISIBLE.add('text');
+  FILE_ARGS.add('subref');
+  MATH_COMMANDS.add('square');
   function error(s) { throw new Error(s); }
   const commandAt = (text, offset) => /^\\([A-Za-z@]+\*?|[\s\S])/.exec(text.slice(offset));
   const commandName = raw => raw.replace(/\*$/, '');
@@ -1147,21 +1396,24 @@ main{padding-top:14px}
     if (!invalid && dynamic.length) invalid = '含改变词法或展开行为的动态 TeX 命令：\\' + [...new Set(dynamic)].join(' / \\');
     return { groups, environments, literals, maths, definitions, document, invalid };
   }
-  function safeMath(text, start, end) {
+  function safeMath(text, start, end, commands = MATH_COMMANDS) {
     const source = text.slice(start, end);
     let depth = 0;
+    const environments = [];
     for (let i = 0; i < source.length;) {
       if (source[i] === '%') { i = commentEnd(source, i); continue; }
       if (source[i] === '\\') {
         const c = commandAt(source, i);
         if (!c) return '数学命令不完整';
         const name = commandName(c[1]);
-        if (/^[A-Za-z]/.test(name) && !MATH_COMMANDS.has(name)) return '数学中含未知或自定义命令：\\' + name;
+        if (/^[A-Za-z]/.test(name) && !commands.has(name)) return '数学中含未知或自定义命令：\\' + name;
         if (name === 'begin' || name === 'end') {
           const arg = skipSpace(source, i + c[0].length, source.length), stop = groupEnd(source, arg, '{', '}', false);
           if (!stop) return '数学环境参数未闭合';
           const env = source.slice(arg + 1, stop - 1);
           if (!MATH_ENVS.has(env) && !INNER_MATH_ENVS.has(env)) return '数学中含未知环境：' + env;
+          if (name === 'begin') environments.push(env);
+          else if (environments.pop() !== env) return '数学环境未配对：' + env;
         }
         i += c[0].length; continue;
       }
@@ -1169,14 +1421,110 @@ main{padding-top:14px}
       if (source[i] === '}' && --depth < 0) return '数学花括号未配对';
       i++;
     }
-    return depth ? '数学花括号未闭合' : null;
+    return depth ? '数学花括号未闭合' : environments.length ? '数学环境未闭合' : null;
   }
-  function sourceSpans(text, syntax, mathMode) {
+  function declaration(text, span) {
+    const command = commandAt(text, span.start);
+    if (!command) return null;
+    const kind = commandName(command[1]);
+    let cursor = skipSpace(text, span.start + command[0].length, span.end), name;
+    if (text[cursor] === '{') {
+      const stop = groupEnd(text, cursor, '{', '}', false);
+      if (!stop) return null;
+      name = text.slice(cursor + 1, stop - 1).trim().replace(/^\\/, ''); cursor = stop;
+    } else {
+      const target = commandAt(text, cursor);
+      if (!target) return null;
+      name = commandName(target[1]); cursor += target[0].length;
+    }
+    if (!/^[A-Za-z][A-Za-z0-9*@-]*$/.test(name)) return null;
+    const options = [];
+    cursor = skipSpace(text, cursor, span.end);
+    while (text[cursor] === '[') {
+      const stop = groupEnd(text, cursor, '[', ']', false);
+      if (!stop) return null;
+      options.push(text.slice(cursor + 1, stop - 1)); cursor = skipSpace(text, stop, span.end);
+    }
+    const bodies = [];
+    while (text[cursor] === '{') {
+      const stop = groupEnd(text, cursor, '{', '}', false);
+      if (!stop) return null;
+      bodies.push(text.slice(cursor + 1, stop - 1)); cursor = skipSpace(text, stop, span.end);
+    }
+    return { kind, name, options, bodies };
+  }
+  function discoverSemantics(files, syntaxes, main) {
+    const bodyEnvs = new Set(BODY_ENVS), specs = new Map(), mathCommands = new Set(MATH_COMMANDS), declarations = [];
+    // Common theorem environments have a displayed optional heading, not an option map.
+    for (const name of 'theorem lemma proposition corollary proof remark definition example exercise solution problem note'.split(' '))
+      for (const suffix of ['', '*']) specs.set(name + suffix, { required: 0, optionalTitle: true });
+    const mainText = main && files.get(main) ? files.get(main).text : '';
+    const elegant = /\\documentclass(?:\s*\[[\s\S]*?\])?\s*\{elegantbook\}/.test(mainText);
+    if (elegant) {
+      for (const name of 'introduction assumption property custom change postulate axiom'.split(' ')) bodyEnvs.add(name);
+      specs.set('introduction', { required: 0, optionalTitle: true });
+      specs.set('problemset', { required: 0, optionalTitle: true });
+      specs.set('custom', { required: 1, visibleArgs: new Set([0]) });
+    }
+    for (const [path, syntax] of syntaxes) for (const span of syntax.definitions.values()) {
+      const parsed = declaration(files.get(path).text, span);
+      if (parsed) declarations.push(parsed);
+    }
+    for (const d of declarations) {
+      if (d.kind === 'newtheorem') { bodyEnvs.add(d.name); specs.set(d.name, { required: 0, optionalTitle: true }); }
+    }
+    // Resolve math aliases from explicit, static declarations. A dependency must itself
+    // be a standard math command or an already validated alias; no expansion is run.
+    const mathDefs = new Map();
+    for (const d of declarations.filter(d => /^(?:newcommand|renewcommand|providecommand|DeclareRobustCommand|DeclareMathOperator)$/.test(d.kind))) {
+      if (!mathDefs.has(d.name)) mathDefs.set(d.name, []);
+      mathDefs.get(d.name).push(d);
+    }
+    for (let pass = 0; pass <= mathDefs.size; pass++) {
+      let changed = false;
+      for (const [name, candidates] of mathDefs) {
+        if (mathCommands.has(name)) continue;
+        if (candidates.every(d => d.bodies.length && !safeMath(d.bodies[0], 0, d.bodies[0].length, mathCommands))) { mathCommands.add(name); changed = true; }
+      }
+      if (!changed) break;
+    }
+    const wrappers = declarations.filter(d => /^(?:newenvironment|renewenvironment)$/.test(d.kind) && d.bodies.length === 2);
+    const dimensionCommands = new Set('textwidth linewidth columnwidth baselineskip parindent parskip hrule'.split(' '));
+    for (let pass = 0; pass <= wrappers.length; pass++) {
+      let changed = false;
+      for (const d of wrappers) {
+        if (bodyEnvs.has(d.name) || d.options[0] && !/^[0-9]$/.test(d.options[0])) continue;
+        const source = d.bodies.join('\n'); let trusted = true;
+        for (let i = 0; i < source.length;) {
+          if (source[i] === '%') { i = commentEnd(source, i); continue; }
+          if (source[i] !== '\\') { i++; continue; }
+          const c = commandAt(source, i); if (!c) { trusted = false; break; }
+          const name = commandName(c[1]); i += c[0].length;
+          if (name === 'begin' || name === 'end') {
+            const start = skipSpace(source, i, source.length), stop = groupEnd(source, start, '{', '}', false);
+            const env = stop ? source.slice(start + 1, stop - 1) : '';
+            if (!bodyEnvs.has(env) && !FLOAT_ENVS.has(env) && !TABLE_ARGS[env] && !MATH_ENVS.has(env)) { trusted = false; break; }
+            i = stop; continue;
+          }
+          if (/^[A-Za-z]/.test(name) && !SAFE_ZERO.has(name) && !VISIBLE.has(name) && !CONFIG_ARGS[name] && !TEXT_ARGS[name] && !dimensionCommands.has(name)) { trusted = false; break; }
+        }
+        if (!trusted) continue;
+        const count = d.options[0] ? Number(d.options[0]) : 0, optional = d.options.length > 1, visibleArgs = new Set();
+        const visible = n => new RegExp('\\\\(?:textbf|textit|emph|textrm|textsf|texttt)\\s*\\{[^{}]*#' + n + '[^{}]*\\}').test(source);
+        for (let n = optional ? 2 : 1; n <= count; n++) if (visible(n)) visibleArgs.add(n - (optional ? 2 : 1));
+        bodyEnvs.add(d.name); specs.set(d.name, { required: Math.max(0, count - (optional ? 1 : 0)), optionalTitle: optional && visible(1), visibleArgs }); changed = true;
+      }
+      if (!changed) break;
+    }
+    bodyEnvs.specs = specs; bodyEnvs.mathCommands = mathCommands;
+    return bodyEnvs;
+  }
+  function sourceSpans(text, syntax, mathMode, bodyEnvs = BODY_ENVS) {
     const safe = [], protectedSpans = [];
     const protect = (start, end, reason) => { if (end > start) protectedSpans.push({ start, end, reason }); };
     const addText = (start, end) => { if (end > start) safe.push({ start, end, kind: 'text' }); };
     function math(span) {
-      const reason = mathMode === 'skip' ? '数学区域按设置跳过' : safeMath(text, span.start, span.end);
+      const reason = mathMode === 'skip' ? '数学区域按设置跳过' : safeMath(text, span.start, span.end, bodyEnvs.mathCommands || MATH_COMMANDS);
       if (reason) protect(span.start, span.end, reason); else safe.push({ start: span.start, end: span.end, kind: 'math' });
     }
     function argumentsEnd(cursor, end, reason) {
@@ -1200,18 +1548,25 @@ main{padding-top:14px}
         const env = syntax.environments.get(i);
         if (env) {
           if (MATH_ENVS.has(env.name)) math(env);
-          else if (BODY_ENVS.has(env.name)) {
+          else if (bodyEnvs.has(env.name) || FLOAT_ENVS.has(env.name) || TABLE_ARGS[env.name]) {
             protect(i, env.headerEnd, '环境结构');
             let bodyStart = env.headerEnd, probe = skipSpace(text, bodyStart, env.bodyEnd);
+            const spec = bodyEnvs.specs && bodyEnvs.specs.get(env.name);
+            const isTable = Boolean(TABLE_ARGS[env.name]);
             while (text[probe] === '[') {
               const stop = groupEnd(text, probe, '[', ']', false);
               if (!stop || stop > env.bodyEnd) { protect(bodyStart, env.bodyEnd, '环境可选参数未闭合'); bodyStart = env.bodyEnd; break; }
-              protect(bodyStart, stop, '环境可选配置参数'); bodyStart = stop; probe = skipSpace(text, bodyStart, env.bodyEnd);
+              if (spec && spec.optionalTitle) { protect(probe, probe + 1, '可选参数结构'); walk(probe + 1, stop - 1); protect(stop - 1, stop, '可选参数结构'); }
+              else protect(bodyStart, stop, '环境可选配置参数');
+              bodyStart = stop; probe = skipSpace(text, bodyStart, env.bodyEnd);
             }
-            for (let n = 0; n < (BODY_ARGS[env.name] || 0); n++) {
+            const argumentCount = isTable ? TABLE_ARGS[env.name] : /^(?:subfigure|subtable)$/.test(env.name) ? 1 : spec ? spec.required : BODY_ARGS[env.name] || 0;
+            for (let n = 0; n < argumentCount; n++) {
               const stop = text[probe] === '{' ? syntax.groups.get(probe) : null;
               if (!stop || stop > env.bodyEnd) { protect(bodyStart, env.bodyEnd, '环境配置参数无法安全识别'); bodyStart = env.bodyEnd; break; }
-              protect(bodyStart, stop, '环境配置参数'); bodyStart = stop; probe = skipSpace(text, bodyStart, env.bodyEnd);
+              if (spec && spec.visibleArgs && spec.visibleArgs.has(n)) { protect(probe, probe + 1, '文本参数结构'); walk(probe + 1, stop - 1); protect(stop - 1, stop, '文本参数结构'); }
+              else protect(bodyStart, stop, isTable ? '表格列格式参数' : '环境配置参数');
+              bodyStart = stop; probe = skipSpace(text, bodyStart, env.bodyEnd);
             }
             while (text[probe] === '[' && bodyStart < env.bodyEnd) {
               const stop = groupEnd(text, probe, '[', ']', false);
@@ -1256,6 +1611,12 @@ main{padding-top:14px}
             }
             const args = [], [visibleIndex, count] = TEXT_ARGS[name];
             for (let n = 0; n < count; n++) {
+              // multirow/parbox accept options between mandatory arguments.
+              while (text[probe] === '[') {
+                const stop = groupEnd(text, probe, '[', ']', false);
+                if (!stop || stop > end) break;
+                protect(probe, stop, '非正文可选参数'); cursor = stop; probe = skipSpace(text, cursor, end); optional = true;
+              }
               const stop = text[probe] === '{' ? syntax.groups.get(probe) : null;
               if (!stop || stop > end) break;
               args.push({ start: probe, end: stop }); cursor = stop; probe = skipSpace(text, cursor, end);
@@ -1285,8 +1646,27 @@ main{padding-top:14px}
             // Unbraced arguments are valid TeX, but their extent is not guessed.
           } else if (name === 'item') {
             const probe = skipSpace(text, cursor, end);
-            if (text[probe] === '[') { const stop = groupEnd(text, probe, '[', ']', false); if (stop) { protect(probe, stop, '列表标签参数'); cursor = stop; } }
+            if (text[probe] === '[') { const stop = groupEnd(text, probe, '[', ']', false); if (stop) { protect(probe, probe + 1, '列表标签结构'); walk(probe + 1, stop - 1); protect(stop - 1, stop, '列表标签结构'); cursor = stop; } }
             i = cursor; continue;
+          } else if (CONFIG_ARGS[name]) {
+            let probe = skipSpace(text, cursor, end), valid = true;
+            for (let n = 0; n < CONFIG_ARGS[name]; n++) {
+              while (text[probe] === '[' || (name === 'cmidrule' && text[probe] === '(')) {
+                const bracket = text[probe], stop = groupEnd(text, probe, bracket, bracket === '[' ? ']' : ')', false);
+                if (!stop || stop > end) { valid = false; break; }
+                protect(probe, stop, '排版配置参数'); cursor = stop; probe = skipSpace(text, cursor, end);
+              }
+              const stop = text[probe] === '{' ? syntax.groups.get(probe) : null;
+              if (!valid || !stop || stop > end) { valid = false; break; }
+              protect(probe, stop, '排版配置参数'); cursor = stop; probe = skipSpace(text, cursor, end);
+            }
+            if (valid) { i = cursor; continue; }
+          } else if (name === 'ding') {
+            const probe = skipSpace(text, cursor, end), stop = text[probe] === '{' ? syntax.groups.get(probe) : null;
+            if (stop && /^\s*\d+\s*$/.test(text.slice(probe + 1, stop - 1))) { safe.push({ start: i, end: stop, kind: 'atom' }); i = stop; continue; }
+          } else if (TEXT_COMMANDS.has(name) || /^[%&#_${}]$/.test(c[1])) {
+            // The whole zero-argument glyph command is a visible atom.
+            safe.push({ start: i, end: cursor, kind: 'atom' }); i = cursor; continue;
           } else if (FILE_ARGS.has(name) || /^(?:cite|ref|gls)/.test(name)) {
             const stop = argumentsEnd(cursor, end, '引用 / 文件 / 非正文参数');
             if (stop > cursor) { i = stop; continue; }
@@ -1295,7 +1675,7 @@ main{padding-top:14px}
             const probe = skipSpace(text, cursor, end);
             if (text[probe] === '[') { const stop = groupEnd(text, probe, '[', ']', false); if (stop) { protect(probe, stop, '换行 / 分页的非正文参数'); cursor = stop; } }
             i = cursor; continue;
-          } else if (SAFE_ZERO.has(name) || '%&#_${} ,;:!/-'.includes(c[1]) || /\s/.test(c[1])) {
+          } else if (SAFE_ZERO.has(name) || ALGORITHM_ZERO.has(name) || '%&#_${} ,;:!/-'.includes(c[1]) || /\s/.test(c[1])) {
             i = cursor; continue;
           }
           cursor = argumentsEnd(cursor, end, '未知命令参数');
@@ -1360,16 +1740,37 @@ main{padding-top:14px}
     while (end > start && /\s/.test(text[end - 1])) end--;
     return end > start ? { start, end } : null;
   }
-  function markSource(text, ranges, rawRanges, syntax, macro, mathMode, unresolvedRanges) {
+  const INFORMATIONAL_REASONS = new Set([
+    '注释', 'TeX 命令结构', '环境结构', '花括号结构', '文本参数结构', '可选参数结构', '列表标签结构', 'TeX 结构符号',
+    '引用 / 文件 / 非正文参数', '路径 / 颜色 / 语言 / PDF 字符串参数', '非正文可选参数', '环境可选配置参数',
+    '环境配置参数', '排版配置参数', '表格列格式参数', '换行 / 分页的非正文参数', '图注类型参数', '正文结束之后 / 文档结构'
+  ]);
+  function skipSeverity(text, range, reason) {
+    if (INFORMATIONAL_REASONS.has(reason)) return 'info';
+    if (reason === '导言区') {
+      // Title-page fields can affect rendered text, even though most preamble
+      // edits are just package/layout settings. Keep those fields actionable.
+      const pattern = /\\(?:title|subtitle|author|institute|date|extrainfo|bioinfo)\s*\{/g;
+      let match;
+      while ((match = pattern.exec(text))) {
+        const start = pattern.lastIndex - 1, stop = groupEnd(text, start, '{', '}', false);
+        if (stop && intersect({ start: start + 1, end: stop - 1 }, range)) return 'review';
+      }
+      return 'info';
+    }
+    // A declaration can change expanded visible text; do not silently dismiss it.
+    return 'review';
+  }
+  function markSource(text, ranges, rawRanges, syntax, macro, mathMode, unresolvedRanges, bodyEnvs) {
     const marked = [], skipped = [];
     if (syntax.invalid) return { text, markedCount: 0, outputRanges: [], skipped: rawRanges.map(r => ({ ...r, line: lineAt(text, r.start), reason: '文件未自动标蓝：' + syntax.invalid })) };
-    const spans = sourceSpans(text, syntax, mathMode);
+    const spans = sourceSpans(text, syntax, mathMode, bodyEnvs);
     for (const span of spans.safe) {
-      if (span.kind === 'math') {
+      if (span.kind === 'math' || span.kind === 'atom') {
         if (rangeHits(span, ranges).length) {
           if (rangeHits(span, unresolvedRanges).length) {
             if (rangeHits(span, rawRanges).length) skipped.push({ start: span.start, end: span.end, line: lineAt(text, span.start), reason: '公式包含未可靠对齐片段，整式未自动标蓝' });
-          } else marked.push({ start: span.start, end: span.end, kind: 'math' });
+          } else marked.push({ start: span.start, end: span.end, kind: span.kind });
         }
       } else for (const crossing of rangeHits(span, ranges)) {
         const trimmed = trimmedSpan(text, crossing);
@@ -1378,7 +1779,7 @@ main{padding-top:14px}
     }
     for (const span of spans.protectedSpans) for (const crossing of rangeHits(span, rawRanges)) {
       const trimmed = trimmedSpan(text, crossing);
-      if (trimmed) skipped.push({ ...trimmed, line: lineAt(text, trimmed.start), reason: span.reason });
+      if (trimmed) skipped.push({ ...trimmed, line: lineAt(text, trimmed.start), reason: span.reason, severity: skipSeverity(text, trimmed, span.reason) });
     }
     const skipKeys = new Set();
     const deduped = skipped.sort((a, b) => a.start - b.start).filter(s => { const key = s.start + ':' + s.end + ':' + s.reason; if (skipKeys.has(key)) return false; skipKeys.add(key); return true; });
@@ -1432,7 +1833,7 @@ main{padding-top:14px}
     }
     return result.join('/');
   }
-  function reachableFiles(project, syntaxes, main) {
+  function reachableFiles(project, syntaxes, main, bodyEnvs) {
     const reachable = new Set(), warnings = [], roles = new Map(), seen = new Set(), active = new Set(), cache = new Map();
     let contextCount = 0, exhausted = false;
     const mainDirectory = main.includes('/') ? main.slice(0, main.lastIndexOf('/')) : '';
@@ -1467,7 +1868,7 @@ main{padding-top:14px}
       if (cache.has(path)) return cache.get(path);
       const source = project.files.get(path).text, syntax = syntaxes.get(path), refs = [];
       if (syntax.invalid) { cache.set(path, refs); return refs; }
-      const protectedSpans = sourceSpans(source, syntax, 'skip').protectedSpans;
+      const protectedSpans = sourceSpans(source, syntax, 'skip', bodyEnvs).protectedSpans;
       const bodyEnd = syntax.document ? syntax.environments.get(syntax.document.start).bodyEnd : source.length;
       for (let i = 0; i < bodyEnd;) {
         if (source[i] === '%') { i = commentEnd(source, i); continue; }
@@ -1530,7 +1931,7 @@ main{padding-top:14px}
         const line = lineAt(source, ref.start);
         const role = state.role !== 'body' ? state.role : ref.protectedContext ? 'protected' : ref.preamble ? 'preamble' : 'body';
         if (ref.name === 'conditional') {
-          warnings.push({ path, line, reason: '条件分支中的文件载入未执行，相关文件未自动标蓝' });
+          warnings.push({ path, line, reason: '条件分支未执行，无法确认其中的文件载入关系；.tex 片段仍单独检查' });
           if ((role === 'preamble' || ref.preamble) && ref.uncertainPolicy) policy.uncertain = true;
           continue;
         }
@@ -1540,13 +1941,13 @@ main{padding-top:14px}
             warnings.push({ path, line, reason: '非静态导言区 includeonly 未作为章节白名单' }); continue;
           }
           const value = ref.args.length === 1 ? staticText(ref.args[0]) : null;
-          if (value === null) { policy.uncertain = true; warnings.push({ path, line, reason: '动态 includeonly 无法可靠判断参与章节，include 文件未自动标蓝' }); }
+          if (value === null) { policy.uncertain = true; warnings.push({ path, line, reason: '动态 includeonly 无法可靠判断参与章节；.tex 片段仍单独检查' }); }
           else { policy.selected = new Set(value.split(',').map(includeName).filter(Boolean)); policy.uncertain = false; }
           continue;
         }
         const values = ref.args.map(staticText);
         if (values.length !== (imports.has(ref.name) ? 2 : 1) || values.some(value => value === null) || !values.at(-1)) {
-          warnings.push({ path, line, reason: '动态 input / include / import 无法解析；相关章节可能未自动标蓝' }); continue;
+          warnings.push({ path, line, reason: '动态 input / include / import 无法解析；.tex 片段仍单独检查' }); continue;
         }
         const imported = imports.has(ref.name), reference = values.at(-1);
         let next = { ...state, role }, target = null, includeReference = reference;
@@ -1570,7 +1971,7 @@ main{padding-top:14px}
         }
         if (!target) continue;
         if (ref.name === 'include' || /includefrom$/.test(ref.name)) {
-          if (policy.uncertain) { warnings.push({ path, line, reason: 'includeonly 的执行状态不确定，此 include 章节未自动标蓝' }); continue; }
+          if (policy.uncertain) { warnings.push({ path, line, reason: 'includeonly 的执行状态不确定，无法确认此章节的载入；.tex 片段仍单独检查' }); continue; }
           if (policy.selected && !policy.selected.has(includeName(includeReference))) continue;
         }
         visit(target, next, depth + 1);
@@ -1588,7 +1989,7 @@ main{padding-top:14px}
     const macro = chooseMacro(newProject), preamble = makePreamble(macro), files = new Map();
     for (const [path, f] of newProject.files) {
       const hasBom = Boolean(f.bytes && f.bytes.length >= 3 && f.bytes[0] === 0xef && f.bytes[1] === 0xbb && f.bytes[2] === 0xbf);
-      if (typeof f.text === 'string' && f.bytes && !byteEqual(encoder.encode(f.text), hasBom ? f.bytes.subarray(3) : f.bytes)) error(path + '：新版文本不是可确认的 UTF-8 字节，无法安全导出。请先另存为 UTF-8。');
+      if (/\.tex$/i.test(path) && typeof f.text === 'string' && f.bytes && !byteEqual(encoder.encode(f.text), hasBom ? f.bytes.subarray(3) : f.bytes)) error(path + '：新版文本不是可确认的 UTF-8 字节，无法安全导出。请先另存为 UTF-8。');
       const bytes = f.bytes ? f.bytes.slice() : encoder.encode(f.text || '');
       files.set(path, { ...(typeof f.text === 'string' ? { text: f.text } : {}), bytes, size: bytes.length, hasBom });
     }
@@ -1598,10 +1999,11 @@ main{padding-top:14px}
       if (typeof f.text !== 'string') error(path + ' 缺少已解码的源码。');
       syntaxes.set(path, inspectSyntax(f.text));
     }
+    const bodyEnvs = discoverSemantics(files, syntaxes, options.main);
     const mainSyntax = options.main ? syntaxes.get(options.main) : null;
     if (options.main && !mainSyntax.document && !mainSyntax.invalid) error('所选主文件没有完整的 document 环境，请选择入口或按章节片段导出。');
     const mainFailure = mainSyntax && mainSyntax.invalid;
-    const graph = options.main && !mainFailure ? reachableFiles(newProject, syntaxes, options.main) : null;
+    const graph = options.main && !mainFailure ? reachableFiles(newProject, syntaxes, options.main, bodyEnvs) : null;
     const entries = [], allSkipped = graph ? graph.warnings.slice() : [];
     let markedCount = 0;
     const analyzed = new Map((analysis && analysis.files || []).map(f => [f.path, f]));
@@ -1625,8 +2027,11 @@ main{padding-top:14px}
       else if (mainFailure) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '主文件结构不完整，工程未自动标蓝：' + mainFailure })) };
       else if (syntax.document && path !== options.main) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '另一独立文档入口未启用标蓝宏；请单独选择此主文件导出' })) };
       else if (graph && graph.blocked.has(path)) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '此文件由导言区或受保护区域载入，未自动标蓝' })) };
-      else if (graph && !graph.reachable.has(path)) result = { text: f.text, markedCount: 0, skipped: rawRanges.map(r => ({ ...r, line: lineAt(f.text, r.start), reason: '未在所选主文件的静态 input / include 链中找到，未自动标蓝' })) };
-      else result = markSource(f.text, ranges, rawRanges, syntax, macro, options.math, unresolvedRanges);
+      else {
+        result = markSource(f.text, ranges, rawRanges, syntax, macro, options.math, unresolvedRanges, bodyEnvs);
+        if (graph && !graph.reachable.has(path) && rawRanges.length)
+          allSkipped.push({ path, line: 1, reason: '此 .tex 已按章节片段检查；未确认主文件静态载入关系，请确认载入时可用主文件中的标蓝宏' });
+      }
       result.skipped.push(...precisionSkipped);
       result.skipped.sort((a, b) => a.start - b.start);
       if (result.markedCount) {
@@ -1639,9 +2044,10 @@ main{padding-top:14px}
         files.set(path, { text: result.text, bytes, size: bytes.length, hasBom: f.hasBom });
       }
       markedCount += result.markedCount;
+      for (const skipped of result.skipped) if (!skipped.severity) skipped.severity = 'review';
       const entry = { path, text: result.text, ranges, outputRanges: result.outputRanges || [], markedCount: result.markedCount, skipped: result.skipped };
       entries.push(entry);
-      for (const s of result.skipped) allSkipped.push({ path, line: s.line, reason: s.reason });
+      for (const s of result.skipped) allSkipped.push({ path, start: s.start, end: s.end, line: s.line, reason: s.reason, severity: s.severity });
     }
     if (markedCount && options.main && !mainFailure) {
       const entry = entries.find(e => e.path === options.main), file = files.get(options.main);
@@ -1702,23 +2108,223 @@ main{padding-top:14px}
 });
 </script><script>'use strict';
 const $=id=>document.getElementById(id);
-const state={old:null,new:null,result:null,marked:null,selected:null,granularity:'token',mode:'diff',split:false,change:-1,demo:false,busy:false,job:0,cancel:null,preview:null,reading:new Set(),loadId:{old:0,new:0}};
+const state={old:null,new:null,result:null,marked:null,selected:null,granularity:'token',mode:'diff',split:false,change:-1,demo:false,busy:false,reviews:[],reviewCounts:new Map(),markedByPath:new Map(),job:0,cancel:null,preview:null,reading:new Set(),loadId:{old:0,new:0}};
 const labels={modified:'修改',added:'新增',deleted:'删除',unchanged:'未变',renamed:'改名'};
 function status(text,busy=false){$('status').textContent=text;$('status').classList.toggle('busy',busy);}
 function feedback(message,error=false){$('export-feedback').hidden=!message;$('export-feedback').textContent=message;$('export-feedback').classList.toggle('error',error);}
 function options(){return{granularity:state.granularity,ignoreComments:$('ignore-comments').checked,ignoreWhitespace:$('ignore-whitespace').checked,ignoreMoves:$('ignore-moves').checked};}
-function invalidate(){state.job++;if(state.cancel)state.cancel();state.result=null;state.marked=null;state.preview=null;state.busy=false;$('download').disabled=true;$('editor-content').hidden=true;$('empty').hidden=false;$('issues').hidden=true;feedback('');}
+function invalidate(){$('file-search').value='';state.job++;if(state.cancel)state.cancel();state.result=null;state.marked=null;state.preview=null;state.reviews=[];state.reviewCounts.clear();state.markedByPath.clear();state.busy=false;$('download').disabled=true;$('editor-content').hidden=true;$('empty').hidden=false;$('issues').hidden=true;feedback('');}
 function renderUpload(side){const p=state[side],reading=state.reading.has(side),card=$('drop-'+side);$(side+'-name').textContent=p?p.name:reading?'读取文件…':`选择${side==='old'?'旧版':'新版'}文件`;$(side+'-name').title=p?p.name:'';$(side+'-meta').textContent=p?`${p.single?'TEX':'ZIP'} · ${p.files.size} 个文件${state.demo?' · 示例':''}`:'TEX / ZIP · 支持拖入';$(side+'-ready').hidden=!p||reading;card.classList.toggle('is-loaded',Boolean(p));card.classList.toggle('is-zip',Boolean(p&&!p.single));card.classList.toggle('has-error',!$(side+'-error').hidden);card.setAttribute('aria-busy',String(reading));document.querySelector(`[data-side="${side}"]`).hidden=!p;}
 function renderMain(){const select=$('main-file'),previous=select.value;select.replaceChildren();if(!state.new){select.add(new Option('自动识别',''));return;}const mains=BlueDiff.findMains(state.new);if(!mains.length)select.add(new Option('章节片段',''));else for(const path of mains)select.add(new Option(path,path));if(mains.includes(previous))select.value=previous;}
 async function loadFile(side,file){if(!file)return;const id=++state.loadId[side];invalidate();if(state.demo){state.old=null;state.new=null;state.demo=false;renderUpload('old');renderUpload('new');}state[side]=null;$(side+'-error').hidden=true;state.reading.add(side);renderUpload(side);if(side==='new')renderMain();status('读取文件…',true);try{const project=await BlueDiff.readUpload(file,{encoding:'utf-8'});if(id!==state.loadId[side])return;state[side]=project;renderUpload(side);if(side==='new')renderMain();}catch(e){if(id===state.loadId[side]){$(side+'-error').textContent=e.message||String(e);$(side+'-error').hidden=false;}}finally{if(id===state.loadId[side]){state.reading.delete(side);$(side+'-input').value='';renderUpload(side);if(!state.reading.size){if(state.old&&state.new)compare();else status(state.old?'选择新版文件':state.new?'选择旧版文件':'选择两版文件');}}}}
 for(const side of ['old','new']){$(side+'-input').addEventListener('change',e=>loadFile(side,e.target.files[0]));const drop=$('drop-'+side);drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('dragging');});drop.addEventListener('dragleave',()=>drop.classList.remove('dragging'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('dragging');if(e.dataTransfer.files.length===1)loadFile(side,e.dataTransfer.files[0]);else{$(side+'-error').textContent='请选择一个 TEX 或 ZIP';$(side+'-error').hidden=false;renderUpload(side);}});}
 document.querySelectorAll('.remove').forEach(b=>b.addEventListener('click',()=>{const side=b.dataset.side;state.loadId[side]++;state.reading.delete(side);invalidate();state[side]=null;$(side+'-input').value='';$(side+'-error').hidden=true;renderUpload(side);if(side==='new')renderMain();status(side==='old'?'选择旧版文件':'选择新版文件');}));
-function runTask(data){return new Promise((resolve,reject)=>{let source='';for(const [id,file] of [['engine-source','engine.js'],['marker-source','marker.js']]){const inline=$(id);source+=inline?inline.textContent+'\n':`importScripts(${JSON.stringify(new URL(file,location.href).href)});\n`;}
-source+='self.onmessage=function(e){try{const a=BlueDiff.analyze(e.data.old,e.data.new,e.data.options);const m=BlueMark.prepare(e.data.new,a,e.data.markOptions);self.postMessage({ok:true,result:a,marked:m});}catch(error){self.postMessage({ok:false,message:error.message});}};';
-let worker,url,timer,done=false;function finish(ok,value){if(done)return;done=true;clearTimeout(timer);if(worker)worker.terminate();if(url)URL.revokeObjectURL(url);if(state.cancel===cancel)state.cancel=null;if(ok)resolve(value);else reject(value);}const cancel=()=>finish(false,new Error('任务已取消'));try{url=URL.createObjectURL(new Blob([source],{type:'application/javascript'}));worker=new Worker(url);}catch(e){finish(false,new Error('请使用近期版本的 Chrome 或 Edge'));return;}state.cancel=cancel;timer=setTimeout(()=>finish(false,new Error('文件过大，请分章处理')),45000);worker.onmessage=e=>finish(e.data.ok,e.data.ok?e.data:new Error(e.data.message));worker.onerror=()=>finish(false,new Error('处理失败，请重新选择文件'));try{worker.postMessage(data);}catch(e){finish(false,e);}});}
-async function compare(){if(!state.old||!state.new||state.reading.size)return;if(state.cancel)state.cancel();const job=++state.job;state.busy=true;$('download').disabled=true;status('标蓝中…',true);feedback('');try{const out=await runTask({old:state.old,new:state.new,options:options(),markOptions:{main:$('main-file').value,math:$('math').value}});if(job!==state.job)return;state.result=out.result;state.marked=out.marked;state.selected=state.result.files.find(f=>f.isTex&&f.ranges.length)?.path??state.result.files.find(f=>f.status!=='unchanged')?.path??state.result.files[0]?.path??null;state.change=-1;$('file-search').value='';renderResults();const n=state.marked.markedCount,pending=state.result.files.reduce((sum,f)=>sum+(f.unresolved?.length||0),0);status(pending?(n?`${n} 处已标蓝 · ${pending} 处待核对`:`${pending} 处待核对`):(n?`${n} 处已标蓝`:'无可标蓝文字'));$('download-label').textContent=downloadLabel();$('download').disabled=false;}catch(e){if(job!==state.job)return;state.result=null;state.marked=null;$('editor-content').hidden=true;$('empty').hidden=false;$('issues').hidden=true;status('处理失败');feedback(e.message||String(e),true);}finally{if(job===state.job)state.busy=false;}}
+function sourceOnlyProject(project) {
+  return { ...project, files: new Map([...project.files].filter(([path]) => /\.tex$/i.test(path))) };
+}
+async function sameResourceBytes(oldFile, newFile, cancelled) {
+  const a = oldFile.bytes, b = newFile.bytes;
+  if (!a || !b || a.length !== b.length) return false;
+  let lastYield = performance.now();
+  for (let offset = 0; offset < a.length; offset += 262144) {
+    const end = Math.min(a.length, offset + 262144);
+    for (let i = offset; i < end; i++) if (a[i] !== b[i]) return false;
+    if (performance.now() - lastYield > 10) {
+      await new Promise(resolve => setTimeout(resolve, 0));
+      if (cancelled()) throw new Error('任务已取消');
+      lastYield = performance.now();
+    }
+  }
+  return true;
+}
+async function mergeTaskResources(out, data, cancelled) {
+  const oldFiles = data.old.files, newFiles = data.new.files;
+  const paths = new Set([...oldFiles.keys(), ...newFiles.keys()]);
+  for (const path of paths) {
+    if (/\.tex$/i.test(path)) continue;
+    if (cancelled()) throw new Error('任务已取消');
+    const oldFile = oldFiles.get(path), newFile = newFiles.get(path);
+    const kind = !oldFile ? 'added' : !newFile ? 'deleted'
+      : await sameResourceBytes(oldFile, newFile, cancelled) ? 'unchanged' : 'modified';
+    out.result.files.push({ path, oldPath: oldFile ? path : null,
+      pairing: oldFile && newFile ? 'path' : null, similarity: null, status: kind,
+      isTex: false, oldText: '', newText: '', ranges: [], rawRanges: [], unresolved: [],
+      removedCount: 0, addedCount: 0, fallback: false, complex: [], ignoredChanges: false,
+      oldSize: oldFile ? oldFile.size : null, newSize: newFile ? newFile.size : null });
+    out.result.totals[kind]++;
+  }
+  out.result.files.sort((a, b) => a.path.localeCompare(b.path, 'zh-CN'));
+  out.result.totals.files = out.result.files.length;
+  out.result.totals.resourceFiles = out.result.files.filter(file => !file.isTex).length;
+  const deletionNote = '删除内容仅计入报告，不在新版源码中标蓝；仅有删除时可能没有蓝色范围。';
+  if (out.result.totals.deleted && !out.result.warnings.includes(deletionNote)) out.result.warnings.push(deletionNote);
+  // Original resources stay on the main thread and are exported without copying.
+  const files = new Map();
+  for (const [path, file] of newFiles) {
+    const value = /\.tex$/i.test(path) ? out.marked.files.get(path) : file;
+    if (!value) throw new Error('标蓝结果缺少文件：' + path);
+    files.set(path, value);
+  }
+  out.marked.files = files;
+  return out;
+}
+function runTask(data) {
+  return new Promise((resolve, reject) => {
+    let source = '';
+    for (const [id, file] of [['engine-source', 'engine.js'], ['marker-source', 'marker.js']]) {
+      const inline = $(id);
+      source += inline ? inline.textContent + '\n'
+        : 'importScripts(' + JSON.stringify(new URL(file, location.href).href) + ');\n';
+    }
+    source += 'self.onmessage=function(e){try{const a=BlueDiff.analyze(e.data.old,e.data.new,e.data.options);const m=BlueMark.prepare(e.data.new,a,e.data.markOptions);self.postMessage({ok:true,result:a,marked:m});}catch(error){self.postMessage({ok:false,message:error.message});}};';
+    let worker, url, timer, done = false;
+    function finish(ok, value) {
+      if (done) return;
+      done = true; clearTimeout(timer);
+      if (worker) worker.terminate();
+      if (url) URL.revokeObjectURL(url);
+      if (state.cancel === cancel) state.cancel = null;
+      if (ok) resolve(value); else reject(value);
+    }
+    const cancel = () => finish(false, new Error('任务已取消'));
+    try {
+      url = URL.createObjectURL(new Blob([source], { type: 'application/javascript' }));
+      worker = new Worker(url);
+    } catch (_) { finish(false, new Error('请使用近期版本的 Chrome 或 Edge')); return; }
+    state.cancel = cancel;
+    timer = setTimeout(() => finish(false, new Error('处理超时；请检查异常大文件后重试')), 120000);
+    worker.onmessage = async event => {
+      if (done) return;
+      if (!event.data.ok) { finish(false, new Error(event.data.message)); return; }
+      worker.terminate(); worker = null; clearTimeout(timer);
+      try { finish(true, await mergeTaskResources(event.data, data, () => done)); }
+      catch (error) { finish(false, error); }
+    };
+    worker.onerror = () => finish(false, new Error('处理失败，请重新选择文件'));
+    try { worker.postMessage({ ...data, old: sourceOnlyProject(data.old), new: sourceOnlyProject(data.new) }); }
+    catch (error) { finish(false, error); }
+  });
+}
+
+async function compare(){if(!state.old||!state.new||state.reading.size)return;if(state.cancel)state.cancel();const job=++state.job;state.busy=true;$('download').disabled=true;status('标蓝中…',true);feedback('');try{const out=await runTask({old:state.old,new:state.new,options:options(),markOptions:{main:$('main-file').value,math:$('math').value}});if(job!==state.job)return;state.result=out.result;state.marked=out.marked;refreshReviewSummary();state.selected=state.result.files.some(f=>f.path===state.selected)?state.selected:state.result.files.find(f=>f.isTex&&f.status==='modified'&&(state.markedByPath.get(f.path)?.markedCount||0)>0)?.path??state.result.files.find(f=>f.isTex&&(state.markedByPath.get(f.path)?.markedCount||0)>0)?.path??state.result.files.find(f=>f.isTex&&state.reviewCounts.has(f.path))?.path??state.result.files.find(f=>f.status!=='unchanged')?.path??state.result.files[0]?.path??null;state.change=-1;renderResults();const n=state.marked.markedCount,pending=state.reviews.length;status(pending?(n?`${n} 处已标蓝 · ${pending} 处待核对`:`${pending} 处待核对`):(n?`${n} 处已标蓝`:'无可标蓝文字'));$('download-label').textContent=downloadLabel();$('download').disabled=false;}catch(e){if(job!==state.job)return;state.result=null;state.marked=null;$('editor-content').hidden=true;$('empty').hidden=false;$('issues').hidden=true;status('处理失败');feedback(e.message||String(e),true);}finally{if(job===state.job)state.busy=false;}}
 function renderResults(){$('empty').hidden=true;$('editor-content').hidden=false;$('file-count').textContent=state.result.files.length;renderFiles();renderViewer();renderIssues();const removed=state.result.totals.removedTokens;$('bottom-count').textContent=removed?'删除已忽略':'仅标记新版';}
-function renderFiles(){if(!state.result)return;const q=$('file-search').value.toLowerCase(),only=$('only-changes').checked;const list=$('file-list');const focusPath=list.contains(document.activeElement)?document.activeElement.closest('button')?.dataset.path:null;list.replaceChildren();const files=state.result.files.filter(f=>(!only||f.status!=='unchanged')&&f.path.toLowerCase().includes(q));for(const f of files){const b=document.createElement('button');b.className='file-item'+(f.path===state.selected?' active':'');b.title=f.path;b.dataset.path=f.path;b.setAttribute('aria-current',f.path===state.selected?'true':'false');const top=document.createElement('span');top.className='file-item-top';const dot=document.createElement('span');dot.className='file-dot';dot.setAttribute('aria-hidden','true');const name=document.createElement('span');name.className='file-name';name.textContent=f.path.split('/').at(-1);const count=document.createElement('span');count.className='file-count';count.textContent=f.isTex?f.ranges.length:labels[f.status];top.append(dot,name,count);const parent=document.createElement('span');parent.className='file-parent';parent.textContent=f.path.includes('/')?f.path.slice(0,f.path.lastIndexOf('/')):labels[f.status];b.append(top,parent);b.addEventListener('click',()=>{state.selected=f.path;state.change=-1;renderFiles();renderViewer();});list.append(b);}if(!files.length){const p=document.createElement('p');p.className='empty-list';p.textContent=q?'没有匹配文件':'没有修改文件';list.append(p);}if(focusPath){const target=[...list.children].find(b=>b.dataset.path===focusPath);if(target)target.focus({preventScroll:true});}}
+const fileTree={old:null,new:null,result:null,root:null,nodes:new Map(),files:new Map(),expanded:new Set(),searchCollapsed:new Set(),query:'',filterKey:null,eligible:new Set(),visible:[],focusKey:null,typeText:'',typeTime:0,resetScroll:false};
+function treeIcon(kind){
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','0 0 20 20');svg.setAttribute('aria-hidden','true');svg.classList.add('tree-icon');
+  const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+  path.setAttribute('d',kind==='folder'?'M2.5 5.5h5l1.7 2h8.3v8.7h-15z M2.5 7.5v-4h5.8l1.6 2h7.6v2':kind==='chevron'?'m7 5 5 5-5 5':'M5 2.5h6l4 4v11H5z M11 2.5v4h4 M7.5 10h5 M7.5 13h5');
+  svg.append(path);return svg;
+}
+function treeAncestors(node,visit){for(let parent=node?.parent;parent&&parent.key;parent=parent.parent)visit(parent);}
+function syncFileTree(){
+  const fresh=fileTree.old!==state.old||fileTree.new!==state.new;
+  if(fresh){fileTree.resetScroll=true;fileTree.old=state.old;fileTree.new=state.new;fileTree.expanded.clear();fileTree.searchCollapsed.clear();fileTree.focusKey=null;}
+  if(fileTree.result===state.result&&!fresh)return;
+  fileTree.result=state.result;fileTree.filterKey=null;fileTree.nodes=new Map();fileTree.files=new Map();
+  const root={key:'',path:'',depth:0,parent:null,children:[],dirs:new Map()};fileTree.root=root;
+  for(const file of state.result.files){
+    const parts=file.path.split('/');let parent=root,path='';
+    for(const part of parts.slice(0,-1)){
+      path=path?path+'/'+part:part;
+      if(!parent.dirs.has(part)){
+        const folder={key:'d:'+path,path,name:part,depth:parent.depth+1,parent,children:[],dirs:new Map()};
+        parent.dirs.set(part,folder);parent.children.push(folder);fileTree.nodes.set(folder.key,folder);
+      }
+      parent=parent.dirs.get(part);
+    }
+    const leaf={key:'f:'+file.path,path:file.path,name:parts.at(-1),depth:parent.depth+1,parent,file};
+    parent.children.push(leaf);fileTree.nodes.set(leaf.key,leaf);fileTree.files.set(file.path,leaf);
+  }
+  const collator=new Intl.Collator('zh-CN',{numeric:true,sensitivity:'base'});
+  const folders=[root,...[...fileTree.nodes.values()].filter(node=>!node.file)];
+  for(const folder of folders)folder.children.sort((a,b)=>Number(Boolean(a.file))-Number(Boolean(b.file))||collator.compare(a.name,b.name)||a.name.localeCompare(b.name));
+  for(const key of fileTree.expanded)if(!fileTree.nodes.has(key))fileTree.expanded.delete(key);
+  if(fresh)treeAncestors(fileTree.files.get(state.selected),parent=>fileTree.expanded.add(parent.key));
+}
+function filterFileTree(){
+  const query=$('file-search').value.trim().toLocaleLowerCase(),only=$('only-changes').checked;
+  if(fileTree.query!==query){fileTree.query=query;fileTree.searchCollapsed.clear();}
+  const key=JSON.stringify([query,only]);if(fileTree.filterKey===key)return;
+  fileTree.filterKey=key;fileTree.eligible=new Set();let count=0;
+  for(const node of fileTree.files.values()){
+    if((only&&node.file.status==='unchanged')||(query&&!node.path.toLocaleLowerCase().includes(query)))continue;
+    count++;fileTree.eligible.add(node.key);treeAncestors(node,parent=>fileTree.eligible.add(parent.key));
+  }
+  $('file-count').textContent=count===state.result.files.length?String(count):count+' / '+state.result.files.length;
+}
+function treeExpanded(node){return fileTree.query?!fileTree.searchCollapsed.has(node.key):fileTree.expanded.has(node.key);}
+function revealTreeFile(path){
+  syncFileTree();treeAncestors(fileTree.files.get(path),parent=>{fileTree.expanded.add(parent.key);fileTree.searchCollapsed.delete(parent.key);});
+}
+function focusTreeNode(key,scroll=false){
+  const list=$('file-list'),previous=list.querySelector('[tabindex="0"]'),button=[...list.children].find(row=>row.dataset.treeKey===key);
+  if(!button)return;if(previous&&previous!==button)previous.tabIndex=-1;button.tabIndex=0;fileTree.focusKey=key;button.focus({preventScroll:!scroll});
+}
+function renderFiles(){
+  if(!state.result)return;syncFileTree();filterFileTree();
+  const list=$('file-list'),focused=list.contains(document.activeElement)?document.activeElement.closest('[data-tree-key]')?.dataset.treeKey:null,scrollTop=fileTree.resetScroll?0:list.scrollTop;fileTree.resetScroll=false;
+  const fragment=document.createDocumentFragment();fileTree.visible=[];
+  const pending=[{folder:fileTree.root,children:fileTree.root.children.filter(node=>fileTree.eligible.has(node.key)),index:0}];
+  while(pending.length){
+    const frame=pending.at(-1);if(frame.index>=frame.children.length){pending.pop();continue;}
+    const position=frame.index++,node=frame.children[position];fileTree.visible.push(node);
+    const button=document.createElement('button');button.type='button';button.className='file-item tree-row'+(node.file?'':' tree-folder')+(node.path===state.selected&&node.file?' active':'');
+    button.dataset.treeKey=node.key;button.style.setProperty('--tree-level',String(Math.min(10,node.depth-1)));button.setAttribute('role','treeitem');button.setAttribute('aria-level',String(node.depth));button.setAttribute('aria-posinset',String(position+1));button.setAttribute('aria-setsize',String(frame.children.length));button.tabIndex=-1;button.title=node.path;
+    const name=document.createElement('span');name.className='file-name';name.textContent=node.name;
+    if(!node.file){
+      const expanded=treeExpanded(node),chevron=treeIcon('chevron');chevron.classList.add('tree-chevron');button.setAttribute('aria-expanded',String(expanded));button.setAttribute('aria-label',node.name+'，文件夹');button.append(chevron,treeIcon('folder'),name);
+      if(expanded)pending.push({folder:node,children:node.children.filter(child=>fileTree.eligible.has(child.key)),index:0});
+    }else{
+      const file=node.file,count=document.createElement('span'),spacer=document.createElement('span'),changes=state.markedByPath.get(file.path)?.markedCount||0,pending=state.reviewCounts.get(file.path)||0;
+      spacer.className='tree-chevron-spacer';spacer.setAttribute('aria-hidden','true');count.className='file-count'+(changes&&pending?' has-review':'');
+      count.textContent=file.status==='deleted'?'删除':!file.isTex?'原样':changes?String(changes):pending?'待核对':file.status==='unchanged'?'':labels[file.status]||'';
+      const detail=!file.isTex&&file.status!=='deleted'?'资源文件 · 按新版原样保留':changes?changes+' 处已标蓝'+(pending?' · '+pending+' 处待核对':''):pending?pending+' 处待核对':labels[file.status]||'';
+      count.title=detail;count.setAttribute('aria-hidden','true');button.dataset.path=file.path;button.dataset.status=file.status;button.setAttribute('aria-selected',String(file.path===state.selected));button.setAttribute('aria-label',node.name+(detail?'，'+detail:''));button.append(spacer,treeIcon('file'),name,count);
+    }
+    fragment.append(button);
+  }
+  if(!fileTree.visible.length){const empty=document.createElement('p');empty.className='empty-list';empty.textContent=fileTree.query?'没有匹配文件':'没有修改文件';fragment.append(empty);}
+  list.replaceChildren(fragment);
+  const available=new Set(fileTree.visible.map(node=>node.key));
+  let focusKey=[focused,fileTree.focusKey,'f:'+state.selected,fileTree.visible[0]?.key].find(key=>available.has(key));
+  const button=[...list.children].find(row=>row.dataset.treeKey===focusKey);if(button){button.tabIndex=0;fileTree.focusKey=focusKey;if(focused)button.focus({preventScroll:true});}
+  list.scrollTop=scrollTop;
+}
+function toggleTreeFolder(node){
+  if(fileTree.query){if(treeExpanded(node))fileTree.searchCollapsed.add(node.key);else fileTree.searchCollapsed.delete(node.key);}
+  else if(fileTree.expanded.has(node.key))fileTree.expanded.delete(node.key);else fileTree.expanded.add(node.key);
+  fileTree.focusKey=node.key;renderFiles();focusTreeNode(node.key);
+}
+function selectTreeFile(node){
+  const list=$('file-list'),previous=list.querySelector('.file-item.active'),button=[...list.children].find(row=>row.dataset.treeKey===node.key);
+  if(previous&&previous!==button){previous.classList.remove('active');previous.setAttribute('aria-selected','false');}
+  if(button){button.classList.add('active');button.setAttribute('aria-selected','true');}
+  state.selected=node.path;state.change=-1;focusTreeNode(node.key);renderViewer();
+}
+$('file-list').addEventListener('click',event=>{
+  const button=event.target.closest('[data-tree-key]');if(!button||!$('file-list').contains(button))return;
+  const node=fileTree.nodes.get(button.dataset.treeKey);if(!node)return;
+  if(node.file)selectTreeFile(node);else toggleTreeFolder(node);
+});
+$('file-list').addEventListener('keydown',event=>{
+  const button=event.target.closest('[data-tree-key]');if(!button)return;
+  const index=fileTree.visible.findIndex(node=>node.key===button.dataset.treeKey),node=fileTree.visible[index];if(!node)return;
+  let target=null;
+  if(event.key==='ArrowDown')target=fileTree.visible[Math.min(index+1,fileTree.visible.length-1)];
+  else if(event.key==='ArrowUp')target=fileTree.visible[Math.max(0,index-1)];
+  else if(event.key==='Home')target=fileTree.visible[0];
+  else if(event.key==='End')target=fileTree.visible.at(-1);
+  else if(event.key==='ArrowRight'&&!node.file){event.preventDefault();if(!treeExpanded(node))toggleTreeFolder(node);else if(fileTree.visible[index+1]?.parent===node)focusTreeNode(fileTree.visible[index+1].key,true);return;}
+  else if(event.key==='ArrowLeft'){
+    event.preventDefault();if(!node.file&&treeExpanded(node))toggleTreeFolder(node);else if(node.parent.key)focusTreeNode(node.parent.key,true);return;
+  }else if(event.key.length===1&&event.key!==' '&&!event.ctrlKey&&!event.metaKey&&!event.altKey){
+    const now=Date.now();fileTree.typeText=now-fileTree.typeTime>700?event.key:fileTree.typeText+event.key;fileTree.typeTime=now;
+    const prefix=fileTree.typeText.toLocaleLowerCase(),ordered=fileTree.visible.slice(index+1).concat(fileTree.visible.slice(0,index+1));target=ordered.find(item=>item.name.toLocaleLowerCase().startsWith(prefix));if(!target)return;
+  }else return;
+  event.preventDefault();if(target)focusTreeNode(target.key,true);
+});
+
 const PREVIEW_LIMIT=100000;
 function previewWindow(text,anchor=0,limit=PREVIEW_LIMIT){
   anchor=Math.max(0,Math.min(text.length,Number.isFinite(anchor)?anchor:0));
@@ -1816,11 +2422,28 @@ function navigate(delta){
   renderViewer({anchor:data.ranges[state.change].start,review:null});
   $('new-source').querySelector(`mark[data-change-index="${state.change}"]`)?.scrollIntoView({block:'center',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 }
-function issueItems(){const issues=[...(state.marked?.skipped??[])];for(const w of state.result?.warnings??[])if(/超过精细|回退为|未猜测|大小写/.test(w))issues.push({path:'工程',line:null,reason:w});return issues;}
-function renderIssues(){const issues=issueItems();$('issues').hidden=!issues.length;$('issues').open=false;$('issue-summary').textContent=`${issues.length} 处需检查`;$('issue-list').replaceChildren();for(const item of issues){const b=document.createElement('button');b.className='issue-item';const p=document.createElement('span');p.className='issue-path';p.textContent=item.path+(item.line?`:${item.line}`:'');const reason=document.createElement('span');reason.className='issue-reason';reason.textContent=item.reason;b.append(p,reason);b.addEventListener('click',()=>{if(state.result.files.some(f=>f.path===item.path)){state.selected=item.path;state.mode='diff';state.change=-1;renderFiles();renderViewer();if(item.line){focusLine(item.line);}}});$('issue-list').append(b);}}
+function refreshReviewSummary(){
+  state.markedByPath=new Map((state.marked?.entries??[]).map(entry=>[entry.path,entry]));
+  const candidates=(state.marked?.skipped??[]).filter(item=>item.severity!=='info');
+  for(const warning of state.result?.warnings??[])if(/未猜测|大小写/.test(warning))candidates.push({path:'工程',line:null,reason:warning,severity:'review'});
+  const byReason=new Map(),groups=[];
+  candidates.sort((a,b)=>a.path.localeCompare(b.path,'zh-CN')||(a.line??0)-(b.line??0));
+  for(const item of candidates){
+    const key=item.path+'\n'+item.reason,previous=byReason.get(key);
+    if(previous&&item.line&&previous.endLine&&item.line<=previous.endLine+1){
+      previous.endLine=Math.max(previous.endLine,item.line);previous.count++;
+    }else{
+      const group={...item,endLine:item.line,count:1};groups.push(group);byReason.set(key,group);
+    }
+  }
+  state.reviews=groups;state.reviewCounts=new Map();
+  for(const item of groups)state.reviewCounts.set(item.path,(state.reviewCounts.get(item.path)||0)+1);
+}
+function issueItems(){return state.reviews;}
+function renderIssues(){const issues=issueItems();$('issues').hidden=!issues.length;$('issues').open=false;$('issue-summary').textContent=`${issues.length} 处需检查`;$('issue-list').replaceChildren();for(const item of issues){const b=document.createElement('button');b.className='issue-item';if(item.count>1)b.title=item.count+' 个相邻片段';const p=document.createElement('span');p.className='issue-path';p.textContent=item.path+(item.line?':'+item.line+(item.endLine>item.line?'–'+item.endLine:''):'');const reason=document.createElement('span');reason.className='issue-reason';reason.textContent=item.reason;b.append(p,reason);b.addEventListener('click',()=>{if(state.result.files.some(f=>f.path===item.path)){state.selected=item.path;state.mode='diff';state.change=-1;$('file-search').value='';if(state.result.files.find(f=>f.path===item.path)?.status==='unchanged')$('only-changes').checked=false;revealTreeFile(item.path);renderFiles();renderViewer();if(item.line){focusLine(item.line);}}});$('issue-list').append(b);}}
 function downloadKind(){if(!state.new||!state.marked)return 'zip';return state.new.single&&(!state.marked.fragment||!state.marked.markedCount)&&!$('include-report').checked?'tex':'zip';}
 function fileValue(text){const bytes=new TextEncoder().encode(text);return{text,bytes,size:bytes.length};}
-function makeReport(){return{tool:'BlueRevision',version:'0.4',granularity:state.granularity,main:$('main-file').value,markedCount:state.marked.markedCount,skipped:state.marked.skipped,changes:state.result.files.map(f=>({path:f.path,oldPath:f.oldPath??null,pairing:f.pairing??null,similarity:f.similarity??null,status:f.status,addedTokens:f.addedCount,removedTokens:f.removedCount,changes:f.ranges.length,countsPartial:Boolean(f.unresolved?.length),unresolved:f.unresolved||[]})),warnings:state.result.warnings};}
+function makeReport(){return{tool:'BlueRevision',version:'0.5',review:state.reviews,granularity:state.granularity,main:$('main-file').value,markedCount:state.marked.markedCount,skipped:state.marked.skipped,changes:state.result.files.map(f=>({path:f.path,oldPath:f.oldPath??null,pairing:f.pairing??null,similarity:f.similarity??null,status:f.status,addedTokens:f.addedCount,removedTokens:f.removedCount,changes:f.ranges.length,countsPartial:Boolean(f.unresolved?.length),unresolved:f.unresolved||[]})),warnings:state.result.warnings};}
 function saveBytes(bytes,name,type){const url=URL.createObjectURL(new Blob([bytes],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),4000);}
 async function download(){if(!state.marked||state.busy)return;if(state.marked.fragment&&state.marked.markedCount){$('fragment-dialog').showModal();return;}performDownload();}
 function performDownload(){try{const base=state.new.name.replace(/\.(?:tex|zip)$/i,'');if(downloadKind()==='tex'){const source=[...state.marked.files].find(([path])=>/\.tex$/i.test(path));if(!source)throw new Error('没有可导出的 TEX');saveBytes(source[1].bytes,base+'_blue.tex','application/x-tex;charset=utf-8');}else{const files=new Map(state.marked.files);if(state.marked.fragment&&state.marked.markedCount&&state.marked.preamble){if(files.has('blue_revision_preamble.tex'))throw new Error('工程中已有 blue_revision_preamble.tex，请先重命名该文件');files.set('blue_revision_preamble.tex',fileValue(state.marked.preamble));}if($('include-report').checked){const name='blue_revision_report.json';if(files.has(name))throw new Error('工程中已有同名检查清单，请先重命名');files.set(name,fileValue(JSON.stringify(makeReport(),null,2)));}saveBytes(BlueMark.writeZip(files),base+'_blue.zip','application/zip');}feedback(issueItems().length?'已下载 · 展开检查清单核对未标记内容':'已下载');}catch(e){feedback(e.message||String(e),true);}}
