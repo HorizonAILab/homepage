@@ -56,6 +56,16 @@ const TOPIC_META = Object.fromEntries(TOPIC_CATEGORIES.flatMap(category =>
    }
 ════════════════════════════════════════════════════ */
 const NEW_PUBLICATIONS = [
+{
+    year: 2026,
+    role: "corr",
+    title: "Theory-Inspired Task-Relevant Representation Learning for Incomplete Multi-View Partial Multi-Label Classification",
+    authors: "Quanjiang Li, Yang Li, Tianxiang Xu, <strong>Tingjin Luo</strong><sup>#</sup>, Chenping Hou",
+    venue: "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), Accepted",
+    tags: ["ccf-a"],
+    topics: ["multi-view", "multi-label", "feature-learning"],
+    links: []
+  },
   {
     year: 2026,
     role: "corr",
