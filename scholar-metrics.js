@@ -1,7 +1,7 @@
 /* 数值取 Google Scholar 的 All 栏 */
 window.SCHOLAR_METRICS = {
   profileId: 'w0YDfhcAAAAJ',
-  citations: 1399,
+  citations: 1454,
   hIndex: 23,
   i10Index: 42,
   updatedAt: '2026-10-16'
