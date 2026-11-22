@@ -56,6 +56,16 @@ const TOPIC_META = Object.fromEntries(TOPIC_CATEGORIES.flatMap(category =>
    }
 ════════════════════════════════════════════════════ */
 const NEW_PUBLICATIONS = [
+  {
+    year: 2026,
+    role: "first",
+    title: "Label Prompts Graph: Incomplete Multi-view Semi-Supervised Classification with Adaptive Graph Regularization",
+    authors: "<strong>Tingjin Luo</strong><sup>#</sup>, Zhangqi Jiang, Xiangyao Li, Chenping Hou<sup>#</sup>",
+    venue: "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), Accepted",
+    tags: ["ccf-a"],
+    topics: ["multi-view", "semi-supervised", "feature-learning"],
+    links: []
+  },
 {
     year: 2026,
     role: "corr",
