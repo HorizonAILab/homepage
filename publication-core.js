@@ -56,7 +56,7 @@ const TOPIC_META = Object.fromEntries(TOPIC_CATEGORIES.flatMap(category =>
    }
 ════════════════════════════════════════════════════ */
 const NEW_PUBLICATIONS = [
-  {
+{
     year: 2026,
     role: "first",
     title: "Label Prompts Graph: Incomplete Multi-view Semi-Supervised Classification with Adaptive Graph Regularization",
